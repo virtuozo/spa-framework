@@ -1,0 +1,49 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>virtuozo-api</artifactId>
+  <name>Virtuozo Client API</name>
+
+  <parent>
+    <groupId>hitz</groupId>
+    <artifactId>virtuozo</artifactId>
+    <version>1.0.0</version>
+  </parent>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-user</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>hitz</groupId>
+      <artifactId>virtuozo-commons</artifactId>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <!--Add sources to jar files -->
+    <resources>
+      <resource>
+        <directory>src/main/java</directory>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+      </resource>
+    </resources>
+
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>${java.compiler.version}</source>
+          <target>${java.compiler.version}</target>
+        </configuration>
+      </plugin>
+
+    </plugins>
+  </build>
+</project>

@@ -1,0 +1,34 @@
+.caret {
+	margin-left: 5px;
+}
+
+.modal-window {
+	z-index: 1099;
+	outline: 0 none;
+	overflow-x: auto;
+	overflow-y: scroll;
+	max-width: 100%;
+}
+
+.modal-glass {
+	background-color: #000;
+	opacity: .5;
+	z-index: 1040;
+}
+
+.tooltip {
+	opacity: 1;
+}
+
+.popover {
+	display: inherit;
+}
+
+.glyphicon {
+	margin-left: 3px;
+	margin-right: 3px;
+}
+
+.glyphicon-none:before {
+	content: "";
+}

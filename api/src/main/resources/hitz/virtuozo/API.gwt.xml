@@ -1,0 +1,16 @@
+<module>
+  <inherits name="com.google.gwt.user.User"/>
+  <inherits name="com.google.gwt.json.JSON" />
+  <inherits name="com.google.gwt.regexp.RegExp" />
+  <inherits name="com.google.gwt.resources.Resources" />
+  <inherits name="com.google.gwt.logging.Logging"/>
+
+  <source path="infra" />
+  <source path="ui" />
+  
+  <replace-with class="hitz.virtuozo.ui.PlaceholderHTML5">
+    <when-type-is class="hitz.virtuozo.ui.api.Placeholder" />
+  </replace-with>
+  
+  <set-property name="gwt.logging.popupHandler" value="DISABLED"/>
+</module>

@@ -1,0 +1,7 @@
+<module>
+  <inherits name="com.google.gwt.http.HTTP" />
+  <inherits name="org.fusesource.restygwt.RestyGWT" />
+  <inherits name="com.google.gwt.xml.XML" />
+
+  <source path="infra" />
+</module>

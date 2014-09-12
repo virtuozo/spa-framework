@@ -1,0 +1,5 @@
+Charts
+	- https://github.com/rendro/easy-pie-chart
+	- http://www.flotcharts.org/
+	- https://developers.google.com/chart/interactive/docs/gallery
+	

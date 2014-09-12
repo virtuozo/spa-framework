@@ -1,0 +1,70 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>virtuozo-widgets</artifactId>
+  <name>virtuozo Widgets</name>
+
+  <parent>
+    <groupId>hitz</groupId>
+    <artifactId>virtuozo</artifactId>
+    <version>1.0.0</version>
+  </parent>
+  
+  <properties>
+    <project.css>${project.basedir}/src/main/css</project.css>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-user</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>hitz</groupId>
+      <artifactId>virtuozo-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>hitz</groupId>
+      <artifactId>virtuozo-bootstrap</artifactId>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <!-- CSS Compression -->
+      <plugin>
+        <groupId>net.alchim31.maven</groupId>
+        <artifactId>yuicompressor-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compress</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <nosuffix>true</nosuffix>
+          <force>true</force>
+          <linebreakpos>-1</linebreakpos>
+          
+          <aggregations>
+            <aggregation>
+              <insertNewLine>true</insertNewLine>
+              <removeIncluded>false</removeIncluded>
+              <output>${project.build.directory}/classes/hitz/virtuozo/css/widgets.css</output>
+              <includes>
+                <include>${project.css}/select.css</include>
+                <include>${project.css}/notifier.css</include>
+                <include>${project.css}/typeahead.css</include>
+              </includes>
+            </aggregation>
+          </aggregations>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

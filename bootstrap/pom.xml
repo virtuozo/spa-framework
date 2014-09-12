@@ -1,0 +1,61 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>virtuozo-bootstrap</artifactId>
+  <name>virtuozo Bootstrap </name>
+
+  <properties>
+    <project.css>${project.basedir}/src/main/css</project.css>
+  </properties>
+
+  <parent>
+    <groupId>hitz</groupId>
+    <artifactId>virtuozo</artifactId>
+    <version>1.0.0</version>
+  </parent>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-user</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>hitz</groupId>
+      <artifactId>virtuozo-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>net.alchim31.maven</groupId>
+        <artifactId>yuicompressor-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compress</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <nosuffix>true</nosuffix>
+          <force>true</force>
+          <linebreakpos>-1</linebreakpos>
+          <aggregations>
+            <aggregation>
+              <output>${project.build.directory}/classes/hitz/virtuozo/css/bootstrap.css</output>
+              <includes>
+                <include>${project.css}/bootstrap-theme.css</include>
+                <include>${project.css}/bootstrap-virtuozo.css</include>
+                <include>${project.css}/bootstrap.css</include>
+              </includes>
+            </aggregation>
+          </aggregations>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

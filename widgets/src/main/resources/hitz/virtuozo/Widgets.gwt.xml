@@ -1,0 +1,8 @@
+<module>
+  <inherits name="hitz.virtuozo.Bootstrap" />
+  <inherits name='hitz.virtuozo.Rest' />
+  
+  <public path="css"/>
+  
+  <stylesheet src="widgets.css"/>
+</module>

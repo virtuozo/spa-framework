@@ -1,0 +1,327 @@
+/**
+ * Copyright (C) 2004-2014 the original author or authors. See the notice.md file distributed with
+ * this work for additional information regarding copyright ownership.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
+ */
+
+package com.google.gwt.user.client.ui;
+
+import hitz.virtuozo.infra.CastIterator;
+import hitz.virtuozo.infra.EventBus;
+import hitz.virtuozo.infra.api.EventHandler;
+import hitz.virtuozo.infra.api.EventInterceptor;
+import hitz.virtuozo.infra.api.EventType;
+import hitz.virtuozo.ui.Event;
+import hitz.virtuozo.ui.api.UIWidget;
+
+import java.util.Iterator;
+
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.Style.Position;
+import com.google.gwt.event.shared.GwtEvent;
+import com.google.gwt.event.shared.GwtEvent.Type;
+import com.google.gwt.user.client.Window;
+
+public final class WidgetHolder extends ComplexPanel {
+  private final EventHolder events = new EventHolder();
+
+  private final ElementHolder element = new ElementHolder();
+
+  private DimensionHolder dimensions;
+
+  private Object reference;
+
+  public WidgetHolder(Element element, Object reference) {
+    super.setElement(element);
+    this.reference = reference;
+  }
+
+  public WidgetHolder reference(Object reference) {
+    this.reference = reference;
+    return this;
+  }
+
+  public void attach() {
+    this.onAttach();
+  }
+
+  public UIWidget parent() {
+    return (UIWidget) ((WidgetHolder) super.getParent()).getReference();
+  }
+
+  public <T> T getReference() {
+    return (T) this.reference;
+  }
+
+  public void addCssChange(EventHandler<Void> handler) {
+    this.events.addHandler(CssEvent.CHANGE, handler);
+  }
+
+  @Override
+  public void addStyleName(String style) {
+    super.addStyleName(style);
+    this.events.fireEvent(CssEvent.CHANGE);
+  }
+
+  @Override
+  public void setStyleName(String style) {
+    super.setStyleName(style);
+    this.events.fireEvent(CssEvent.CHANGE);
+  }
+
+  @Override
+  public void removeStyleName(String style) {
+    super.removeStyleName(style);
+    this.events.fireEvent(CssEvent.CHANGE);
+  }
+
+  enum CssEvent implements EventType {
+    CHANGE;
+  }
+
+  public DimensionHolder dimensions() {
+    if (this.dimensions == null) {
+      this.dimensions = new DimensionHolder();
+    }
+    return this.dimensions;
+  }
+
+  public ElementHolder element() {
+    return this.element;
+  }
+
+  public EventHolder events() {
+    return this.events;
+  }
+
+  @Override
+  public void onBrowserEvent(com.google.gwt.user.client.Event event) {
+    super.onBrowserEvent(event);
+  }
+
+  public void fireEvent(GwtEvent<?> event) {
+    if (this.events.eventBus().interceptor().proceed()) {
+      super.fireEvent(event);
+    }
+  }
+
+  public void add(WidgetHolder child) {
+    if (child.getParent() == null) {
+      this.adoptIt(child);
+    }
+  }
+
+  public void adoptIt(WidgetHolder child) {
+    this.add(child.asWidget(), this.getElement());
+  }
+
+  public void insert(WidgetHolder add, WidgetHolder before) {
+    int beforeIndex = this.getWidgetIndex(before);
+    this.insert(add, this.getElement(), beforeIndex, true);
+  }
+
+  public Iterator<WidgetHolder> children() {
+    return new CastIterator<WidgetHolder, Widget>(this.iterator());
+  }
+
+  public void detachChildren() {
+    for (Widget child : this.getChildren()) {
+      child.removeFromParent();
+    }
+
+    this.clear();
+  }
+
+  public WidgetHolder childAt(int index) {
+    return (WidgetHolder) this.getWidget(index);
+  }
+
+  public int indexOf(WidgetHolder child) {
+    return this.getWidgetIndex(child);
+  }
+
+  public int childrenCount() {
+    return this.getWidgetCount();
+  }
+
+  public boolean hasChildren() {
+    return this.getWidgetCount() > 0;
+  }
+
+  public final class DimensionHolder {
+    
+    public int innerHeight() {
+      return this.element().getClientHeight();
+    }
+
+    public int innerWidth() {
+      return this.element().getClientWidth();
+    }
+
+    public int left() {
+      return this.left(this.element());
+    }
+    
+    native int left(Element element)/*-{
+      return element.getBoundingClientRect().left;
+    }-*/;
+
+    public Offset offset() {
+      return offset(this.element());
+    }
+
+    public Offset offsetParent() {
+      return offset(WidgetHolder.this.getParent().getElement());
+    }
+    
+    private Offset offset(Element element){
+      return new Offset(element.getAbsoluteLeft(), element.getAbsoluteTop());
+    }
+
+    public int outerHeight() {
+      return this.element().getOffsetHeight();
+    }
+
+    public int outerWidth() {
+      return this.element().getOffsetWidth();
+    }
+
+    public int scrollLeft() {
+      return this.element().getScrollLeft();
+    }
+
+    public void scrollLeft(int left) {
+      this.element().setScrollLeft(left);
+    }
+
+    public void scrollTo(int left, int top) {
+      this.scrollLeft(left);
+      this.scrollTop(top);
+    }
+
+    public int scrollTop() {
+      return this.element().getScrollTop();
+    }
+
+    public void scrollTop(int top) {
+      this.element().setScrollTop(top);
+    }
+
+    public int top() {
+      return this.top(this.element());
+    }
+    
+    native int top(Element element)/*-{
+      return element.getBoundingClientRect().top;
+    }-*/;
+
+    public void screenCenter() {
+      int width = this.outerWidth();
+      int height = this.outerHeight();
+
+      int left = (Window.getClientWidth() - width) >> 1;
+      int top = (Window.getClientHeight() - height) >> 1;
+
+      int computedLeft = Math.max(Window.getScrollLeft() + left, 0) - Document.get().getBodyOffsetLeft();
+      int computedTop = Math.max(Window.getScrollTop() + top, 0) - Document.get().getBodyOffsetTop();
+
+      Element element = WidgetHolder.this.getElement();
+      element.getStyle().setPropertyPx("left", computedLeft);
+      element.getStyle().setPropertyPx("top", computedTop);
+      element.getStyle().setPosition(Position.ABSOLUTE);
+    }
+
+    private Element element(){
+      return WidgetHolder.this.getElement();
+    }
+  }
+
+  public final class ElementHolder {
+    public String id() {
+      return WidgetHolder.this.getElement().getId();
+    }
+
+    public void id(String id) {
+      WidgetHolder.this.getElement().setId(id);
+    }
+
+    public void attribute(String name, String value) {
+      WidgetHolder.this.getElement().setAttribute(name, value);
+    }
+
+    public void removeAttribute(String name) {
+      WidgetHolder.this.getElement().removeAttribute(name);
+    }
+
+    public String attribute(String name) {
+      return WidgetHolder.this.getElement().getAttribute(name);
+    }
+
+    public void name(String name) {
+      this.attribute("name", name);
+    }
+
+    public void title(String title) {
+      WidgetHolder.this.getElement().setTitle(title);
+    }
+
+    public void blur() {
+      WidgetHolder.this.getElement().blur();
+    }
+
+    public void focus() {
+      WidgetHolder.this.getElement().focus();
+    }
+  }
+
+  public final class EventHolder {
+    private EventBus eventBus = new EventBus();
+
+    public void onEvent(EventInterceptor interceptor) {
+      this.eventBus.onEvent(interceptor);
+    }
+
+    public <E> void addHandler(EventType type, EventHandler<E> handler) {
+      this.eventBus.add(type, handler);
+    }
+
+    public void fireEvent(EventType type) {
+      this.fireEvent(new Event<Void>(type, (UIWidget) WidgetHolder.this.reference));
+    }
+
+    public <E> void fireEvent(Event<E> event) {
+      this.eventBus.fire(event);
+    }
+
+    public void removeHandlers(Event<?> event) {
+      this.eventBus.remove(event.type());
+    }
+
+    public <H extends com.google.gwt.event.shared.EventHandler> void removeHandlers(Type<H> type, H handler) {
+      WidgetHolder.this.getHandlerManager().removeHandler(type, handler);
+    }
+
+    public <H extends com.google.gwt.event.shared.EventHandler> void removeHandlers(GwtEvent.Type<H> type) {
+      int counter = WidgetHolder.this.getHandlerManager().getHandlerCount(type);
+
+      for (int index = 0; index < counter; index++) {
+        H handler = WidgetHolder.this.getHandlerManager().getHandler(type, index);
+        WidgetHolder.this.getHandlerManager().removeHandler(type, handler);
+      }
+    }
+
+    public EventBus eventBus() {
+      return eventBus;
+    }
+  }
+}

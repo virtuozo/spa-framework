@@ -1,0 +1,8 @@
+<module>
+  <inherits name="hitz.virtuozo.API" />
+  
+  <public path="css"/>
+  <public path="fonts"/>
+  
+  <stylesheet src="bootstrap.css"/>
+</module>

@@ -1,0 +1,14 @@
+.DS_Store
+*target*
+*.versionsBackup
+.project
+.classpath
+bin
+.settings
+
+**/.DS_Store
+**/*.versionsBackup
+**/.project
+**/.classpath
+**/bin
+**/.settings
