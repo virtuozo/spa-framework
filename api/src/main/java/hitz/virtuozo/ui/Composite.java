@@ -14,6 +14,7 @@
  */
 package hitz.virtuozo.ui;
 
+import hitz.virtuozo.ui.api.Clause;
 import hitz.virtuozo.ui.api.UIWidget;
 
 import com.google.gwt.dom.client.Element;
@@ -55,6 +56,16 @@ public abstract class Composite<C extends Composite<C>> extends Widget<C> {
 
   public <W extends UIWidget> W childAt(int index) {
     return super.childAt(index);
+  }
+  
+  @Override
+  public <C extends UIWidget> C find(Clause clause) {
+    return super.find(clause);
+  }
+  
+  @Override
+  public Iterable<UIWidget> findAll(Clause clause) {
+    return super.findAll(clause);
   }
 
   public int indexOf(UIWidget child) {

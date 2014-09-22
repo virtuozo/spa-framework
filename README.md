@@ -1,21 +1,14 @@
-Virtuoze
+virtuozo
 ==========
 
-Virtuoze is a spa framework written in Java. It is based on design patterns and it is built on top of gwt. Maturity and simplicity is all that you can expect from it.
+virtuozo is a spa framework built on top of GWT and Bootstrap. It is designed under MVP concept. It uses a dependency injection mechanism to ensure easier modularization.
 
-3.0.0 Change Log
+1.0.0 Change Log
 ==========
 
 - Domain Driven Design approach to package names
-- Reviewed Fluent API
-	- Properties Binding Listeners
-	- Components behavior reviewed
-- UI API 
-	- Widget unified all the former api classes (Component, Node, Composite, Selector, EventSource)
-	- UI Components does not expose GWT Widget class anymore. Now, all the UI API is based on UIWidget interface
-- UI Components Deprecation
-	- InputGroup
-	- InputPanel
-- UI New Components
-	- BrowserStorage
-	- AsynchBrowserStorage for Rest API
+- Fluent API
+- Unified Widget api and it does not expose GWT Widget class. All the UI API is based on UIWidget interface
+- Bootstrap css only
+- Rest client API based on JSON and JavaScript Objects (It does not uses GWT-RPC)
+- Commons module was designed to be shared between client and server projects (Orqueztra uses it)

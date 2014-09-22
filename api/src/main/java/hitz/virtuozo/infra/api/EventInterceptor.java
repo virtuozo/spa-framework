@@ -1,8 +1,5 @@
 package hitz.virtuozo.infra.api;
 
-public interface EventInterceptor {
-  boolean proceed();
-}
 /**
  * Copyright (C) 2004-2014 the original author or authors. See the notice.md file distributed with
  * this work for additional information regarding copyright ownership.
@@ -17,3 +14,6 @@ public interface EventInterceptor {
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
+public interface EventInterceptor {
+  boolean proceed();
+}

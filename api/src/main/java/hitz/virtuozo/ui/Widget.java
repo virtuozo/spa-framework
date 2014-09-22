@@ -14,6 +14,9 @@
  */
 package hitz.virtuozo.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import hitz.virtuozo.infra.CastIterable;
 import hitz.virtuozo.infra.EventBus;
 import hitz.virtuozo.infra.StringProperty;
@@ -24,6 +27,7 @@ import hitz.virtuozo.infra.api.EventHandler;
 import hitz.virtuozo.infra.api.EventInterceptor;
 import hitz.virtuozo.infra.api.EventType;
 import hitz.virtuozo.infra.api.HasVisibility;
+import hitz.virtuozo.ui.api.Clause;
 import hitz.virtuozo.ui.api.UIClass;
 import hitz.virtuozo.ui.api.UIClasses;
 import hitz.virtuozo.ui.api.UIWidget;
@@ -343,6 +347,28 @@ public abstract class Widget<W extends Widget<W>> implements HasVisibility<W>, U
 
   protected <C extends UIWidget> C childAt(int index) {
     return this.holder.childAt(index).getReference();
+  }
+  
+  protected <C extends UIWidget> C find(Clause clause){
+    for(UIWidget child : this.childrenWidgets()){
+      if(clause.matches(child)){
+        return (C) child;
+      }
+    }
+    
+    return null;
+  }
+  
+  protected Iterable<UIWidget> findAll(Clause clause){
+    List<UIWidget> children = new ArrayList<UIWidget>();
+    
+    for(UIWidget child : this.childrenWidgets()){
+      if(clause.matches(child)){
+        children.add(child);
+      }
+    }
+    
+    return children;
   }
 
   protected int indexOfChild(UIWidget child) {

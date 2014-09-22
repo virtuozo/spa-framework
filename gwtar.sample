@@ -1,0 +1,85 @@
+<plugin>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>exec-maven-plugin</artifactId>
+    <version>1.2.1</version>
+    <configuration>
+        <successCodes>0</successCodes>
+    </configuration>
+    <dependencies>
+        <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-user</artifactId>
+            <version>${gwt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-dev</artifactId>
+            <version>${gwt.version}</version>
+        </dependency>
+    </dependencies>
+    <executions>
+        <execution>
+            <id>Archive GWT modules</id>
+            <phase>compile</phase>
+            <goals>
+                <goal>java</goal>
+            </goals>
+            <configuration>
+                <includePluginDependencies>true</includePluginDependencies>
+                <mainClass>com.google.gwt.dev.GwtModuleArchiver</mainClass>
+                <arguments>
+                    <argument>hitz.virtuozo.API</argument>
+                    <argument>-out</argument>
+                    <argument>${project.build.directory}/classes/hitz/virtuozo</argument>
+                </arguments>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
+
+package com.google.gwt.dev;
+
+import com.google.gwt.core.ext.TreeLogger;
+import com.google.gwt.core.ext.UnableToCompleteException;
+import com.google.gwt.dev.util.Memory;
+import com.google.gwt.dev.util.log.speedtracer.CompilerEventType;
+import com.google.gwt.dev.util.log.speedtracer.SpeedTracerLogger;
+
+public class GwtModuleArchiver {
+
+    /**
+     * This method is almost a copy of {@link CompileModule#main(String[])}, but the <code>System.exit()</code> call was
+     * removed, to make this class useable during a maven build.
+     */
+    public static void main(String[] args) throws UnableToCompleteException {
+        Memory.initialize();
+        SpeedTracerLogger.init();
+        SpeedTracerLogger.start(CompilerEventType.COMPILE_MODULE);
+        /*
+        * NOTE: main always exits with a call to System.exit to terminate any
+        * non-daemon threads that were started in Generators. Typically, this is to
+        * shutdown AWT related threads, since the contract for their termination is
+        * still implementation-dependent.
+        */
+        final CompileModuleOptions options = new CompileModule.CompileModuleOptionsImpl();
+        if (new CompileModule.ArgProcessor(options).processArgs(args)) {
+            CompileTaskRunner.CompileTask task = new CompileTaskRunner.CompileTask() {
+               @Override
+                public boolean run(TreeLogger logger) {
+                    return new CompileModule(options).run(logger);
+                }
+            };
+            if (CompileTaskRunner.runWithAppropriateLogger(options, task)) {
+                // Exit w/ success code.
+
+                // Y9676: No System.exit(0); for maven !
+                return;
+            }
+        }
+
+        // Exit w/ non-success code.
+
+        // Y9676: No System.exit(1); for maven! Throw Exception!
+        throw new UnableToCompleteException();
+    }
+}﻿﻿
