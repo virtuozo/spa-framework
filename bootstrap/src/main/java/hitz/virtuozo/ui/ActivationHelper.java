@@ -14,6 +14,8 @@
  */
 package hitz.virtuozo.ui;
 
+import hitz.virtuozo.ui.api.ActivationEvent;
+import hitz.virtuozo.ui.api.DeactivationEvent;
 import hitz.virtuozo.ui.api.HasActivation;
 
 import java.util.ArrayList;
@@ -54,10 +56,11 @@ public class ActivationHelper implements ClickHandler {
     @Override
     public void doActivation(Element element, List<HasActivation<?>> activationList) {
       for (HasActivation<?> widget : activationList) {
-        widget.deactivate().asWidget().fireEvent(HasActivation.FireableEvent.DEACTIVATE);
         if (widget.match(element)) {
-          widget.activate().asWidget().fireEvent(HasActivation.FireableEvent.ACTIVATE);
+          widget.activate().asWidget().fireEvent(new ActivationEvent());
+          continue;
         }
+        widget.deactivate().asWidget().fireEvent(new DeactivationEvent());
       }
     }
   }

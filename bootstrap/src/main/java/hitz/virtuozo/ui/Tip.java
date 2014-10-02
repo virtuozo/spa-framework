@@ -1,11 +1,11 @@
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.EventHandler;
 import hitz.virtuozo.infra.api.HasMouseHandlers;
 import hitz.virtuozo.infra.api.HasVisibility;
-import hitz.virtuozo.ui.Event;
-import hitz.virtuozo.ui.HTML;
-import hitz.virtuozo.ui.Tag;
+import hitz.virtuozo.infra.api.HideEvent.HideHandler;
+import hitz.virtuozo.infra.api.ShowEvent;
+import hitz.virtuozo.infra.api.ShowEvent.ShowHandler;
+import hitz.virtuozo.infra.api.ToggleEvent.ToggleHandler;
 import hitz.virtuozo.ui.api.Direction;
 import hitz.virtuozo.ui.api.UIWidget;
 
@@ -40,9 +40,10 @@ abstract class Tip<T extends Tip<T>> implements HasMouseHandlers<T>, HasVisibili
   public Tip() {
     HTML.body().add(this.tip.hide());
     
-    this.tip.onShow(new EventHandler<Void>() {
+    this.tip.onShow(new ShowHandler() {
+      
       @Override
-      public void onEvent(Event<Void> e) {
+      public void onShow(ShowEvent event) {
         Tip.this.positioning();
       }
     });
@@ -111,19 +112,19 @@ abstract class Tip<T extends Tip<T>> implements HasMouseHandlers<T>, HasVisibili
   }
   
   @Override
-  public T onHide(EventHandler<Void> handler) {
+  public T onHide(HideHandler handler) {
     this.tip.onHide(handler);
     return (T) this;
   }
 
   @Override
-  public T onShow(EventHandler<Void> handler) {
+  public T onShow(ShowHandler handler) {
     this.tip.onShow(handler);
     return (T) this;
   }
 
   @Override
-  public T onToggleVisibility(EventHandler<Void> handler) {
+  public T onToggleVisibility(ToggleHandler handler) {
     this.tip.onToggleVisibility(handler);
     return (T) this;
   }

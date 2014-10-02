@@ -14,19 +14,22 @@
  */
 package hitz.virtuozo.infra;
 
-import hitz.virtuozo.infra.api.EventHandler;
-import hitz.virtuozo.infra.api.EventType;
-import hitz.virtuozo.ui.Event;
+import hitz.virtuozo.infra.api.ValueEvent;
+import hitz.virtuozo.ui.EventHandlers;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.event.shared.EventHandler;
 
 @SuppressWarnings("unchecked")
 public class BrowserStorage {
 
   private static final BrowserStorage instance = new BrowserStorage();
 
-  private EventBus eventBus = new EventBus();
+  private EventHandlers bus = new EventHandlers();
 
   private Map<StoreKey, Object> storageImpl = new HashMap<StoreKey, Object>();
 
@@ -67,28 +70,69 @@ public class BrowserStorage {
     return this.storageImpl.containsKey(store);
   }
 
-  public BrowserStorage onChange(EventHandler<PairedValue<?>> handler) {
-    this.eventBus.add(Type.CHANGE, handler);
+  public BrowserStorage onChange(ValueChangeHandler<PairedValue<?>> handler) {
+    this.bus.add(ValueChangeEvent.getType(), handler);
     return this;
   }
 
-  public BrowserStorage onComplete(EventHandler<StoreKey> handler) {
-    this.eventBus.add(Type.COMPLETE, handler);
-    return this;
-  }
-
-  public BrowserStorage removeHandler(EventType type) {
-    this.eventBus.remove(type);
+  public BrowserStorage onComplete(StorageCompleteHandler handler) {
+    this.bus.add(StorageCompleteEvent.TYPE, handler);
     return this;
   }
 
   private void fire(PairedValue<?> value) {
-    this.eventBus.fire(new Event<PairedValue<?>>(Type.CHANGE, value));
+    this.bus.fire(new StorageChangeEvent(value));
   }
 
   void fire(StoreKey value) {
-    this.eventBus.fire(new Event<StoreKey>(Type.COMPLETE, value));
+    this.bus.fire(new StorageCompleteEvent(value));
   }
+  
+  public static interface StorageChangedHandler extends EventHandler{
+    void onChange(StorageChangeEvent event);
+  }
+  
+  public static class StorageChangeEvent extends ValueEvent<PairedValue<?>, StorageChangedHandler>{
+    public static final Type<StorageChangedHandler> TYPE = new Type<BrowserStorage.StorageChangedHandler>();
+
+    StorageChangeEvent(PairedValue<?> value) {
+      super(value);
+    }
+    
+    @Override
+    public Type<StorageChangedHandler> getAssociatedType() {
+      return TYPE;
+    }
+    
+    @Override
+    protected void dispatch(StorageChangedHandler handler) {
+      handler.onChange(this);
+    }
+  }
+  
+  public static interface StorageCompleteHandler extends EventHandler{
+    void onComplete(StorageCompleteEvent event);
+  }
+  
+  public static class StorageCompleteEvent extends ValueEvent<StoreKey, StorageCompleteHandler> {
+
+    public static final Type<StorageCompleteHandler> TYPE = new Type<StorageCompleteHandler>();
+    
+    StorageCompleteEvent(StoreKey value) {
+      super(value);
+    }
+
+    @Override
+    public com.google.gwt.event.shared.GwtEvent.Type<StorageCompleteHandler> getAssociatedType() {
+      return TYPE;
+    }
+
+    @Override
+    protected void dispatch(StorageCompleteHandler handler) {
+      handler.onComplete(this);
+    }
+  }
+
 
   public static class PairedValue<T> {
 
@@ -109,9 +153,5 @@ public class BrowserStorage {
     public T oldValue() {
       return oldValue;
     }
-  }
-
-  enum Type implements EventType {
-    CHANGE, COMPLETE;
   }
 }

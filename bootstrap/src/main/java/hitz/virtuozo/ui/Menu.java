@@ -15,15 +15,14 @@
 package hitz.virtuozo.ui;
 
 import hitz.virtuozo.infra.BrowserEventInterceptor;
-import hitz.virtuozo.infra.api.EventHandler;
 import hitz.virtuozo.infra.api.HasClickHandlers;
 import hitz.virtuozo.infra.api.HasMouseHandlers;
 import hitz.virtuozo.infra.api.HasText;
-import hitz.virtuozo.ui.CssClass;
-import hitz.virtuozo.ui.StyleChooser;
-import hitz.virtuozo.ui.Tag;
-import hitz.virtuozo.ui.Widget;
 import hitz.virtuozo.ui.OrderList.Type;
+import hitz.virtuozo.ui.api.ActivationEvent;
+import hitz.virtuozo.ui.api.ActivationEvent.ActivationHandler;
+import hitz.virtuozo.ui.api.DeactivationEvent;
+import hitz.virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
 import hitz.virtuozo.ui.api.HasActivation;
 
 import com.google.gwt.dom.client.AnchorElement;
@@ -191,13 +190,14 @@ public class Menu extends Widget<Menu>{
     @Override
     public MenuItem activate() {
       this.css("active");
-      return this.fireEvent(HasActivation.FireableEvent.ACTIVATE);
+      return this.fireEvent(new ActivationEvent());
     }
 
     @Override
-    public MenuItem onActivate(EventHandler<Void> handler) {
-      return this.addHandler(HasActivation.FireableEvent.ACTIVATE, handler);
+    public MenuItem onActivate(ActivationHandler handler) {
+      return this.addHandler(ActivationEvent.TYPE, handler);
     }
+    
 
     @Override
     public MenuItem deactivate() {
@@ -206,8 +206,8 @@ public class Menu extends Widget<Menu>{
     }
 
     @Override
-    public MenuItem onDeactivate(EventHandler<Void> handler) {
-      return this.fireEvent(HasActivation.FireableEvent.DEACTIVATE);
+    public MenuItem onDeactivate(DeactivationHandler handler) {
+      return this.addHandler(DeactivationEvent.TYPE, handler);
     }
 
     @Override

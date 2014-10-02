@@ -14,14 +14,12 @@
  */
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.EventHandler;
 import hitz.virtuozo.infra.api.HasClickHandlers;
 import hitz.virtuozo.infra.api.HasText;
-import hitz.virtuozo.ui.CssClass;
-import hitz.virtuozo.ui.Elements;
-import hitz.virtuozo.ui.StyleChooser;
-import hitz.virtuozo.ui.Tag;
-import hitz.virtuozo.ui.Widget;
+import hitz.virtuozo.ui.api.ActivationEvent;
+import hitz.virtuozo.ui.api.ActivationEvent.ActivationHandler;
+import hitz.virtuozo.ui.api.DeactivationEvent;
+import hitz.virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
 import hitz.virtuozo.ui.api.HasActivation;
 import hitz.virtuozo.ui.api.HasIcon;
 import hitz.virtuozo.ui.api.Icon;
@@ -122,13 +120,13 @@ public class Navbar extends Widget<Navbar> {
       }
       
       @Override
-      public NavItem onActivate(EventHandler<Void> handler) {
-        return this.addHandler(HasActivation.FireableEvent.ACTIVATE, handler);
+      public NavItem onActivate(ActivationHandler handler) {
+        return this.addHandler(ActivationEvent.TYPE, handler);
       }
       
       @Override
-      public NavItem onDeactivate(EventHandler<Void> handler) {
-        return this.addHandler(HasActivation.FireableEvent.DEACTIVATE, handler);
+      public NavItem onDeactivate(DeactivationHandler handler) {
+        return this.addHandler(DeactivationEvent.TYPE, handler);
       }
 
       @Override

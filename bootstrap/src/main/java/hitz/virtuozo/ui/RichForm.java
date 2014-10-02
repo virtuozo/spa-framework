@@ -1,12 +1,7 @@
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.EventHandler;
-import hitz.virtuozo.ui.CssClass;
-import hitz.virtuozo.ui.Event;
-import hitz.virtuozo.ui.Form;
-import hitz.virtuozo.ui.StyleChooser;
-import hitz.virtuozo.ui.Tag;
-import hitz.virtuozo.ui.Widget;
+import hitz.virtuozo.infra.api.ToggleEvent;
+import hitz.virtuozo.infra.api.ToggleEvent.ToggleHandler;
 import hitz.virtuozo.ui.api.HasFeedback;
 import hitz.virtuozo.ui.api.UIInput;
 import hitz.virtuozo.ui.api.UIWidget;
@@ -91,10 +86,10 @@ public class RichForm extends Form<RichForm> {
       this.feedback().asWidget().compound(this.container);
       this.container.add(input).add(this.helpBlock());
       
-      this.label().onToggleVisibility(new EventHandler<Void>() {
+      this.label().onToggleVisibility(new ToggleHandler() {
         
         @Override
-        public void onEvent(Event<Void> e) {
+        public void onToggle(ToggleEvent e) {
          if(HorizontalFormGroup.this.label().visible()){
            HorizontalFormGroup.this.container.css().remove("col-sm-offset-2");
            return;

@@ -3,14 +3,15 @@ package hitz.virtuozo.ui;
 import hitz.virtuozo.infra.BrowserEventInterceptor;
 import hitz.virtuozo.infra.Keyboard;
 import hitz.virtuozo.infra.api.Converter;
-import hitz.virtuozo.infra.api.EventHandler;
-import hitz.virtuozo.infra.api.EventInterceptor;
-import hitz.virtuozo.infra.api.EventType;
 import hitz.virtuozo.infra.api.HasClickHandlers;
 import hitz.virtuozo.infra.api.HasFocusHandlers;
 import hitz.virtuozo.infra.api.HasMouseHandlers;
 import hitz.virtuozo.infra.api.HasText;
 import hitz.virtuozo.infra.api.HasValue;
+import hitz.virtuozo.ui.SelectionEvent.SelectionHandler;
+import hitz.virtuozo.ui.api.CssChangeEvent;
+import hitz.virtuozo.ui.api.CssChangeHandler;
+import hitz.virtuozo.ui.api.EventInterceptor;
 import hitz.virtuozo.ui.api.UIInput;
 import hitz.virtuozo.ui.api.UIRenderer;
 import hitz.virtuozo.ui.api.UIWidget;
@@ -41,6 +42,7 @@ import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.dom.client.MouseWheelHandler;
+import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.Offset;
 
 @SuppressWarnings("unchecked")
@@ -71,9 +73,9 @@ public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Widg
 
   private void init() {
     this.addChild(this.container).addChild(this.mask).addChild(this.menu);
-    this.onCssChange(new EventHandler<Void>() {
+    this.onCssChange(new CssChangeHandler() {
       @Override
-      public void onEvent(Event<Void> e) {
+      public void onChange(CssChangeEvent e) {
         String name = "form-control";
         if (SingleSelect.this.css().contains(name)) {
           SingleSelect.this.css().remove(name);
@@ -114,7 +116,7 @@ public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Widg
     return (S) this;
   }
 
-  public S onSelection(EventHandler<E> handler) {
+  public S onSelection(SelectionHandler<E> handler) {
     this.menu.onSelection(handler);
     return (S) this;
   }
@@ -253,8 +255,9 @@ public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Widg
       this.css("select-container").style().width(100, Unit.PCT);
 
       this.choice.onEvent(new EventInterceptor() {
+        
         @Override
-        public boolean proceed() {
+        public boolean shouldFire(Event event) {
           return !SingleSelect.this.disabled();
         }
       }).onFocus(new FocusHandler() {
@@ -380,8 +383,8 @@ public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Widg
       this.css("select-drop").addChild(this.search).addChild(this.items).hide();
     }
 
-    public DropDown onSelection(EventHandler<E> handler) {
-      return this.addHandler(SingleSelect.FireableEvent.SELECT, handler);
+    public DropDown onSelection(SelectionHandler<E> handler) {
+      return this.addHandler(SelectionEvent.type(), handler);
     }
 
     public DropDown activate() {
@@ -415,7 +418,7 @@ public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Widg
     }
 
     void select(E value) {
-      this.fireEvent(new Event<E>(SingleSelect.FireableEvent.SELECT, value));
+      this.fireEvent(new SelectionEvent<E>(value));
       this.search.input.clear();
       for (UIWidget child : this.items.childrenWidgets()) {
         child.asWidget().show();
@@ -683,25 +686,4 @@ public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Widg
   public static interface Matcher<E> {
     public boolean matches(String search, E value);
   }
-
-  enum FireableEvent implements EventType {
-    SELECT
-  }
 }
-
-// <div class="select-container select-dropdown-open select-container-active"
-// id="s2id_gwt-uid-2" style="width: 100%;"> <a tabindex="-1" class="select-choice"
-// onclick="return false;" href="javascript:void(0)"> <span>PlaceHolder</span> <abbr
-// style="display:none;" class="select-search-choice-close"></abbr> </a> <input type="text"
-// class="select-focusser select-offscreen" disabled="disabled"> </div> /Options HTML <div
-// style="top: 30px; left: 0px; width: 1920px; display: block;"
-// class="select-drop select-drop-active" id="select-drop"> <div
-// class="select-search select-search-hidden"> <input type="text" class="select-input"
-// autocomplete="off"> </div> <ul class="select-results"> <li
-// class="select-results-dept-0 select-result select-result-selectable"> <div
-// class="select-result-label"><span class="select-match"></span>Value 1</div> </li> <li
-// class="select-results-dept-0 select-result select-result-selectable"> <div
-// class="select-result-label"><span class="select-match"></span>Value 2</div> </li> <li
-// class="select-results-dept-0 select-result select-result-selectable select-highlighted">
-// <div class="select-result-label"><span class="select-match"></span>Value 3</div> </li> </ul>
-// </div>

@@ -14,27 +14,22 @@
  */
 package hitz.virtuozo.ui.api;
 
-import hitz.virtuozo.infra.api.EventHandler;
-import hitz.virtuozo.infra.api.EventType;
 import hitz.virtuozo.infra.api.HasClickHandlers;
-import hitz.virtuozo.ui.api.UIWidget;
+import hitz.virtuozo.ui.api.ActivationEvent.ActivationHandler;
+import hitz.virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
 
 import com.google.gwt.dom.client.Element;
 
 public interface HasActivation<W extends UIWidget> extends HasClickHandlers<W>, UIWidget {
   W activate();
 
-  W onActivate(EventHandler<Void> handler);
+  W onActivate(ActivationHandler handler);
 
   W deactivate();
 
-  W onDeactivate(EventHandler<Void> handler);
+  W onDeactivate(DeactivationHandler handler);
 
   boolean active();
 
   boolean match(Element element);
-
-  enum FireableEvent implements EventType {
-    ACTIVATE, DEACTIVATE
-  }
 }

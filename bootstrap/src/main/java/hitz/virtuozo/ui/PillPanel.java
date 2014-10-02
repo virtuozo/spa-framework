@@ -14,7 +14,6 @@
  */
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.EventHandler;
 import hitz.virtuozo.infra.api.HasClickHandlers;
 import hitz.virtuozo.infra.api.HasMouseHandlers;
 import hitz.virtuozo.infra.api.HasText;
@@ -23,7 +22,11 @@ import hitz.virtuozo.ui.StyleChooser;
 import hitz.virtuozo.ui.Tag;
 import hitz.virtuozo.ui.Widget;
 import hitz.virtuozo.ui.Menu.MenuItem;
+import hitz.virtuozo.ui.api.ActivationEvent;
+import hitz.virtuozo.ui.api.DeactivationEvent;
+import hitz.virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
 import hitz.virtuozo.ui.api.HasActivation;
+import hitz.virtuozo.ui.api.ActivationEvent.ActivationHandler;
 import hitz.virtuozo.ui.css.State;
 
 import com.google.gwt.dom.client.AnchorElement;
@@ -131,15 +134,15 @@ public class PillPanel extends Widget<PillPanel> {
       this.anchor.text(text);
       return this;
     }
-
+    
     @Override
-    public Pill onActivate(EventHandler<Void> handler) {
-      return this.addHandler(HasActivation.FireableEvent.ACTIVATE, handler);
+    public Pill onActivate(ActivationHandler handler) {
+      return this.addHandler(ActivationEvent.TYPE, handler);
     }
 
     @Override
-    public Pill onDeactivate(EventHandler<Void> handler) {
-      return this.addHandler(HasActivation.FireableEvent.DEACTIVATE, handler);
+    public Pill onDeactivate(DeactivationHandler handler) {
+      return this.addHandler(DeactivationEvent.TYPE, handler);
     }
 
     @Override
@@ -193,12 +196,14 @@ public class PillPanel extends Widget<PillPanel> {
     @Override
     public Pill activate() {
       this.css(State.ACTIVE);
+      this.fireEvent(new ActivationEvent());
       return this;
     }
 
     @Override
     public Pill deactivate() {
       this.css().remove(State.ACTIVE);
+      this.fireEvent(new DeactivationEvent());
       return this;
     }
 

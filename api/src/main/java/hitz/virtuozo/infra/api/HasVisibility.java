@@ -14,13 +14,17 @@
  */
 package hitz.virtuozo.infra.api;
 
+import hitz.virtuozo.infra.api.HideEvent.HideHandler;
+import hitz.virtuozo.infra.api.ShowEvent.ShowHandler;
+import hitz.virtuozo.infra.api.ToggleEvent.ToggleHandler;
+
 public interface HasVisibility<T> {
 
-  T onHide(EventHandler<Void> handler);
+  T onHide(HideHandler handler);
 
-  T onShow(EventHandler<Void> handler);
+  T onShow(ShowHandler handler);
 
-  T onToggleVisibility(EventHandler<Void> handler);
+  T onToggleVisibility(ToggleHandler handler);
 
   T show();
   
@@ -29,8 +33,4 @@ public interface HasVisibility<T> {
   T toggleVisibility();
   
   boolean visible();
-
-  enum FireableEvent implements EventType {
-    SHOW, HIDE, TOGGLE;
-  }
 }

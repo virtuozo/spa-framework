@@ -17,19 +17,8 @@ package hitz.virtuozo.ui;
 
 import hitz.virtuozo.infra.JSArrays;
 import hitz.virtuozo.infra.JSObject;
-import hitz.virtuozo.infra.api.EventHandler;
-import hitz.virtuozo.infra.api.EventType;
-import hitz.virtuozo.ui.Button;
-import hitz.virtuozo.ui.Elements;
-import hitz.virtuozo.ui.Event;
-import hitz.virtuozo.ui.Glyphicon;
-import hitz.virtuozo.ui.InputGroup;
-import hitz.virtuozo.ui.InputText;
-import hitz.virtuozo.ui.Pager;
-import hitz.virtuozo.ui.Paragraph;
-import hitz.virtuozo.ui.Table;
-import hitz.virtuozo.ui.Tag;
-import hitz.virtuozo.ui.Widget;
+import hitz.virtuozo.ui.Datagrid.DrawEvent.DrawHandler;
+import hitz.virtuozo.ui.SelectionEvent.SelectionHandler;
 import hitz.virtuozo.ui.Table.Cell;
 import hitz.virtuozo.ui.Table.Row;
 
@@ -43,6 +32,8 @@ import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.shared.EventHandler;
+import com.google.gwt.event.shared.GwtEvent;
 
 @SuppressWarnings("unchecked")
 public final class Datagrid<J extends JSObject> extends Widget<Datagrid<J>> {
@@ -78,12 +69,12 @@ public final class Datagrid<J extends JSObject> extends Widget<Datagrid<J>> {
     this.footer = new GridFooter(this.table.footer().addRow());
   }
 
-  public Datagrid<J> onDraw(EventHandler<J> handler) {
-    return this.addHandler(FireableEvent.DRAW, handler);
+  public Datagrid<J> onDraw(DrawHandler handler) {
+    return this.addHandler(DrawEvent.type(), handler);
   }
 
-  public Datagrid<J> onSelection(EventHandler<J> handler) {
-    return this.addHandler(FireableEvent.SELECTION, handler);
+  public Datagrid<J> onSelection(SelectionHandler<J> handler) {
+    return this.addHandler(SelectionEvent.type(), handler);
   }
 
   public Datagrid<J> add(final GridColumn<?, J> column) {
@@ -193,12 +184,11 @@ public final class Datagrid<J extends JSObject> extends Widget<Datagrid<J>> {
   }
 
   public Datagrid<J> draw(JsArray<J> rows) {
-    this.fireEvent(FireableEvent.DRAW);
-
     this.rows = rows;
     this.totalRows = rows.length();
-
     this.drawPage(1);
+    
+    this.fireEvent(new DrawEvent());
 
     return this;
   }
@@ -246,7 +236,7 @@ public final class Datagrid<J extends JSObject> extends Widget<Datagrid<J>> {
 
         @Override
         public void onClick(ClickEvent event) {
-          fireEvent(new Event<J>(FireableEvent.SELECTION, object));
+          fireEvent(new SelectionEvent<J>(object));
         }
       });
 
@@ -520,8 +510,25 @@ public final class Datagrid<J extends JSObject> extends Widget<Datagrid<J>> {
       return false;
     }
   }
-
-  enum FireableEvent implements EventType {
-    DRAW, SELECTION;
+  
+  public static class DrawEvent extends GwtEvent<DrawHandler>{
+    private static final Type<DrawHandler> type = new Type<DrawHandler>();
+    
+    public static Type<DrawHandler> type() {
+      return type;
+    }
+    
+    @Override
+    public Type<DrawHandler> getAssociatedType() {
+      return (Type) type;
+    }
+    
+    protected void dispatch(DrawHandler handler) {
+      handler.onDraw(this);
+    }
+    
+    public static interface DrawHandler extends EventHandler{
+      void onDraw(DrawEvent event);
+    }
   }
 }

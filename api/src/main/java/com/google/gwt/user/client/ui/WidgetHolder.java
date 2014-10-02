@@ -16,11 +16,8 @@
 package com.google.gwt.user.client.ui;
 
 import hitz.virtuozo.infra.CastIterator;
-import hitz.virtuozo.infra.EventBus;
-import hitz.virtuozo.infra.api.EventHandler;
-import hitz.virtuozo.infra.api.EventInterceptor;
-import hitz.virtuozo.infra.api.EventType;
-import hitz.virtuozo.ui.Event;
+import hitz.virtuozo.ui.api.CssChangeEvent;
+import hitz.virtuozo.ui.api.EventInterceptor;
 import hitz.virtuozo.ui.api.UIWidget;
 
 import java.util.Iterator;
@@ -28,18 +25,23 @@ import java.util.Iterator;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.Position;
-import com.google.gwt.event.shared.GwtEvent;
-import com.google.gwt.event.shared.GwtEvent.Type;
+import com.google.gwt.event.shared.HandlerManager;
+import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Window;
 
 public final class WidgetHolder extends ComplexPanel {
-  private final EventHolder events = new EventHolder();
-
   private final ElementHolder element = new ElementHolder();
 
   private DimensionHolder dimensions;
 
   private Object reference;
+  
+  private EventInterceptor interceptor = new EventInterceptor() {
+    @Override
+    public boolean shouldFire(Event event) {
+      return true;
+    }
+  };
 
   public WidgetHolder(Element element, Object reference) {
     super.setElement(element);
@@ -49,6 +51,17 @@ public final class WidgetHolder extends ComplexPanel {
   public WidgetHolder reference(Object reference) {
     this.reference = reference;
     return this;
+  }
+  
+  public void setInterceptor(EventInterceptor interceptor) {
+    this.interceptor = interceptor;
+  }
+  
+  @Override
+  public void onBrowserEvent(Event event) {
+    if(this.interceptor.shouldFire(event)){
+      super.onBrowserEvent(event);
+    }
   }
 
   public void attach() {
@@ -63,30 +76,27 @@ public final class WidgetHolder extends ComplexPanel {
     return (T) this.reference;
   }
 
-  public void addCssChange(EventHandler<Void> handler) {
-    this.events.addHandler(CssEvent.CHANGE, handler);
+  @Override
+  public HandlerManager getHandlerManager() {
+    return this.ensureHandlers();
   }
 
   @Override
   public void addStyleName(String style) {
     super.addStyleName(style);
-    this.events.fireEvent(CssEvent.CHANGE);
+    this.fireEvent(new CssChangeEvent());
   }
 
   @Override
   public void setStyleName(String style) {
     super.setStyleName(style);
-    this.events.fireEvent(CssEvent.CHANGE);
+    this.fireEvent(new CssChangeEvent());
   }
 
   @Override
   public void removeStyleName(String style) {
     super.removeStyleName(style);
-    this.events.fireEvent(CssEvent.CHANGE);
-  }
-
-  enum CssEvent implements EventType {
-    CHANGE;
+    this.fireEvent(new CssChangeEvent());
   }
 
   public DimensionHolder dimensions() {
@@ -98,21 +108,6 @@ public final class WidgetHolder extends ComplexPanel {
 
   public ElementHolder element() {
     return this.element;
-  }
-
-  public EventHolder events() {
-    return this.events;
-  }
-
-  @Override
-  public void onBrowserEvent(com.google.gwt.user.client.Event event) {
-    super.onBrowserEvent(event);
-  }
-
-  public void fireEvent(GwtEvent<?> event) {
-    if (this.events.eventBus().interceptor().proceed()) {
-      super.fireEvent(event);
-    }
   }
 
   public void add(WidgetHolder child) {
@@ -159,7 +154,7 @@ public final class WidgetHolder extends ComplexPanel {
   }
 
   public final class DimensionHolder {
-    
+
     public int innerHeight() {
       return this.element().getClientHeight();
     }
@@ -171,9 +166,9 @@ public final class WidgetHolder extends ComplexPanel {
     public int left() {
       return this.left(this.element());
     }
-    
+
     native int left(Element element)/*-{
-      return element.getBoundingClientRect().left;
+			return element.getBoundingClientRect().left;
     }-*/;
 
     public Offset offset() {
@@ -183,8 +178,8 @@ public final class WidgetHolder extends ComplexPanel {
     public Offset offsetParent() {
       return offset(WidgetHolder.this.getParent().getElement());
     }
-    
-    private Offset offset(Element element){
+
+    private Offset offset(Element element) {
       return new Offset(element.getAbsoluteLeft(), element.getAbsoluteTop());
     }
 
@@ -220,9 +215,9 @@ public final class WidgetHolder extends ComplexPanel {
     public int top() {
       return this.top(this.element());
     }
-    
+
     native int top(Element element)/*-{
-      return element.getBoundingClientRect().top;
+			return element.getBoundingClientRect().top;
     }-*/;
 
     public void screenCenter() {
@@ -241,7 +236,7 @@ public final class WidgetHolder extends ComplexPanel {
       element.getStyle().setPosition(Position.ABSOLUTE);
     }
 
-    private Element element(){
+    private Element element() {
       return WidgetHolder.this.getElement();
     }
   }
@@ -281,47 +276,6 @@ public final class WidgetHolder extends ComplexPanel {
 
     public void focus() {
       WidgetHolder.this.getElement().focus();
-    }
-  }
-
-  public final class EventHolder {
-    private EventBus eventBus = new EventBus();
-
-    public void onEvent(EventInterceptor interceptor) {
-      this.eventBus.onEvent(interceptor);
-    }
-
-    public <E> void addHandler(EventType type, EventHandler<E> handler) {
-      this.eventBus.add(type, handler);
-    }
-
-    public void fireEvent(EventType type) {
-      this.fireEvent(new Event<Void>(type, (UIWidget) WidgetHolder.this.reference));
-    }
-
-    public <E> void fireEvent(Event<E> event) {
-      this.eventBus.fire(event);
-    }
-
-    public void removeHandlers(Event<?> event) {
-      this.eventBus.remove(event.type());
-    }
-
-    public <H extends com.google.gwt.event.shared.EventHandler> void removeHandlers(Type<H> type, H handler) {
-      WidgetHolder.this.getHandlerManager().removeHandler(type, handler);
-    }
-
-    public <H extends com.google.gwt.event.shared.EventHandler> void removeHandlers(GwtEvent.Type<H> type) {
-      int counter = WidgetHolder.this.getHandlerManager().getHandlerCount(type);
-
-      for (int index = 0; index < counter; index++) {
-        H handler = WidgetHolder.this.getHandlerManager().getHandler(type, index);
-        WidgetHolder.this.getHandlerManager().removeHandler(type, handler);
-      }
-    }
-
-    public EventBus eventBus() {
-      return eventBus;
     }
   }
 }

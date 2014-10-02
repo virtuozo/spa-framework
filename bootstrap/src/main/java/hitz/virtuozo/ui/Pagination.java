@@ -14,12 +14,8 @@
  */
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.EventHandler;
-import hitz.virtuozo.infra.api.EventType;
-import hitz.virtuozo.ui.CssClass;
-import hitz.virtuozo.ui.Event;
-import hitz.virtuozo.ui.StyleChooser;
-import hitz.virtuozo.ui.Widget;
+import hitz.virtuozo.ui.api.PageChangeEvent;
+import hitz.virtuozo.ui.api.PageChangeEvent.PageChangeHandler;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -99,8 +95,8 @@ public class Pagination extends Widget<Pagination> {
     return this.indexOfChild(this.active);
   }
   
-  public Pagination onPageChange(EventHandler<Integer> handler){
-    return this.addHandler(FireableEvent.PAGINATE, handler);
+  public Pagination onPageChange(PageChangeHandler handler){
+    return this.addHandler(PageChangeEvent.TYPE, handler);
   }
 
   protected Pagination doPrevious() {
@@ -135,15 +131,11 @@ public class Pagination extends Widget<Pagination> {
     selection.disable();
 
     this.active = selection;
-    this.fireEvent(new Event<Integer>(FireableEvent.PAGINATE, this, Integer.valueOf(this.active.text())));
+    this.fireEvent(new PageChangeEvent(Integer.valueOf(this.active.text())));
 
     return this;
   }
 
-  static enum FireableEvent implements EventType{
-    PAGINATE;
-  }
-  
   public static class Size extends CssClass {
     private Size(String name) {
       super(name);

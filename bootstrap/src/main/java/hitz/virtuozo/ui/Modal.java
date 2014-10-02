@@ -1,18 +1,14 @@
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.EventBus;
-import hitz.virtuozo.infra.api.EventHandler;
 import hitz.virtuozo.infra.api.HasVisibility;
-import hitz.virtuozo.ui.Composite;
-import hitz.virtuozo.ui.Elements;
-import hitz.virtuozo.ui.Event;
-import hitz.virtuozo.ui.Tag;
-import hitz.virtuozo.ui.Widget;
+import hitz.virtuozo.infra.api.HideEvent;
+import hitz.virtuozo.infra.api.HideEvent.HideHandler;
+import hitz.virtuozo.infra.api.ShowEvent;
+import hitz.virtuozo.infra.api.ShowEvent.ShowHandler;
+import hitz.virtuozo.infra.api.ToggleEvent;
+import hitz.virtuozo.infra.api.ToggleEvent.ToggleHandler;
 
 import com.google.gwt.dom.client.DivElement;
-import com.google.gwt.dom.client.Document;
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.Style.Position;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -20,14 +16,13 @@ import com.google.gwt.event.logical.shared.CloseEvent;
 import com.google.gwt.event.logical.shared.CloseHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.PopupPanel;
-import com.google.gwt.user.client.ui.WidgetHolder;
 
 public class Modal implements HasVisibility<Modal> {
   private PopupPanel dialog = new PopupPanel();
   
   private InnerModal innerModal = new InnerModal();
   
-  private EventBus eventBus = new EventBus();
+  private EventHandlers eventBus = new EventHandlers();
   
   public Modal() {
     this.dialog.setGlassEnabled(true);
@@ -48,7 +43,7 @@ public class Modal implements HasVisibility<Modal> {
       
       @Override
       public void onClose(CloseEvent<PopupPanel> event) {
-        Modal.this.eventBus.fire(new Event<Void>(HasVisibility.FireableEvent.HIDE, (Void) null));
+        Modal.this.eventBus.fire(new HideEvent());
       }
     });
     return this;
@@ -57,37 +52,37 @@ public class Modal implements HasVisibility<Modal> {
   public Modal show(){
     this.dialog.show();
     this.center();
-    this.eventBus.fire(new Event<Void>(HasVisibility.FireableEvent.SHOW, (Void) null));
+    this.eventBus.fire(new ShowEvent());
     return this;
   }
   
   public Modal hide() {
-    this.eventBus.fire(new Event<Void>(HasVisibility.FireableEvent.HIDE, (Void) null));
+    this.eventBus.fire(new HideEvent());
     this.dialog.hide();
     return this;
   }
   
   @Override
-  public Modal onHide(EventHandler<Void> handler) {
-    this.eventBus.add(HasVisibility.FireableEvent.HIDE, handler);
+  public Modal onHide(HideHandler handler) {
+    this.eventBus.add(HideEvent.type(), handler);
     return this;
   }
 
   @Override
-  public Modal onShow(EventHandler<Void> handler) {
-    this.eventBus.add(HasVisibility.FireableEvent.SHOW, handler);
+  public Modal onShow(ShowHandler handler) {
+    this.eventBus.add(ShowEvent.type(), handler);
     return this;
   }
 
   @Override
-  public Modal onToggleVisibility(EventHandler<Void> handler) {
-    this.eventBus.add(HasVisibility.FireableEvent.TOGGLE, handler);
+  public Modal onToggleVisibility(ToggleHandler handler) {
+    this.eventBus.add(ToggleEvent.type(), handler);
     return this;
   }
 
   @Override
   public Modal toggleVisibility() {
-    this.eventBus.fire(new Event<Void>(HasVisibility.FireableEvent.TOGGLE, (Void) null));
+    this.eventBus.fire(new ToggleEvent());
     if(this.visible()){
       return this.hide();
     }

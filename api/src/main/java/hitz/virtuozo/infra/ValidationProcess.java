@@ -15,9 +15,7 @@
 package hitz.virtuozo.infra;
 
 import hitz.virtuozo.infra.ValidationProcess.ValidationResult.FieldState;
-import hitz.virtuozo.infra.api.EventHandler;
 import hitz.virtuozo.infra.api.Validator;
-import hitz.virtuozo.ui.Event;
 import hitz.virtuozo.ui.api.UIInput;
 
 import java.util.ArrayList;
@@ -29,10 +27,10 @@ public class ValidationProcess {
 
   private List<ValidationConstraint<?>> constraints = new ArrayList<ValidationConstraint<?>>();
 
-  private EventHandler<ValidationResult> handler;
+  private ValidationCallback callback;
 
-  public ValidationProcess onComplete(EventHandler<ValidationResult> handler) {
-    this.handler = handler;
+  public ValidationProcess onComplete(ValidationCallback callback) {
+    this.callback = callback;
     return this;
   }
 
@@ -66,8 +64,8 @@ public class ValidationProcess {
       }
     }
 
-    if (!valid && this.handler != null) {
-      this.handler.onEvent(new Event<ValidationResult>(null, result));
+    if (!valid && this.callback != null) {
+      this.callback.onComplete(result);
     }
 
     return valid;
@@ -168,6 +166,10 @@ public class ValidationProcess {
         return valid;
       }
     }
+  }
+  
+  public static interface ValidationCallback{
+    void onComplete(ValidationResult result);
   }
 
   public enum Propagation {

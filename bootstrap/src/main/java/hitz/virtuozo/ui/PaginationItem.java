@@ -1,11 +1,11 @@
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.EventHandler;
 import hitz.virtuozo.infra.api.HasClickHandlers;
 import hitz.virtuozo.infra.api.HasText;
-import hitz.virtuozo.ui.Tag;
-import hitz.virtuozo.ui.Widget;
-import hitz.virtuozo.ui.api.HasActivation;
+import hitz.virtuozo.ui.api.ActivationEvent;
+import hitz.virtuozo.ui.api.ActivationEvent.ActivationHandler;
+import hitz.virtuozo.ui.api.DeactivationEvent;
+import hitz.virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
 import hitz.virtuozo.ui.api.HasIcon;
 import hitz.virtuozo.ui.api.HasState;
 import hitz.virtuozo.ui.api.Icon;
@@ -54,13 +54,13 @@ public class PaginationItem extends Widget<PaginationItem> implements HasText<Pa
   }
   
   @Override
-  public PaginationItem onActivate(EventHandler<Void> handler) {
-    return this.addHandler(HasActivation.FireableEvent.ACTIVATE, handler);
+  public PaginationItem onActivate(ActivationHandler handler) {
+    return this.addHandler(ActivationEvent.TYPE, handler);
   }
   
   @Override
-  public PaginationItem onDeactivate(EventHandler<Void> handler) {
-    return this.addHandler(HasActivation.FireableEvent.DEACTIVATE, handler);
+  public PaginationItem onDeactivate(DeactivationHandler handler) {
+    return this.addHandler(DeactivationEvent.TYPE, handler);
   }
 
   public PaginationItem disable() {

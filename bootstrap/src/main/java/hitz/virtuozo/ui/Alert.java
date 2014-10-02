@@ -48,16 +48,6 @@ public class Alert extends Composite<Alert> {
     return this.add(this.close);
   }
   
-  @Override
-  public Alert show(int duration) {
-    return super.show(duration);
-  }
-  
-  @Override
-  public Alert hide(int duration) {
-    return super.hide(duration);
-  }
-  
   public static class Color extends CssClass {
     private Color(String name) {
       super(name);

@@ -1,9 +1,7 @@
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.EventHandler;
-import hitz.virtuozo.ui.Event;
-import hitz.virtuozo.ui.HTML;
-import hitz.virtuozo.ui.Tag;
+import hitz.virtuozo.infra.api.ShowEvent;
+import hitz.virtuozo.infra.api.ShowEvent.ShowHandler;
 
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -30,25 +28,24 @@ public class Notifier {
     final Timer timer = new Timer(){
       @Override
       public void run() {
-        notification.hide(1000);
+        notification.hide();
         this.cancel();
       }
     };
     
-    return notification.onShow(new EventHandler<Void>() {
+    return notification.onShow(new ShowHandler() {
       
       @Override
-      public void onEvent(Event<Void> e) {
+      public void onShow(ShowEvent event) {
         timer.schedule(duration);
       }
     }).onClose(new ClickHandler() {
       
       @Override
       public void onClick(ClickEvent event) {
-        notification.hide(1000);
+        notification.hide();
         timer.cancel();
       }
     });
   }
-  
 }

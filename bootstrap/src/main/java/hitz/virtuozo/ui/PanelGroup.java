@@ -1,9 +1,9 @@
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.EventHandler;
-import hitz.virtuozo.ui.Elements;
-import hitz.virtuozo.ui.Tag;
-import hitz.virtuozo.ui.Widget;
+import hitz.virtuozo.ui.api.ActivationEvent;
+import hitz.virtuozo.ui.api.ActivationEvent.ActivationHandler;
+import hitz.virtuozo.ui.api.DeactivationEvent;
+import hitz.virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
 import hitz.virtuozo.ui.api.HasActivation;
 
 import com.google.gwt.dom.client.AnchorElement;
@@ -56,24 +56,26 @@ public class PanelGroup extends Widget<PanelGroup> {
     @Override
     public CollapsePanel activate() {
       this.collapse.css("in");
+      this.fireEvent(new ActivationEvent());
       return this;
     }
 
     @Override
-    public CollapsePanel onActivate(EventHandler<Void> handler) {
-      this.addHandler(HasActivation.FireableEvent.ACTIVATE, handler);
+    public CollapsePanel onActivate(ActivationHandler handler) {
+      this.addHandler(ActivationEvent.TYPE, handler);
       return this;
     }
 
     @Override
     public CollapsePanel deactivate() {
       this.collapse.css().remove("in");
+      this.fireEvent(new DeactivationEvent());
       return this;
     }
 
     @Override
-    public CollapsePanel onDeactivate(EventHandler<Void> handler) {
-      this.addHandler(HasActivation.FireableEvent.DEACTIVATE, handler);
+    public CollapsePanel onDeactivate(DeactivationHandler handler) {
+      this.addHandler(DeactivationEvent.TYPE, handler);
       return this;
     }
 

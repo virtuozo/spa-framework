@@ -14,24 +14,28 @@
  */
 package hitz.virtuozo.ui;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import hitz.virtuozo.infra.CastIterable;
-import hitz.virtuozo.infra.EventBus;
-import hitz.virtuozo.infra.StringProperty;
 import hitz.virtuozo.infra.CastIterable.TypeCast;
+import hitz.virtuozo.infra.StringProperty;
 import hitz.virtuozo.infra.api.AttachHandler;
 import hitz.virtuozo.infra.api.DetachHandler;
-import hitz.virtuozo.infra.api.EventHandler;
-import hitz.virtuozo.infra.api.EventInterceptor;
-import hitz.virtuozo.infra.api.EventType;
 import hitz.virtuozo.infra.api.HasVisibility;
+import hitz.virtuozo.infra.api.HideEvent;
+import hitz.virtuozo.infra.api.HideEvent.HideHandler;
+import hitz.virtuozo.infra.api.ShowEvent;
+import hitz.virtuozo.infra.api.ShowEvent.ShowHandler;
+import hitz.virtuozo.infra.api.ToggleEvent;
+import hitz.virtuozo.infra.api.ToggleEvent.ToggleHandler;
 import hitz.virtuozo.ui.api.Clause;
+import hitz.virtuozo.ui.api.CssChangeEvent;
+import hitz.virtuozo.ui.api.CssChangeHandler;
+import hitz.virtuozo.ui.api.EventInterceptor;
 import hitz.virtuozo.ui.api.UIClass;
 import hitz.virtuozo.ui.api.UIClasses;
 import hitz.virtuozo.ui.api.UIWidget;
-import hitz.virtuozo.ui.fx.Fade;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
@@ -72,9 +76,8 @@ import com.google.gwt.event.dom.client.TouchMoveEvent;
 import com.google.gwt.event.dom.client.TouchMoveHandler;
 import com.google.gwt.event.dom.client.TouchStartEvent;
 import com.google.gwt.event.dom.client.TouchStartHandler;
+import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
-import com.google.gwt.event.shared.GwtEvent.Type;
-import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Offset;
 import com.google.gwt.user.client.ui.WidgetHolder;
@@ -89,12 +92,15 @@ public abstract class Widget<W extends Widget<W>> implements HasVisibility<W>, U
   
   private StringProperty id = new StringProperty();
   
+  private EventHandlers bus;
+  
   public Widget() {
     super();
   }
   
   public Widget(Element element) {
     this.holder = new WidgetHolder(element, this);
+    this.bus = new EventHandlers(this.holder.getHandlerManager());
     this.id.onChange(new hitz.virtuozo.infra.api.ChangeHandler<String>() {
       
       @Override
@@ -141,8 +147,8 @@ public abstract class Widget<W extends Widget<W>> implements HasVisibility<W>, U
     return (W) this;
   }
   
-  public W onCssChange(EventHandler<Void> handler){
-    this.holder.addCssChange(handler);
+  public W onCssChange(CssChangeHandler handler){
+    this.bus.add(CssChangeEvent.TYPE, handler);
     return (W) this;
   }
   
@@ -217,56 +223,37 @@ public abstract class Widget<W extends Widget<W>> implements HasVisibility<W>, U
 
   /** Visbility behaviors **/
   @Override
-  public W onHide(EventHandler<Void> handler) {
-    return this.addHandler(HasVisibility.FireableEvent.HIDE, handler);
+  public W onHide(HideHandler handler) {
+    return this.addHandler(HideEvent.type(), handler);
   }
 
   @Override
-  public W onShow(EventHandler<Void> handler) {
-    return this.addHandler(HasVisibility.FireableEvent.SHOW, handler);
+  public W onShow(ShowHandler handler) {
+    return this.addHandler(ShowEvent.type(), handler);
   }
 
   @Override
-  public W onToggleVisibility(EventHandler<Void> handler) {
-    return this.addHandler(HasVisibility.FireableEvent.TOGGLE, handler);
+  public W onToggleVisibility(ToggleHandler handler) {
+    return this.addHandler(ToggleEvent.type(), handler);
   }
-
+  
   @Override
   public W show() {
-    this.fireEvent(HasVisibility.FireableEvent.SHOW);
+    this.fireEvent(new ShowEvent());
     this.holder.setVisible(true);
     return (W) this;
   }
   
-  protected W show(int duration) {
-    Fade.IN.asEffect(this).onStart(new EventHandler<Void>() {
-      @Override
-      public void onEvent(Event<Void> e) {
-        Widget.this.show();
-      }
-    }).run(duration);
-    return (W) this;
-  }
-
   @Override
   public W hide() {
-    this.fireEvent(HasVisibility.FireableEvent.HIDE);
+    this.fireEvent(new HideEvent());
     this.holder.setVisible(false);
     return (W) this;
   }
   
-  protected W hide(int duration) {
-    Fade.OUT.asEffect(this).onComplete(new EventHandler<Void>() {
-      @Override
-      public void onEvent(Event<Void> e) {
-        Widget.this.detach();
-      }
-    }).run(duration);
-    return (W) this;
-  }
-
   @Override
   public W toggleVisibility() {
+    this.fireEvent(new ToggleEvent());
     if (this.holder.isVisible()) {
       return this.hide();
     }
@@ -301,6 +288,11 @@ public abstract class Widget<W extends Widget<W>> implements HasVisibility<W>, U
 
   public W onDetach(DetachHandler handler) {
     this.holder.addAttachHandler(handler);
+    return (W) this;
+  }
+  
+  public W onEvent(EventInterceptor interceptor){
+    this.holder.setInterceptor(interceptor);
     return (W) this;
   }
 
@@ -453,11 +445,6 @@ public abstract class Widget<W extends Widget<W>> implements HasVisibility<W>, U
   }
 
   /** Event Behaviors **/
-  public W onEvent(EventInterceptor interceptor) {
-    this.holder.events().onEvent(interceptor);
-    return (W) this;
-  }
-
   protected W on(BlurHandler handler) {
     this.holder.addDomHandler(handler, BlurEvent.getType());
     return (W) this;
@@ -548,47 +535,23 @@ public abstract class Widget<W extends Widget<W>> implements HasVisibility<W>, U
     return (W) this;
   }
 
-  protected final <H extends com.google.gwt.event.shared.EventHandler> HandlerRegistration addHandler(final H handler, GwtEvent.Type<H> type) {
-    return this.holder.addHandler(handler, type);
-  }
-
-  protected <T> W addHandler(EventType type, EventHandler<T> handler) {
-    this.holder.events().addHandler(type, handler);
+  protected final <H extends EventHandler> W addHandler(GwtEvent.Type<H> type, H handler) {
+    this.bus.add(type, handler);
     return (W) this;
   }
 
-  protected W fireEvent(EventType type) {
-    this.holder.events().fireEvent(type);
+  protected W fireEvent(GwtEvent<?> event) {
+    this.holder.fireEvent(event);
     return (W) this;
   }
 
-  protected <T> W fireEvent(Event<T> event) {
-    this.holder.events().fireEvent(event);
-    return (W) this;
-  }
-  
   protected W fireNativeEvent(NativeEvent event){
     DomEvent.fireNativeEvent(event, this.holder());
     return (W) this;
   }
 
-  public W removeHandlers(Event<?> event) {
-    this.holder.events().removeHandlers(event);
-    return (W) this;
-  }
-
-  public <H extends com.google.gwt.event.shared.EventHandler> W removeHandlers(Type<H> type, H handler) {
-    this.holder.events().removeHandlers(type, handler);
-    return (W) this;
-  }
-
-  public <H extends com.google.gwt.event.shared.EventHandler> W removeHandlers(GwtEvent.Type<H> type) {
-    this.holder.events().removeHandlers(type);
-    return (W) this;
-  }
-
-  EventBus eventBus() {
-    return this.holder.events().eventBus();
+  EventHandlers eventBus() {
+    return this.bus;
   }
   
   @Override

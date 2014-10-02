@@ -2,14 +2,11 @@ package hitz.virtuozo.ui;
 
 import hitz.virtuozo.infra.Keyboard;
 import hitz.virtuozo.infra.api.Converter;
-import hitz.virtuozo.infra.api.EventHandler;
-import hitz.virtuozo.infra.api.EventType;
-import hitz.virtuozo.ui.Elements;
-import hitz.virtuozo.ui.Event;
-import hitz.virtuozo.ui.InputText;
-import hitz.virtuozo.ui.Menu;
-import hitz.virtuozo.ui.Widget;
+import hitz.virtuozo.infra.api.ShowEvent;
 import hitz.virtuozo.ui.Menu.MenuItem;
+import hitz.virtuozo.ui.MoveDownEvent.MoveDownHandler;
+import hitz.virtuozo.ui.MoveUpEvent.MoveUpHandler;
+import hitz.virtuozo.ui.SelectionEvent.SelectionHandler;
 import hitz.virtuozo.ui.api.UIInput;
 import hitz.virtuozo.ui.api.UIRenderer;
 import hitz.virtuozo.ui.api.UIWidget;
@@ -106,16 +103,16 @@ public abstract class TypeAhead<T extends TypeAhead<T, V>, V> extends Widget<T> 
     return (T) this;
   }
 
-  public T onMoveUp(EventHandler<Void> handler) {
-    return this.addHandler(FireableEvent.UP, handler);
+  public T onMoveUp(MoveUpHandler handler) {
+    return this.addHandler(MoveUpEvent.type(), handler);
   }
 
-  public T onMoveDown(EventHandler<Void> handler) {
-    return this.addHandler(FireableEvent.DOWN, handler);
+  public T onMoveDown(MoveDownHandler handler) {
+    return this.addHandler(MoveDownEvent.type(), handler);
   }
 
-  public T onSelect(EventHandler<T> handler) {
-    this.addHandler(FireableEvent.SELECTION, handler);
+  public T onSelect(SelectionHandler<T> handler) {
+    this.addHandler(SelectionEvent.type(), handler);
     return (T) this;
   }
 
@@ -156,7 +153,7 @@ public abstract class TypeAhead<T extends TypeAhead<T, V>, V> extends Widget<T> 
     this.input().value(this.converter.convert(entry));
 
     if (fireEvent) {
-      this.fireEvent(new Event<V>(FireableEvent.SELECTION, entry));
+      this.fireEvent(new SelectionEvent<V>(entry));
     }
     this.menu.close();
 
@@ -206,12 +203,12 @@ public abstract class TypeAhead<T extends TypeAhead<T, V>, V> extends Widget<T> 
 
   void up() {
     this.moveTo(-1);
-    this.fireEvent(FireableEvent.UP);
+    this.fireEvent(new MoveUpEvent());
   }
 
   void down() {
     this.moveTo(1);
-    this.fireEvent(FireableEvent.DOWN);
+    this.fireEvent(new MoveDownEvent());
   }
 
   void moveTo(int direction) {
@@ -246,15 +243,11 @@ public abstract class TypeAhead<T extends TypeAhead<T, V>, V> extends Widget<T> 
     List<T> provideContent(String value, int numberOfItems);
   }
 
-  enum FireableEvent implements EventType {
-    COMPLETION, DOWN, SELECTION, SHOW, UP;
-  }
-
   class SelectionTimer extends Timer {
 
     @Override
     public void run() {
-      TypeAhead.this.fireEvent(FireableEvent.SHOW);
+      TypeAhead.this.fireEvent(new ShowEvent());
     }
   }
 

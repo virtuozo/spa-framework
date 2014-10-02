@@ -1,10 +1,5 @@
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.ui.CssClass;
-import hitz.virtuozo.ui.Elements;
-import hitz.virtuozo.ui.StyleChooser;
-import hitz.virtuozo.ui.Tag;
-import hitz.virtuozo.ui.Widget;
 import hitz.virtuozo.ui.api.UIWidget;
 
 import com.google.gwt.dom.client.DivElement;
@@ -43,15 +38,6 @@ public class Notification extends Widget<Notification> {
   public Notification message(UIWidget message){
     this.message.add(message);
     return this;
-  }
-  
-  @Override
-  public Notification show(int duration) {
-    return super.show(duration);
-  }
-  
-  public Notification hide(int duration) {
-    return super.hide(duration);
   }
   
   public static final class Color extends CssClass {
