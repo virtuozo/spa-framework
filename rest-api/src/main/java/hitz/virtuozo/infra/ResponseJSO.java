@@ -1,6 +1,6 @@
 package hitz.virtuozo.infra;
 
-import hitz.virtuozo.infra.Collection;
+import hitz.virtuozo.infra.JSCollection;
 import hitz.virtuozo.infra.JSObject;
 
 import com.google.gwt.core.client.JsArray;
@@ -14,8 +14,8 @@ public class ResponseJSO<J extends JSObject> extends StatusResponseJSO {
                                          return this.data == undefined ? new Array() : this.data;
                                          }-*/;
 
-  public final Collection<J> data() {
-    return new Collection<J>(this.array());
+  public final JSCollection<J> data() {
+    return new JSCollection<J>(this.array());
   }
 
   public final native int start() /*-{

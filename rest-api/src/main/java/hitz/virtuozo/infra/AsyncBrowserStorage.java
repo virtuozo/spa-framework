@@ -1,7 +1,7 @@
 package hitz.virtuozo.infra;
 
 import hitz.virtuozo.infra.BrowserStorage;
-import hitz.virtuozo.infra.Collection;
+import hitz.virtuozo.infra.JSCollection;
 import hitz.virtuozo.infra.JSObject;
 import hitz.virtuozo.infra.BrowserStorage.StoreKey;
 import hitz.virtuozo.infra.api.ResponseCallback;
@@ -49,7 +49,7 @@ public class AsyncBrowserStorage {
       this.store = store;
     }
 
-    protected void onSuccess(Collection<J> response) {
+    protected void onSuccess(JSCollection<J> response) {
       BrowserStorage.get().store(this.store, response);
       BrowserStorage.get().fire(this.store);
     }

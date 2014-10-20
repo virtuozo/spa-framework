@@ -77,10 +77,6 @@ public abstract class JSObject extends JavaScriptObject {
 		return this[property];
   }-*/;
 
-  protected final native <T extends JSObject> MapJSO<T> getMap(String property) /*-{
-		return this[property];
-  }-*/;
-
   public final Date getDate(String property) {
     return this.get(property, new Date(), DateFormat.ISO_8601);
   }
@@ -165,14 +161,6 @@ public abstract class JSObject extends JavaScriptObject {
     return this.getArray(property);
   };
 
-  protected final <T extends JSObject> MapJSO<T> get(String property, MapJSO<T> defaultValue) {
-    if (!this.hasKey(property)) {
-      return defaultValue;
-    }
-
-    return this.getMap(property);
-  };
-
   protected final <T extends JavaScriptObject> T get(String property, T defaultValue) {
     if (!this.hasKey(property)) {
       return defaultValue;
@@ -214,10 +202,6 @@ public abstract class JSObject extends JavaScriptObject {
   }-*/;
 
   protected final native <T extends JavaScriptObject> void set(String property, JsArray<T> value) /*-{
-		this[property] = value;
-  }-*/;
-
-  protected final native <T extends JSObject> void set(String property, MapJSO<T> value) /*-{
 		this[property] = value;
   }-*/;
 

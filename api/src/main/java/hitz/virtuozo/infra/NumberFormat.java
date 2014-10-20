@@ -21,9 +21,14 @@ import hitz.virtuozo.infra.api.Format;
 import com.google.gwt.i18n.client.CurrencyList;
 
 public enum NumberFormat implements Format<Number> {
-  INTEGER(getInteger()), CURRENCY(com.google.gwt.i18n.client.NumberFormat.getCurrencyFormat()), DECIMAL(com.google.gwt.i18n.client.NumberFormat.getDecimalFormat()), GLOBAL_CURRENCY(
-      com.google.gwt.i18n.client.NumberFormat.getGlobalCurrencyFormat()), PERCENT(com.google.gwt.i18n.client.NumberFormat.getPercentFormat()), SIMPLE_PERCENT(new PercentFormat()), SCIENTIFIC(
-      com.google.gwt.i18n.client.NumberFormat.getScientificFormat()), SIMPLE_CURRENCY(com.google.gwt.i18n.client.NumberFormat.getSimpleCurrencyFormat());
+  INTEGER(getInteger()), 
+  CURRENCY(com.google.gwt.i18n.client.NumberFormat.getCurrencyFormat()), 
+  DECIMAL(com.google.gwt.i18n.client.NumberFormat.getDecimalFormat()), 
+  GLOBAL_CURRENCY(com.google.gwt.i18n.client.NumberFormat.getGlobalCurrencyFormat()), 
+  PERCENT(com.google.gwt.i18n.client.NumberFormat.getPercentFormat()), 
+  SIMPLE_PERCENT(new PercentFormat()), 
+  SCIENTIFIC(com.google.gwt.i18n.client.NumberFormat.getScientificFormat()), 
+  SIMPLE_CURRENCY(com.google.gwt.i18n.client.NumberFormat.getSimpleCurrencyFormat());
 
   private WrappedFormat wrapped;
 

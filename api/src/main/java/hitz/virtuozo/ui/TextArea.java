@@ -15,7 +15,6 @@
 
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.InputState;
 import hitz.virtuozo.infra.api.HasChangeHandlers;
 import hitz.virtuozo.infra.api.HasFocusHandlers;
 import hitz.virtuozo.infra.api.HasKeyHandlers;

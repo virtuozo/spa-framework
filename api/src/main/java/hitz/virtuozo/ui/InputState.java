@@ -1,4 +1,4 @@
-package hitz.virtuozo.infra;
+package hitz.virtuozo.ui;
 
 import hitz.virtuozo.infra.BooleanProperty;
 import hitz.virtuozo.infra.api.ChangeHandler;

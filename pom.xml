@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>hitz</groupId>
@@ -22,7 +23,7 @@
     <module>core</module>
     <module>commons</module>
   </modules>
-  
+
   <dependencyManagement>
     <dependencies>
       <!-- Shared dependencies -->
@@ -30,27 +31,30 @@
         <groupId>javax.validation</groupId>
         <artifactId>validation-api</artifactId>
         <version>1.0.0.GA</version>
+        <optional>true</optional>
       </dependency>
       <dependency>
         <groupId>log4j</groupId>
         <artifactId>log4j</artifactId>
         <version>1.2.17</version>
+        <optional>true</optional>
       </dependency>
-      
-            <!-- GWT -->
+
+      <!-- GWT -->
       <dependency>
         <groupId>com.google.gwt</groupId>
         <artifactId>gwt-user</artifactId>
         <version>${gwt.version}</version>
         <scope>provided</scope>
       </dependency>
-      
+
       <dependency>
         <groupId>com.google.gwt.inject</groupId>
         <artifactId>gin</artifactId>
         <version>2.1.2</version>
+        <optional>true</optional>
       </dependency>
-      
+
       <dependency>
         <groupId>org.fusesource.restygwt</groupId>
         <artifactId>restygwt</artifactId>
@@ -63,26 +67,37 @@
         <groupId>hitz</groupId>
         <artifactId>virtuozo-api</artifactId>
         <version>${project.version}</version>
+        <optional>true</optional>
       </dependency>
       <dependency>
         <groupId>hitz</groupId>
         <artifactId>virtuozo-bootstrap</artifactId>
         <version>${project.version}</version>
+        <optional>true</optional>
       </dependency>
       <dependency>
         <groupId>hitz</groupId>
         <artifactId>virtuozo-rest-api</artifactId>
         <version>${project.version}</version>
+        <optional>true</optional>
       </dependency>
       <dependency>
         <groupId>hitz</groupId>
         <artifactId>virtuozo-widgets</artifactId>
         <version>${project.version}</version>
+        <optional>true</optional>
+      </dependency>
+      <dependency>
+        <groupId>hitz</groupId>
+        <artifactId>virtuozo-core</artifactId>
+        <version>${project.version}</version>
+        <optional>true</optional>
       </dependency>
       <dependency>
         <groupId>hitz</groupId>
         <artifactId>virtuozo-commons</artifactId>
         <version>${project.version}</version>
+        <optional>true</optional>
       </dependency>
 
       <!-- Testing -->
@@ -163,13 +178,13 @@
     <system>Github issue tracker</system>
     <url>https://github.com/brazoft/virtuozo/issues</url>
   </issueManagement>
-  
+
   <scm>
     <connection>scm:git:git://github.com/brazoft/virtuozo.git</connection>
     <developerConnection>scm:git:git@github.com:/brazoft/virtuozo.git</developerConnection>
     <url>http://github.com/brazoft/virtuozo</url>
   </scm>
-  
+
   <developers>
     <developer>
       <id>braz</id>
