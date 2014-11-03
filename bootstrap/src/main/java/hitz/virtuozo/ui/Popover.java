@@ -4,7 +4,7 @@ import hitz.virtuozo.ui.Tag;
 
 import com.google.gwt.dom.client.DivElement;
 
-public class Popover extends Tip<Popover> {
+public class Popover extends FloatPanel<Popover> {
 
   private Heading title = new Heading(Heading.Level.THREE).css("popover-title");
 

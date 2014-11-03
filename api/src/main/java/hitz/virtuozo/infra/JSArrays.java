@@ -40,13 +40,13 @@ public class JSArrays {
    *         zero (0).
    */
   public static final native <T extends JavaScriptObject> int indexOf(JavaScriptObject o, JsArray<T> a) /*-{
-                                                                                                        for ( var i = 0, j = a.length; i < j; i++) {
-                                                                                                        if (a[i] === o) {
-                                                                                                        return i;
-                                                                                                        }
-                                                                                                        }
-                                                                                                        return -1;
-                                                                                                        }-*/;
+		for (var i = 0, j = a.length; i < j; i++) {
+			if (a[i] === o) {
+				return i;
+			}
+		}
+		return -1;
+  }-*/;
 
   /**
    * Return the last object from the given array and remove it from the array. The resulting array
@@ -56,8 +56,8 @@ public class JSArrays {
    * @return The element popped from the array.
    */
   public static final native <T extends JavaScriptObject> T pop(JsArray<T> a) /*-{
-                                                                              return a.pop();
-                                                                              }-*/;
+		return a.pop();
+  }-*/;
 
   /**
    * Concatenates the given arrays and returns a new array containing the elements of both arrays.
@@ -68,8 +68,8 @@ public class JSArrays {
    * @return A new array containing the elements from both arrays
    */
   public static final native <T extends JavaScriptObject> JsArray<T> concat(JsArray<T> a1, JsArray<T> a2) /*-{
-                                                                                                          return a1.concat(a2);
-                                                                                                          }-*/;
+		return a1.concat(a2);
+  }-*/;
 
   /**
    * Reverses the sequence of the array's elements and returns the array. This method modifies the
@@ -79,8 +79,8 @@ public class JSArrays {
    * @return The modified array.
    */
   public static final native <T extends JavaScriptObject> JsArray<T> reverse(JsArray<T> a) /*-{
-                                                                                           return a.reverse();
-                                                                                           }-*/;
+		return a.reverse();
+  }-*/;
 
   /**
    * Return a sub-array starting a the given index and ending with the last element in the given
@@ -90,8 +90,8 @@ public class JSArrays {
    * @param pos The position of the first element to extract.
    */
   public static final native <T extends JavaScriptObject> JsArray<T> slice(JsArray<T> a, int pos) /*-{
-                                                                                                  return a.slice(pos);
-                                                                                                  }-*/;
+		return a.slice(pos);
+  }-*/;
 
   /**
    * Return a sub-array starting a the given index and containing the given number of elements. If
@@ -104,8 +104,8 @@ public class JSArrays {
    *          in the array.
    */
   public static final native <T extends JavaScriptObject> JsArray<T> slice(JsArray<T> a, int pos, int last) /*-{
-                                                                                                            return a.slice(pos, last);
-                                                                                                            }-*/;
+		return a.slice(pos, last);
+  }-*/;
 
   /**
    * Remove <code>nrepl</code> elements starting at the given position. The resulting array length
@@ -116,8 +116,8 @@ public class JSArrays {
    * @param nrepl The number of element to remove.
    */
   public static final native <T extends JavaScriptObject> void splice(JsArray<T> a, int pos, int nrepl) /*-{
-                                                                                                        a.splice(pos, nrepl);
-                                                                                                        }-*/;
+		a.splice(pos, nrepl);
+  }-*/;
 
   /**
    * Remove <code>nrepl</code> elements starting at the given position and afterwards insert an
@@ -129,8 +129,8 @@ public class JSArrays {
    * @param o The object to insert.
    */
   public static final native <T extends JavaScriptObject> void splice(JsArray<T> a, int pos, int nrepl, JavaScriptObject o) /*-{
-                                                                                                                            a.splice(pos, nrepl, o);
-                                                                                                                            }-*/;
+		a.splice(pos, nrepl, o);
+  }-*/;
 
   /**
    * Remove <code>nrepl</code> elements starting at the given position and afterwards insert two
@@ -143,8 +143,8 @@ public class JSArrays {
    * @param o2 The second object to insert.
    */
   public static final native <T extends JavaScriptObject> void splice(JsArray<T> a, int pos, int nrepl, JavaScriptObject o1, JavaScriptObject o2) /*-{
-                                                                                                                                                  a.splice(pos, nrepl, o1, o2);
-                                                                                                                                                  }-*/;
+		a.splice(pos, nrepl, o1, o2);
+  }-*/;
 
   /**
    * Remove <code>nrepl</code> elements starting at the given position and afterwards insert three
@@ -158,8 +158,8 @@ public class JSArrays {
    * @param o3 The third object to insert.
    */
   public static final native <T extends JavaScriptObject> void splice(JsArray<T> a, int pos, int nrepl, JavaScriptObject o1, JavaScriptObject o2, JavaScriptObject o3) /*-{
-                                                                                                                                                                       a.splice(pos, nrepl, o1, o2, o3);
-                                                                                                                                                                       }-*/;
+		a.splice(pos, nrepl, o1, o2, o3);
+  }-*/;
 
   public static boolean isEmptyOrNull(JsArray<?> array) {
     return array == null || array.length() == 0;
@@ -198,8 +198,8 @@ public class JSArrays {
    *          <code>a&gt;b</code>
    */
   public static final native <T extends JavaScriptObject> void sort(JsArray<T> a, JavaScriptObject comp) /*-{
-                                                                                                         a.sort(comp);
-                                                                                                         }-*/;
+		a.sort(comp);
+  }-*/;
 
   /**
    * Return the first index in a sorted array for which <code>comp(a[i],needle)>=0</code> holds. The
@@ -214,20 +214,22 @@ public class JSArrays {
    *          <code>a&gt;b</code>.
    */
   public static final native <T extends JavaScriptObject> int lowerBound(JsArray<T> a, T needle, JavaScriptObject comp) /*-{
-                                                                                                                        var i0 = 0;
-                                                                                                                        var i1 = a.length;
-                                                                                                                        while (i0 < i1) {
-                                                                                                                        var i = i0 + Math.floor((i1 - i0) >> 1);
-                                                                                                                        var r = comp(a[i], needle);
-                                                                                                                        if (r < 0)
-                                                                                                                        i0 = i + 1;
-                                                                                                                        else if (r == 0)
-                                                                                                                        return i;
-                                                                                                                        else
-                                                                                                                        i1 = i;
-                                                                                                                        }
-                                                                                                                        return i0;
-                                                                                                                        }-*/;
+		var i0 = 0;
+		var i1 = a.length;
+		while (i0 < i1) {
+			var i = i0 + Math.floor((i1 - i0) >> 1);
+			var r = comp(a[i], needle);
+			if (r < 0) {
+				i0 = i + 1;
+				continue;
+			}
+			if (r == 0){
+				return i;
+			}
+			i1 = i;
+		}
+		return i0;
+  }-*/;
 
   /**
    * Merge two sorted arrays.
@@ -244,35 +246,37 @@ public class JSArrays {
    */
   public static final native <T extends JavaScriptObject> JsArray<T> merge(JsArray<T> a, JsArray<T> b, boolean allowDuplicates, JavaScriptObject comp) /*-{
 
-                                                                                                                                                       var ret = [];
-                                                                                                                                                       var i = 0;
-                                                                                                                                                       var j = 0;
-                                                                                                                                                       while (i < a.length && j < b.length) {
-                                                                                                                                                       var r = comp(a[i], b[j]);
-                                                                                                                                                       if (r < 0) {
-                                                                                                                                                       ret.push(a[i]);
-                                                                                                                                                       ++i;
-                                                                                                                                                       } else if (r == 0) {
-                                                                                                                                                       ret.push(a[i]);
-                                                                                                                                                       ++i;
-                                                                                                                                                       if (allowDuplicates)
-                                                                                                                                                       ret.push(b[j]);
-                                                                                                                                                       ++j;
-                                                                                                                                                       } else {
-                                                                                                                                                       ret.push(b[j]);
-                                                                                                                                                       ++j;
-                                                                                                                                                       }
-                                                                                                                                                       }
-                                                                                                                                                       while (i < a.length) {
-                                                                                                                                                       ret.push(a[i]);
-                                                                                                                                                       ++i;
-                                                                                                                                                       }
-                                                                                                                                                       while (j < b.length) {
-                                                                                                                                                       ret.push(b[j]);
-                                                                                                                                                       ++j;
-                                                                                                                                                       }
-                                                                                                                                                       return ret;
-                                                                                                                                                       }-*/;
+		var ret = [];
+		var i = 0;
+		var j = 0;
+		while (i < a.length && j < b.length) {
+			var r = comp(a[i], b[j]);
+			if (r < 0) {
+				ret.push(a[i]);
+				++i;
+				continue;
+			}
+			if (r == 0) {
+				ret.push(a[i]);
+				++i;
+				if (allowDuplicates)
+					ret.push(b[j]);
+				++j;
+				continue;
+			}
+			ret.push(b[j]);
+			++j;
+		}
+		while (i < a.length) {
+			ret.push(a[i]);
+			++i;
+		}
+		while (j < b.length) {
+			ret.push(b[j]);
+			++j;
+		}
+		return ret;
+  }-*/;
 
   /**
    * Append all elements of <code>b</code> to <code>a</code>. The resulting length of <code>a</code>
@@ -282,9 +286,9 @@ public class JSArrays {
    * @param b The array to append to <code>a</code>.
    */
   public static final native <T extends JavaScriptObject> void pushAll(JsArray<T> a, JsArray<T> b) /*-{
-                                                                                                   for ( var i = 0; i < b.length; ++i)
-                                                                                                   a.push(b[i]);
-                                                                                                   }-*/;
+		for (var i = 0; i < b.length; ++i)
+			a.push(b[i]);
+  }-*/;
 
   /**
    * Return the last object from the given array and remove it from the array. The resulting array
@@ -294,8 +298,8 @@ public class JSArrays {
    * @return The element popped from the array.
    */
   public static final native String pop(JsArrayString a) /*-{
-                                                         return a.pop();
-                                                         }-*/;
+		return a.pop();
+  }-*/;
 
   /**
    * Concatenates the given arrays and returns a new array containing the elements of both arrays.
@@ -306,8 +310,8 @@ public class JSArrays {
    * @return A new array containing the elements from both arrays
    */
   public static final native JsArrayString concat(JsArrayString a1, JsArrayString a2) /*-{
-                                                                                      return a1.concat(a2);
-                                                                                      }-*/;
+		return a1.concat(a2);
+  }-*/;
 
   /**
    * Reverses the sequence of the array's elements and returns the array. This method modifies the
@@ -317,8 +321,8 @@ public class JSArrays {
    * @return The modified array.
    */
   public static final native JsArrayString reverse(JsArrayString a) /*-{
-                                                                    return a.reverse();
-                                                                    }-*/;
+		return a.reverse();
+  }-*/;
 
   /**
    * Return a sub-array starting a the given index and ending with the last element in the given
@@ -328,8 +332,8 @@ public class JSArrays {
    * @param pos The position of the first element to extract.
    */
   public static final native JsArrayString slice(JsArrayString a, int pos) /*-{
-                                                                           return a.slice(pos);
-                                                                           }-*/;
+		return a.slice(pos);
+  }-*/;
 
   /**
    * Return a sub-array starting a the given index and containing the given number of elements. If
@@ -342,8 +346,8 @@ public class JSArrays {
    *          in the array.
    */
   public static final native JsArrayString slice(JsArrayString a, int pos, int last) /*-{
-                                                                                     return a.slice(pos, last);
-                                                                                     }-*/;
+		return a.slice(pos, last);
+  }-*/;
 
   /**
    * Remove <code>nrepl</code> elements starting at the given position. The resulting array length
@@ -354,8 +358,8 @@ public class JSArrays {
    * @param nrepl The number of element to remove.
    */
   public static final native void splice(JsArrayString a, int pos, int nrepl) /*-{
-                                                                              a.splice(pos, nrepl);
-                                                                              }-*/;
+		a.splice(pos, nrepl);
+  }-*/;
 
   /**
    * Remove <code>nrepl</code> elements starting at the given position and afterwards insert an
@@ -367,8 +371,8 @@ public class JSArrays {
    * @param o The string to insert.
    */
   public static final native void splice(JsArrayString a, int pos, int nrepl, String o) /*-{
-                                                                                        a.splice(pos, nrepl, o);
-                                                                                        }-*/;
+		a.splice(pos, nrepl, o);
+  }-*/;
 
   /**
    * Remove <code>nrepl</code> elements starting at the given position and afterwards insert two
@@ -381,8 +385,8 @@ public class JSArrays {
    * @param o2 The second string to insert.
    */
   public static final native void splice(JsArrayString a, int pos, int nrepl, String o1, String o2) /*-{
-                                                                                                    a.splice(pos, nrepl, o1, o2);
-                                                                                                    }-*/;
+		a.splice(pos, nrepl, o1, o2);
+  }-*/;
 
   /**
    * Remove <code>nrepl</code> elements starting at the given position and afterwards insert three
@@ -396,8 +400,8 @@ public class JSArrays {
    * @param o3 The third string to insert.
    */
   public static final native void splice(JsArrayString a, int pos, int nrepl, String o1, String o2, String o3) /*-{
-                                                                                                               a.splice(pos, nrepl, o1, o2, o3);
-                                                                                                               }-*/;
+		a.splice(pos, nrepl, o1, o2, o3);
+  }-*/;
 
   /**
    * Insert an element at the given position. This is a shortcut for <code>splice(a,pos,0,o)</code>.
@@ -432,8 +436,8 @@ public class JSArrays {
    *          <code>a&gt;b</code>
    */
   public static final native void sort(JsArrayString a) /*-{
-                                                        a.sort();
-                                                        }-*/;
+		a.sort();
+  }-*/;
 
   /**
    * Sort an array using the given comparator function.
@@ -445,8 +449,8 @@ public class JSArrays {
    *          <code>a&gt;b</code>
    */
   public static final native void sort(JsArrayString a, JavaScriptObject comp) /*-{
-                                                                               a.sort(comp);
-                                                                               }-*/;
+		a.sort(comp);
+  }-*/;
 
   /**
    * Return the first index in a lexicographically sorted array for which
@@ -457,19 +461,21 @@ public class JSArrays {
    * @param needle The string to search for.
    */
   public static final native int lowerBound(JsArrayString a, String needle) /*-{
-                                                                            var i0 = 0;
-                                                                            var i1 = a.length;
-                                                                            while (i0 < i1) {
-                                                                            var i = i0 + Math.floor((i1 - i0) >> 1);
-                                                                            if (a[i] < needle)
-                                                                            i0 = i + 1;
-                                                                            else if (a[i] == needle)
-                                                                            return i;
-                                                                            else
-                                                                            i1 = i;
-                                                                            }
-                                                                            return i0;
-                                                                            }-*/;
+		var i0 = 0;
+		var i1 = a.length;
+		while (i0 < i1) {
+			var i = i0 + Math.floor((i1 - i0) >> 1);
+			if (a[i] < needle){
+				i0 = i + 1;
+				continue;
+			}
+			if (a[i] == needle){
+				return i;
+			}
+			i1 = i;
+		}
+		return i0;
+  }-*/;
 
   /**
    * Return the first index in a sorted string array for which <code>comp(a[i],needle)>=0</code>
@@ -484,20 +490,22 @@ public class JSArrays {
    *          <code>a&gt;b</code>.
    */
   public static final native int lowerBound(JsArrayString a, String needle, JavaScriptObject comp) /*-{
-                                                                                                   var i0 = 0;
-                                                                                                   var i1 = a.length;
-                                                                                                   while (i0 < i1) {
-                                                                                                   var i = i0 + Math.floor((i1 - i0) >> 1);
-                                                                                                   var r = comp(a[i], needle);
-                                                                                                   if (r < 0)
-                                                                                                   i0 = i + 1;
-                                                                                                   else if (r == 0)
-                                                                                                   return i;
-                                                                                                   else
-                                                                                                   i1 = i;
-                                                                                                   }
-                                                                                                   return i0;
-                                                                                                   }-*/;
+		var i0 = 0;
+		var i1 = a.length;
+		while (i0 < i1) {
+			var i = i0 + Math.floor((i1 - i0) >> 1);
+			var r = comp(a[i], needle);
+			if (r < 0){
+				i0 = i + 1;
+				continue;
+			}
+			if (r == 0){
+				return i;
+			}
+			i1 = i;
+		}
+		return i0;
+  }-*/;
 
   /**
    * Merge two lexicographically sorted arrays.
@@ -510,34 +518,36 @@ public class JSArrays {
    */
   public static final native JsArrayString merge(JsArrayString a, JsArrayString b, boolean allowDuplicates) /*-{
 
-                                                                                                            var ret = [];
-                                                                                                            var i = 0;
-                                                                                                            var j = 0;
-                                                                                                            while (i < a.length && j < b.length) {
-                                                                                                            if (a[i] < b[j]) {
-                                                                                                            ret.push(a[i]);
-                                                                                                            ++i;
-                                                                                                            } else if (a[i] == b[j]) {
-                                                                                                            ret.push(a[i]);
-                                                                                                            ++i;
-                                                                                                            if (allowDuplicates)
-                                                                                                            ret.push(b[j]);
-                                                                                                            ++j;
-                                                                                                            } else {
-                                                                                                            ret.push(b[j]);
-                                                                                                            ++j;
-                                                                                                            }
-                                                                                                            }
-                                                                                                            while (i < a.length) {
-                                                                                                            ret.push(a[i]);
-                                                                                                            ++i;
-                                                                                                            }
-                                                                                                            while (j < b.length) {
-                                                                                                            ret.push(b[j]);
-                                                                                                            ++j;
-                                                                                                            }
-                                                                                                            return ret;
-                                                                                                            }-*/;
+		var ret = [];
+		var i = 0;
+		var j = 0;
+		while (i < a.length && j < b.length) {
+			if (a[i] < b[j]) {
+				ret.push(a[i]);
+				++i;
+				continue;
+			} 
+			if (a[i] == b[j]) {
+				ret.push(a[i]);
+				++i;
+				if (allowDuplicates)
+					ret.push(b[j]);
+				++j;
+				continue;
+			}
+			ret.push(b[j]);
+			++j;
+		}
+		while (i < a.length) {
+			ret.push(a[i]);
+			++i;
+		}
+		while (j < b.length) {
+			ret.push(b[j]);
+			++j;
+		}
+		return ret;
+  }-*/;
 
   /**
    * Merge two sorted arrays.
@@ -554,35 +564,37 @@ public class JSArrays {
    */
   public static final native JsArrayString merge(JsArrayString a, JsArrayString b, boolean allowDuplicates, JavaScriptObject comp) /*-{
 
-                                                                                                                                   var ret = [];
-                                                                                                                                   var i = 0;
-                                                                                                                                   var j = 0;
-                                                                                                                                   while (i < a.length && j < b.length) {
-                                                                                                                                   var r = comp(a[i], b[j]);
-                                                                                                                                   if (r < 0) {
-                                                                                                                                   ret.push(a[i]);
-                                                                                                                                   ++i;
-                                                                                                                                   } else if (r == 0) {
-                                                                                                                                   ret.push(a[i]);
-                                                                                                                                   ++i;
-                                                                                                                                   if (allowDuplicates)
-                                                                                                                                   ret.push(b[j]);
-                                                                                                                                   ++j;
-                                                                                                                                   } else {
-                                                                                                                                   ret.push(b[j]);
-                                                                                                                                   ++j;
-                                                                                                                                   }
-                                                                                                                                   }
-                                                                                                                                   while (i < a.length) {
-                                                                                                                                   ret.push(a[i]);
-                                                                                                                                   ++i;
-                                                                                                                                   }
-                                                                                                                                   while (j < b.length) {
-                                                                                                                                   ret.push(b[j]);
-                                                                                                                                   ++j;
-                                                                                                                                   }
-                                                                                                                                   return ret;
-                                                                                                                                   }-*/;
+		var ret = [];
+		var i = 0;
+		var j = 0;
+		while (i < a.length && j < b.length) {
+			var r = comp(a[i], b[j]);
+			if (r < 0) {
+				ret.push(a[i]);
+				++i;
+				continue;
+			} 
+      if (r == 0) {
+				ret.push(a[i]);
+				++i;
+				if (allowDuplicates)
+					ret.push(b[j]);
+				++j;
+				continue;
+			} 
+			ret.push(b[j]);
+			++j;
+		}
+		while (i < a.length) {
+			ret.push(a[i]);
+			++i;
+		}
+		while (j < b.length) {
+			ret.push(b[j]);
+			++j;
+		}
+		return ret;
+  }-*/;
 
   /**
    * Append all elements of <code>b</code> to <code>a</code>. The resulting length of <code>a</code>
@@ -592,9 +604,9 @@ public class JSArrays {
    * @param b The array to append to <code>a</code>.
    */
   public static final native void pushAll(JsArrayString a, JsArrayString b) /*-{
-                                                                            for ( var i = 0; i < b.length; ++i)
-                                                                            a.push(b[i]);
-                                                                            }-*/;
+		for (var i = 0; i < b.length; ++i)
+			a.push(b[i]);
+  }-*/;
 
   /**
    * Return the last object from the given array and remove it from the array. The resulting array
@@ -604,8 +616,8 @@ public class JSArrays {
    * @return The element popped from the array.
    */
   public static final native int pop(JsArrayInteger a) /*-{
-                                                       return a.pop();
-                                                       }-*/;
+		return a.pop();
+  }-*/;
 
   /**
    * Concatenates the given arrays and returns a new array containing the elements of both arrays.
@@ -616,8 +628,8 @@ public class JSArrays {
    * @return A new array containing the elements from both arrays
    */
   public static final native JsArrayInteger concat(JsArrayInteger a1, JsArrayInteger a2) /*-{
-                                                                                         return a1.concat(a2);
-                                                                                         }-*/;
+		return a1.concat(a2);
+  }-*/;
 
   /**
    * Reverses the sequence of the array's elements and returns the array. This method modifies the
@@ -627,8 +639,8 @@ public class JSArrays {
    * @return The modified array.
    */
   public static final native JsArrayInteger reverse(JsArrayInteger a) /*-{
-                                                                      return a.reverse();
-                                                                      }-*/;
+		return a.reverse();
+  }-*/;
 
   /**
    * Return a sub-array starting a the given index and ending with the last element in the given
@@ -638,8 +650,8 @@ public class JSArrays {
    * @param pos The position of the first element to extract.
    */
   public static final native JsArrayInteger slice(JsArrayInteger a, int pos) /*-{
-                                                                             return a.slice(pos);
-                                                                             }-*/;
+		return a.slice(pos);
+  }-*/;
 
   /**
    * Return a sub-array starting a the given index and containing the given number of elements. If
@@ -652,8 +664,8 @@ public class JSArrays {
    *          in the array.
    */
   public static final native JsArrayInteger slice(JsArrayInteger a, int pos, int last) /*-{
-                                                                                       return a.slice(pos, last);
-                                                                                       }-*/;
+		return a.slice(pos, last);
+  }-*/;
 
   /**
    * Remove <code>nrepl</code> elements starting at the given position. The resulting array length
@@ -664,8 +676,8 @@ public class JSArrays {
    * @param nrepl The number of element to remove.
    */
   public static final native void splice(JsArrayInteger a, int pos, int nrepl) /*-{
-                                                                               a.splice(pos, nrepl);
-                                                                               }-*/;
+		a.splice(pos, nrepl);
+  }-*/;
 
   /**
    * Remove <code>nrepl</code> elements starting at the given position and afterwards insert an
@@ -677,8 +689,8 @@ public class JSArrays {
    * @param o The integer to insert.
    */
   public static final native void splice(JsArrayInteger a, int pos, int nrepl, int o) /*-{
-                                                                                      a.splice(pos, nrepl, o);
-                                                                                      }-*/;
+		a.splice(pos, nrepl, o);
+  }-*/;
 
   /**
    * Remove <code>nrepl</code> elements starting at the given position and afterwards insert two
@@ -691,8 +703,8 @@ public class JSArrays {
    * @param o2 The second integer to insert.
    */
   public static final native void splice(JsArrayInteger a, int pos, int nrepl, int o1, int o2) /*-{
-                                                                                               a.splice(pos, nrepl, o1, o2);
-                                                                                               }-*/;
+		a.splice(pos, nrepl, o1, o2);
+  }-*/;
 
   /**
    * Remove <code>nrepl</code> elements starting at the given position and afterwards insert three
@@ -706,8 +718,8 @@ public class JSArrays {
    * @param o3 The third integer to insert.
    */
   public static final native void splice(JsArrayInteger a, int pos, int nrepl, int o1, int o2, int o3) /*-{
-                                                                                                       a.splice(pos, nrepl, o1, o2, o3);
-                                                                                                       }-*/;
+		a.splice(pos, nrepl, o1, o2, o3);
+  }-*/;
 
   /**
    * Insert an element at the given position. This is a shortcut for <code>splice(a,pos,0,o)</code>.
@@ -738,10 +750,10 @@ public class JSArrays {
    * @param a The array to sort.
    */
   public static final native void sort(JsArrayInteger a) /*-{
-                                                         a.sort(function(x, y) {
-                                                         return x - y;
-                                                         });
-                                                         }-*/;
+		a.sort(function(x, y) {
+			return x - y;
+		});
+  }-*/;
 
   /**
    * Return the first index in a sorted array for which <code>a[i] >= needle</code> holds. The
@@ -752,19 +764,21 @@ public class JSArrays {
    * @param needle The integer to search for.
    */
   public static final native int lowerBound(JsArrayInteger a, int needle) /*-{
-                                                                          var i0 = 0;
-                                                                          var i1 = a.length;
-                                                                          while (i0 < i1) {
-                                                                          var i = i0 + Math.floor((i1 - i0) >> 1);
-                                                                          if (a[i] < needle)
-                                                                          i0 = i + 1;
-                                                                          else if (a[i] == needle)
-                                                                          return i;
-                                                                          else
-                                                                          i1 = i;
-                                                                          }
-                                                                          return i0;
-                                                                          }-*/;
+		var i0 = 0;
+		var i1 = a.length;
+		while (i0 < i1) {
+			var i = i0 + Math.floor((i1 - i0) >> 1);
+			if (a[i] < needle){
+				i0 = i + 1;
+				continue;
+			}
+			if (a[i] == needle){
+				return i;
+			}
+			i1 = i;
+		}
+		return i0;
+  }-*/;
 
   /**
    * Merge two sorted arrays.
@@ -777,34 +791,36 @@ public class JSArrays {
    */
   public static final native JsArrayInteger merge(JsArrayInteger a, JsArrayInteger b, boolean allowDuplicates) /*-{
 
-                                                                                                               var ret = [];
-                                                                                                               var i = 0;
-                                                                                                               var j = 0;
-                                                                                                               while (i < a.length && j < b.length) {
-                                                                                                               if (a[i] < b[j]) {
-                                                                                                               ret.push(a[i]);
-                                                                                                               ++i;
-                                                                                                               } else if (a[i] == b[j]) {
-                                                                                                               ret.push(a[i]);
-                                                                                                               ++i;
-                                                                                                               if (allowDuplicates)
-                                                                                                               ret.push(b[j]);
-                                                                                                               ++j;
-                                                                                                               } else {
-                                                                                                               ret.push(b[j]);
-                                                                                                               ++j;
-                                                                                                               }
-                                                                                                               }
-                                                                                                               while (i < a.length) {
-                                                                                                               ret.push(a[i]);
-                                                                                                               ++i;
-                                                                                                               }
-                                                                                                               while (j < b.length) {
-                                                                                                               ret.push(b[j]);
-                                                                                                               ++j;
-                                                                                                               }
-                                                                                                               return ret;
-                                                                                                               }-*/;
+		var ret = [];
+		var i = 0;
+		var j = 0;
+		while (i < a.length && j < b.length) {
+			if (a[i] < b[j]) {
+				ret.push(a[i]);
+				++i;
+				continue;
+			}
+			if (a[i] == b[j]) {
+				ret.push(a[i]);
+				++i;
+				if (allowDuplicates)
+					ret.push(b[j]);
+				++j;
+				continue;
+			}
+			ret.push(b[j]);
+			++j;
+		}
+		while (i < a.length) {
+			ret.push(a[i]);
+			++i;
+		}
+		while (j < b.length) {
+			ret.push(b[j]);
+			++j;
+		}
+		return ret;
+  }-*/;
 
   /**
    * Append all elements of <code>b</code> to <code>a</code>. The resulting length of <code>a</code>
@@ -814,9 +830,9 @@ public class JSArrays {
    * @param b The array to append to <code>a</code>.
    */
   public static final native void pushAll(JsArrayInteger a, JsArrayInteger b) /*-{
-                                                                              for ( var i = 0; i < b.length; ++i)
-                                                                              a.push(b[i]);
-                                                                              }-*/;
+		for (var i = 0; i < b.length; ++i)
+			a.push(b[i]);
+  }-*/;
 
   /**
    * Return the last object from the given array and remove it from the array. The resulting array
@@ -826,8 +842,8 @@ public class JSArrays {
    * @return The element popped from the array.
    */
   public static final native double pop(JsArrayNumber a) /*-{
-                                                         return a.pop();
-                                                         }-*/;
+		return a.pop();
+  }-*/;
 
   /**
    * Concatenates the given arrays and returns a new array containing the elements of both arrays.
@@ -838,8 +854,8 @@ public class JSArrays {
    * @return A new array containing the elements from both arrays
    */
   public static final native JsArrayNumber concat(JsArrayNumber a1, JsArrayNumber a2) /*-{
-                                                                                      return a1.concat(a2);
-                                                                                      }-*/;
+		return a1.concat(a2);
+  }-*/;
 
   /**
    * Reverses the sequence of the array's elements and returns the array. This method modifies the
@@ -849,8 +865,8 @@ public class JSArrays {
    * @return The modified array.
    */
   public static final native JsArrayNumber reverse(JsArrayNumber a) /*-{
-                                                                    return a.reverse();
-                                                                    }-*/;
+		return a.reverse();
+  }-*/;
 
   /**
    * Return a sub-array starting a the given index and ending with the last element in the given
@@ -860,8 +876,8 @@ public class JSArrays {
    * @param pos The position of the first element to extract.
    */
   public static final native JsArrayNumber slice(JsArrayNumber a, int pos) /*-{
-                                                                           return a.slice(pos);
-                                                                           }-*/;
+		return a.slice(pos);
+  }-*/;
 
   /**
    * Return a sub-array starting a the given index and containing the given number of elements. If
@@ -874,8 +890,8 @@ public class JSArrays {
    *          in the array.
    */
   public static final native JsArrayNumber slice(JsArrayNumber a, int pos, int last) /*-{
-                                                                                     return a.slice(pos, last);
-                                                                                     }-*/;
+		return a.slice(pos, last);
+  }-*/;
 
   /**
    * Remove <code>nrepl</code> elements starting at the given position. The resulting array length
@@ -886,8 +902,8 @@ public class JSArrays {
    * @param nrepl The number of element to remove.
    */
   public static final native void splice(JsArrayNumber a, int pos, int nrepl) /*-{
-                                                                              a.splice(pos, nrepl);
-                                                                              }-*/;
+		a.splice(pos, nrepl);
+  }-*/;
 
   /**
    * Remove <code>nrepl</code> elements starting at the given position and afterwards insert an
@@ -899,8 +915,8 @@ public class JSArrays {
    * @param o The number to insert.
    */
   public static final native void splice(JsArrayNumber a, int pos, int nrepl, double o) /*-{
-                                                                                        a.splice(pos, nrepl, o);
-                                                                                        }-*/;
+		a.splice(pos, nrepl, o);
+  }-*/;
 
   /**
    * Remove <code>nrepl</code> elements starting at the given position and afterwards insert two
@@ -913,8 +929,8 @@ public class JSArrays {
    * @param o2 The second number to insert.
    */
   public static final native void splice(JsArrayNumber a, int pos, int nrepl, double o1, double o2) /*-{
-                                                                                                    a.splice(pos, nrepl, o1, o2);
-                                                                                                    }-*/;
+		a.splice(pos, nrepl, o1, o2);
+  }-*/;
 
   /**
    * Remove <code>nrepl</code> elements starting at the given position and afterwards insert three
@@ -928,8 +944,8 @@ public class JSArrays {
    * @param o3 The third number to insert.
    */
   public static final native void splice(JsArrayNumber a, int pos, int nrepl, double o1, double o2, double o3) /*-{
-                                                                                                               a.splice(pos, nrepl, o1, o2, o3);
-                                                                                                               }-*/;
+		a.splice(pos, nrepl, o1, o2, o3);
+  }-*/;
 
   /**
    * Insert an element at the given position. This is a shortcut for <code>splice(a,pos,0,o)</code>.
@@ -964,10 +980,10 @@ public class JSArrays {
    *          <code>a&gt;b</code>
    */
   public static final native void sort(JsArrayNumber a) /*-{
-                                                        a.sort(function(x, y) {
-                                                        return x - y;
-                                                        });
-                                                        }-*/;
+		a.sort(function(x, y) {
+			return x - y;
+		});
+  }-*/;
 
   /**
    * Return the first index in a sorted array for which <code>a[i] >= needle</code> holds. The
@@ -978,19 +994,21 @@ public class JSArrays {
    * @param needle The number to search for.
    */
   public static final native int lowerBound(JsArrayNumber a, double needle) /*-{
-                                                                            var i0 = 0;
-                                                                            var i1 = a.length;
-                                                                            while (i0 < i1) {
-                                                                            var i = i0 + Math.floor((i1 - i0) >> 1);
-                                                                            if (a[i] < needle)
-                                                                            i0 = i + 1;
-                                                                            else if (a[i] == needle)
-                                                                            return i;
-                                                                            else
-                                                                            i1 = i;
-                                                                            }
-                                                                            return i0;
-                                                                            }-*/;
+		var i0 = 0;
+		var i1 = a.length;
+		while (i0 < i1) {
+			var i = i0 + Math.floor((i1 - i0) >> 1);
+			if (a[i] < needle){
+				i0 = i + 1;
+				continue;
+			}
+			if (a[i] == needle){
+				return i;
+			}
+			i1 = i;
+		}
+		return i0;
+  }-*/;
 
   /**
    * Merge two sorted arrays.
@@ -1003,34 +1021,36 @@ public class JSArrays {
    */
   public static final native JsArrayNumber merge(JsArrayNumber a, JsArrayNumber b, boolean allowDuplicates) /*-{
 
-                                                                                                            var ret = [];
-                                                                                                            var i = 0;
-                                                                                                            var j = 0;
-                                                                                                            while (i < a.length && j < b.length) {
-                                                                                                            if (a[i] < b[j]) {
-                                                                                                            ret.push(a[i]);
-                                                                                                            ++i;
-                                                                                                            } else if (a[i] == b[j]) {
-                                                                                                            ret.push(a[i]);
-                                                                                                            ++i;
-                                                                                                            if (allowDuplicates)
-                                                                                                            ret.push(b[j]);
-                                                                                                            ++j;
-                                                                                                            } else {
-                                                                                                            ret.push(b[j]);
-                                                                                                            ++j;
-                                                                                                            }
-                                                                                                            }
-                                                                                                            while (i < a.length) {
-                                                                                                            ret.push(a[i]);
-                                                                                                            ++i;
-                                                                                                            }
-                                                                                                            while (j < b.length) {
-                                                                                                            ret.push(b[j]);
-                                                                                                            ++j;
-                                                                                                            }
-                                                                                                            return ret;
-                                                                                                            }-*/;
+		var ret = [];
+		var i = 0;
+		var j = 0;
+		while (i < a.length && j < b.length) {
+			if (a[i] < b[j]) {
+				ret.push(a[i]);
+				++i;
+				continue;
+			}
+			if (a[i] == b[j]) {
+				ret.push(a[i]);
+				++i;
+				if (allowDuplicates)
+					ret.push(b[j]);
+				++j;
+				continue;
+			}
+			ret.push(b[j]);
+			++j;
+		}
+		while (i < a.length) {
+			ret.push(a[i]);
+			++i;
+		}
+		while (j < b.length) {
+			ret.push(b[j]);
+			++j;
+		}
+		return ret;
+  }-*/;
 
   /**
    * Append all elements of <code>b</code> to <code>a</code>. The resulting length of <code>a</code>
@@ -1040,9 +1060,9 @@ public class JSArrays {
    * @param b The array to append to <code>a</code>.
    */
   public static final native void pushAll(JsArrayNumber a, JsArrayNumber b) /*-{
-                                                                            for ( var i = 0; i < b.length; ++i)
-                                                                            a.push(b[i]);
-                                                                            }-*/;
+		for (var i = 0; i < b.length; ++i)
+			a.push(b[i]);
+  }-*/;
 
   /**
    * Return the last object from the given array and remove it from the array. The resulting array
@@ -1052,8 +1072,8 @@ public class JSArrays {
    * @return The element popped from the array.
    */
   public static final native boolean pop(JsArrayBoolean a) /*-{
-                                                           return a.pop();
-                                                           }-*/;
+		return a.pop();
+  }-*/;
 
   /**
    * Concatenates the given arrays and returns a new array containing the elements of both arrays.
@@ -1064,8 +1084,8 @@ public class JSArrays {
    * @return A new array containing the elements from both arrays
    */
   public static final native JsArrayBoolean concat(JsArrayBoolean a1, JsArrayBoolean a2) /*-{
-                                                                                         return a1.concat(a2);
-                                                                                         }-*/;
+		return a1.concat(a2);
+  }-*/;
 
   /**
    * Reverses the sequence of the array's elements and returns the array. This method modifies the
@@ -1075,8 +1095,8 @@ public class JSArrays {
    * @return The modified array.
    */
   public static final native JsArrayBoolean reverse(JsArrayBoolean a) /*-{
-                                                                      return a.reverse();
-                                                                      }-*/;
+		return a.reverse();
+  }-*/;
 
   /**
    * Return a sub-array starting a the given index and ending with the last element in the given
@@ -1086,8 +1106,8 @@ public class JSArrays {
    * @param pos The position of the first element to extract.
    */
   public static final native JsArrayBoolean slice(JsArrayBoolean a, int pos) /*-{
-                                                                             return a.slice(pos);
-                                                                             }-*/;
+		return a.slice(pos);
+  }-*/;
 
   /**
    * Return a sub-array starting a the given index and containing the given number of elements. If
@@ -1100,8 +1120,8 @@ public class JSArrays {
    *          in the array.
    */
   public static final native JsArrayBoolean slice(JsArrayBoolean a, int pos, int last) /*-{
-                                                                                       return a.slice(pos, last);
-                                                                                       }-*/;
+		return a.slice(pos, last);
+  }-*/;
 
   /**
    * Remove <code>nrepl</code> elements starting at the given position. The resulting array length
@@ -1112,8 +1132,8 @@ public class JSArrays {
    * @param nrepl The number of element to remove.
    */
   public static final native void splice(JsArrayBoolean a, int pos, int nrepl) /*-{
-                                                                               a.splice(pos, nrepl);
-                                                                               }-*/;
+		a.splice(pos, nrepl);
+  }-*/;
 
   /**
    * Remove <code>nrepl</code> elements starting at the given position and afterwards insert an
@@ -1125,8 +1145,8 @@ public class JSArrays {
    * @param o The boolean to insert.
    */
   public static final native void splice(JsArrayBoolean a, int pos, int nrepl, boolean o) /*-{
-                                                                                          a.splice(pos, nrepl, o);
-                                                                                          }-*/;
+		a.splice(pos, nrepl, o);
+  }-*/;
 
   /**
    * Remove <code>nrepl</code> elements starting at the given position and afterwards insert two
@@ -1139,8 +1159,8 @@ public class JSArrays {
    * @param o2 The second boolean to insert.
    */
   public static final native void splice(JsArrayBoolean a, int pos, int nrepl, boolean o1, boolean o2) /*-{
-                                                                                                       a.splice(pos, nrepl, o1, o2);
-                                                                                                       }-*/;
+		a.splice(pos, nrepl, o1, o2);
+  }-*/;
 
   /**
    * Remove <code>nrepl</code> elements starting at the given position and afterwards insert three
@@ -1154,8 +1174,8 @@ public class JSArrays {
    * @param o3 The third boolean to insert.
    */
   public static final native void splice(JsArrayBoolean a, int pos, int nrepl, boolean o1, boolean o2, boolean o3) /*-{
-                                                                                                                   a.splice(pos, nrepl, o1, o2, o3);
-                                                                                                                   }-*/;
+		a.splice(pos, nrepl, o1, o2, o3);
+  }-*/;
 
   /**
    * Insert an element at the given position. This is a shortcut for <code>splice(a,pos,0,o)</code>.
@@ -1188,63 +1208,63 @@ public class JSArrays {
    * @param b The array to append to <code>a</code>.
    */
   public static final native void pushAll(JsArrayBoolean a, JsArrayBoolean b) /*-{
-                                                                              for ( var i = 0; i < b.length; ++i)
-                                                                              a.push(b[i]);
-                                                                              }-*/;
+		for (var i = 0; i < b.length; ++i)
+			a.push(b[i]);
+  }-*/;
 
   public static final native <J extends JSObject> void sort(JsArray<J> rows, String name, int direction)/*-{
-                                                                                                        rows.sort(function(a, b) {
-                                                                                                        if (direction > 0) {
-                                                                                                        if (a[name] < b[name]) {
-                                                                                                        return -1;
-                                                                                                        }
-                                                                                                        if (a[name] > b[name]) {
-                                                                                                        return 1;
-                                                                                                        }
-                                                                                                        return 0;
-                                                                                                        }
+		rows.sort(function(a, b) {
+			if (direction > 0) {
+				if (a[name] < b[name]) {
+					return -1;
+				}
+				if (a[name] > b[name]) {
+					return 1;
+				}
+				return 0;
+			}
 
-                                                                                                        if (b[name] < a[name]) {
-                                                                                                        return -1;
-                                                                                                        }
+			if (b[name] < a[name]) {
+				return -1;
+			}
 
-                                                                                                        if (b[name] > a[name]) {
-                                                                                                        return 1;
-                                                                                                        }
+			if (b[name] > a[name]) {
+				return 1;
+			}
 
-                                                                                                        return 0;
-                                                                                                        });
-                                                                                                        }-*/;
+			return 0;
+		});
+  }-*/;
 
   public static final native <J extends JSObject> void sortNumber(JsArray<J> rows, String name, int direction)/*-{
-                                                                                                              rows.sort(function(a, b) {
-                                                                                                              if (direction > 0) {
-                                                                                                              return a[name] - b[name];
-                                                                                                              }
+		rows.sort(function(a, b) {
+			if (direction > 0) {
+				return a[name] - b[name];
+			}
 
-                                                                                                              return b[name] - a[name];
-                                                                                                              });
-                                                                                                              }-*/;
+			return b[name] - a[name];
+		});
+  }-*/;
 
   public static final native <J extends JSObject> void sortBoolean(JsArray<J> rows, String name, int direction)/*-{
-                                                                                                               rows.sort(function(a, b) {
-                                                                                                               if (a[name] && b[name] || !a[name] && !b[name]) {
-                                                                                                               return 0;
-                                                                                                               }
+		rows.sort(function(a, b) {
+			if (a[name] && b[name] || !a[name] && !b[name]) {
+				return 0;
+			}
 
-                                                                                                               if (direction > 0) {
-                                                                                                               if (!a[name] && b[name]) {
-                                                                                                               return -1;
-                                                                                                               }
+			if (direction > 0) {
+				if (!a[name] && b[name]) {
+					return -1;
+				}
 
-                                                                                                               return 1;
-                                                                                                               }
+				return 1;
+			}
 
-                                                                                                               if (!b[name] && a[name]) {
-                                                                                                               return -1;
-                                                                                                               }
+			if (!b[name] && a[name]) {
+				return -1;
+			}
 
-                                                                                                               return 1;
-                                                                                                               });
-                                                                                                               }-*/;
+			return 1;
+		});
+  }-*/;
 }

@@ -134,11 +134,11 @@ public class Rest {
     }
 
     public PathBuilder addQueryParam(String key, String value) {
+      String control ="&";
       if (this.query.length() == 0) {
-        this.query.append("?");
-      } else {
-        this.query.append("&");
+        control = "?";
       }
+      this.query.append(control);
 
       key = URL.encodeQueryString(key);
       value = URL.encodeQueryString(value);

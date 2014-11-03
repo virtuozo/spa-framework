@@ -35,7 +35,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
 
-@SuppressWarnings("unchecked")
 public final class Datagrid<J extends JSObject> extends Widget<Datagrid<J>> {
 
   private java.util.List<GridFilter<J>> filters = new ArrayList<GridFilter<J>>();
@@ -175,12 +174,11 @@ public final class Datagrid<J extends JSObject> extends Widget<Datagrid<J>> {
 
   public Datagrid<J> refresh(int rowIndex, J object) {
     if (rowIndex == -1) {
-      this.rows.push(object);
-    } else {
-      this.rows.set(rowIndex, object);
+      rowIndex = this.rows.length();
     }
+    this.rows.set(rowIndex, object);
 
-    return this.draw(rows);
+    return this.draw(this.rows);
   }
 
   public Datagrid<J> draw(JsArray<J> rows) {
@@ -518,7 +516,6 @@ public final class Datagrid<J extends JSObject> extends Widget<Datagrid<J>> {
       return type;
     }
     
-    @Override
     public Type<DrawHandler> getAssociatedType() {
       return (Type) type;
     }

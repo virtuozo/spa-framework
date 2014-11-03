@@ -1,4 +1,4 @@
-package hitz.virtuozo.ui;
+package hitz.virtuozo.infra;
 
 import java.util.logging.Level;
 
@@ -17,6 +17,16 @@ public class Logger {
   
   public Logger info(String message){
     this.impl.log(Level.INFO, message);
+    return this;
+  }
+  
+  public Logger info(Throwable thrown){
+    this.impl.log(Level.INFO, thrown.getMessage(), thrown);
+    return this;
+  }
+  
+  public Logger info(String message, Throwable thrown){
+    this.impl.log(Level.INFO, message, thrown);
     return this;
   }
   
@@ -40,8 +50,23 @@ public class Logger {
     return this;
   }
   
+  public Logger error(String message, Throwable thrown){
+    this.impl.log(Level.SEVERE, message, thrown);
+    return this;
+  }
+  
   public Logger warning(String message){
     this.impl.log(Level.WARNING, message);
+    return this;
+  }
+  
+  public Logger warning(Throwable thrown){
+    this.impl.log(Level.WARNING, thrown.getMessage(), thrown);
+    return this;
+  }
+  
+  public Logger warning(String message, Throwable thrown){
+    this.impl.log(Level.WARNING, message, thrown);
     return this;
   }
 }

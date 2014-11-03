@@ -57,8 +57,9 @@
               <removeIncluded>false</removeIncluded>
               <output>${project.build.directory}/classes/hitz/virtuozo/css/widgets.css</output>
               <includes>
-                <include>${project.css}/select.css</include>
                 <include>${project.css}/notifier.css</include>
+                <include>${project.css}/select.css</include>
+                <include>${project.css}/sidemenu.css</include>
                 <include>${project.css}/typeahead.css</include>
               </includes>
             </aggregation>

@@ -2,13 +2,13 @@ package hitz.virtuozo.infra.api;
 
 import hitz.virtuozo.infra.FailureNotifier;
 import hitz.virtuozo.infra.JSObject;
+import hitz.virtuozo.infra.Logger;
 import hitz.virtuozo.infra.ResponseStatus;
 
 import org.fusesource.restygwt.client.FailedStatusCodeException;
 import org.fusesource.restygwt.client.JSOCallback;
 import org.fusesource.restygwt.client.Method;
 
-import com.google.gwt.core.shared.GWT;
 import com.google.gwt.http.client.Response;
 
 public abstract class DefaultCallback<J extends JSObject> implements JSOCallback<J> {
@@ -31,15 +31,17 @@ public abstract class DefaultCallback<J extends JSObject> implements JSOCallback
     Response response = method.getResponse();
     if (response != null) {
       status = ResponseStatus.valueOf(response.getStatusCode());
-      GWT.log(response.getText(), exception);
-    } else if (exception instanceof FailedStatusCodeException) {
+      Logger.get().error(response.getText(), exception);
+      return;
+    } 
+    if (exception instanceof FailedStatusCodeException) {
       FailedStatusCodeException failedException = (FailedStatusCodeException) exception;
       int statusCode = failedException.getStatusCode();
       status = ResponseStatus.valueOf(statusCode);
-      GWT.log(failedException.getMessage(), exception);
-    } else {
-      GWT.log("callback Failure", exception);
+      Logger.get().error(failedException.getMessage(), exception);
+      return;
     }
+    Logger.get().error(exception);
 
     this.onFailure(status);
   }

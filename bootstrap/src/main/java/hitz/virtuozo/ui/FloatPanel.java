@@ -1,13 +1,16 @@
 package hitz.virtuozo.ui;
 
 import hitz.virtuozo.infra.api.HasMouseHandlers;
-import hitz.virtuozo.ui.CssClass;
-import hitz.virtuozo.ui.Elements;
-import hitz.virtuozo.ui.HTML;
-import hitz.virtuozo.ui.StyleChooser;
-import hitz.virtuozo.ui.Widget;
+import hitz.virtuozo.infra.api.HasVisibility;
+import hitz.virtuozo.infra.api.HideEvent;
+import hitz.virtuozo.infra.api.HideEvent.HideHandler;
+import hitz.virtuozo.infra.api.ShowEvent;
+import hitz.virtuozo.infra.api.ShowEvent.ShowHandler;
+import hitz.virtuozo.infra.api.ToggleEvent.ToggleHandler;
+import hitz.virtuozo.ui.api.Direction;
 import hitz.virtuozo.ui.api.UIWidget;
 
+import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.BlurEvent;
@@ -27,182 +30,184 @@ import com.google.gwt.event.dom.client.MouseWheelHandler;
 import com.google.gwt.user.client.ui.Offset;
 
 @SuppressWarnings("unchecked")
-@Deprecated
-public abstract class FloatPanel<P extends FloatPanel<P>> extends Widget<P> implements HasMouseHandlers<P> {
+abstract class FloatPanel<T extends FloatPanel<T>> implements HasMouseHandlers<T>, HasVisibility<T> {
 
-  private Widget<?> target;
+  private Tag<DivElement> tip = Tag.asDiv();
 
-  private Position position = Position.BOTTOM;
+  private UIWidget target;
 
-  private DisplayState display = DisplayState.STATIC;
+  private Direction direction;
 
   public FloatPanel() {
-    super(Elements.div());
+    HTML.body().add(this.tip.hide());
+
+    this.tip.onShow(new ShowHandler() {
+
+      @Override
+      public void onShow(ShowEvent event) {
+        FloatPanel.this.tip.css("in").style().display(Display.BLOCK);
+        FloatPanel.this.positioning();
+      }
+    }).onHide(new HideHandler() {
+
+      @Override
+      public void onHide(HideEvent event) {
+        FloatPanel.this.tip.css().remove("in");
+        FloatPanel.this.tip.style().clearDisplay();
+      }
+    });
+  }
+
+  protected T add(UIWidget widget) {
+    this.tip.add(widget);
+    return (T) this;
+  }
+
+  protected T css(String... classes) {
+    this.tip.css(classes);
+    return (T) this;
   }
 
   @Override
-  public P onMouseDown(MouseDownHandler handler) {
-    return this.on(handler);
+  public T onMouseDown(MouseDownHandler handler) {
+    this.tip.on(handler);
+    return (T) this;
   }
 
   @Override
-  public P onMouseMove(MouseMoveHandler handler) {
-    return this.on(handler);
+  public T onMouseMove(MouseMoveHandler handler) {
+    this.tip.on(handler);
+    return (T) this;
   }
 
   @Override
-  public P onMouseOut(MouseOutHandler handler) {
-    return this.on(handler);
+  public T onMouseOut(MouseOutHandler handler) {
+    this.tip.on(handler);
+    return (T) this;
   }
 
   @Override
-  public P onMouseOver(MouseOverHandler handler) {
-    return this.on(handler);
+  public T onMouseOver(MouseOverHandler handler) {
+    this.tip.on(handler);
+    return (T) this;
   }
 
   @Override
-  public P onMouseUp(MouseUpHandler handler) {
-    return this.on(handler);
+  public T onMouseUp(MouseUpHandler handler) {
+    this.tip.on(handler);
+    return (T) this;
   }
 
   @Override
-  public P onMouseWheel(MouseWheelHandler handler) {
-    return this.on(handler);
+  public T onMouseWheel(MouseWheelHandler handler) {
+    this.tip.on(handler);
+    return (T) this;
   }
 
-  public P target(Widget<?> target) {
-    this.target = target;
-    return (P) this;
+  public T placement(Direction direction) {
+    this.direction = direction;
+    this.tip.css(direction);
+
+    return (T) this;
   }
 
-  public P show() {
-    if (!this.attached()) {
-      HTML.body().addChild(this);
-    }
-    this.positioning();
-    this.display.show((P) this);
-
-    return (P) this;
-  }
-  
-  public P hide() {
-    this.display.hide((P) this);
-    return (P) this;
-  }
-  
-  @Override
-  public P toggleVisibility() {
-    this.display.toggle((P) this);
-    return (P) this;
-  }
-
-  public P position(Position position) {
-    this.position = position;
-    this.css(position);
-
-    return (P) this;
-  }
-
-  public P trigger(Trigger... triggers) {
+  public T trigger(UIWidget holder, Trigger... triggers) {
+    this.target = holder;
     for (Trigger trigger : triggers) {
-      trigger.register(this.target, (P) this);
+      trigger.register(this.target, (T) this);
     }
 
-    return (P) this;
+    return (T) this;
   }
-  
-  protected void open(){
-    super.show();
+
+  @Override
+  public T onHide(HideHandler handler) {
+    this.tip.onHide(handler);
+    return (T) this;
   }
-  
-  protected void close(){
-    super.hide();
+
+  @Override
+  public T onShow(ShowHandler handler) {
+    this.tip.onShow(handler);
+    return (T) this;
   }
-  
-  protected void toggle(){
-    super.toggleVisibility();
+
+  @Override
+  public T onToggleVisibility(ToggleHandler handler) {
+    this.tip.onToggleVisibility(handler);
+    return (T) this;
+  }
+
+  @Override
+  public T show() {
+    this.tip.show();
+    return (T) this;
+  }
+
+  @Override
+  public T hide() {
+    this.tip.hide();
+    return (T) this;
+  }
+
+  @Override
+  public T toggleVisibility() {
+    this.tip.toggleVisibility();
+    return (T) this;
+  }
+
+  @Override
+  public boolean visible() {
+    return this.tip.visible();
   }
 
   protected void positioning() {
-    int top = 0;
-    int left = 0;
-    int actualWidth = this.outerWidth();
-    int actualHeight = this.outerHeight();
-
-    Offset pos = this.target.offset();
-    int height = this.target.offsetHeight();
-    int width = this.target.offsetWidth();
-
-    if(Position.BOTTOM.equals(this.position)) {
-      top = pos.top() + height;
-      left = pos.left() + width / 2 - actualWidth / 2;
-    } else if (Position.TOP.equals(this.position)) {
-      top = pos.top() - actualHeight;
-      left = pos.left() + width / 2 - actualWidth / 2;
-    } else if (Position.LEFT.equals(this.position)) {
-      top = pos.top() + height / 2 - actualHeight / 2;
-      left = pos.left() - actualWidth;
-    } else if (Position.RIGHT.equals(this.position)) {
-        top = pos.top() + height / 2 - actualHeight / 2;
-        left = pos.left() + width;
-    }
-    
-    this.style().top(top, Unit.PX).left(left, Unit.PX).display(Display.BLOCK);
+    Offset position = this.offset();
+    this.tip.style().top(position.top(), Unit.PX).left(position.left(), Unit.PX);
   }
 
-  enum DisplayState {
-    ANIMATE {
+  private Offset offset() {
+    int top = 0;
+    int left = 0;
 
-      @Override
-      public <P extends FloatPanel<P>> void show(P panel) {
-        panel.css().remove("out").append("in");
-      }
+    int actualWidth = this.tip.outerWidth();
+    int actualHeight = this.tip.outerHeight();
 
-      public <P extends FloatPanel<P>> void hide(P panel) {
-        panel.css().remove("in").append("out");
-      }
+    Offset pos = this.target.asWidget().offset();
+    int height = this.target.asWidget().offsetHeight();
+    int width = this.target.asWidget().offsetWidth();
 
-      public <P extends FloatPanel<P>> void toggle(P panel) {
-        if (panel.css().contains("in")) {
-          this.hide(panel);
-          return;
-        }
-        this.show(panel);
-      }
-    },
-    STATIC {
-
-      @Override
-      public <P extends FloatPanel<P>> void show(P panel) {
-        panel.open();
-      }
-
-      public <P extends FloatPanel<P>> void hide(P panel) {
-        panel.close();
-      }
-
-      public <P extends FloatPanel<P>> void toggle(P panel) {
-        panel.toggle();
-      }
-    };
-
-    public abstract <P extends FloatPanel<P>> void show(P panel);
-
-    public abstract <P extends FloatPanel<P>> void hide(P panel);
-
-    public abstract <P extends FloatPanel<P>> void toggle(P panel);
+    if (Direction.BOTTOM.equals(this.direction)) {
+      top = pos.top() + height;
+      left = pos.left() + width / 2 - actualWidth / 2;
+      return new Offset(top, left);
+    } 
+    if (Direction.TOP.equals(this.direction)) {
+      top = pos.top() - actualHeight;
+      left = pos.left() + width / 2 - actualWidth / 2;
+      return new Offset(top, left);
+    } 
+    if (Direction.LEFT.equals(this.direction)) {
+      top = pos.top() + height / 2 - actualHeight / 2;
+      left = pos.left() - actualWidth;
+      return new Offset(top, left);
+    }
+    
+    top = pos.top() + height / 2 - actualHeight / 2;
+    left = pos.left() + width;
+    return new Offset(top, left);
   }
 
   public enum Trigger {
     CLICK {
 
       @Override
-      <P extends FloatPanel<P>> void register(UIWidget target, final P panel) {
-        target.asWidget().on(new ClickHandler() {
+      <T extends FloatPanel<T>> void register(UIWidget holder, final T tip) {
+        holder.asWidget().on(new ClickHandler() {
 
           @Override
           public void onClick(ClickEvent event) {
-            panel.toggleVisibility();
+            tip.toggleVisibility();
           }
         });
       }
@@ -210,20 +215,20 @@ public abstract class FloatPanel<P extends FloatPanel<P>> extends Widget<P> impl
     HOVER {
 
       @Override
-      <P extends FloatPanel<P>> void register(UIWidget target, final P panel) {
-        target.asWidget().on(new MouseOverHandler() {
+      <T extends FloatPanel<T>> void register(UIWidget holder, final T tip) {
+        holder.asWidget().on(new MouseOverHandler() {
 
           @Override
           public void onMouseOver(MouseOverEvent event) {
-            panel.show();
+            tip.show();
           }
         });
 
-        target.asWidget().on(new MouseOutHandler() {
+        holder.asWidget().on(new MouseOutHandler() {
 
           @Override
           public void onMouseOut(MouseOutEvent event) {
-            panel.hide();
+            tip.hide();
           }
         });
       }
@@ -231,19 +236,20 @@ public abstract class FloatPanel<P extends FloatPanel<P>> extends Widget<P> impl
     FOCUS {
 
       @Override
-      <P extends FloatPanel<P>> void register(UIWidget target, final P panel) {
-        target.asWidget().on(new FocusHandler() {
+      <T extends FloatPanel<T>> void register(UIWidget holder, final T tip) {
+        holder.asWidget().on(new FocusHandler() {
 
           @Override
           public void onFocus(FocusEvent event) {
-            panel.show();
+            tip.show();
           }
         });
 
-        target.asWidget().on(new BlurHandler() {
+        holder.asWidget().on(new BlurHandler() {
+
           @Override
           public void onBlur(BlurEvent event) {
-            panel.hide();
+            tip.hide();
           }
         });
       }
@@ -251,39 +257,11 @@ public abstract class FloatPanel<P extends FloatPanel<P>> extends Widget<P> impl
     MANUAL {
 
       @Override
-      <P extends FloatPanel<P>> void register(UIWidget target, final P panel) {
+      <T extends FloatPanel<T>> void register(UIWidget holder, final T tip) {
         return;
       }
     };
 
-    abstract <P extends FloatPanel<P>> void register(UIWidget target, P panel);
-  }
-  
-  public static class Position extends CssClass {
-    private Position(String name) {
-      super(name);
-    }
-    
-    @Override
-    protected StyleChooser chooser() {
-      return STYLES;
-    }
-
-    public static final Position BOTTOM = new Position("bottom");
-    public static final Position LEFT = new Position("left");
-    public static final Position RIGHT = new Position("right");
-    public static final Position TOP = new Position("top");
-    private static final StyleChooser STYLES = new StyleChooser(BOTTOM, LEFT, RIGHT, TOP);
-
-    public static class Horizontal {
-      public static final Position LEFT = Position.LEFT;
-      public static final Position RIGHT = Position.RIGHT;
-    }
-
-    public static class Vertical {
-      public static final Position BOTTOM = Position.BOTTOM;
-      public static final Position TOP = Position.TOP;
-    }
-
+    abstract <T extends FloatPanel<T>> void register(UIWidget holder, T tip);
   }
 }

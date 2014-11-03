@@ -115,10 +115,10 @@ public class RestMethod extends Method {
   public void send(JsonCallback callback) {
     this.wrapped.send(callback);
   }
-  
+
   public <J extends JSObject> void send(JSOCallback<J> callback) {
     try {
-      send(new RequestNoLogCallback<J>(this, callback) {
+      send(new JsonCallback<J>(this, callback) {
 
         protected J parseResult() throws Exception {
           try {
@@ -137,8 +137,8 @@ public class RestMethod extends Method {
   }
 
   final native JavaScriptObject eval(String json)/*-{
-                                                 return $wnd.eval('(' + json + ')');
-                                                 }-*/;
+		return $wnd.eval('(' + json + ')');
+  }-*/;
 
   @Override
   public void send(XmlCallback callback) {
@@ -169,8 +169,8 @@ public class RestMethod extends Method {
   protected void defaultAcceptType(String type) {
     this.wrapped.defaultAcceptType(type);
   }
-  
-  public RestMethod accept(String type){
+
+  public RestMethod accept(String type) {
     this.defaultAcceptType(type);
     return this;
   }

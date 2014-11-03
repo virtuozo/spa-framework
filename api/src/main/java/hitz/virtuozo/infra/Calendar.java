@@ -15,7 +15,9 @@
 
 package hitz.virtuozo.infra;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @SuppressWarnings("deprecation")
 public class Calendar {
@@ -277,13 +279,13 @@ public class Calendar {
     return ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0);
   }
 
-  public static JSONCollection<String> getMonthDayNames(WeekDay startWith) {
+  public static List<String> getMonthDayNames(WeekDay startWith) {
     return getMonthDayNames(new Calendar(), startWith);
   }
 
-  public static JSONCollection<String> getMonthDayNames(Calendar date, WeekDay startWith) {
+  public static List<String> getMonthDayNames(Calendar date, WeekDay startWith) {
     DateFormat daysOfWeekFormat = DateFormat.DAY_OF_WEEK;
-    JSONCollection<String> daysOfWeek = JSON.asStringCollection();
+    List<String> daysOfWeek = new ArrayList<String>();
     Calendar runner = Calendar.clone(date);
 
     while (!runner.getDay().equals(startWith)) {

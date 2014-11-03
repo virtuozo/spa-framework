@@ -120,6 +120,7 @@ public abstract class Widget<W extends Widget<W>> implements HasVisibility<W>, U
     this.holder = widget.holder;
     this.holder.reference(this);
     this.classes = widget.classes;
+    this.bus = widget.bus;
     this.id = widget.id;
     return (W) this;
   }
@@ -239,22 +240,22 @@ public abstract class Widget<W extends Widget<W>> implements HasVisibility<W>, U
   
   @Override
   public W show() {
-    this.fireEvent(new ShowEvent());
     this.holder.setVisible(true);
+    this.fireEvent(new ShowEvent());
     return (W) this;
   }
   
   @Override
   public W hide() {
-    this.fireEvent(new HideEvent());
     this.holder.setVisible(false);
+    this.fireEvent(new HideEvent());
     return (W) this;
   }
   
   @Override
   public W toggleVisibility() {
     this.fireEvent(new ToggleEvent());
-    if (this.holder.isVisible()) {
+    if (this.visible()) {
       return this.hide();
     }
 

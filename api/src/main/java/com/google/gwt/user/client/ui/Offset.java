@@ -4,7 +4,7 @@ public class Offset {
   private int left;
   private int top;
 
-  Offset(int left, int top) {
+  public Offset(int left, int top) {
     super();
     this.left = left;
     this.top = top;
