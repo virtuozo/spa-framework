@@ -13,10 +13,10 @@
  * the License.
  */
 
-package org.fusesource.restygwt.client;
+package hitz.virtuozo.infra.api;
 
-import hitz.virtuozo.infra.JSObject;
+import hitz.virtuozo.infra.HashObject;
 
-public interface JSOCallback<J extends JSObject> extends MethodCallback<J> {
+public interface HashCallback<H extends HashObject> extends RestCallback<H> {
 
 }

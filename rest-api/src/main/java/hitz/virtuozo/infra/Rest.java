@@ -15,92 +15,40 @@
 
 package hitz.virtuozo.infra;
 
-import java.util.HashMap;
-import java.util.Map;
+import hitz.virtuozo.infra.RestMethod.HttpMethod;
 
-import org.fusesource.restygwt.client.Resource;
-import org.fusesource.restygwt.client.RestMethod;
-
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.http.client.URL;
 
 public class Rest {
 
-  private final Resource resource;
+  private PathBuilder path;
   
-  private final String baseUri = GWT.getHostPageBaseURL();
-
-  public Rest(Map<String, String> headers) {
-    this.resource = new RestResource(this.baseUri, headers);
-  }
-
-  public Rest(String query, Map<String, String> headers) {
-    this.resource = new RestResource(this.baseUri, query, headers);
-  }
-
-  public Rest(String query) {
-    this.resource = new RestResource(this.baseUri, query);
-  }
-
-  public Rest() {
-    this.resource = new RestResource(this.baseUri);
-  }
-
-  public Rest(PathBuilder builder) {
-    this.resource = new RestResource(this.baseUri + builder.toString());
+  public Rest(PathBuilder path) {
+    this.path = path;
   }
 
   public RestMethod delete() {
-    return new RestMethod(this.resource.delete());
+    return new RestMethod(HttpMethod.DELETE, this.path);
   }
 
   public RestMethod get() {
-    return new RestMethod(this.resource.get());
+    return new RestMethod(HttpMethod.GET, this.path);
   }
 
   public RestMethod head() {
-    return new RestMethod(this.resource.head());
+    return new RestMethod(HttpMethod.HEAD, this.path);
   }
 
   public RestMethod options() {
-    return new RestMethod(this.resource.options());
+    return new RestMethod(HttpMethod.OPTIONS, this.path);
   }
 
   public RestMethod post() {
-    return new RestMethod(this.resource.post());
+    return new RestMethod(HttpMethod.POST, this.path);
   }
 
   public RestMethod put() {
-    return new RestMethod(this.resource.put());
-  }
-
-  public Rest addHeaderParam(String key, String value) {
-    this.resource.getHeaders().put(key, value);
-    return this;
-  }
-
-  class RestResource extends Resource {
-
-    RestResource(String uri, Map<String, String> headers) {
-      super(uri, headers);
-    }
-
-    RestResource(String uri, String query, Map<String, String> headers) {
-      super(uri, query, headers);
-    }
-
-    RestResource(String uri, String query) {
-      super(uri, query);
-    }
-
-    RestResource(String uri) {
-      super(uri);
-    }
-
-    @Override
-    protected Map<String, String> defaultHeaders() {
-      return new HashMap<String, String>();
-    }
+    return new RestMethod(HttpMethod.PUT, this.path);
   }
 
   public static class PathBuilder {
@@ -159,6 +107,9 @@ public class Rest {
     }
 
     String parse(String uri) {
+      if(!uri.startsWith("/")){
+        uri = "/" + uri;
+      }
       return uri.endsWith("/") ? uri.substring(0, uri.length() - 1) : uri;
     }
   }

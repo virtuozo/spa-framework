@@ -20,11 +20,6 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>org.fusesource.restygwt</groupId>
-      <artifactId>restygwt</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
       <groupId>hitz</groupId>
       <artifactId>virtuozo-api</artifactId>
     </dependency>
