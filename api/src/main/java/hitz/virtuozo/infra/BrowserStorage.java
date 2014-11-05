@@ -84,7 +84,7 @@ public class BrowserStorage {
     this.bus.fire(new StorageChangeEvent(value));
   }
 
-  void fire(StoreKey value) {
+  private void fire(StoreKey value) {
     this.bus.fire(new StorageCompleteEvent(value));
   }
   

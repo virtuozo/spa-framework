@@ -16,20 +16,20 @@ package hitz.virtuozo.infra;
 
 import java.util.Iterator;
 
-import com.google.gwt.core.client.*;
+import com.google.gwt.core.client.JsArray;
 
-public class JSCollection<J extends JavaScriptObject> implements Iterable<J>, Iterator<J> {
+public class HashCollection<H extends HashObject> implements Iterable<H>, Iterator<H> {
 
-  private JsArray<J> array;
+  private JsArray<H> array;
 
   int index;
 
-  public JSCollection(JsArray<J> array) {
+  public HashCollection(JsArray<H> array) {
     this.array = array;
   }
 
   @Override
-  public Iterator<J> iterator() {
+  public Iterator<H> iterator() {
     this.index = 0;
     return this;
   }
@@ -45,7 +45,7 @@ public class JSCollection<J extends JavaScriptObject> implements Iterable<J>, It
   }
 
   @Override
-  public J next() {
+  public H next() {
     return this.array.get(this.index++);
   }
 
@@ -54,7 +54,7 @@ public class JSCollection<J extends JavaScriptObject> implements Iterable<J>, It
     this.array.set(this.index, null);
   }
 
-  public JsArray<J> array() {
+  public JsArray<H> array() {
     return this.array;
   }
 }

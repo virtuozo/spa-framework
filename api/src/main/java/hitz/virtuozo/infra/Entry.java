@@ -15,7 +15,7 @@
 package hitz.virtuozo.infra;
 
 
-public class Entry extends JSObject {
+public class Entry extends HashObject {
 
   protected Entry() {
   }

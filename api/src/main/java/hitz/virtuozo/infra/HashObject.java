@@ -27,13 +27,13 @@ import com.google.gwt.json.client.JSONObject;
  * http://www.gwtproject.org/doc/latest/DevGuideCodingBasicsJSNI.html. Please note that
  * primitive type long is disallowed.
  */
-public abstract class JSObject extends JavaScriptObject {
+public abstract class HashObject extends JavaScriptObject {
 
-  protected JSObject() {
+  protected HashObject() {
     super();
   }
   
-  public static <J extends JavaScriptObject> J create() {
+  public static <H extends HashObject> H create() {
     return JavaScriptObject.createObject().cast();
   }
 

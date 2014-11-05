@@ -1,12 +1,12 @@
 package hitz.virtuozo.ui;
 
 import hitz.virtuozo.infra.JSArrays;
-import hitz.virtuozo.infra.JSObject;
+import hitz.virtuozo.infra.HashObject;
 import hitz.virtuozo.infra.api.Format;
 
 import com.google.gwt.core.client.JsArray;
 
-public final class BooleanColumn<J extends JSObject> extends TextGridColumn<BooleanColumn<J>, J> {
+public final class BooleanColumn<H extends HashObject> extends TextGridColumn<BooleanColumn<H>, H> {
 
   private Format<Boolean> format;
 
@@ -35,12 +35,12 @@ public final class BooleanColumn<J extends JSObject> extends TextGridColumn<Bool
     this.sortable();
   }
 
-  public String toString(J object) {
+  public String toString(H object) {
     return this.format.format(object.getBoolean(this.getName()));
   }
 
   @Override
-  protected void doSort(JsArray<J> rows, String name, SortDirection direction) {
+  protected void doSort(JsArray<H> rows, String name, SortDirection direction) {
     JSArrays.sortBoolean(rows, name, direction.direction());
   }
 }

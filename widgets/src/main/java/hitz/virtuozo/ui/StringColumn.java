@@ -1,12 +1,12 @@
 package hitz.virtuozo.ui;
 
 import hitz.virtuozo.infra.JSArrays;
-import hitz.virtuozo.infra.JSObject;
+import hitz.virtuozo.infra.HashObject;
 import hitz.virtuozo.infra.api.Format;
 
 import com.google.gwt.core.client.JsArray;
 
-public final class StringColumn<J extends JSObject> extends TextGridColumn<StringColumn<J>, J> {
+public final class StringColumn<H extends HashObject> extends TextGridColumn<StringColumn<H>, H> {
 
   private Format<String> format;
 
@@ -18,7 +18,7 @@ public final class StringColumn<J extends JSObject> extends TextGridColumn<Strin
     this.format = format;
   }
 
-  public final String toString(J object) {
+  public final String toString(H object) {
     String value = object.get(this.getName());
     if (this.format != null) {
       value = this.format.format(value);
@@ -28,7 +28,7 @@ public final class StringColumn<J extends JSObject> extends TextGridColumn<Strin
   }
 
   @Override
-  protected void doSort(JsArray<J> rows, String name, SortDirection direction) {
+  protected void doSort(JsArray<H> rows, String name, SortDirection direction) {
     JSArrays.sort(rows, name, direction.direction());
   }
 }

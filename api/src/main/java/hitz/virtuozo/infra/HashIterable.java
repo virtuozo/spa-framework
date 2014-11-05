@@ -18,10 +18,10 @@ import java.util.Iterator;
 
 import com.google.gwt.core.client.*;
 
-public class JSIterable {
+public class HashIterable {
 
-  public static <J extends JavaScriptObject> Iterable<J> from(JsArray<J> values) {
-    return new JSObjectIterable<J>(values);
+  public static <H extends HashObject> Iterable<H> from(JsArray<H> values) {
+    return new JSObjectIterable<H>(values);
   }
 
   public static Iterable<Boolean> from(JsArrayBoolean values) {
@@ -100,17 +100,17 @@ public class JSIterable {
     }
   }
 
-  static class JSObjectIterable<J extends JavaScriptObject> extends AbstractIterable<J> {
+  static class JSObjectIterable<H extends HashObject> extends AbstractIterable<H> {
 
-    private JsArray<J> values;
+    private JsArray<H> values;
 
-    JSObjectIterable(JsArray<J> values) {
+    JSObjectIterable(JsArray<H> values) {
       super(values.length());
       this.values = values;
     }
 
     @Override
-    public J next() {
+    public H next() {
       return this.values.get(this.doNext());
     }
   }

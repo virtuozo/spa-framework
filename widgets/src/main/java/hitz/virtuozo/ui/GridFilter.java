@@ -1,17 +1,17 @@
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.JSObject;
+import hitz.virtuozo.infra.HashObject;
 
-public abstract class GridFilter<J extends JSObject> {
+public abstract class GridFilter<H extends HashObject> {
 
   private boolean active;
 
-  public GridFilter<J> activate() {
+  public GridFilter<H> activate() {
     this.active = true;
     return this;
   }
 
-  public GridFilter<J> deactivate() {
+  public GridFilter<H> deactivate() {
     this.active = false;
     return this;
   }
@@ -20,5 +20,5 @@ public abstract class GridFilter<J extends JSObject> {
     return active;
   }
 
-  public abstract boolean filter(J row);
+  public abstract boolean filter(H row);
 }

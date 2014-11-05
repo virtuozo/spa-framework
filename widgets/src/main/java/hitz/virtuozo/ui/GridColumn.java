@@ -15,9 +15,7 @@
 
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.JSObject;
-import hitz.virtuozo.ui.Glyphicon;
-import hitz.virtuozo.ui.Tag;
+import hitz.virtuozo.infra.HashObject;
 import hitz.virtuozo.ui.Table.Cell;
 
 import com.google.gwt.core.client.JsArray;
@@ -26,7 +24,7 @@ import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickHandler;
 
 @SuppressWarnings("unchecked")
-public abstract class GridColumn<G extends GridColumn<G, J>, J extends JSObject> {
+public abstract class GridColumn<G extends GridColumn<G, H>, H extends HashObject> {
 
   private Cell headerCell;
 
@@ -54,7 +52,7 @@ public abstract class GridColumn<G extends GridColumn<G, J>, J extends JSObject>
     return (G) this;
   }
 
-  public G sort(JsArray<J> rows) {
+  public G sort(JsArray<H> rows) {
     return (G) this;
   }
 
@@ -116,9 +114,9 @@ public abstract class GridColumn<G extends GridColumn<G, J>, J extends JSObject>
     return this.label.text();
   }
 
-  public String toString(J object) {
+  public String toString(H object) {
     return object.toString();
   }
 
-  public abstract G render(int rowIndex, Cell cell, J object);
+  public abstract G render(int rowIndex, Cell cell, H object);
 }

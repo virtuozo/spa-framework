@@ -15,21 +15,21 @@
 
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.JSObject;
+import hitz.virtuozo.infra.HashObject;
 import hitz.virtuozo.ui.Table.Cell;
 
 @SuppressWarnings("unchecked")
-public abstract class TextGridColumn<T extends TextGridColumn<T, J>, J extends JSObject> extends SortableGridColumn<T, J> {
+public abstract class TextGridColumn<T extends TextGridColumn<T, H>, H extends HashObject> extends SortableGridColumn<T, H> {
 
   @Override
   public boolean filterable() {
     return true;
   }
 
-  public T render(int rowIndex, Cell cell, J object) {
+  public T render(int rowIndex, Cell cell, H object) {
     cell.text(this.toString(object));
     return (T) this;
   }
 
-  public abstract String toString(J object);
+  public abstract String toString(H object);
 }

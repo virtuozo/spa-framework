@@ -15,8 +15,8 @@
 
 package hitz.virtuozo.ui;
 
+import hitz.virtuozo.infra.HashObject;
 import hitz.virtuozo.infra.JSArrays;
-import hitz.virtuozo.infra.JSObject;
 import hitz.virtuozo.ui.Datagrid.DrawEvent.DrawHandler;
 import hitz.virtuozo.ui.SelectionEvent.SelectionHandler;
 import hitz.virtuozo.ui.Table.Cell;
@@ -35,11 +35,11 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
 
-public final class Datagrid<J extends JSObject> extends Widget<Datagrid<J>> {
+public final class Datagrid<H extends HashObject> extends Widget<Datagrid<H>> {
 
-  private java.util.List<GridFilter<J>> filters = new ArrayList<GridFilter<J>>();
+  private java.util.List<GridFilter<H>> filters = new ArrayList<GridFilter<H>>();
 
-  private java.util.List<GridColumn<?, J>> columns = new ArrayList<GridColumn<?, J>>();
+  private java.util.List<GridColumn<?, H>> columns = new ArrayList<GridColumn<?, H>>();
   
   private List<Integer> filteredRows = new ArrayList<Integer>();
 
@@ -53,7 +53,7 @@ public final class Datagrid<J extends JSObject> extends Widget<Datagrid<J>> {
 
   private GridFooter footer;
 
-  private JsArray<J> rows;
+  private JsArray<H> rows;
 
   private int totalRows;
   
@@ -68,15 +68,15 @@ public final class Datagrid<J extends JSObject> extends Widget<Datagrid<J>> {
     this.footer = new GridFooter(this.table.footer().addRow());
   }
 
-  public Datagrid<J> onDraw(DrawHandler handler) {
+  public Datagrid<H> onDraw(DrawHandler handler) {
     return this.addHandler(DrawEvent.type(), handler);
   }
 
-  public Datagrid<J> onSelection(SelectionHandler<J> handler) {
+  public Datagrid<H> onSelection(SelectionHandler<H> handler) {
     return this.addHandler(SelectionEvent.type(), handler);
   }
 
-  public Datagrid<J> add(final GridColumn<?, J> column) {
+  public Datagrid<H> add(final GridColumn<?, H> column) {
     column.headerCell(this.headerColumns.addCell());
     column.onClick(new ClickHandler() {
 
@@ -95,8 +95,8 @@ public final class Datagrid<J extends JSObject> extends Widget<Datagrid<J>> {
     return this;
   }
 
-  public void add(GridFilter<J>... filters) {
-    for (GridFilter<J> filter : filters) {
+  public void add(GridFilter<H>... filters) {
+    for (GridFilter<H> filter : filters) {
       this.filters.add(filter);
     }
   }
@@ -109,8 +109,8 @@ public final class Datagrid<J extends JSObject> extends Widget<Datagrid<J>> {
     return this.options;
   }
 
-  public Datagrid<J> sort(GridColumn<?, J> column) {
-    for (GridColumn<?, J> gc : this.columns) {
+  public Datagrid<H> sort(GridColumn<?, H> column) {
+    for (GridColumn<?, H> gc : this.columns) {
       gc.unsort();
     }
 
@@ -121,7 +121,7 @@ public final class Datagrid<J extends JSObject> extends Widget<Datagrid<J>> {
     return this;
   }
 
-  public Datagrid<J> filter() {
+  public Datagrid<H> filter() {
     boolean apply;
     boolean inactive = true;
     int totalRowsFiltered = 0;
@@ -130,11 +130,11 @@ public final class Datagrid<J extends JSObject> extends Widget<Datagrid<J>> {
     this.filteredRows.clear();
     
     for (int i = 0; i < this.rows.length(); i++) {
-      J row = this.rows.get(i);
+      H row = this.rows.get(i);
       //row.set(DataGrid.SKIP, false);
       apply = true;
 
-      for (GridFilter<J> filter : this.filters) {
+      for (GridFilter<H> filter : this.filters) {
         if (!filter.isActive()) {
           continue;
         }
@@ -162,17 +162,17 @@ public final class Datagrid<J extends JSObject> extends Widget<Datagrid<J>> {
     return this;
   }
 
-  public int indexOf(J object) {
+  public int indexOf(H object) {
     return JSArrays.indexOf(object, this.rows);
   }
 
-  public Datagrid<J> remove(int rowIndex) {
+  public Datagrid<H> remove(int rowIndex) {
     JSArrays.remove(this.rows, rowIndex);
 
     return this.draw(rows);
   }
 
-  public Datagrid<J> refresh(int rowIndex, J object) {
+  public Datagrid<H> refresh(int rowIndex, H object) {
     if (rowIndex == -1) {
       rowIndex = this.rows.length();
     }
@@ -181,7 +181,7 @@ public final class Datagrid<J extends JSObject> extends Widget<Datagrid<J>> {
     return this.draw(this.rows);
   }
 
-  public Datagrid<J> draw(JsArray<J> rows) {
+  public Datagrid<H> draw(JsArray<H> rows) {
     this.rows = rows;
     this.totalRows = rows.length();
     this.drawPage(1);
@@ -220,7 +220,7 @@ public final class Datagrid<J extends JSObject> extends Widget<Datagrid<J>> {
         continue;
       }
       
-      final J object = this.rows.get(index++);
+      final H object = this.rows.get(index++);
 
       objectIndex++;
       if (objectIndex < rowIndex) {
@@ -234,11 +234,11 @@ public final class Datagrid<J extends JSObject> extends Widget<Datagrid<J>> {
 
         @Override
         public void onClick(ClickEvent event) {
-          fireEvent(new SelectionEvent<J>(object));
+          fireEvent(new SelectionEvent<H>(object));
         }
       });
 
-      for (GridColumn<?, J> column : this.columns) {
+      for (GridColumn<?, H> column : this.columns) {
         column.render((index - 1), row.addCell(), object);
       }
     }
@@ -382,7 +382,7 @@ public final class Datagrid<J extends JSObject> extends Widget<Datagrid<J>> {
 
       private Button clearButton = new Button().icon(Glyphicon.REMOVE);
 
-      private GridFilter<J> filter = new DefaultGridFilter();
+      private GridFilter<H> filter = new DefaultGridFilter();
 
       private GridSearchMode mode = GridSearchMode.CONTAINS;
 
@@ -489,17 +489,17 @@ public final class Datagrid<J extends JSObject> extends Widget<Datagrid<J>> {
     }
   }
 
-  class DefaultGridFilter extends GridFilter<J> {
+  class DefaultGridFilter extends GridFilter<H> {
 
     @Override
-    public boolean filter(J row) {
+    public boolean filter(H row) {
       String search = Datagrid.this.caption.search.input.value();
 
       if ("".equals(search.trim())) {
         return true;
       }
 
-      for (GridColumn<?, J> column : Datagrid.this.columns) {
+      for (GridColumn<?, H> column : Datagrid.this.columns) {
         if (column.filterable() && Datagrid.this.caption.search.mode.eval(search, column.toString(row))) {
           return true;
         }

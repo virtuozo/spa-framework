@@ -1,12 +1,12 @@
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.JSObject;
+import hitz.virtuozo.infra.HashObject;
 import hitz.virtuozo.ui.Glyphicon;
 
 import com.google.gwt.core.client.JsArray;
 
 @SuppressWarnings("unchecked")
-public abstract class SortableGridColumn<T extends SortableGridColumn<T, J>, J extends JSObject> extends GridColumn<T, J> {
+public abstract class SortableGridColumn<T extends SortableGridColumn<T, H>, H extends HashObject> extends GridColumn<T, H> {
 
   private SortDirection direction = SortDirection.NONE;
 
@@ -21,7 +21,7 @@ public abstract class SortableGridColumn<T extends SortableGridColumn<T, J>, J e
   }
 
   @Override
-  public T sort(JsArray<J> rows) {
+  public T sort(JsArray<H> rows) {
     this.direction = this.direction.reverse();
 
     this.mark(this.direction);
@@ -36,7 +36,7 @@ public abstract class SortableGridColumn<T extends SortableGridColumn<T, J>, J e
     return (T) this;
   }
 
-  protected abstract void doSort(JsArray<J> rows, String name, SortDirection direction);
+  protected abstract void doSort(JsArray<H> rows, String name, SortDirection direction);
 
   public enum SortDirection {
     NONE {
