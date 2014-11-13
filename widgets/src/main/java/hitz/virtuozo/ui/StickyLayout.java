@@ -14,32 +14,26 @@
  */
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.ui.Composite;
-import hitz.virtuozo.ui.Elements;
-import hitz.virtuozo.ui.HTML;
+import hitz.virtuozo.ui.api.Layout;
 
 import com.google.gwt.dom.client.StyleInjector;
 
-public class StickyLayout {
+public class StickyLayout implements Layout {
   private Body body = new Body();
   private Footer footer = new Footer();
 
-  public StickyLayout() {
-    this.init();
-  }
-  
-  private void init(){
+  public void attach() {
     StyleInjector.inject("html { position: relative; min-height: 100%;}");
     StyleInjector.inject("body { margin-bottom: 60px;}");
     StyleInjector.inject("#page-layout-footer { position: absolute; bottom: 0; width: 100%; height: 10%; background-color: #f5f5f5;}");
     HTML.body().addChild(this.body).addChild(this.footer);
   }
-  
-  public Body body(){
+
+  public Body body() {
     return this.body;
   }
-  
-  public Footer footer(){
+
+  public Footer footer() {
     return this.footer;
   }
 
@@ -49,8 +43,8 @@ public class StickyLayout {
       this.id("page-layout-body");
     }
   }
-  
-  public class Footer extends Composite<Footer>{
+
+  public class Footer extends Composite<Footer> {
     Footer() {
       super(Elements.div());
       this.id("page-layout-footer");

@@ -14,15 +14,13 @@
  */
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.ui.Container;
-import hitz.virtuozo.ui.HTML;
-import hitz.virtuozo.ui.ViewPort;
 import hitz.virtuozo.ui.Container.Row;
 import hitz.virtuozo.ui.Container.Row.Column;
+import hitz.virtuozo.ui.api.Layout;
 
 import com.google.gwt.dom.client.StyleInjector;
 
-public class SidebarLayout {
+public class SidebarLayout implements Layout {
   private Container container = new Container(Container.Type.FLUID);
 
   private Column top;
@@ -31,11 +29,6 @@ public class SidebarLayout {
   
   private Column main;
 
-  public SidebarLayout() {
-    HTML.body().addChild(this.container);
-    this.init();
-  }
-  
   public Column top(){
     return this.top;
   }
@@ -48,7 +41,9 @@ public class SidebarLayout {
     return this.main;
   }
 
-  private void init() {
+  public void attach() {
+    HTML.body().addChild(this.container);
+    
     this.top = this.container.addRow().addColumn().span(12, ViewPort.LARGE).id("page-layout-top");
     
     Row row = this.container.addRow();
