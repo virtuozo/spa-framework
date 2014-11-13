@@ -17,7 +17,7 @@ package hitz.virtuozo.ui;
 
 import hitz.virtuozo.infra.HashObject;
 import hitz.virtuozo.infra.JSArrays;
-import hitz.virtuozo.ui.Datagrid.DrawEvent.DrawHandler;
+import hitz.virtuozo.ui.DrawEvent.DrawHandler;
 import hitz.virtuozo.ui.SelectionEvent.SelectionHandler;
 import hitz.virtuozo.ui.Table.Cell;
 import hitz.virtuozo.ui.Table.Row;
@@ -32,8 +32,6 @@ import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.shared.EventHandler;
-import com.google.gwt.event.shared.GwtEvent;
 
 public final class Datagrid<H extends HashObject> extends Widget<Datagrid<H>> {
 
@@ -57,8 +55,6 @@ public final class Datagrid<H extends HashObject> extends Widget<Datagrid<H>> {
 
   private int totalRows;
   
-  //private static final String SKIP = "_#*skip*#_";
-
   public Datagrid() {
     this.compound(this.table);
     this.css("datagrid");
@@ -391,6 +387,7 @@ public final class Datagrid<H extends HashObject> extends Widget<Datagrid<H>> {
         this.init();
       }
 
+      @SuppressWarnings("unchecked")
       private void init() {
         this.css("datagrid-header-right").addChild(this.input);
         this.input.append(this.searchButton).append(this.clearButton.hide());
@@ -506,26 +503,6 @@ public final class Datagrid<H extends HashObject> extends Widget<Datagrid<H>> {
       }
 
       return false;
-    }
-  }
-  
-  public static class DrawEvent extends GwtEvent<DrawHandler>{
-    private static final Type<DrawHandler> type = new Type<DrawHandler>();
-    
-    public static Type<DrawHandler> type() {
-      return type;
-    }
-    
-    public Type<DrawHandler> getAssociatedType() {
-      return (Type) type;
-    }
-    
-    protected void dispatch(DrawHandler handler) {
-      handler.onDraw(this);
-    }
-    
-    public static interface DrawHandler extends EventHandler{
-      void onDraw(DrawEvent event);
     }
   }
 }
