@@ -48,9 +48,9 @@
             <aggregation>
               <output>${project.build.directory}/classes/hitz/virtuozo/css/bootstrap.css</output>
               <includes>
+                <include>${project.css}/bootstrap.css</include>
                 <include>${project.css}/bootstrap-theme.css</include>
                 <include>${project.css}/bootstrap-virtuozo.css</include>
-                <include>${project.css}/bootstrap.css</include>
               </includes>
             </aggregation>
           </aggregations>
