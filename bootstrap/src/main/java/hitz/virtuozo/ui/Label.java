@@ -14,21 +14,21 @@
  */
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.HasText;
 import hitz.virtuozo.ui.CssClass;
 import hitz.virtuozo.ui.Elements;
 import hitz.virtuozo.ui.StyleChooser;
-import hitz.virtuozo.ui.Widget;
-import hitz.virtuozo.ui.api.UIWidget;
+import hitz.virtuozo.ui.Component;
+import hitz.virtuozo.ui.api.HasText;
+import hitz.virtuozo.ui.api.UIComponent;
 
-public class Label extends Widget<Label> implements HasText<Label>{
+public class Label extends Component<Label> implements HasText<Label>{
   public Label() {
     super(Elements.span());
     this.css().set("label", "label-default");
   }
   
-  public Label appendTo(UIWidget widget){
-    widget.asWidget().addChild(this);
+  public Label appendTo(UIComponent widget){
+    widget.asComponent().addChild(this);
     return this;
   }
   

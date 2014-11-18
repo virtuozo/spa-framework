@@ -14,17 +14,12 @@
  */
 package hitz.virtuozo.ui.api;
 
-import hitz.virtuozo.infra.api.HasClickHandlers;
-import hitz.virtuozo.infra.api.HasHtml;
-import hitz.virtuozo.infra.api.HasMouseHandlers;
-import hitz.virtuozo.infra.api.HasText;
-import hitz.virtuozo.infra.api.HasVisibility;
 
-public interface UICell<W extends UIWidget> extends HasClickHandlers<W>, HasMouseHandlers<W>, HasVisibility<W>, HasText<W>, HasHtml<W>, UIWidget{
+public interface UICell<C extends UIComponent> extends HasClickHandlers<C>, HasMouseHandlers<C>, HasVisibility<C>, HasText<C>, HasHtml<C>, UIComponent{
 
-  W add(UIWidget add);
+  C add(UIComponent add);
 
-  W colspan(int colspan);
+  C colspan(int colspan);
 
-  W rowspan(int rowspan);
+  C rowspan(int rowspan);
 }

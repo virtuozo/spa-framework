@@ -24,7 +24,7 @@ import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 
-public class Pager extends Widget<Pager> {
+public class Pager extends Component<Pager> {
   private Assets assets = GWT.create(Assets.class);
   
   private OrderList list = new OrderList(OrderList.Type.UNORDERED);

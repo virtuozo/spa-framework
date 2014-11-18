@@ -1,7 +1,7 @@
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.HasClickHandlers;
-import hitz.virtuozo.infra.api.HasMouseHandlers;
+import hitz.virtuozo.ui.api.HasClickHandlers;
+import hitz.virtuozo.ui.api.HasMouseHandlers;
 import hitz.virtuozo.ui.api.Icon;
 
 import com.google.gwt.dom.client.AnchorElement;
@@ -14,7 +14,7 @@ import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.dom.client.MouseWheelHandler;
 
-public class Iconic extends Widget<Iconic> implements HasClickHandlers<Iconic>, HasMouseHandlers<Iconic> {
+public class Iconic extends Component<Iconic> implements HasClickHandlers<Iconic>, HasMouseHandlers<Iconic> {
 
   private Tag<AnchorElement> anchor = Tag.asAnchor();
 

@@ -15,16 +15,16 @@
 
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.HasClickHandlers;
-import hitz.virtuozo.infra.api.HasMouseHandlers;
-import hitz.virtuozo.infra.api.HasText;
 import hitz.virtuozo.ui.Composite;
 import hitz.virtuozo.ui.CssClass;
 import hitz.virtuozo.ui.Elements;
 import hitz.virtuozo.ui.Parent;
 import hitz.virtuozo.ui.StyleChooser;
 import hitz.virtuozo.ui.Tag;
-import hitz.virtuozo.ui.Widget;
+import hitz.virtuozo.ui.Component;
+import hitz.virtuozo.ui.api.HasClickHandlers;
+import hitz.virtuozo.ui.api.HasMouseHandlers;
+import hitz.virtuozo.ui.api.HasText;
 import hitz.virtuozo.ui.api.UICell;
 
 import com.google.gwt.dom.client.DivElement;
@@ -41,7 +41,7 @@ import com.google.gwt.event.dom.client.MouseWheelHandler;
 import com.google.gwt.layout.client.Layout.Alignment;
 
 @SuppressWarnings("unchecked")
-public final class Table extends Widget<Table> {
+public final class Table extends Component<Table> {
 
   private Caption caption;
 
@@ -118,7 +118,7 @@ public final class Table extends Widget<Table> {
     return super.element();
   }
 
-  public class Caption extends Widget<Caption> implements HasText<Caption> {
+  public class Caption extends Component<Caption> implements HasText<Caption> {
     public Caption() {
       super(Elements.caption());
     }

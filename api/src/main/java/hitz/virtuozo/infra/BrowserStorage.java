@@ -14,8 +14,8 @@
  */
 package hitz.virtuozo.infra;
 
-import hitz.virtuozo.infra.api.ValueEvent;
 import hitz.virtuozo.ui.EventHandlers;
+import hitz.virtuozo.ui.api.ValueEvent;
 
 import java.util.HashMap;
 import java.util.Map;

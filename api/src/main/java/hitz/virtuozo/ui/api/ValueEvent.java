@@ -1,4 +1,4 @@
-package hitz.virtuozo.infra.api;
+package hitz.virtuozo.ui.api;
 
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;

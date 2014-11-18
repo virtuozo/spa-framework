@@ -14,11 +14,11 @@
  */
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.HasClickHandlers;
-import hitz.virtuozo.infra.api.HasText;
 import hitz.virtuozo.ui.CompositeClasses;
 import hitz.virtuozo.ui.Tag;
-import hitz.virtuozo.ui.Widget;
+import hitz.virtuozo.ui.Component;
+import hitz.virtuozo.ui.api.HasClickHandlers;
+import hitz.virtuozo.ui.api.HasText;
 import hitz.virtuozo.ui.api.UIClass;
 import hitz.virtuozo.ui.api.UIClasses;
 
@@ -27,7 +27,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DoubleClickHandler;
 
-public final class SplitButton extends Widget<SplitButton> implements HasText<SplitButton>, HasClickHandlers<SplitButton>{
+public final class SplitButton extends Component<SplitButton> implements HasText<SplitButton>, HasClickHandlers<SplitButton>{
   private final ButtonGroup group = new ButtonGroup();
   
   private final Button button = new Button();

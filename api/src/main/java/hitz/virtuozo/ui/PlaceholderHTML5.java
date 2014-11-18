@@ -7,7 +7,7 @@ public class PlaceholderHTML5 implements Placeholder {
 
   @Override
   public void apply(UIInput<?, String> input, String placeholder) {
-    input.asWidget().attribute("placeholder", placeholder);
+    input.asComponent().attribute("placeholder", placeholder);
   }
 
   @Override

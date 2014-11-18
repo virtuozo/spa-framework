@@ -15,12 +15,12 @@
 
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.HasHtml;
-import hitz.virtuozo.infra.api.HasText;
 import hitz.virtuozo.ui.Elements;
-import hitz.virtuozo.ui.Widget;
+import hitz.virtuozo.ui.Component;
+import hitz.virtuozo.ui.api.HasHtml;
+import hitz.virtuozo.ui.api.HasText;
 
-public final class Paragraph extends Widget<Paragraph> implements HasText<Paragraph>, HasHtml<Paragraph> {
+public final class Paragraph extends Component<Paragraph> implements HasText<Paragraph>, HasHtml<Paragraph> {
 
   public Paragraph() {
     super(Elements.p());

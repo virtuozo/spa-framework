@@ -1,15 +1,15 @@
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.HasText;
+import hitz.virtuozo.ui.api.HasText;
 import hitz.virtuozo.ui.api.UIInput;
 
-public class InputLabel extends Widget<InputLabel> implements HasText<InputLabel>{
+public class InputLabel extends Component<InputLabel> implements HasText<InputLabel>{
   public InputLabel() {
     super(Elements.label());
   }
 
   public InputLabel to(UIInput<?, ?> input) {
-    return this.attribute("for", input.asWidget().id());
+    return this.attribute("for", input.asComponent().id());
   }
   
   @Override

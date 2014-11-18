@@ -14,21 +14,21 @@
  */
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.HasClickHandlers;
-import hitz.virtuozo.infra.api.HasMouseHandlers;
-import hitz.virtuozo.infra.api.HasText;
 import hitz.virtuozo.ui.Composite;
 import hitz.virtuozo.ui.CssClass;
 import hitz.virtuozo.ui.Elements;
 import hitz.virtuozo.ui.StyleChooser;
 import hitz.virtuozo.ui.Tag;
-import hitz.virtuozo.ui.Widget;
+import hitz.virtuozo.ui.Component;
 import hitz.virtuozo.ui.Menu.MenuItem;
 import hitz.virtuozo.ui.api.ActivationEvent;
 import hitz.virtuozo.ui.api.ActivationEvent.ActivationHandler;
 import hitz.virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
 import hitz.virtuozo.ui.api.DeactivationEvent;
 import hitz.virtuozo.ui.api.HasActivation;
+import hitz.virtuozo.ui.api.HasClickHandlers;
+import hitz.virtuozo.ui.api.HasMouseHandlers;
+import hitz.virtuozo.ui.api.HasText;
 import hitz.virtuozo.ui.api.UIClasses;
 
 import com.google.gwt.dom.client.AnchorElement;
@@ -43,7 +43,7 @@ import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.dom.client.MouseWheelHandler;
 
-public class TabPanel extends Widget<TabPanel> {
+public class TabPanel extends Component<TabPanel> {
   private OrderList nav = new OrderList(OrderList.Type.UNORDERED);
 
   private Tag<DivElement> content = Tag.asDiv();
@@ -78,7 +78,7 @@ public class TabPanel extends Widget<TabPanel> {
     return this.nav.css();
   }
 
-  public class TabDroppable extends Widget<TabDroppable> implements HasText<TabDroppable> {
+  public class TabDroppable extends Component<TabDroppable> implements HasText<TabDroppable> {
     private DropItem item;
 
     public TabDroppable(ListItem item) {
@@ -144,7 +144,7 @@ public class TabPanel extends Widget<TabPanel> {
     private static final StyleChooser TYPES = new StyleChooser(DEFAULT, BLOCK);
   }
 
-  public class Tab extends Widget<Tab> implements HasText<Tab>, HasClickHandlers<Tab>, HasMouseHandlers<Tab>, HasActivation<Tab> {
+  public class Tab extends Component<Tab> implements HasText<Tab>, HasClickHandlers<Tab>, HasMouseHandlers<Tab>, HasActivation<Tab> {
     private Tag<AnchorElement> anchor = Tag.asAnchor();
 
     private Panel panel = new Panel();

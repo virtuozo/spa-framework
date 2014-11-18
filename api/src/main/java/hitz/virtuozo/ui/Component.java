@@ -17,22 +17,22 @@ package hitz.virtuozo.ui;
 import hitz.virtuozo.infra.CastIterable;
 import hitz.virtuozo.infra.CastIterable.TypeCast;
 import hitz.virtuozo.infra.StringProperty;
-import hitz.virtuozo.infra.api.AttachHandler;
-import hitz.virtuozo.infra.api.DetachHandler;
-import hitz.virtuozo.infra.api.HasVisibility;
-import hitz.virtuozo.infra.api.HideEvent;
-import hitz.virtuozo.infra.api.HideEvent.HideHandler;
-import hitz.virtuozo.infra.api.ShowEvent;
-import hitz.virtuozo.infra.api.ShowEvent.ShowHandler;
-import hitz.virtuozo.infra.api.ToggleEvent;
-import hitz.virtuozo.infra.api.ToggleEvent.ToggleHandler;
+import hitz.virtuozo.ui.api.AttachHandler;
 import hitz.virtuozo.ui.api.Clause;
 import hitz.virtuozo.ui.api.CssChangeEvent;
 import hitz.virtuozo.ui.api.CssChangeHandler;
+import hitz.virtuozo.ui.api.DetachHandler;
 import hitz.virtuozo.ui.api.EventInterceptor;
+import hitz.virtuozo.ui.api.HasVisibility;
+import hitz.virtuozo.ui.api.HideEvent;
+import hitz.virtuozo.ui.api.ShowEvent;
+import hitz.virtuozo.ui.api.ToggleEvent;
 import hitz.virtuozo.ui.api.UIClass;
 import hitz.virtuozo.ui.api.UIClasses;
-import hitz.virtuozo.ui.api.UIWidget;
+import hitz.virtuozo.ui.api.UIComponent;
+import hitz.virtuozo.ui.api.HideEvent.HideHandler;
+import hitz.virtuozo.ui.api.ShowEvent.ShowHandler;
+import hitz.virtuozo.ui.api.ToggleEvent.ToggleHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,7 +83,7 @@ import com.google.gwt.user.client.ui.Offset;
 import com.google.gwt.user.client.ui.WidgetHolder;
 
 @SuppressWarnings("unchecked")
-public abstract class Widget<W extends Widget<W>> implements HasVisibility<W>, UIWidget {
+public abstract class Component<C extends Component<C>> implements HasVisibility<C>, UIComponent {
   private WidgetHolder holder;
 
   private final Style style = new Style(this);
@@ -94,35 +94,35 @@ public abstract class Widget<W extends Widget<W>> implements HasVisibility<W>, U
   
   private EventHandlers bus;
   
-  public Widget() {
+  public Component() {
     super();
   }
   
-  public Widget(Element element) {
+  public Component(Element element) {
     this.holder = new WidgetHolder(element, this);
     this.bus = new EventHandlers(this.holder.getHandlerManager());
     this.id.onChange(new hitz.virtuozo.infra.api.ChangeHandler<String>() {
       
       @Override
       public void onChange(String oldValue, String newValue) {
-        Widget.this.holder.element().id(newValue);
+        Component.this.holder.element().id(newValue);
       }
     });
     this.id(DOM.createUniqueId());
     this.classes = new Classes(this.holder);
   }
   
-  public Widget(Widget<?> widget){
+  public Component(Component<?> widget){
     this.incorporate(widget);
   }
   
-  protected W incorporate(Widget<?> widget){
+  protected C incorporate(Component<?> widget){
     this.holder = widget.holder;
     this.holder.reference(this);
     this.classes = widget.classes;
     this.bus = widget.bus;
     this.id = widget.id;
-    return (W) this;
+    return (C) this;
   }
   
   protected WidgetHolder holder(){
@@ -130,11 +130,11 @@ public abstract class Widget<W extends Widget<W>> implements HasVisibility<W>, U
   }
 
   @Override
-  public Widget<W> asWidget() {
+  public Component<C> asComponent() {
     return this;
   }
   
-  public UIWidget parent(){
+  public UIComponent parent(){
     return this.holder.parent();
   }
 
@@ -143,26 +143,26 @@ public abstract class Widget<W extends Widget<W>> implements HasVisibility<W>, U
     return this.holder.getElement().cast();
   }
   
-  public W onIdChange(hitz.virtuozo.infra.api.ChangeHandler<String> handler){
+  public C onIdChange(hitz.virtuozo.infra.api.ChangeHandler<String> handler){
     this.id.onChange(handler);
-    return (W) this;
+    return (C) this;
   }
   
-  public W onCssChange(CssChangeHandler handler){
+  public C onCssChange(CssChangeHandler handler){
     this.bus.add(CssChangeEvent.TYPE, handler);
-    return (W) this;
+    return (C) this;
   }
   
   public String id() {
     return this.id.get();
   }
 
-  public W id(String id) {
+  public C id(String id) {
     this.id.set(id);
-    return (W) this;
+    return (C) this;
   }
   
-  protected W role(String role){
+  protected C role(String role){
     return this.attribute("role", role);
   }
   
@@ -170,38 +170,38 @@ public abstract class Widget<W extends Widget<W>> implements HasVisibility<W>, U
     return this.holder.element().attribute(name);
   }
 
-  public W attribute(String name, String value) {
+  public C attribute(String name, String value) {
     this.holder.element().attribute(name, value);
-    return (W) this;
+    return (C) this;
   }
   
-  public W removeAttribute(String name) {
+  public C removeAttribute(String name) {
     this.holder.element().removeAttribute(name);
-    return (W) this;
+    return (C) this;
   }
 
   public String getAttribute(String name) {
     return this.holder.element().attribute(name);
   }
 
-  public W name(String name) {
+  public C name(String name) {
     this.holder.element().name(name);
-    return (W) this;
+    return (C) this;
   }
 
-  public W title(String title) {
+  public C title(String title) {
     this.holder.element().title(title);
-    return (W) this;
+    return (C) this;
   }
 
-  protected W blur() {
+  protected C blur() {
     this.holder.element().blur();
-    return (W) this;
+    return (C) this;
   }
 
-  protected W focus() {
+  protected C focus() {
     this.holder.element().focus();
-    return (W) this;
+    return (C) this;
   }
 
   public Style style() {
@@ -212,48 +212,48 @@ public abstract class Widget<W extends Widget<W>> implements HasVisibility<W>, U
     return this.classes;
   }
   
-  public W css(UIClass... classes){
+  public C css(UIClass... classes){
     this.classes.append(classes);
-    return (W) this;
+    return (C) this;
   }
   
-  public W css(String... classes){
+  public C css(String... classes){
     this.classes.append(classes);
-    return (W) this;
+    return (C) this;
   }
 
   /** Visbility behaviors **/
   @Override
-  public W onHide(HideHandler handler) {
+  public C onHide(HideHandler handler) {
     return this.addHandler(HideEvent.type(), handler);
   }
 
   @Override
-  public W onShow(ShowHandler handler) {
+  public C onShow(ShowHandler handler) {
     return this.addHandler(ShowEvent.type(), handler);
   }
 
   @Override
-  public W onToggleVisibility(ToggleHandler handler) {
+  public C onToggleVisibility(ToggleHandler handler) {
     return this.addHandler(ToggleEvent.type(), handler);
   }
   
   @Override
-  public W show() {
+  public C show() {
     this.holder.setVisible(true);
     this.fireEvent(new ShowEvent());
-    return (W) this;
+    return (C) this;
   }
   
   @Override
-  public W hide() {
+  public C hide() {
     this.holder.setVisible(false);
     this.fireEvent(new HideEvent());
-    return (W) this;
+    return (C) this;
   }
   
   @Override
-  public W toggleVisibility() {
+  public C toggleVisibility() {
     this.fireEvent(new ToggleEvent());
     if (this.visible()) {
       return this.hide();
@@ -267,9 +267,9 @@ public abstract class Widget<W extends Widget<W>> implements HasVisibility<W>, U
     return this.holder.isVisible();
   }
   
-  protected W attach(){
+  protected C attach(){
     this.holder.attach();
-    return (W) this;
+    return (C) this;
   }
 
   /** Traverse behaviors **/
@@ -277,73 +277,73 @@ public abstract class Widget<W extends Widget<W>> implements HasVisibility<W>, U
     return this.holder.isAttached();
   }
 
-  public W detach() {
+  public C detach() {
     this.holder.removeFromParent();
-    return (W) this;
+    return (C) this;
   }
 
-  public W onAttach(AttachHandler handler) {
+  public C onAttach(AttachHandler handler) {
     this.holder.addAttachHandler(handler);
-    return (W) this;
+    return (C) this;
   }
 
-  public W onDetach(DetachHandler handler) {
+  public C onDetach(DetachHandler handler) {
     this.holder.addAttachHandler(handler);
-    return (W) this;
+    return (C) this;
   }
   
-  public W onEvent(EventInterceptor interceptor){
+  public C onEvent(EventInterceptor interceptor){
     this.holder.setInterceptor(interceptor);
-    return (W) this;
+    return (C) this;
   }
 
-  protected W detachChildren() {
+  protected C detachChildren() {
     this.holder.detachChildren();
-    return (W) this;
+    return (C) this;
   }
 
-  protected W removeChild(UIWidget child) {
-    this.holder.remove(child.asWidget().holder);
-    return (W) this;
+  protected C removeChild(UIComponent child) {
+    this.holder.remove(child.asComponent().holder);
+    return (C) this;
   }
 
-  protected W addChild(UIWidget add) {
-    this.holder.add(add.asWidget().holder);
-    return (W) this;
+  protected C addChild(UIComponent add) {
+    this.holder.add(add.asComponent().holder);
+    return (C) this;
   }
 
-  protected W adoptChild(UIWidget child) {
-    this.holder.adoptIt(child.asWidget().holder);
-    return (W) this;
+  protected C adoptChild(UIComponent child) {
+    this.holder.adoptIt(child.asComponent().holder);
+    return (C) this;
   }
   
-  protected W tradeParent(UIWidget parent){
-    UIWidget current = this.parent();
-    parent.asWidget().adoptChild(this);
-    current.asWidget().adoptChild(parent);
-    return (W) this;
+  protected C tradeParent(UIComponent parent){
+    UIComponent current = this.parent();
+    parent.asComponent().adoptChild(this);
+    current.asComponent().adoptChild(parent);
+    return (C) this;
   }
 
-  protected W insertChild(UIWidget add, UIWidget before) {
-    this.holder.insert(add.asWidget().holder, before.asWidget().holder);
-    return (W) this;
+  protected C insertChild(UIComponent add, UIComponent before) {
+    this.holder.insert(add.asComponent().holder, before.asComponent().holder);
+    return (C) this;
   }
 
-  protected Iterable<UIWidget> childrenWidgets() {
-    return new CastIterable<UIWidget, WidgetHolder>(this.holder.children()).use(new TypeCast<UIWidget, WidgetHolder>() {
+  protected Iterable<UIComponent> childrenWidgets() {
+    return new CastIterable<UIComponent, WidgetHolder>(this.holder.children()).use(new TypeCast<UIComponent, WidgetHolder>() {
       @Override
-      public UIWidget castFrom(WidgetHolder instance) {
+      public UIComponent castFrom(WidgetHolder instance) {
         return instance.getReference();
       }
     });
   }
 
-  protected <C extends UIWidget> C childAt(int index) {
+  protected <C extends UIComponent> C childAt(int index) {
     return this.holder.childAt(index).getReference();
   }
   
-  protected <C extends UIWidget> C find(Clause clause){
-    for(UIWidget child : this.childrenWidgets()){
+  protected <C extends UIComponent> C find(Clause clause){
+    for(UIComponent child : this.childrenWidgets()){
       if(clause.matches(child)){
         return (C) child;
       }
@@ -352,10 +352,10 @@ public abstract class Widget<W extends Widget<W>> implements HasVisibility<W>, U
     return null;
   }
   
-  protected Iterable<UIWidget> findAll(Clause clause){
-    List<UIWidget> children = new ArrayList<UIWidget>();
+  protected Iterable<UIComponent> findAll(Clause clause){
+    List<UIComponent> children = new ArrayList<UIComponent>();
     
-    for(UIWidget child : this.childrenWidgets()){
+    for(UIComponent child : this.childrenWidgets()){
       if(clause.matches(child)){
         children.add(child);
       }
@@ -364,8 +364,8 @@ public abstract class Widget<W extends Widget<W>> implements HasVisibility<W>, U
     return children;
   }
 
-  protected int indexOfChild(UIWidget child) {
-    return this.holder.indexOf(child.asWidget().holder);
+  protected int indexOfChild(UIComponent child) {
+    return this.holder.indexOf(child.asComponent().holder);
   }
 
   protected int childrenCount() {
@@ -417,138 +417,138 @@ public abstract class Widget<W extends Widget<W>> implements HasVisibility<W>, U
     return this.holder.dimensions().scrollLeft();
   }
 
-  public W scrollLeft(int left) {
+  public C scrollLeft(int left) {
     this.holder.dimensions().scrollLeft(left);
-    return (W) this;
+    return (C) this;
   }
 
-  public W scrollTo(int left, int top) {
+  public C scrollTo(int left, int top) {
     this.holder.dimensions().scrollTo(left, top);
-    return (W) this;
+    return (C) this;
   }
 
   public int scrollTop() {
     return this.holder.dimensions().scrollTop();
   }
 
-  public W scrollTop(int top) {
+  public C scrollTop(int top) {
     this.holder.dimensions().scrollTop(top);
-    return (W) this;
+    return (C) this;
   }
 
   public int top() {
     return this.holder.dimensions().top();
   }
 
-  public W screenCenter() {
+  public C screenCenter() {
     this.holder.dimensions().screenCenter();
-    return (W) this;
+    return (C) this;
   }
 
   /** Event Behaviors **/
-  protected W on(BlurHandler handler) {
+  protected C on(BlurHandler handler) {
     this.holder.addDomHandler(handler, BlurEvent.getType());
-    return (W) this;
+    return (C) this;
   }
 
-  protected W on(FocusHandler handler) {
+  protected C on(FocusHandler handler) {
     this.holder.addDomHandler(handler, FocusEvent.getType());
-    return (W) this;
+    return (C) this;
   }
 
-  protected W on(ChangeHandler handler) {
+  protected C on(ChangeHandler handler) {
     this.holder.addDomHandler(handler, ChangeEvent.getType());
-    return (W) this;
+    return (C) this;
   }
 
-  protected W on(ClickHandler handler) {
+  protected C on(ClickHandler handler) {
     this.holder.addDomHandler(handler, ClickEvent.getType());
-    return (W) this;
+    return (C) this;
   }
 
-  protected W on(DoubleClickHandler handler) {
+  protected C on(DoubleClickHandler handler) {
     this.holder.addDomHandler(handler, DoubleClickEvent.getType());
-    return (W) this;
+    return (C) this;
   }
 
-  protected W on(KeyPressHandler handler) {
+  protected C on(KeyPressHandler handler) {
     this.holder.addDomHandler(handler, KeyPressEvent.getType());
-    return (W) this;
+    return (C) this;
   }
 
-  protected W on(KeyDownHandler handler) {
+  protected C on(KeyDownHandler handler) {
     this.holder.addDomHandler(handler, KeyDownEvent.getType());
-    return (W) this;
+    return (C) this;
   }
 
-  protected W on(KeyUpHandler handler) {
+  protected C on(KeyUpHandler handler) {
     this.holder.addDomHandler(handler, KeyUpEvent.getType());
-    return (W) this;
+    return (C) this;
   }
 
-  protected W on(MouseDownHandler handler) {
+  protected C on(MouseDownHandler handler) {
     this.holder.addDomHandler(handler, MouseDownEvent.getType());
-    return (W) this;
+    return (C) this;
   }
 
-  protected W on(MouseMoveHandler handler) {
+  protected C on(MouseMoveHandler handler) {
     this.holder.addDomHandler(handler, MouseMoveEvent.getType());
-    return (W) this;
+    return (C) this;
   }
 
-  protected W on(MouseOutHandler handler) {
+  protected C on(MouseOutHandler handler) {
     this.holder.addDomHandler(handler, MouseOutEvent.getType());
-    return (W) this;
+    return (C) this;
   }
 
-  protected W on(MouseOverHandler handler) {
+  protected C on(MouseOverHandler handler) {
     this.holder.addDomHandler(handler, MouseOverEvent.getType());
-    return (W) this;
+    return (C) this;
   }
 
-  protected W on(MouseUpHandler handler) {
+  protected C on(MouseUpHandler handler) {
     this.holder.addDomHandler(handler, MouseUpEvent.getType());
-    return (W) this;
+    return (C) this;
   }
 
-  protected W on(MouseWheelHandler handler) {
+  protected C on(MouseWheelHandler handler) {
     this.holder.addDomHandler(handler, MouseWheelEvent.getType());
-    return (W) this;
+    return (C) this;
   }
 
-  protected W on(TouchCancelHandler handler) {
+  protected C on(TouchCancelHandler handler) {
     this.holder.addDomHandler(handler, TouchCancelEvent.getType());
-    return (W) this;
+    return (C) this;
   }
 
-  protected W on(TouchEndHandler handler) {
+  protected C on(TouchEndHandler handler) {
     this.holder.addDomHandler(handler, TouchEndEvent.getType());
-    return (W) this;
+    return (C) this;
   }
 
-  protected W on(TouchMoveHandler handler) {
+  protected C on(TouchMoveHandler handler) {
     this.holder.addDomHandler(handler, TouchMoveEvent.getType());
-    return (W) this;
+    return (C) this;
   }
 
-  protected W on(TouchStartHandler handler) {
+  protected C on(TouchStartHandler handler) {
     this.holder.addDomHandler(handler, TouchStartEvent.getType());
-    return (W) this;
+    return (C) this;
   }
 
-  protected final <H extends EventHandler> W addHandler(GwtEvent.Type<H> type, H handler) {
+  protected final <H extends EventHandler> C addHandler(GwtEvent.Type<H> type, H handler) {
     this.bus.add(type, handler);
-    return (W) this;
+    return (C) this;
   }
 
-  protected W fireEvent(GwtEvent<?> event) {
+  protected C fireEvent(GwtEvent<?> event) {
     this.holder.fireEvent(event);
-    return (W) this;
+    return (C) this;
   }
 
-  protected W fireNativeEvent(NativeEvent event){
+  protected C fireNativeEvent(NativeEvent event){
     DomEvent.fireNativeEvent(event, this.holder());
-    return (W) this;
+    return (C) this;
   }
 
   EventHandlers eventBus() {

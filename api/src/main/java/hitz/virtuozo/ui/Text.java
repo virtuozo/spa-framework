@@ -14,9 +14,9 @@
  */
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.HasText;
+import hitz.virtuozo.ui.api.HasText;
 
-public final class Text extends Widget<Text> implements HasText<Text> {
+public final class Text extends Component<Text> implements HasText<Text> {
 
   public Text() {
     super(Elements.span());

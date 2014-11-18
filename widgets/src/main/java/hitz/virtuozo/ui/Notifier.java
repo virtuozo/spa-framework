@@ -1,7 +1,7 @@
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.ShowEvent;
-import hitz.virtuozo.infra.api.ShowEvent.ShowHandler;
+import hitz.virtuozo.ui.api.ShowEvent;
+import hitz.virtuozo.ui.api.ShowEvent.ShowHandler;
 
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.event.dom.client.ClickEvent;

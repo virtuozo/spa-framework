@@ -5,11 +5,11 @@ import hitz.virtuozo.infra.ValidationProcess.ValidationConstraint;
 import hitz.virtuozo.infra.api.Validator;
 import hitz.virtuozo.ui.Elements;
 import hitz.virtuozo.ui.InputLabel;
-import hitz.virtuozo.ui.Widget;
+import hitz.virtuozo.ui.Component;
 import hitz.virtuozo.ui.api.HasFeedback;
 import hitz.virtuozo.ui.api.UIInput;
 
-public abstract class FormGroup<I extends UIInput<?, V>, V> extends Widget<FormGroup<I, V>> implements UIInput<FormGroup<I, V>, V>{
+public abstract class FormGroup<I extends UIInput<?, V>, V> extends Component<FormGroup<I, V>> implements UIInput<FormGroup<I, V>, V>{
   private I control;
 
   private final ValidationConstraint<V> constraint;
@@ -44,7 +44,7 @@ public abstract class FormGroup<I extends UIInput<?, V>, V> extends Widget<FormG
     super(Elements.div());
     this.css("form-group");
     this.control = input;
-    this.control.asWidget().css("form-control");
+    this.control.asComponent().css("form-control");
     this.constraint = new ValidationConstraint<V>(this.control);
     this.label.to(this.control);
     this.feedback = feedback;

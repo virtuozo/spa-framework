@@ -12,25 +12,17 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package hitz.virtuozo.infra.api;
+package hitz.virtuozo.ui.api;
 
-import hitz.virtuozo.infra.api.HideEvent.HideHandler;
-import hitz.virtuozo.infra.api.ShowEvent.ShowHandler;
-import hitz.virtuozo.infra.api.ToggleEvent.ToggleHandler;
+import com.google.gwt.event.dom.client.*;
 
-public interface HasVisibility<T> {
+public interface HasTouchHandlers<T> {
 
-  T onHide(HideHandler handler);
+  T onTouchCancel(TouchCancelHandler handler);
 
-  T onShow(ShowHandler handler);
+  T onTouchEnd(TouchEndHandler handler);
 
-  T onToggleVisibility(ToggleHandler handler);
+  T onTouchMove(TouchMoveHandler handler);
 
-  T show();
-  
-  T hide();
-  
-  T toggleVisibility();
-  
-  boolean visible();
+  T onTouchStart(TouchStartHandler handler);
 }

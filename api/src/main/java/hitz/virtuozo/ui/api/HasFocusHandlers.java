@@ -13,11 +13,13 @@
  * the License.
  */
 
-package hitz.virtuozo.infra.api;
+package hitz.virtuozo.ui.api;
 
-public interface HasText<T> {
+import com.google.gwt.event.dom.client.*;
 
-  T text(String text);
+public interface HasFocusHandlers<T> {
 
-  String text();
+  T onFocus(FocusHandler handler);
+
+  T onBlur(BlurHandler handler);
 }

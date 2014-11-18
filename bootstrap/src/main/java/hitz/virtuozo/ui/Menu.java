@@ -15,11 +15,11 @@
 package hitz.virtuozo.ui;
 
 import hitz.virtuozo.infra.BrowserEventInterceptor;
-import hitz.virtuozo.infra.api.HasClickHandlers;
-import hitz.virtuozo.infra.api.HasMouseHandlers;
-import hitz.virtuozo.infra.api.HasText;
 import hitz.virtuozo.ui.OrderList.Type;
 import hitz.virtuozo.ui.api.ActivationEvent;
+import hitz.virtuozo.ui.api.HasClickHandlers;
+import hitz.virtuozo.ui.api.HasMouseHandlers;
+import hitz.virtuozo.ui.api.HasText;
 import hitz.virtuozo.ui.api.ActivationEvent.ActivationHandler;
 import hitz.virtuozo.ui.api.DeactivationEvent;
 import hitz.virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
@@ -39,7 +39,7 @@ import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.dom.client.MouseWheelHandler;
 
-public class Menu extends Widget<Menu>{
+public class Menu extends Component<Menu>{
   private OrderList menu;
   
   private boolean hover;
@@ -97,13 +97,13 @@ public class Menu extends Widget<Menu>{
   }
 
   public Menu open() {
-    this.parent().asWidget().css("open");
+    this.parent().asComponent().css("open");
     this.menu.show();
     return this;
   }
 
   public Menu close() {
-    this.parent().asWidget().css().remove("open");
+    this.parent().asComponent().css().remove("open");
     this.menu.hide();
     return this;
   }
@@ -120,7 +120,7 @@ public class Menu extends Widget<Menu>{
     return hover;
   }
 
-  public class MenuItem extends Widget<MenuItem> implements HasText<MenuItem>, HasClickHandlers<MenuItem>, HasMouseHandlers<MenuItem>, HasActivation<MenuItem> {
+  public class MenuItem extends Component<MenuItem> implements HasText<MenuItem>, HasClickHandlers<MenuItem>, HasMouseHandlers<MenuItem>, HasActivation<MenuItem> {
     private Tag<AnchorElement> anchor = Tag.asAnchor().role("menuitem");
 
     public MenuItem(ListItem item) {

@@ -12,17 +12,14 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package hitz.virtuozo.infra.api;
+
+package hitz.virtuozo.ui.api;
 
 import com.google.gwt.event.dom.client.*;
 
-public interface HasTouchHandlers<T> {
+public interface HasClickHandlers<T> {
 
-  T onTouchCancel(TouchCancelHandler handler);
+  T onClick(ClickHandler handler);
 
-  T onTouchEnd(TouchEndHandler handler);
-
-  T onTouchMove(TouchMoveHandler handler);
-
-  T onTouchStart(TouchStartHandler handler);
+  T onDoubleClick(DoubleClickHandler handler);
 }

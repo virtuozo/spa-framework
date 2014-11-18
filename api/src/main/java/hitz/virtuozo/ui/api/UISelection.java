@@ -1,10 +1,9 @@
 package hitz.virtuozo.ui.api;
 
-import hitz.virtuozo.infra.api.HasChangeHandlers;
 
-public interface UISelection<W extends UIWidget, V> extends UIInput<W, V>, HasChangeHandlers<W> {
+public interface UISelection<C extends UIComponent, V> extends UIInput<C, V>, HasChangeHandlers<C> {
 
-  W checked(Boolean checked);
+  C checked(Boolean checked);
 
   Boolean checked();
 }

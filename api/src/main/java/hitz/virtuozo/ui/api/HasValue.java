@@ -13,15 +13,12 @@
  * the License.
  */
 
-package hitz.virtuozo.infra.api;
+package hitz.virtuozo.ui.api;
 
-import com.google.gwt.event.dom.client.*;
 
-public interface HasKeyHandlers<T> {
+public interface HasValue<C extends UIComponent, V> {
 
-  T onKeyPress(KeyPressHandler handler);
+  C value(V value);
 
-  T onKeyDown(KeyDownHandler handler);
-
-  T onKeyUp(KeyUpHandler handler);
+  V value();
 }

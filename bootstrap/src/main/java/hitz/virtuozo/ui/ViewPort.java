@@ -14,55 +14,55 @@
  */
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.ui.api.UIWidget;
+import hitz.virtuozo.ui.api.UIComponent;
 
 public enum ViewPort {
   X_SMALL{
     @Override
-    public void hidden(UIWidget widget) {
-      widget.asWidget().css().append("hidden-xs").remove("visible-xs");
+    public void hidden(UIComponent widget) {
+      widget.asComponent().css().append("hidden-xs").remove("visible-xs");
     }
     
     @Override
-    public void visible(UIWidget widget) {
-      widget.asWidget().css().append("visible-xs").remove("hidden-xs");
+    public void visible(UIComponent widget) {
+      widget.asComponent().css().append("visible-xs").remove("hidden-xs");
     }
   }
   , SMALL{
     @Override
-    public void hidden(UIWidget widget) {
-      widget.asWidget().css().append("hidden-sm").remove("visible-sm");
+    public void hidden(UIComponent widget) {
+      widget.asComponent().css().append("hidden-sm").remove("visible-sm");
     }
     
     @Override
-    public void visible(UIWidget widget) {
-      widget.asWidget().css().append("visible-sm").remove("hidden-sm");
+    public void visible(UIComponent widget) {
+      widget.asComponent().css().append("visible-sm").remove("hidden-sm");
     }
   }
   , MEDIUM{
     @Override
-    public void hidden(UIWidget widget) {
-      widget.asWidget().css().append("hidden-md").remove("visible-md");
+    public void hidden(UIComponent widget) {
+      widget.asComponent().css().append("hidden-md").remove("visible-md");
     }
     
     @Override
-    public void visible(UIWidget widget) {
-      widget.asWidget().css().append("visible-md").remove("hidden-md");
+    public void visible(UIComponent widget) {
+      widget.asComponent().css().append("visible-md").remove("hidden-md");
     }
   }
   , LARGE{
     @Override
-    public void hidden(UIWidget widget) {
-      widget.asWidget().css().append("hidden-lg").remove("visible-lg");
+    public void hidden(UIComponent widget) {
+      widget.asComponent().css().append("hidden-lg").remove("visible-lg");
     }
     
     @Override
-    public void visible(UIWidget widget) {
-      widget.asWidget().css().append("visible-lg").remove("hidden-lg");
+    public void visible(UIComponent widget) {
+      widget.asComponent().css().append("visible-lg").remove("hidden-lg");
     }
   };
   
-  public abstract void visible(UIWidget widget);
+  public abstract void visible(UIComponent widget);
   
-  public abstract void hidden(UIWidget widget);
+  public abstract void hidden(UIComponent widget);
 }

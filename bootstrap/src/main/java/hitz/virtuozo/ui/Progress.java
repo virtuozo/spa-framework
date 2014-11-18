@@ -19,12 +19,12 @@ import hitz.virtuozo.ui.CssClass;
 import hitz.virtuozo.ui.Elements;
 import hitz.virtuozo.ui.StyleChooser;
 import hitz.virtuozo.ui.Tag;
-import hitz.virtuozo.ui.Widget;
+import hitz.virtuozo.ui.Component;
 
 import com.google.gwt.dom.client.SpanElement;
 import com.google.gwt.dom.client.Style.Unit;
 
-public class Progress extends Widget<Progress> {
+public class Progress extends Component<Progress> {
   private double total = 100;
   
   private double worked;
@@ -45,7 +45,7 @@ public class Progress extends Widget<Progress> {
     return this;
   }
   
-  public class ProgressBar extends Widget<ProgressBar> {
+  public class ProgressBar extends Component<ProgressBar> {
     private Tag<SpanElement> message = Tag.asSpan();
     
     private LabelFormat format = new DefaultFormat();

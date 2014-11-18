@@ -1,8 +1,8 @@
 package hitz.virtuozo.infra;
 
-import hitz.virtuozo.infra.api.DetachHandler;
 import hitz.virtuozo.ui.Composite;
-import hitz.virtuozo.ui.api.UIWidget;
+import hitz.virtuozo.ui.api.DetachHandler;
+import hitz.virtuozo.ui.api.UIComponent;
 
 import com.google.gwt.event.logical.shared.AttachEvent;
 
@@ -20,9 +20,9 @@ public abstract class Presenter<V extends View> {
 
   public final void go(Composite<?> container){
     this.bind();
-    UIWidget renderedView = this.view.render();
+    UIComponent renderedView = this.view.render();
     container.detachChildren().add(renderedView);
-    renderedView.asWidget().onDetach(new DetachHandler() {
+    renderedView.asComponent().onDetach(new DetachHandler() {
       @Override
       protected void onDetach(AttachEvent event) {
         Presenter.this.unbind();

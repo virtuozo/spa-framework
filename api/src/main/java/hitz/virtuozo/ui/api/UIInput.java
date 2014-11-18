@@ -15,15 +15,13 @@
 
 package hitz.virtuozo.ui.api;
 
-import hitz.virtuozo.infra.api.HasValue;
-import hitz.virtuozo.infra.api.HasVisibility;
 
-public interface UIInput<W extends UIWidget, V> extends HasValue<W, V>, HasVisibility<W>, UIWidget {
-  W clear();
+public interface UIInput<C extends UIComponent, V> extends HasValue<C, V>, HasVisibility<C>, UIComponent {
+  C clear();
   
-  W disable();
+  C disable();
   
   boolean disabled();
   
-  W enable();
+  C enable();
 }

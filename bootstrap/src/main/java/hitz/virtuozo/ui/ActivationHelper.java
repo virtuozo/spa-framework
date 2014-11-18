@@ -57,10 +57,10 @@ public class ActivationHelper implements ClickHandler {
     public void doActivation(Element element, List<HasActivation<?>> activationList) {
       for (HasActivation<?> widget : activationList) {
         if (widget.match(element)) {
-          widget.activate().asWidget().fireEvent(new ActivationEvent());
+          widget.activate().asComponent().fireEvent(new ActivationEvent());
           continue;
         }
-        widget.deactivate().asWidget().fireEvent(new DeactivationEvent());
+        widget.deactivate().asComponent().fireEvent(new DeactivationEvent());
       }
     }
   }

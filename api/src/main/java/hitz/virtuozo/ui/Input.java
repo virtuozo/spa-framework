@@ -15,11 +15,11 @@
 
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.HasChangeHandlers;
-import hitz.virtuozo.infra.api.HasClickHandlers;
-import hitz.virtuozo.infra.api.HasFocusHandlers;
-import hitz.virtuozo.infra.api.HasKeyHandlers;
-import hitz.virtuozo.infra.api.HasMouseHandlers;
+import hitz.virtuozo.ui.api.HasChangeHandlers;
+import hitz.virtuozo.ui.api.HasClickHandlers;
+import hitz.virtuozo.ui.api.HasFocusHandlers;
+import hitz.virtuozo.ui.api.HasKeyHandlers;
+import hitz.virtuozo.ui.api.HasMouseHandlers;
 import hitz.virtuozo.ui.api.UIInput;
 
 import com.google.gwt.dom.client.Document;
@@ -40,7 +40,7 @@ import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.dom.client.MouseWheelHandler;
 
 @SuppressWarnings("unchecked")
-public abstract class Input<I extends Input<I>> extends Widget<I> implements UIInput<I, String>, HasClickHandlers<I>, HasMouseHandlers<I>, HasKeyHandlers<I>, HasFocusHandlers<I>,
+public abstract class Input<I extends Input<I>> extends Component<I> implements UIInput<I, String>, HasClickHandlers<I>, HasMouseHandlers<I>, HasKeyHandlers<I>, HasFocusHandlers<I>,
     HasChangeHandlers<I> {
 
   private InputElement element;

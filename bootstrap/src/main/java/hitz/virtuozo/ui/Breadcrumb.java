@@ -14,16 +14,16 @@
  */
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.HasClickHandlers;
-import hitz.virtuozo.infra.api.HasText;
 import hitz.virtuozo.ui.Tag;
-import hitz.virtuozo.ui.Widget;
+import hitz.virtuozo.ui.Component;
+import hitz.virtuozo.ui.api.HasClickHandlers;
+import hitz.virtuozo.ui.api.HasText;
 
 import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DoubleClickHandler;
 
-public class Breadcrumb extends Widget<Breadcrumb> {
+public class Breadcrumb extends Component<Breadcrumb> {
   private OrderList breadcrumb = new OrderList(OrderList.Type.ORDERED);
 
   public Breadcrumb() {
@@ -35,7 +35,7 @@ public class Breadcrumb extends Widget<Breadcrumb> {
     return new BreadcrumbItem(this.breadcrumb.addItem());
   }
   
-  public class BreadcrumbItem extends Widget<BreadcrumbItem> implements HasText<BreadcrumbItem>, HasClickHandlers<BreadcrumbItem> {
+  public class BreadcrumbItem extends Component<BreadcrumbItem> implements HasText<BreadcrumbItem>, HasClickHandlers<BreadcrumbItem> {
     private Tag<AnchorElement> anchor;
 
     public BreadcrumbItem(ListItem item) {

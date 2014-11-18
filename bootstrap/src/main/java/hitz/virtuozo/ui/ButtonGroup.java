@@ -17,17 +17,17 @@ package hitz.virtuozo.ui;
 import hitz.virtuozo.ui.CssClass;
 import hitz.virtuozo.ui.Elements;
 import hitz.virtuozo.ui.StyleChooser;
-import hitz.virtuozo.ui.Widget;
+import hitz.virtuozo.ui.Component;
 import hitz.virtuozo.ui.ActivationHelper.Behavior;
 import hitz.virtuozo.ui.ActivationHelper.ToggleBehavior;
 import hitz.virtuozo.ui.api.HasActivation;
-import hitz.virtuozo.ui.api.UIWidget;
+import hitz.virtuozo.ui.api.UIComponent;
 
 import java.util.List;
 
 import com.google.gwt.dom.client.Element;
 
-public class ButtonGroup extends Widget<ButtonGroup> {
+public class ButtonGroup extends Component<ButtonGroup> {
   private ActivationHelper activationHelper = new ActivationHelper();
   
   private Type type;
@@ -105,7 +105,7 @@ public class ButtonGroup extends Widget<ButtonGroup> {
       }
       
       @Override
-      ButtonGroup add(ButtonGroup group, UIWidget button) {
+      ButtonGroup add(ButtonGroup group, UIComponent button) {
         group.add(new ButtonGroup().addChild(button));
         return group;
       }
@@ -115,7 +115,7 @@ public class ButtonGroup extends Widget<ButtonGroup> {
       }
       
       @Override
-      ButtonGroup add(ButtonGroup group, UIWidget button) {
+      ButtonGroup add(ButtonGroup group, UIComponent button) {
         group.addChild(button);
         return group;
       }
@@ -123,7 +123,7 @@ public class ButtonGroup extends Widget<ButtonGroup> {
     
     abstract String css();
     
-    abstract ButtonGroup add(ButtonGroup group, UIWidget button);
+    abstract ButtonGroup add(ButtonGroup group, UIComponent button);
   }
   
   public static class Orientation extends CssClass{

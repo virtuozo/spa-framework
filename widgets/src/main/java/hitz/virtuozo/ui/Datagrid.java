@@ -35,7 +35,7 @@ import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 
-public final class Datagrid<H extends HashObject> extends Widget<Datagrid<H>> {
+public final class Datagrid<H extends HashObject> extends Component<Datagrid<H>> {
 
   private java.util.List<GridFilter<H>> filters = new ArrayList<GridFilter<H>>();
 
@@ -372,7 +372,7 @@ public final class Datagrid<H extends HashObject> extends Widget<Datagrid<H>> {
       return this;
     }
 
-    class GridSearch extends Widget<GridSearch> {
+    class GridSearch extends Component<GridSearch> {
       
       private Assets assets = GWT.create(Assets.class);
 

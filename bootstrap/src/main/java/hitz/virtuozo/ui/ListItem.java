@@ -14,10 +14,10 @@
  */
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.HasText;
 import hitz.virtuozo.ui.Composite;
 import hitz.virtuozo.ui.Elements;
 import hitz.virtuozo.ui.OrderList.Type;
+import hitz.virtuozo.ui.api.HasText;
 
 public final class ListItem extends Composite<ListItem> implements HasText<ListItem>{
   public ListItem() {

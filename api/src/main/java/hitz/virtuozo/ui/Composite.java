@@ -15,11 +15,11 @@
 package hitz.virtuozo.ui;
 
 import hitz.virtuozo.ui.api.Clause;
-import hitz.virtuozo.ui.api.UIWidget;
+import hitz.virtuozo.ui.api.UIComponent;
 
 import com.google.gwt.dom.client.Element;
 
-public abstract class Composite<C extends Composite<C>> extends Widget<C> {
+public abstract class Composite<C extends Composite<C>> extends Component<C> {
 
   public Composite() {
     super();
@@ -29,7 +29,7 @@ public abstract class Composite<C extends Composite<C>> extends Widget<C> {
     super(element);
   }
 
-  public Composite(Widget<?> widget) {
+  public Composite(Component<?> widget) {
     super(widget);
   }
 
@@ -38,37 +38,37 @@ public abstract class Composite<C extends Composite<C>> extends Widget<C> {
     return super.detachChildren();
   }
 
-  public C add(UIWidget add) {
+  public C add(UIComponent add) {
     return super.addChild(add);
   }
 
-  public C adopt(UIWidget child) {
+  public C adopt(UIComponent child) {
     return super.adoptChild(child);
   }
 
-  public C insert(UIWidget add, UIWidget before) {
+  public C insert(UIComponent add, UIComponent before) {
     return super.insertChild(add, before);
   }
 
-  public Iterable<UIWidget> children() {
+  public Iterable<UIComponent> children() {
     return super.childrenWidgets();
   }
 
-  public <W extends UIWidget> W childAt(int index) {
+  public <C extends UIComponent> C childAt(int index) {
     return super.childAt(index);
   }
   
   @Override
-  public <C extends UIWidget> C find(Clause clause) {
+  public <C extends UIComponent> C find(Clause clause) {
     return super.find(clause);
   }
   
   @Override
-  public Iterable<UIWidget> findAll(Clause clause) {
+  public Iterable<UIComponent> findAll(Clause clause) {
     return super.findAll(clause);
   }
 
-  public int indexOf(UIWidget child) {
+  public int indexOf(UIComponent child) {
     return super.indexOfChild(child);
   }
 
@@ -82,7 +82,7 @@ public abstract class Composite<C extends Composite<C>> extends Widget<C> {
     return super.hasChildren();
   }
 
-  public C remove(UIWidget child) {
+  public C remove(UIComponent child) {
     return super.removeChild(child);
   }
 }

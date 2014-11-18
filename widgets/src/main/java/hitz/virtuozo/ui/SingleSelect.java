@@ -3,18 +3,18 @@ package hitz.virtuozo.ui;
 import hitz.virtuozo.infra.BrowserEventInterceptor;
 import hitz.virtuozo.infra.Keyboard;
 import hitz.virtuozo.infra.api.Converter;
-import hitz.virtuozo.infra.api.HasClickHandlers;
-import hitz.virtuozo.infra.api.HasFocusHandlers;
-import hitz.virtuozo.infra.api.HasMouseHandlers;
-import hitz.virtuozo.infra.api.HasText;
-import hitz.virtuozo.infra.api.HasValue;
 import hitz.virtuozo.ui.SelectionEvent.SelectionHandler;
 import hitz.virtuozo.ui.api.CssChangeEvent;
 import hitz.virtuozo.ui.api.CssChangeHandler;
 import hitz.virtuozo.ui.api.EventInterceptor;
+import hitz.virtuozo.ui.api.HasClickHandlers;
+import hitz.virtuozo.ui.api.HasFocusHandlers;
+import hitz.virtuozo.ui.api.HasMouseHandlers;
+import hitz.virtuozo.ui.api.HasText;
+import hitz.virtuozo.ui.api.HasValue;
 import hitz.virtuozo.ui.api.UIInput;
 import hitz.virtuozo.ui.api.UIRenderer;
-import hitz.virtuozo.ui.api.UIWidget;
+import hitz.virtuozo.ui.api.UIComponent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +46,7 @@ import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.Offset;
 
 @SuppressWarnings("unchecked")
-public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Widget<S> implements UIInput<S, E>, HasFocusHandlers<S> {
+public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Component<S> implements UIInput<S, E>, HasFocusHandlers<S> {
 
   private Tag<DivElement> mask = Tag.asDiv().css("select-drop-mask");
 
@@ -224,7 +224,7 @@ public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Widg
     return this.container.disabled();
   }
 
-  class Container extends Widget<Container> implements HasFocusHandlers<Container>, HasText<Container> {
+  class Container extends Component<Container> implements HasFocusHandlers<Container>, HasText<Container> {
 
     private Tag<AnchorElement> choice = Tag.asAnchor("javascript:void(0)").css("select-choice");
 
@@ -372,7 +372,7 @@ public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Widg
     static final StyleChooser STYLES = new StyleChooser(ACTIVE, DISABLED);
   }
 
-  class DropDown extends Widget<DropDown> {
+  class DropDown extends Component<DropDown> {
 
     private Search search = new Search().hide();
 
@@ -399,7 +399,7 @@ public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Widg
     public DropDown show() {
       super.show();
 
-      int parentTop = SingleSelect.this.parent().asWidget().top();
+      int parentTop = SingleSelect.this.parent().asComponent().top();
       Offset offset = SingleSelect.this.container.choice.offset();
       int height = SingleSelect.this.container.choice.offsetHeight();
 
@@ -420,8 +420,8 @@ public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Widg
     void select(E value) {
       this.fireEvent(new SelectionEvent<E>(value));
       this.search.input.clear();
-      for (UIWidget child : this.items.childrenWidgets()) {
-        child.asWidget().show();
+      for (UIComponent child : this.items.childrenWidgets()) {
+        child.asComponent().show();
       }
       Item first = this.items.childAt(0);
       if (first.css().contains("select-placeholder")) {
@@ -431,7 +431,7 @@ public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Widg
       this.hide();
     }
 
-    class Search extends Widget<Search> {
+    class Search extends Component<Search> {
 
       private InputText input = new InputText().css("select-input");
 
@@ -507,7 +507,7 @@ public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Widg
       }
     }
 
-    class Items extends Widget<Items> {
+    class Items extends Component<Items> {
 
       private Item placeholder = new Item().css("select-placeholder").hide();
 
@@ -531,7 +531,7 @@ public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Widg
       }
 
       public Item find(E entry) {
-        for (UIWidget child : this.childrenWidgets()) {
+        for (UIComponent child : this.childrenWidgets()) {
           Item item = (Item) child;
           if (item.value().equals(entry)) {
             return item;
@@ -552,7 +552,7 @@ public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Widg
       }
     }
 
-    class Item extends Widget<Item> implements HasClickHandlers<Item>, HasMouseHandlers<Item>, HasValue<Item, E> {
+    class Item extends Component<Item> implements HasClickHandlers<Item>, HasMouseHandlers<Item>, HasValue<Item, E> {
 
       private Tag<DivElement> label = Tag.asDiv().css("select-result-label");
 

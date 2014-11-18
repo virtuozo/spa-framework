@@ -14,9 +14,8 @@
  */
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.ui.Tag;
 import hitz.virtuozo.ui.api.Icon;
-import hitz.virtuozo.ui.api.UIWidget;
+import hitz.virtuozo.ui.api.UIComponent;
 
 import com.google.gwt.dom.client.SpanElement;
 
@@ -229,20 +228,20 @@ public enum Glyphicon implements Icon {
     this.name = name;
   }
   
-  public UIWidget asWidget(){
+  public UIComponent asWidget(){
     Tag<SpanElement> icon = Tag.asSpan();
     icon.css().set("glyphicon").append(this.name);
     return icon;
   }
 
-  public <W extends UIWidget> void appendTo(W widget) {
-    UIWidget icon = this.asWidget();
+  public <C extends UIComponent> void appendTo(C component) {
+    UIComponent icon = this.asWidget();
     
-    if(!widget.asWidget().hasChildren()){
-      widget.asWidget().addChild(icon);
+    if(!component.asComponent().hasChildren()){
+      component.asComponent().addChild(icon);
       return;
     }
     
-    widget.asWidget().insertChild(icon, widget.asWidget().childAt(0));
+    component.asComponent().insertChild(icon, component.asComponent().childAt(0));
   }
 }

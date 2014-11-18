@@ -1,14 +1,14 @@
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.HasMouseHandlers;
-import hitz.virtuozo.infra.api.HasVisibility;
-import hitz.virtuozo.infra.api.HideEvent;
-import hitz.virtuozo.infra.api.HideEvent.HideHandler;
-import hitz.virtuozo.infra.api.ShowEvent;
-import hitz.virtuozo.infra.api.ShowEvent.ShowHandler;
-import hitz.virtuozo.infra.api.ToggleEvent.ToggleHandler;
 import hitz.virtuozo.ui.api.Direction;
-import hitz.virtuozo.ui.api.UIWidget;
+import hitz.virtuozo.ui.api.HasMouseHandlers;
+import hitz.virtuozo.ui.api.HasVisibility;
+import hitz.virtuozo.ui.api.HideEvent;
+import hitz.virtuozo.ui.api.ShowEvent;
+import hitz.virtuozo.ui.api.UIComponent;
+import hitz.virtuozo.ui.api.HideEvent.HideHandler;
+import hitz.virtuozo.ui.api.ShowEvent.ShowHandler;
+import hitz.virtuozo.ui.api.ToggleEvent.ToggleHandler;
 
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.Style.Display;
@@ -34,7 +34,7 @@ abstract class FloatPanel<T extends FloatPanel<T>> implements HasMouseHandlers<T
 
   private Tag<DivElement> tip = Tag.asDiv();
 
-  private UIWidget target;
+  private UIComponent target;
 
   private Direction direction;
 
@@ -58,7 +58,7 @@ abstract class FloatPanel<T extends FloatPanel<T>> implements HasMouseHandlers<T
     });
   }
 
-  protected T add(UIWidget widget) {
+  protected T add(UIComponent widget) {
     this.tip.add(widget);
     return (T) this;
   }
@@ -111,7 +111,7 @@ abstract class FloatPanel<T extends FloatPanel<T>> implements HasMouseHandlers<T
     return (T) this;
   }
 
-  public T trigger(UIWidget holder, Trigger... triggers) {
+  public T trigger(UIComponent holder, Trigger... triggers) {
     this.target = holder;
     for (Trigger trigger : triggers) {
       trigger.register(this.target, (T) this);
@@ -173,9 +173,9 @@ abstract class FloatPanel<T extends FloatPanel<T>> implements HasMouseHandlers<T
     int actualWidth = this.tip.outerWidth();
     int actualHeight = this.tip.outerHeight();
 
-    Offset pos = this.target.asWidget().offset();
-    int height = this.target.asWidget().offsetHeight();
-    int width = this.target.asWidget().offsetWidth();
+    Offset pos = this.target.asComponent().offset();
+    int height = this.target.asComponent().offsetHeight();
+    int width = this.target.asComponent().offsetWidth();
 
     if (Direction.BOTTOM.equals(this.direction)) {
       top = pos.top() + height;
@@ -202,8 +202,8 @@ abstract class FloatPanel<T extends FloatPanel<T>> implements HasMouseHandlers<T
     CLICK {
 
       @Override
-      <T extends FloatPanel<T>> void register(UIWidget holder, final T tip) {
-        holder.asWidget().on(new ClickHandler() {
+      <T extends FloatPanel<T>> void register(UIComponent holder, final T tip) {
+        holder.asComponent().on(new ClickHandler() {
 
           @Override
           public void onClick(ClickEvent event) {
@@ -215,8 +215,8 @@ abstract class FloatPanel<T extends FloatPanel<T>> implements HasMouseHandlers<T
     HOVER {
 
       @Override
-      <T extends FloatPanel<T>> void register(UIWidget holder, final T tip) {
-        holder.asWidget().on(new MouseOverHandler() {
+      <T extends FloatPanel<T>> void register(UIComponent holder, final T tip) {
+        holder.asComponent().on(new MouseOverHandler() {
 
           @Override
           public void onMouseOver(MouseOverEvent event) {
@@ -224,7 +224,7 @@ abstract class FloatPanel<T extends FloatPanel<T>> implements HasMouseHandlers<T
           }
         });
 
-        holder.asWidget().on(new MouseOutHandler() {
+        holder.asComponent().on(new MouseOutHandler() {
 
           @Override
           public void onMouseOut(MouseOutEvent event) {
@@ -236,8 +236,8 @@ abstract class FloatPanel<T extends FloatPanel<T>> implements HasMouseHandlers<T
     FOCUS {
 
       @Override
-      <T extends FloatPanel<T>> void register(UIWidget holder, final T tip) {
-        holder.asWidget().on(new FocusHandler() {
+      <T extends FloatPanel<T>> void register(UIComponent holder, final T tip) {
+        holder.asComponent().on(new FocusHandler() {
 
           @Override
           public void onFocus(FocusEvent event) {
@@ -245,7 +245,7 @@ abstract class FloatPanel<T extends FloatPanel<T>> implements HasMouseHandlers<T
           }
         });
 
-        holder.asWidget().on(new BlurHandler() {
+        holder.asComponent().on(new BlurHandler() {
 
           @Override
           public void onBlur(BlurEvent event) {
@@ -257,11 +257,11 @@ abstract class FloatPanel<T extends FloatPanel<T>> implements HasMouseHandlers<T
     MANUAL {
 
       @Override
-      <T extends FloatPanel<T>> void register(UIWidget holder, final T tip) {
+      <T extends FloatPanel<T>> void register(UIComponent holder, final T tip) {
         return;
       }
     };
 
-    abstract <T extends FloatPanel<T>> void register(UIWidget holder, T tip);
+    abstract <T extends FloatPanel<T>> void register(UIComponent holder, T tip);
   }
 }

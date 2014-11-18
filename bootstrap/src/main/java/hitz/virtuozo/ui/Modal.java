@@ -1,12 +1,12 @@
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.HasVisibility;
-import hitz.virtuozo.infra.api.HideEvent;
-import hitz.virtuozo.infra.api.HideEvent.HideHandler;
-import hitz.virtuozo.infra.api.ShowEvent;
-import hitz.virtuozo.infra.api.ShowEvent.ShowHandler;
-import hitz.virtuozo.infra.api.ToggleEvent;
-import hitz.virtuozo.infra.api.ToggleEvent.ToggleHandler;
+import hitz.virtuozo.ui.api.HasVisibility;
+import hitz.virtuozo.ui.api.HideEvent;
+import hitz.virtuozo.ui.api.ShowEvent;
+import hitz.virtuozo.ui.api.ToggleEvent;
+import hitz.virtuozo.ui.api.HideEvent.HideHandler;
+import hitz.virtuozo.ui.api.ShowEvent.ShowHandler;
+import hitz.virtuozo.ui.api.ToggleEvent.ToggleHandler;
 
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.Style.Unit;
@@ -127,7 +127,7 @@ public class Modal implements HasVisibility<Modal> {
     this.dialog.setPopupPosition(Math.max(Window.getScrollLeft() + left, 0), Math.max(Window.getScrollTop() + top, 0));
   }
   
-  class InnerModal extends Widget<InnerModal> {
+  class InnerModal extends Component<InnerModal> {
     private Header header = new Header();
     
     private Body body = new Body();
@@ -143,7 +143,7 @@ public class Modal implements HasVisibility<Modal> {
     }
   }
   
-  public class Header extends Widget<Header>{
+  public class Header extends Component<Header>{
     private Button close = new Button();
     
     private Heading heading = new Heading(Heading.Level.FOUR);

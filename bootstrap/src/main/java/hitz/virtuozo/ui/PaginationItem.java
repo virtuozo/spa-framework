@@ -1,13 +1,13 @@
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.HasClickHandlers;
-import hitz.virtuozo.infra.api.HasText;
 import hitz.virtuozo.ui.api.ActivationEvent;
 import hitz.virtuozo.ui.api.ActivationEvent.ActivationHandler;
 import hitz.virtuozo.ui.api.DeactivationEvent;
 import hitz.virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
+import hitz.virtuozo.ui.api.HasClickHandlers;
 import hitz.virtuozo.ui.api.HasIcon;
 import hitz.virtuozo.ui.api.HasState;
+import hitz.virtuozo.ui.api.HasText;
 import hitz.virtuozo.ui.api.Icon;
 import hitz.virtuozo.ui.css.State;
 
@@ -16,7 +16,7 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DoubleClickHandler;
 
-public class PaginationItem extends Widget<PaginationItem> implements HasText<PaginationItem>, HasIcon<PaginationItem>, HasState<PaginationItem>, HasClickHandlers<PaginationItem> {
+public class PaginationItem extends Component<PaginationItem> implements HasText<PaginationItem>, HasIcon<PaginationItem>, HasState<PaginationItem>, HasClickHandlers<PaginationItem> {
   private Tag<AnchorElement> link = Tag.asAnchor();
 
   PaginationItem(ListItem item) {

@@ -1,9 +1,9 @@
 package hitz.virtuozo.ui.api;
 
 public interface Icon {
-  UIWidget asWidget();
+  UIComponent asWidget();
   
-  <W extends UIWidget> void appendTo(W widget);
+  <C extends UIComponent> void appendTo(C component);
   
   String name();
 }

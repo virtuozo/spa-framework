@@ -15,7 +15,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DoubleClickHandler;
 import com.google.gwt.user.cellview.client.ColumnSortEvent.ListHandler;
 
-public class PanelGroup extends Widget<PanelGroup> {
+public class PanelGroup extends Component<PanelGroup> {
   private ActivationHelper helper = new ActivationHelper();
 
   public PanelGroup() {

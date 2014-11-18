@@ -15,15 +15,15 @@
 
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.HasText;
 import hitz.virtuozo.ui.Elements;
 import hitz.virtuozo.ui.Tag;
 import hitz.virtuozo.ui.Text;
-import hitz.virtuozo.ui.Widget;
+import hitz.virtuozo.ui.Component;
+import hitz.virtuozo.ui.api.HasText;
 
 import com.google.gwt.dom.client.Element;
 
-public final class Heading extends Widget<Heading> implements HasText<Heading> {
+public final class Heading extends Component<Heading> implements HasText<Heading> {
 
   private Text textHolder = new Text();
 

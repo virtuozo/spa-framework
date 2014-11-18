@@ -18,9 +18,9 @@ import hitz.virtuozo.ui.Composite;
 import hitz.virtuozo.ui.CssClass;
 import hitz.virtuozo.ui.Elements;
 import hitz.virtuozo.ui.StyleChooser;
-import hitz.virtuozo.ui.Widget;
+import hitz.virtuozo.ui.Component;
 
-public final class Container extends Widget<Container> {
+public final class Container extends Component<Container> {
 
   public Container(Type type) {
     super(Elements.div());
@@ -33,7 +33,7 @@ public final class Container extends Widget<Container> {
     return row;
   }
   
-  public static class Row extends Widget<Row> {
+  public static class Row extends Component<Row> {
 
     public Row() {
       super(Elements.div());

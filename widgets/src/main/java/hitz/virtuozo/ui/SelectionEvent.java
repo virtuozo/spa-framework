@@ -1,7 +1,7 @@
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.ValueEvent;
 import hitz.virtuozo.ui.SelectionEvent.SelectionHandler;
+import hitz.virtuozo.ui.api.ValueEvent;
 
 import com.google.gwt.event.shared.EventHandler;
 

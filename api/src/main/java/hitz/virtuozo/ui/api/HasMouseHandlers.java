@@ -13,13 +13,21 @@
  * the License.
  */
 
-package hitz.virtuozo.infra.api;
+package hitz.virtuozo.ui.api;
 
 import com.google.gwt.event.dom.client.*;
 
-public interface HasFocusHandlers<T> {
+public interface HasMouseHandlers<T> {
 
-  T onFocus(FocusHandler handler);
+  T onMouseDown(MouseDownHandler handler);
 
-  T onBlur(BlurHandler handler);
+  T onMouseMove(MouseMoveHandler handler);
+
+  T onMouseOut(MouseOutHandler handler);
+
+  T onMouseOver(MouseOverHandler handler);
+
+  T onMouseUp(MouseUpHandler handler);
+
+  T onMouseWheel(MouseWheelHandler handler);
 }

@@ -15,14 +15,14 @@
 
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.HasText;
 import hitz.virtuozo.ui.Elements;
 import hitz.virtuozo.ui.Tag;
-import hitz.virtuozo.ui.Widget;
+import hitz.virtuozo.ui.Component;
+import hitz.virtuozo.ui.api.HasText;
 
 import com.google.gwt.dom.client.Element;
 
-public final class Blockquote extends Widget<Blockquote> implements HasText<Blockquote>{
+public final class Blockquote extends Component<Blockquote> implements HasText<Blockquote>{
   private Paragraph textHolder = new Paragraph();
   
   private Tag<Element> footer = Tag.as(Elements.create("footer")).hide();

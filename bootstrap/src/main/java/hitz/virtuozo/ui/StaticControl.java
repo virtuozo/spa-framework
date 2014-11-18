@@ -1,11 +1,11 @@
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.HasHtml;
-import hitz.virtuozo.infra.api.HasText;
 import hitz.virtuozo.ui.Elements;
-import hitz.virtuozo.ui.Widget;
+import hitz.virtuozo.ui.Component;
+import hitz.virtuozo.ui.api.HasHtml;
+import hitz.virtuozo.ui.api.HasText;
 
-public class StaticControl extends Widget<StaticControl> implements HasText<StaticControl>, HasHtml<StaticControl> {
+public class StaticControl extends Component<StaticControl> implements HasText<StaticControl>, HasHtml<StaticControl> {
   public StaticControl() {
     super(Elements.p());
     this.css("form-control-static");

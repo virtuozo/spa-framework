@@ -1,6 +1,6 @@
-package hitz.virtuozo.infra.api;
+package hitz.virtuozo.ui.api;
 
-import hitz.virtuozo.infra.api.HideEvent.HideHandler;
+import hitz.virtuozo.ui.api.HideEvent.HideHandler;
 
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;

@@ -14,16 +14,16 @@
  */
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.HasClickHandlers;
 import hitz.virtuozo.ui.Composite;
 import hitz.virtuozo.ui.CssClass;
 import hitz.virtuozo.ui.Elements;
 import hitz.virtuozo.ui.StyleChooser;
 import hitz.virtuozo.ui.Tag;
-import hitz.virtuozo.ui.Widget;
+import hitz.virtuozo.ui.Component;
 import hitz.virtuozo.ui.api.ActivationEvent;
 import hitz.virtuozo.ui.api.DeactivationEvent;
 import hitz.virtuozo.ui.api.HasActivation;
+import hitz.virtuozo.ui.api.HasClickHandlers;
 import hitz.virtuozo.ui.api.ActivationEvent.ActivationHandler;
 import hitz.virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
 import hitz.virtuozo.ui.css.State;
@@ -32,7 +32,7 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DoubleClickHandler;
 
-public class ListGroup extends Widget<ListGroup>{
+public class ListGroup extends Component<ListGroup>{
   private ActivationHelper activationHelper = new ActivationHelper();
   
   public ListGroup() {

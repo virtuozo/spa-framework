@@ -12,19 +12,12 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package hitz.virtuozo.infra.api;
 
-import com.google.gwt.event.logical.shared.AttachEvent;
-import com.google.gwt.event.logical.shared.AttachEvent.Handler;
+package hitz.virtuozo.ui.api;
 
-public abstract class DetachHandler implements Handler {
+public interface HasText<T> {
 
-  @Override
-  public final void onAttachOrDetach(AttachEvent event) {
-    if (!event.isAttached()) {
-      this.onDetach(event);
-    }
-  }
+  T text(String text);
 
-  protected abstract void onDetach(AttachEvent event);
+  String text();
 }

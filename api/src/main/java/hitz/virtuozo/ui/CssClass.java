@@ -15,7 +15,7 @@
 package hitz.virtuozo.ui;
 
 import hitz.virtuozo.ui.api.UIClass;
-import hitz.virtuozo.ui.api.UIWidget;
+import hitz.virtuozo.ui.api.UIComponent;
 
 
 public abstract class CssClass implements UIClass {
@@ -26,7 +26,7 @@ public abstract class CssClass implements UIClass {
   }
   
   @Override
-  public void parse(UIWidget widget) {
+  public void parse(UIComponent widget) {
     this.chooser().choose(widget, this);
   }
 

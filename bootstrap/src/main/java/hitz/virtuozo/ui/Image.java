@@ -18,12 +18,12 @@ package hitz.virtuozo.ui;
 import hitz.virtuozo.ui.CssClass;
 import hitz.virtuozo.ui.Elements;
 import hitz.virtuozo.ui.StyleChooser;
-import hitz.virtuozo.ui.Widget;
+import hitz.virtuozo.ui.Component;
 
 import com.google.gwt.dom.client.ImageElement;
 import com.google.gwt.resources.client.ImageResource;
 
-public final class Image extends Widget<Image> {
+public final class Image extends Component<Image> {
 
   public Image() {
     super(Elements.img());

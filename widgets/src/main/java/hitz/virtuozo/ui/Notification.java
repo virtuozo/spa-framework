@@ -1,11 +1,11 @@
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.ui.api.UIWidget;
+import hitz.virtuozo.ui.api.UIComponent;
 
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.event.dom.client.ClickHandler;
 
-public class Notification extends Widget<Notification> {
+public class Notification extends Component<Notification> {
   
   private Tag<DivElement> close = Tag.asDiv().css("notification-close").html("&times;");
   
@@ -35,7 +35,7 @@ public class Notification extends Widget<Notification> {
     return this;
   }
   
-  public Notification message(UIWidget message){
+  public Notification message(UIComponent message){
     this.message.add(message);
     return this;
   }

@@ -14,20 +14,19 @@
  */
 package hitz.virtuozo.ui.api;
 
-import hitz.virtuozo.infra.api.HasClickHandlers;
 import hitz.virtuozo.ui.api.ActivationEvent.ActivationHandler;
 import hitz.virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
 
 import com.google.gwt.dom.client.Element;
 
-public interface HasActivation<W extends UIWidget> extends HasClickHandlers<W>, UIWidget {
-  W activate();
+public interface HasActivation<C extends UIComponent> extends HasClickHandlers<C>, UIComponent {
+  C activate();
 
-  W onActivate(ActivationHandler handler);
+  C onActivate(ActivationHandler handler);
 
-  W deactivate();
+  C deactivate();
 
-  W onDeactivate(DeactivationHandler handler);
+  C onDeactivate(DeactivationHandler handler);
 
   boolean active();
 

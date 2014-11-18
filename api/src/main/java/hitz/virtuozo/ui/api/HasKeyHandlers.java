@@ -13,13 +13,15 @@
  * the License.
  */
 
-package hitz.virtuozo.infra.api;
+package hitz.virtuozo.ui.api;
 
 import com.google.gwt.event.dom.client.*;
 
-public interface HasClickHandlers<T> {
+public interface HasKeyHandlers<T> {
 
-  T onClick(ClickHandler handler);
+  T onKeyPress(KeyPressHandler handler);
 
-  T onDoubleClick(DoubleClickHandler handler);
+  T onKeyDown(KeyDownHandler handler);
+
+  T onKeyUp(KeyUpHandler handler);
 }

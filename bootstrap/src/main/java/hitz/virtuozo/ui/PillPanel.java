@@ -14,16 +14,16 @@
  */
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.HasClickHandlers;
-import hitz.virtuozo.infra.api.HasMouseHandlers;
-import hitz.virtuozo.infra.api.HasText;
 import hitz.virtuozo.ui.CssClass;
 import hitz.virtuozo.ui.StyleChooser;
 import hitz.virtuozo.ui.Tag;
-import hitz.virtuozo.ui.Widget;
+import hitz.virtuozo.ui.Component;
 import hitz.virtuozo.ui.Menu.MenuItem;
 import hitz.virtuozo.ui.api.ActivationEvent;
 import hitz.virtuozo.ui.api.DeactivationEvent;
+import hitz.virtuozo.ui.api.HasClickHandlers;
+import hitz.virtuozo.ui.api.HasMouseHandlers;
+import hitz.virtuozo.ui.api.HasText;
 import hitz.virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
 import hitz.virtuozo.ui.api.HasActivation;
 import hitz.virtuozo.ui.api.ActivationEvent.ActivationHandler;
@@ -40,7 +40,7 @@ import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.dom.client.MouseWheelHandler;
 
-public class PillPanel extends Widget<PillPanel> {
+public class PillPanel extends Component<PillPanel> {
   private OrderList nav = new OrderList(OrderList.Type.UNORDERED);
 
   private ActivationHelper activationHelper = new ActivationHelper();
@@ -64,7 +64,7 @@ public class PillPanel extends Widget<PillPanel> {
     return new PillDroppable(this.nav.addItem());
   }
 
-  public class PillDroppable extends Widget<PillDroppable> implements HasText<PillDroppable> {
+  public class PillDroppable extends Component<PillDroppable> implements HasText<PillDroppable> {
     private DropItem item;
 
     public PillDroppable(ListItem item) {
@@ -110,7 +110,7 @@ public class PillPanel extends Widget<PillPanel> {
     private static final StyleChooser TYPES = new StyleChooser(STACKED, BLOCK);
   }
 
-  public class Pill extends Widget<Pill> implements HasText<Pill>, HasClickHandlers<Pill>, HasMouseHandlers<Pill>, HasActivation<Pill> {
+  public class Pill extends Component<Pill> implements HasText<Pill>, HasClickHandlers<Pill>, HasMouseHandlers<Pill>, HasActivation<Pill> {
     private Tag<AnchorElement> anchor = Tag.asAnchor();
 
     public Pill(ListItem item) {

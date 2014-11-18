@@ -1,9 +1,9 @@
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.HasText;
-import hitz.virtuozo.infra.api.ShowEvent;
 import hitz.virtuozo.ui.Tag;
 import hitz.virtuozo.ui.api.Direction;
+import hitz.virtuozo.ui.api.HasText;
+import hitz.virtuozo.ui.api.ShowEvent;
 
 import com.google.gwt.dom.client.DivElement;
 

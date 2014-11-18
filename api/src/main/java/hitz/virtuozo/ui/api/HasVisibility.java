@@ -12,14 +12,25 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
+package hitz.virtuozo.ui.api;
 
-package hitz.virtuozo.infra.api;
+import hitz.virtuozo.ui.api.HideEvent.HideHandler;
+import hitz.virtuozo.ui.api.ShowEvent.ShowHandler;
+import hitz.virtuozo.ui.api.ToggleEvent.ToggleHandler;
 
-import com.google.gwt.user.client.ui.IsWidget;
+public interface HasVisibility<T> {
 
-public interface HasValues<W extends IsWidget, V> {
+  T onHide(HideHandler handler);
 
-  W value(V[] values);
+  T onShow(ShowHandler handler);
 
-  V[] getValue();
+  T onToggleVisibility(ToggleHandler handler);
+
+  T show();
+  
+  T hide();
+  
+  T toggleVisibility();
+  
+  boolean visible();
 }

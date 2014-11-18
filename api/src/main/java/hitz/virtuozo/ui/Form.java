@@ -3,7 +3,7 @@ package hitz.virtuozo.ui;
 import com.google.gwt.dom.client.FormElement;
 
 @SuppressWarnings("unchecked")
-public abstract class Form<F extends Form<F>> extends Widget<F> {
+public abstract class Form<F extends Form<F>> extends Component<F> {
   public Form() {
     super(Elements.form());
     this.role("form");

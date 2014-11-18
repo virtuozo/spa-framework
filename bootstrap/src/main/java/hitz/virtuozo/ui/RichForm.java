@@ -1,12 +1,12 @@
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.ToggleEvent;
-import hitz.virtuozo.infra.api.ToggleEvent.ToggleHandler;
 import hitz.virtuozo.ui.api.Assets;
 import hitz.virtuozo.ui.api.HasFeedback;
 import hitz.virtuozo.ui.api.Icon;
+import hitz.virtuozo.ui.api.ToggleEvent;
 import hitz.virtuozo.ui.api.UIInput;
-import hitz.virtuozo.ui.api.UIWidget;
+import hitz.virtuozo.ui.api.UIComponent;
+import hitz.virtuozo.ui.api.ToggleEvent.ToggleHandler;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.DivElement;
@@ -86,7 +86,7 @@ public class RichForm extends Form<RichForm> {
     public HorizontalFormGroup(I input) {
       super(input, new Feedback());
       this.addChild(this.label().css("control-label")).addChild(this.container);
-      this.feedback().asWidget().incorporate(this.container);
+      this.feedback().asComponent().incorporate(this.container);
       this.container.add(input).add(this.helpBlock());
       
       this.label().onToggleVisibility(new ToggleHandler() {
@@ -106,18 +106,18 @@ public class RichForm extends Form<RichForm> {
   static class DefaultFormGroup<I extends UIInput<?, V>, V> extends FormGroup<I, V> {
     public DefaultFormGroup(I input) {
       super(input, new Feedback());
-      this.feedback().asWidget().incorporate(this);
+      this.feedback().asComponent().incorporate(this);
       this.addChild(this.label().css("control-label")).addChild(input).addChild(this.helpBlock());
     }
   }
   
-  static class Feedback extends Widget<Feedback> implements HasFeedback<Feedback> {
-    private UIWidget icon;
+  static class Feedback extends Component<Feedback> implements HasFeedback<Feedback> {
+    private UIComponent icon;
     
     private Assets assets = GWT.create(Assets.class);
     
     @Override
-    protected Feedback incorporate(Widget<?> widget) {
+    protected Feedback incorporate(Component<?> widget) {
       return super.incorporate(widget).css("has-feedback");
     }
     
@@ -141,10 +141,10 @@ public class RichForm extends Form<RichForm> {
     
     private Feedback icon(Icon icon){
       if(this.icon != null){
-        this.icon.asWidget().detach();
+        this.icon.asComponent().detach();
       }
       
-      this.icon = icon.asWidget().asWidget().css("form-control-feedback");
+      this.icon = icon.asWidget().asComponent().css("form-control-feedback");
       
       return this.addChild(this.icon);
     }
@@ -153,7 +153,7 @@ public class RichForm extends Form<RichForm> {
     public Feedback hide() {
       this.css().remove(Styles.SUCCESS.name(), Styles.WARNING.name(), Styles.ERROR.name());
       if(this.icon != null){
-        this.icon.asWidget().detach();
+        this.icon.asComponent().detach();
       }
       return this;
     }

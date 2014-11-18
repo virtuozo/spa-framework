@@ -15,13 +15,13 @@
 
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.HasClickHandlers;
-import hitz.virtuozo.infra.api.HasFocusHandlers;
-import hitz.virtuozo.infra.api.HasHtml;
-import hitz.virtuozo.infra.api.HasKeyHandlers;
-import hitz.virtuozo.infra.api.HasMouseHandlers;
-import hitz.virtuozo.infra.api.HasText;
-import hitz.virtuozo.infra.api.HasTouchHandlers;
+import hitz.virtuozo.ui.api.HasClickHandlers;
+import hitz.virtuozo.ui.api.HasFocusHandlers;
+import hitz.virtuozo.ui.api.HasHtml;
+import hitz.virtuozo.ui.api.HasKeyHandlers;
+import hitz.virtuozo.ui.api.HasMouseHandlers;
+import hitz.virtuozo.ui.api.HasText;
+import hitz.virtuozo.ui.api.HasTouchHandlers;
 
 import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.dom.client.DivElement;

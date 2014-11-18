@@ -18,7 +18,7 @@ package com.google.gwt.user.client.ui;
 import hitz.virtuozo.infra.CastIterator;
 import hitz.virtuozo.ui.api.CssChangeEvent;
 import hitz.virtuozo.ui.api.EventInterceptor;
-import hitz.virtuozo.ui.api.UIWidget;
+import hitz.virtuozo.ui.api.UIComponent;
 
 import java.util.Iterator;
 
@@ -68,8 +68,8 @@ public final class WidgetHolder extends ComplexPanel {
     this.onAttach();
   }
 
-  public UIWidget parent() {
-    return (UIWidget) ((WidgetHolder) super.getParent()).getReference();
+  public UIComponent parent() {
+    return (UIComponent) ((WidgetHolder) super.getParent()).getReference();
   }
 
   public <T> T getReference() {

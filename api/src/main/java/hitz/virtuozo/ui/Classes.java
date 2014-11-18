@@ -2,7 +2,7 @@ package hitz.virtuozo.ui;
 
 import hitz.virtuozo.ui.api.UIClass;
 import hitz.virtuozo.ui.api.UIClasses;
-import hitz.virtuozo.ui.api.UIWidget;
+import hitz.virtuozo.ui.api.UIComponent;
 
 import com.google.gwt.user.client.ui.WidgetHolder;
 
@@ -19,7 +19,7 @@ final class Classes implements UIClasses {
     }
     
     for (UIClass clazz : classes) {
-      clazz.parse((UIWidget) this.widget.getReference());
+      clazz.parse((UIComponent) this.widget.getReference());
       this.widget.addStyleName(clazz.name());
     }
 
@@ -60,7 +60,7 @@ final class Classes implements UIClasses {
     this.widget.setStyleName("");
 
     for (UIClass clazz : classes) {
-      clazz.parse((UIWidget) this.widget.getReference());
+      clazz.parse((UIComponent) this.widget.getReference());
       this.widget.addStyleName(clazz.name());
     }
 

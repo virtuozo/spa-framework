@@ -50,7 +50,7 @@ public final class VerticalSpinner extends Spinner<VerticalSpinner> {
     });
   }
 
-  class SpinnerButtons extends Widget<SpinnerButtons> {
+  class SpinnerButtons extends Component<SpinnerButtons> {
     private Assets assets = GWT.create(Assets.class);
 
     private Button up = new Button().css("spinner-up");

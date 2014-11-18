@@ -1,11 +1,11 @@
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.HasHtml;
-import hitz.virtuozo.infra.api.HasText;
 import hitz.virtuozo.ui.Elements;
-import hitz.virtuozo.ui.Widget;
+import hitz.virtuozo.ui.Component;
+import hitz.virtuozo.ui.api.HasHtml;
+import hitz.virtuozo.ui.api.HasText;
 
-public class HelpBlock extends Widget<HelpBlock> implements HasText<HelpBlock>, HasHtml<HelpBlock> {
+public class HelpBlock extends Component<HelpBlock> implements HasText<HelpBlock>, HasHtml<HelpBlock> {
   public HelpBlock() {
     super(Elements.p());
     this.css("help-block");

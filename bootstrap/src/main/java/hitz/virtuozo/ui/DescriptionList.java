@@ -16,10 +16,10 @@
 package hitz.virtuozo.ui;
 
 import hitz.virtuozo.ui.Elements;
-import hitz.virtuozo.ui.Widget;
+import hitz.virtuozo.ui.Component;
 
 
-public final class DescriptionList extends Widget<DescriptionList> {
+public final class DescriptionList extends Component<DescriptionList> {
 
   public DescriptionList() {
     super(Elements.dl());
@@ -47,7 +47,7 @@ public final class DescriptionList extends Widget<DescriptionList> {
     return this.addChild(new Description(description));
   }
 
-  class Title extends Widget<Title> {
+  class Title extends Component<Title> {
 
     public Title(String text) {
       super(Elements.dt());
@@ -55,7 +55,7 @@ public final class DescriptionList extends Widget<DescriptionList> {
     }
   }
 
-  class Description extends Widget<Description> {
+  class Description extends Component<Description> {
 
     public Description(String text) {
       super(Elements.dd());

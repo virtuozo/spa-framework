@@ -12,22 +12,19 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
+package hitz.virtuozo.ui.api;
 
-package hitz.virtuozo.infra.api;
+import com.google.gwt.event.logical.shared.AttachEvent;
+import com.google.gwt.event.logical.shared.AttachEvent.Handler;
 
-import com.google.gwt.event.dom.client.*;
+public abstract class DetachHandler implements Handler {
 
-public interface HasMouseHandlers<T> {
+  @Override
+  public final void onAttachOrDetach(AttachEvent event) {
+    if (!event.isAttached()) {
+      this.onDetach(event);
+    }
+  }
 
-  T onMouseDown(MouseDownHandler handler);
-
-  T onMouseMove(MouseMoveHandler handler);
-
-  T onMouseOut(MouseOutHandler handler);
-
-  T onMouseOver(MouseOverHandler handler);
-
-  T onMouseUp(MouseUpHandler handler);
-
-  T onMouseWheel(MouseWheelHandler handler);
+  protected abstract void onDetach(AttachEvent event);
 }

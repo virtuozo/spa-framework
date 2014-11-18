@@ -18,9 +18,9 @@ import hitz.virtuozo.ui.Composite;
 import hitz.virtuozo.ui.CssClass;
 import hitz.virtuozo.ui.Elements;
 import hitz.virtuozo.ui.StyleChooser;
-import hitz.virtuozo.ui.Widget;
+import hitz.virtuozo.ui.Component;
 
-public class Panel extends Widget<Panel> {
+public class Panel extends Component<Panel> {
   private Header header = new Header();
 
   private Body body = new Body();

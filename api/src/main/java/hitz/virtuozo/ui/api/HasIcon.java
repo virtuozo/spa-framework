@@ -15,6 +15,6 @@
 package hitz.virtuozo.ui.api;
 
 
-public interface HasIcon<W extends UIWidget> {
-  W icon(Icon icon);
+public interface HasIcon<C extends UIComponent> {
+  C icon(Icon icon);
 }

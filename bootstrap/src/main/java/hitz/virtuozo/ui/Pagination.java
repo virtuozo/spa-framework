@@ -23,7 +23,7 @@ import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 
-public class Pagination extends Widget<Pagination> {
+public class Pagination extends Component<Pagination> {
   private Assets assets = GWT.create(Assets.class);
 
   private PaginationItem previous;

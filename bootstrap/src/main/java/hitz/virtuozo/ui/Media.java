@@ -14,17 +14,17 @@
  */
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.HasClickHandlers;
 import hitz.virtuozo.ui.Composite;
 import hitz.virtuozo.ui.Elements;
-import hitz.virtuozo.ui.Widget;
-import hitz.virtuozo.ui.api.UIWidget;
+import hitz.virtuozo.ui.Component;
+import hitz.virtuozo.ui.api.HasClickHandlers;
+import hitz.virtuozo.ui.api.UIComponent;
 
 import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DoubleClickHandler;
 
-public class Media extends Widget<Media> {
+public class Media extends Component<Media> {
   private Object object = new Object();
 
   private Body body = new Body();
@@ -78,7 +78,7 @@ public class Media extends Widget<Media> {
     }
   }
 
-  public class Object extends Widget<Object> implements HasClickHandlers<Object> {
+  public class Object extends Component<Object> implements HasClickHandlers<Object> {
 
     public Object() {
       super(Elements.a());
@@ -86,9 +86,9 @@ public class Media extends Widget<Media> {
       this.css().set(hitz.virtuozo.ui.css.Floating.LEFT);
     }
 
-    public Object add(UIWidget widget) {
+    public Object add(UIComponent widget) {
       this.add(widget);
-      widget.asWidget().css("media-object");
+      widget.asComponent().css("media-object");
       return this;
     }
 

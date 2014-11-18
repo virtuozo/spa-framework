@@ -12,7 +12,7 @@ import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 
-public final class InputFile extends Widget<InputFile> implements UIInput<InputFile, String> {
+public final class InputFile extends Component<InputFile> implements UIInput<InputFile, String> {
   private Assets assets = GWT.create(Assets.class);
   
   private File file = new File();

@@ -15,7 +15,7 @@
 package hitz.virtuozo.ui;
 
 import hitz.virtuozo.ui.api.UIClass;
-import hitz.virtuozo.ui.api.UIWidget;
+import hitz.virtuozo.ui.api.UIComponent;
 
 
 public final class StyleChooser {
@@ -26,7 +26,7 @@ public final class StyleChooser {
     this.names = names;
   }
   
-  public void choose(UIWidget widget, UIClass className) {
-    widget.asWidget().css().remove(this.names);
+  public void choose(UIComponent widget, UIClass className) {
+    widget.asComponent().css().remove(this.names);
   }
 }

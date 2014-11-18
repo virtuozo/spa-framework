@@ -15,12 +15,12 @@
 package hitz.virtuozo.ui;
 
 import hitz.virtuozo.infra.CastIterable;
-import hitz.virtuozo.ui.api.UIWidget;
+import hitz.virtuozo.ui.api.UIComponent;
 
 import com.google.gwt.dom.client.Element;
 
 @SuppressWarnings("unchecked")
-public abstract class Parent<P extends Parent<P, C>, C extends UIWidget> extends Widget<P> {
+public abstract class Parent<P extends Parent<P, C>, C extends UIComponent> extends Component<P> {
 
   public Parent() {
     super();
@@ -30,7 +30,7 @@ public abstract class Parent<P extends Parent<P, C>, C extends UIWidget> extends
     super(element);
   }
 
-  public Parent(Widget<?> widget) {
+  public Parent(Component<?> widget) {
     super(widget);
   }
 
@@ -52,7 +52,7 @@ public abstract class Parent<P extends Parent<P, C>, C extends UIWidget> extends
   }
 
   public Iterable<C> children() {
-    return new CastIterable<C, UIWidget>(super.childrenWidgets());
+    return new CastIterable<C, UIComponent>(super.childrenWidgets());
   }
 
   @Override

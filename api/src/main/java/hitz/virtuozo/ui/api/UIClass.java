@@ -17,5 +17,5 @@ package hitz.virtuozo.ui.api;
 public interface UIClass {
   String name();
   
-  void parse(UIWidget widget);
+  void parse(UIComponent widget);
 }

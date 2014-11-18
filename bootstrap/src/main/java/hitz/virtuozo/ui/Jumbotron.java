@@ -16,12 +16,12 @@ package hitz.virtuozo.ui;
 
 import hitz.virtuozo.ui.Elements;
 import hitz.virtuozo.ui.Tag;
-import hitz.virtuozo.ui.Widget;
+import hitz.virtuozo.ui.Component;
 import hitz.virtuozo.ui.css.ButtonColor;
 
 import com.google.gwt.dom.client.DivElement;
 
-public class Jumbotron extends Widget<Jumbotron> {
+public class Jumbotron extends Component<Jumbotron> {
   private Tag<DivElement> container = Tag.asDiv();
 
   private Heading heading = new Heading(Heading.Level.ONE);

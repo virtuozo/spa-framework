@@ -12,14 +12,19 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
+ package hitz.virtuozo.ui.api;
 
-package hitz.virtuozo.infra.api;
+import com.google.gwt.event.logical.shared.AttachEvent;
+import com.google.gwt.event.logical.shared.AttachEvent.Handler;
 
-import hitz.virtuozo.ui.api.UIWidget;
+public abstract class AttachHandler implements Handler {
 
-public interface HasValue<W extends UIWidget, V> {
+  @Override
+  public final void onAttachOrDetach(AttachEvent event) {
+    if (event.isAttached()) {
+      this.onAttach(event);
+    }
+  }
 
-  W value(V value);
-
-  V value();
+  protected abstract void onAttach(AttachEvent event);
 }

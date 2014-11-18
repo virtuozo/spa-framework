@@ -16,9 +16,9 @@ package hitz.virtuozo.ui;
 
 import hitz.virtuozo.ui.Composite;
 import hitz.virtuozo.ui.Elements;
-import hitz.virtuozo.ui.Widget;
+import hitz.virtuozo.ui.Component;
 
-public final class Thumbnail extends Widget<Thumbnail> {
+public final class Thumbnail extends Component<Thumbnail> {
   private Caption caption = new Caption().hide();
 
   private Image image = new Image();

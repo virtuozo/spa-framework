@@ -14,12 +14,12 @@
  */
 package hitz.virtuozo.ui.api;
 
-import hitz.virtuozo.ui.api.UIWidget;
+import hitz.virtuozo.ui.api.UIComponent;
 
 
-public interface HasState<W extends UIWidget> extends HasActivation<W>{
+public interface HasState<C extends UIComponent> extends HasActivation<C>{
   
-  W disable();
-  W enable();
+  C disable();
+  C enable();
   boolean disabled();
 }

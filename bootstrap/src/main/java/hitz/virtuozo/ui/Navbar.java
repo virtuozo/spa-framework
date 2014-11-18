@@ -14,16 +14,16 @@
  */
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.HasClickHandlers;
-import hitz.virtuozo.infra.api.HasText;
 import hitz.virtuozo.ui.api.ActivationEvent;
 import hitz.virtuozo.ui.api.ActivationEvent.ActivationHandler;
 import hitz.virtuozo.ui.api.DeactivationEvent;
 import hitz.virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
 import hitz.virtuozo.ui.api.HasActivation;
+import hitz.virtuozo.ui.api.HasClickHandlers;
 import hitz.virtuozo.ui.api.HasIcon;
+import hitz.virtuozo.ui.api.HasText;
 import hitz.virtuozo.ui.api.Icon;
-import hitz.virtuozo.ui.api.UIWidget;
+import hitz.virtuozo.ui.api.UIComponent;
 import hitz.virtuozo.ui.css.State;
 
 import com.google.gwt.dom.client.AnchorElement;
@@ -32,7 +32,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DoubleClickHandler;
 
-public class Navbar extends Widget<Navbar> {
+public class Navbar extends Component<Navbar> {
   private Container container = new Container(Container.Type.FLUID);
 
   private Header header = new Header();
@@ -67,7 +67,7 @@ public class Navbar extends Widget<Navbar> {
     return this.right;
   }
 
-  public class Facet extends Widget<Facet> {
+  public class Facet extends Component<Facet> {
     public Facet() {
       super(Elements.div());
       this.css().set("nav");
@@ -106,12 +106,12 @@ public class Navbar extends Widget<Navbar> {
       return nav;
     }
 
-    private Facet add(UIWidget widget, String clazz) {
-      widget.asWidget().css(clazz);
+    private Facet add(UIComponent widget, String clazz) {
+      widget.asComponent().css(clazz);
       return this.addChild(widget);
     }
     
-    public class NavItem extends Widget<NavItem> implements HasText<NavItem>, HasClickHandlers<NavItem>, HasActivation<NavItem> {
+    public class NavItem extends Component<NavItem> implements HasText<NavItem>, HasClickHandlers<NavItem>, HasActivation<NavItem> {
       private Tag<AnchorElement> anchor = Tag.asAnchor();
 
       NavItem(ListItem item) {
@@ -176,14 +176,14 @@ public class Navbar extends Widget<Navbar> {
     }
   }
 
-  class Collapse extends Widget<Collapse> {
+  class Collapse extends Component<Collapse> {
     public Collapse() {
       super(Elements.div());
       this.css().set("collapse", "navbar-collapse");
     }
   }
 
-  class Header extends Widget<Header> {
+  class Header extends Component<Header> {
     private Button toggle = new Button();
 
     private Brand brand = new Brand();
@@ -202,7 +202,7 @@ public class Navbar extends Widget<Navbar> {
       });
     }
 
-    class IconBar extends Widget<IconBar> {
+    class IconBar extends Component<IconBar> {
       public IconBar() {
         super(Elements.span());
         this.css().set("icon-bar");
@@ -210,7 +210,7 @@ public class Navbar extends Widget<Navbar> {
     }
   }
 
-  public class Brand extends Widget<Brand> implements HasText<Brand>, HasIcon<Brand>, HasClickHandlers<Brand> {
+  public class Brand extends Component<Brand> implements HasText<Brand>, HasIcon<Brand>, HasClickHandlers<Brand> {
     public Brand() {
       super(Elements.a());
       this.element().setHref("javascript:void(0)");

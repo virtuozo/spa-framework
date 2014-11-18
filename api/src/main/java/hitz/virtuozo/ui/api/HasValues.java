@@ -13,13 +13,12 @@
  * the License.
  */
 
-package hitz.virtuozo.infra.api;
+package hitz.virtuozo.ui.api;
 
-import hitz.virtuozo.ui.api.UIWidget;
 
-public interface HasHtml<W extends UIWidget> {
+public interface HasValues<C extends UIComponent, V> {
 
-  W html(String html);
+  C value(V[] values);
 
-  String html();
+  V[] getValue();
 }

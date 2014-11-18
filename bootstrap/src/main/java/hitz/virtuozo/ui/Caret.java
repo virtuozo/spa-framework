@@ -15,9 +15,9 @@
 package hitz.virtuozo.ui;
 
 import hitz.virtuozo.ui.Elements;
-import hitz.virtuozo.ui.Widget;
+import hitz.virtuozo.ui.Component;
 
-final class Caret extends Widget<Caret> {
+final class Caret extends Component<Caret> {
   public Caret() {
     super(Elements.span());
     this.css().set("caret");

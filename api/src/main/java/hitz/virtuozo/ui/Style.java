@@ -40,9 +40,9 @@ import com.google.gwt.dom.client.Style.WhiteSpace;
 
 public final class Style {
 
-  private Widget<?> widget;
+  private Component<?> widget;
 
-  public Style(Widget<?> widget) {
+  public Style(Component<?> widget) {
     this.widget = widget;
   }
 

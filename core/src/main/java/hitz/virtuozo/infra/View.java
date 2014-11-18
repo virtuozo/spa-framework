@@ -1,7 +1,7 @@
 package hitz.virtuozo.infra;
 
-import hitz.virtuozo.ui.api.UIWidget;
+import hitz.virtuozo.ui.api.UIComponent;
 
 public interface View {
-  UIWidget render();
+  UIComponent render();
 }

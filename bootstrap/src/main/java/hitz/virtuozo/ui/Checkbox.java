@@ -1,16 +1,16 @@
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.HasText;
 import hitz.virtuozo.ui.Elements;
 import hitz.virtuozo.ui.InputCheckbox;
 import hitz.virtuozo.ui.InputLabel;
 import hitz.virtuozo.ui.Text;
-import hitz.virtuozo.ui.Widget;
+import hitz.virtuozo.ui.Component;
+import hitz.virtuozo.ui.api.HasText;
 import hitz.virtuozo.ui.api.UISelection;
 
 import com.google.gwt.event.dom.client.ChangeHandler;
 
-public class Checkbox extends Widget<Checkbox> implements UISelection<Checkbox, String>, HasText<Checkbox>{
+public class Checkbox extends Component<Checkbox> implements UISelection<Checkbox, String>, HasText<Checkbox>{
 
   private InputLabel label = new InputLabel();
   

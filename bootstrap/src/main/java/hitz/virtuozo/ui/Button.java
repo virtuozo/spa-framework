@@ -14,25 +14,25 @@
  */
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.HasClickHandlers;
-import hitz.virtuozo.infra.api.HasFocusHandlers;
-import hitz.virtuozo.infra.api.HasKeyHandlers;
-import hitz.virtuozo.infra.api.HasMouseHandlers;
-import hitz.virtuozo.infra.api.HasText;
 import hitz.virtuozo.ui.CssClass;
 import hitz.virtuozo.ui.Elements;
 import hitz.virtuozo.ui.StyleChooser;
 import hitz.virtuozo.ui.Text;
-import hitz.virtuozo.ui.Widget;
+import hitz.virtuozo.ui.Component;
 import hitz.virtuozo.ui.api.ActivationEvent.ActivationHandler;
 import hitz.virtuozo.ui.api.ActivationEvent;
 import hitz.virtuozo.ui.api.DeactivationEvent;
 import hitz.virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
 import hitz.virtuozo.ui.api.HasActivation;
+import hitz.virtuozo.ui.api.HasClickHandlers;
+import hitz.virtuozo.ui.api.HasFocusHandlers;
 import hitz.virtuozo.ui.api.HasIcon;
+import hitz.virtuozo.ui.api.HasKeyHandlers;
+import hitz.virtuozo.ui.api.HasMouseHandlers;
 import hitz.virtuozo.ui.api.HasState;
+import hitz.virtuozo.ui.api.HasText;
 import hitz.virtuozo.ui.api.Icon;
-import hitz.virtuozo.ui.api.UIWidget;
+import hitz.virtuozo.ui.api.UIComponent;
 import hitz.virtuozo.ui.css.State;
 
 import com.google.gwt.dom.client.Element;
@@ -51,7 +51,7 @@ import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.dom.client.MouseWheelHandler;
 
-public class Button extends Widget<Button> implements HasText<Button>, HasIcon<Button>, HasState<Button>, HasClickHandlers<Button>, HasMouseHandlers<Button>, HasFocusHandlers<Button>, HasKeyHandlers<Button> {
+public class Button extends Component<Button> implements HasText<Button>, HasIcon<Button>, HasState<Button>, HasClickHandlers<Button>, HasMouseHandlers<Button>, HasFocusHandlers<Button>, HasKeyHandlers<Button> {
   private Text textHolder = new Text();
   
   private ClickHandler toggleHandler = new ClickHandler() {
@@ -76,7 +76,7 @@ public class Button extends Widget<Button> implements HasText<Button>, HasIcon<B
   }
   
   @Override
-  protected Button addChild(UIWidget add) {
+  protected Button addChild(UIComponent add) {
     return super.addChild(add);
   }
   

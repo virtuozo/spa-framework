@@ -14,19 +14,19 @@
  */
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.HasText;
 import hitz.virtuozo.ui.Elements;
-import hitz.virtuozo.ui.Widget;
-import hitz.virtuozo.ui.api.UIWidget;
+import hitz.virtuozo.ui.Component;
+import hitz.virtuozo.ui.api.HasText;
+import hitz.virtuozo.ui.api.UIComponent;
 
-public class Badge extends Widget<Badge> implements HasText<Badge>{
+public class Badge extends Component<Badge> implements HasText<Badge>{
   public Badge() {
     super(Elements.span());
     this.css().set("badge");
   }
   
-  public Badge appendTo(UIWidget widget){
-    widget.asWidget().addChild(this);
+  public Badge appendTo(UIComponent widget){
+    widget.asComponent().addChild(this);
     return this;
   }
 

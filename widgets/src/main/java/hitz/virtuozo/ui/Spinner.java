@@ -15,10 +15,10 @@
 
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.HasChangeHandlers;
 import hitz.virtuozo.ui.InputGroup;
-import hitz.virtuozo.ui.Widget;
+import hitz.virtuozo.ui.Component;
 import hitz.virtuozo.ui.InputGroup.Size;
+import hitz.virtuozo.ui.api.HasChangeHandlers;
 import hitz.virtuozo.ui.api.UIInput;
 
 import com.google.gwt.dom.client.Element;
@@ -26,7 +26,7 @@ import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ChangeHandler;
 
-abstract class Spinner<S extends Spinner<S>> extends Widget<S> implements UIInput<S, Integer>, HasChangeHandlers<S> {
+abstract class Spinner<S extends Spinner<S>> extends Component<S> implements UIInput<S, Integer>, HasChangeHandlers<S> {
 
   private InputGroup input = new NumberBox().css(Size.SMALL).css("spinner-input").maxLength(3);
   

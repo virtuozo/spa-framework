@@ -1,6 +1,5 @@
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.HasText;
 import hitz.virtuozo.ui.OrderList.Type;
 import hitz.virtuozo.ui.api.ActivationEvent;
 import hitz.virtuozo.ui.api.ActivationEvent.ActivationHandler;
@@ -8,6 +7,7 @@ import hitz.virtuozo.ui.api.DeactivationEvent;
 import hitz.virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
 import hitz.virtuozo.ui.api.HasActivation;
 import hitz.virtuozo.ui.api.HasIcon;
+import hitz.virtuozo.ui.api.HasText;
 import hitz.virtuozo.ui.api.Icon;
 
 import com.google.gwt.dom.client.AnchorElement;
@@ -16,7 +16,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DoubleClickHandler;
 
-public class SideMenu extends Widget<SideMenu> {
+public class SideMenu extends Component<SideMenu> {
   private ActivationHelper activationHelper = new ActivationHelper();
   
   private OrderList list = new OrderList(Type.UNORDERED);
@@ -32,7 +32,7 @@ public class SideMenu extends Widget<SideMenu> {
     return item;
   }
   
-  public class SideItem extends Widget<SideItem> implements HasActivation<SideItem>, HasIcon<SideItem>, HasText<SideItem> {
+  public class SideItem extends Component<SideItem> implements HasActivation<SideItem>, HasIcon<SideItem>, HasText<SideItem> {
     private Tag<AnchorElement> link = Tag.asAnchor();
     
     public SideItem(ListItem item) {
@@ -128,7 +128,7 @@ public class SideMenu extends Widget<SideMenu> {
     }
   }
   
-  public class SideMenuItem extends Widget<SideMenu>{
+  public class SideMenuItem extends Component<SideMenu>{
     private OrderList list = new OrderList(Type.UNORDERED);
     
     public SideMenuItem() {

@@ -3,7 +3,7 @@ package hitz.virtuozo.ui;
 import hitz.virtuozo.ui.OrderList.Type;
 import hitz.virtuozo.ui.api.Assets;
 import hitz.virtuozo.ui.api.Icon;
-import hitz.virtuozo.ui.api.UIWidget;
+import hitz.virtuozo.ui.api.UIComponent;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.AnchorElement;
@@ -13,7 +13,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.resources.client.ImageResource;
 
-public class Carousel extends Widget<Carousel> {
+public class Carousel extends Component<Carousel> {
   private Assets assets = GWT.create(Assets.class);
   
   private OrderList indicators = new OrderList(Type.ORDERED).css("carousel-indicators");
@@ -83,8 +83,8 @@ public class Carousel extends Widget<Carousel> {
 
   private void go(Slide slide) {
     int index = 0;
-    for (UIWidget child : this.slides.children()) {
-      child.asWidget().hide().css().remove("active");
+    for (UIComponent child : this.slides.children()) {
+      child.asComponent().hide().css().remove("active");
       this.indicators.childAt(index++).css().remove("active");
     }
 
@@ -94,7 +94,7 @@ public class Carousel extends Widget<Carousel> {
     this.selection = index;
   }
 
-  public class Slide extends Widget<Slide> {
+  public class Slide extends Component<Slide> {
     private Image image = new Image();
 
     private Caption caption = new Caption();
@@ -126,7 +126,7 @@ public class Carousel extends Widget<Carousel> {
     }
   }
 
-  class Control extends Widget<Control> {
+  class Control extends Component<Control> {
 
     public Control(ControlType type) {
       super(Elements.a());

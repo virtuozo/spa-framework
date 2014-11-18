@@ -15,10 +15,10 @@
 
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.infra.api.HasChangeHandlers;
-import hitz.virtuozo.infra.api.HasFocusHandlers;
-import hitz.virtuozo.infra.api.HasKeyHandlers;
-import hitz.virtuozo.infra.api.HasMouseHandlers;
+import hitz.virtuozo.ui.api.HasChangeHandlers;
+import hitz.virtuozo.ui.api.HasFocusHandlers;
+import hitz.virtuozo.ui.api.HasKeyHandlers;
+import hitz.virtuozo.ui.api.HasMouseHandlers;
 import hitz.virtuozo.ui.api.Placeholder;
 import hitz.virtuozo.ui.api.UIInput;
 
@@ -37,7 +37,7 @@ import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.dom.client.MouseWheelHandler;
 
-public final class TextArea extends Widget<TextArea> implements UIInput<TextArea, String>, HasFocusHandlers<TextArea>, HasMouseHandlers<TextArea>, HasKeyHandlers<TextArea>,
+public final class TextArea extends Component<TextArea> implements UIInput<TextArea, String>, HasFocusHandlers<TextArea>, HasMouseHandlers<TextArea>, HasKeyHandlers<TextArea>,
     HasChangeHandlers<TextArea> {
 
   private InputState state = new InputState();

@@ -2,14 +2,14 @@ package hitz.virtuozo.ui;
 
 import hitz.virtuozo.infra.Keyboard;
 import hitz.virtuozo.infra.api.Converter;
-import hitz.virtuozo.infra.api.ShowEvent;
 import hitz.virtuozo.ui.Menu.MenuItem;
 import hitz.virtuozo.ui.MoveDownEvent.MoveDownHandler;
 import hitz.virtuozo.ui.MoveUpEvent.MoveUpHandler;
 import hitz.virtuozo.ui.SelectionEvent.SelectionHandler;
+import hitz.virtuozo.ui.api.ShowEvent;
 import hitz.virtuozo.ui.api.UIInput;
 import hitz.virtuozo.ui.api.UIRenderer;
-import hitz.virtuozo.ui.api.UIWidget;
+import hitz.virtuozo.ui.api.UIComponent;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.Timer;
 
 @SuppressWarnings("unchecked")
-public abstract class TypeAhead<T extends TypeAhead<T, V>, V> extends Widget<T> implements UIInput<T, V> {
+public abstract class TypeAhead<T extends TypeAhead<T, V>, V> extends Component<T> implements UIInput<T, V> {
 
   private Menu menu = new Menu();
 
@@ -49,7 +49,7 @@ public abstract class TypeAhead<T extends TypeAhead<T, V>, V> extends Widget<T> 
 
   private UIRenderer<V> renderer = new UIRenderer<V>() {
     @Override
-    public UIWidget render(V value) {
+    public UIComponent render(V value) {
       String text = TypeAhead.this.converter.convert(value);
       return TypeAhead.this.menu.addItem().text(text);
     }
