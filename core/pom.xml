@@ -26,11 +26,6 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>org.fusesource.restygwt</groupId>
-      <artifactId>restygwt</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
       <groupId>javax.validation</groupId>
       <artifactId>validation-api</artifactId>
       <scope>provided</scope>
@@ -39,6 +34,11 @@
     <dependency>
       <groupId>hitz</groupId>
       <artifactId>virtuozo-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>hitz</groupId>
+      <artifactId>virtuozo-rest-api</artifactId>
       <scope>provided</scope>
     </dependency>
     <dependency>

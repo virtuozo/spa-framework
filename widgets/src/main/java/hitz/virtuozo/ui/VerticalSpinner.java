@@ -15,11 +15,9 @@
 
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.ui.Button;
-import hitz.virtuozo.ui.Elements;
-import hitz.virtuozo.ui.Glyphicon;
-import hitz.virtuozo.ui.Widget;
+import hitz.virtuozo.ui.api.Assets;
 
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 
@@ -53,13 +51,16 @@ public final class VerticalSpinner extends Spinner<VerticalSpinner> {
   }
 
   class SpinnerButtons extends Widget<SpinnerButtons> {
+    private Assets assets = GWT.create(Assets.class);
 
-    private Button up = new Button().css("spinner-up").icon(Glyphicon.CHEVRON_UP);
+    private Button up = new Button().css("spinner-up");
 
-    private Button down = new Button().css("spinner-down").icon(Glyphicon.CHEVRON_DOWN);
+    private Button down = new Button().css("spinner-down");
 
     public SpinnerButtons() {
       super(Elements.div());
+      this.up.icon(this.assets.upIcon());
+      this.down.icon(this.assets.downIcon());
       this.css("spinner-buttons  btn-group btn-group-vertical").addChild(this.up).addChild(this.down);
     }
 

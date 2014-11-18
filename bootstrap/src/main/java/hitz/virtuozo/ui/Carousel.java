@@ -1,20 +1,21 @@
 package hitz.virtuozo.ui;
 
 import hitz.virtuozo.ui.OrderList.Type;
+import hitz.virtuozo.ui.api.Assets;
 import hitz.virtuozo.ui.api.Icon;
 import hitz.virtuozo.ui.api.UIWidget;
 
-import com.google.gwt.animation.client.Animation;
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.Style.Display;
-import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.resources.client.ImageResource;
-import com.google.gwt.user.client.DOM;
 
 public class Carousel extends Widget<Carousel> {
+  private Assets assets = GWT.create(Assets.class);
+  
   private OrderList indicators = new OrderList(Type.ORDERED).css("carousel-indicators");
 
   private Tag<DivElement> slides = Tag.asDiv().css("carousel-inner");
@@ -140,76 +141,21 @@ public class Carousel extends Widget<Carousel> {
     }
   }
 
-  public class SlideAnimation extends Animation {
-    private final UIWidget widget;
-    private boolean opening;
-
-    public SlideAnimation(UIWidget widget) {
-      this.widget = widget;
-    }
-
-    @Override
-    protected void onComplete() {
-      if (!opening) {
-        this.widget.hide();
-      }
-      this.widget.asWidget().style().property("height", "auto");
-    }
-
-    @Override
-    protected void onStart() {
-      super.onStart();
-      this.opening = !this.widget.asWidget().visible();
-
-      if (opening) {
-        this.widget.asWidget().style().height(0, Unit.PX);
-        this.widget.show();
-      }
-    }
-
-    @Override
-    protected void onUpdate(double progress) {
-      int scrollHeight = DOM.getElementPropertyInt(this.widget.getElement(), "scrollHeight");
-      int height = (int) (progress * scrollHeight);
-      if (!opening) {
-        height = scrollHeight - height;
-      }
-      height = Math.max(height, 1);
-      DOM.setStyleAttribute(this.widget.getElement(), "height", height + "px");
-    }
-  }
-
   enum ControlType {
     LEFT, RIGHT;
 
     String css() {
       return this.name().toLowerCase();
     }
-
-    Icon icon() {
-      if (this.equals(LEFT)) {
-        return Glyphicon.CHEVRON_LEFT;
+    
+    public Icon icon(){
+      Assets assets = GWT.create(Assets.class);
+      
+      if(this.equals(LEFT)){
+        return assets.previousIcon();
       }
-
-      return Glyphicon.CHEVRON_RIGHT;
+      
+      return assets.nextIcon();
     }
   }
 }
-
-/*
- * <div id="carousel-example-generic" class="carousel slide" data-ride="carousel"> <!-- Indicators
- * --> <ol class="carousel-indicators"> <li data-target="#carousel-example-generic"
- * data-slide-to="0" class="active"></li> <li data-target="#carousel-example-generic"
- * data-slide-to="1"></li> <li data-target="#carousel-example-generic" data-slide-to="2"></li> </ol>
- * 
- * <!-- Wrapper for slides --> <div class="carousel-inner" role="listbox"> <div class="item active">
- * <img src="..." alt="..."> <div class="carousel-caption"> ... </div> </div> <div class="item">
- * <img src="..." alt="..."> <div class="carousel-caption"> ... </div> </div> ... </div>
- * 
- * <!-- Controls --> <a class="left carousel-control" href="#carousel-example-generic" role="button"
- * data-slide="prev"> <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
- * <span class="sr-only">Previous</span> </a> <a class="right carousel-control"
- * href="#carousel-example-generic" role="button" data-slide="next"> <span
- * class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> <span
- * class="sr-only">Next</span> </a> </div>
- */

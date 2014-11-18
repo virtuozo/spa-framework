@@ -1,9 +1,12 @@
 package hitz.virtuozo.ui;
 
 import hitz.virtuozo.infra.HashObject;
-import hitz.virtuozo.ui.Glyphicon;
+import hitz.virtuozo.ui.Table.Cell;
+import hitz.virtuozo.ui.api.Assets;
+import hitz.virtuozo.ui.api.Icon;
 
 import com.google.gwt.core.client.JsArray;
+import com.google.gwt.core.shared.GWT;
 
 @SuppressWarnings("unchecked")
 public abstract class SortableGridColumn<T extends SortableGridColumn<T, H>, H extends HashObject> extends GridColumn<T, H> {
@@ -32,7 +35,8 @@ public abstract class SortableGridColumn<T extends SortableGridColumn<T, H>, H e
   }
 
   public T mark(SortDirection direction) {
-    this.headerCell().css("sorted");//.icon(this.direction.icon());
+    Cell cell = this.headerCell().css("sorted");
+    direction.icon().appendTo(cell);
     return (T) this;
   }
 
@@ -52,7 +56,7 @@ public abstract class SortableGridColumn<T extends SortableGridColumn<T, H>, H e
       }
 
       @Override
-      Glyphicon icon() {
+      Icon icon() {
         return null;
       }
     },
@@ -69,8 +73,8 @@ public abstract class SortableGridColumn<T extends SortableGridColumn<T, H>, H e
       }
 
       @Override
-      Glyphicon icon() {
-        return Glyphicon.CHEVRON_DOWN;
+      Icon icon() {
+        return assets.downIcon();
       }
     },
     ASC {
@@ -86,15 +90,17 @@ public abstract class SortableGridColumn<T extends SortableGridColumn<T, H>, H e
       }
 
       @Override
-      Glyphicon icon() {
-        return Glyphicon.CHEVRON_UP;
+      Icon icon() {
+        return assets.upIcon();
       }
     };
+    
+    private static Assets assets = GWT.create(Assets.class);
 
     public abstract int direction();
 
     abstract SortDirection reverse();
 
-    abstract Glyphicon icon();
+    abstract Icon icon();
   }
 }

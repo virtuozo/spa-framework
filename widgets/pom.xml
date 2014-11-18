@@ -11,10 +11,6 @@
     <version>1.0.0</version>
   </parent>
   
-  <properties>
-    <project.css>${project.basedir}/src/main/css</project.css>
-  </properties>
-
   <dependencies>
     <dependency>
       <groupId>com.google.gwt</groupId>
@@ -29,6 +25,11 @@
     <dependency>
       <groupId>hitz</groupId>
       <artifactId>virtuozo-bootstrap</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>hitz</groupId>
+      <artifactId>virtuozo-themes</artifactId>
       <scope>provided</scope>
     </dependency>
   </dependencies>

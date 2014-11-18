@@ -1,0 +1,207 @@
+<?xml version="1.0"?>
+<project
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+  xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>hitz</groupId>
+    <artifactId>virtuozo</artifactId>
+    <version>1.0.0</version>
+  </parent>
+  
+  <artifactId>virtuozo-themes</artifactId>
+  <name>Virtuozo Themes</name>
+
+  <properties>
+    <css.target.directory>${project.build.directory}/classes/hitz/virtuozo/themes</css.target.directory>
+  </properties>
+  
+  <dependencies>
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-user</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>hitz</groupId>
+      <artifactId>virtuozo-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>net.alchim31.maven</groupId>
+        <artifactId>yuicompressor-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compress</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <nosuffix>true</nosuffix>
+          <force>true</force>
+          <linebreakpos>-1</linebreakpos>
+          <aggregations>
+            <aggregation>
+              <output>${css.target.directory}/bootstrap/bootstrap.css</output>
+              <includes>
+                <include>${project.css}/bootstrap.css</include>
+                <include>${project.css}/bootstrap-virtuozo.css</include>
+                <include>${project.css}/bootstrap-theme.css</include>
+              </includes>
+            </aggregation>
+            
+            <aggregation>
+              <output>${css.target.directory}/cerulean/bootstrap.css</output>
+              <includes>
+                <include>${project.css}/cerulean.css</include>
+                <include>${project.css}/bootstrap-virtuozo.css</include>
+              </includes>
+            </aggregation>
+            
+            <aggregation>
+              <output>${css.target.directory}/cosmo/bootstrap.css</output>
+              <includes>
+                <include>${project.css}/cosmo.css</include>
+                <include>${project.css}/bootstrap-virtuozo.css</include>
+              </includes>
+            </aggregation>
+            
+            <aggregation>
+              <output>${css.target.directory}/cyborg/bootstrap.css</output>
+              <includes>
+                <include>${project.css}/cyborg.css</include>
+                <include>${project.css}/bootstrap-virtuozo.css</include>
+              </includes>
+            </aggregation>
+            
+            <aggregation>
+              <output>${css.target.directory}/darkly/bootstrap.css</output>
+              <includes>
+                <include>${project.css}/darkly.css</include>
+                <include>${project.css}/bootstrap-virtuozo.css</include>
+              </includes>
+            </aggregation>
+            
+            <aggregation>
+              <output>${css.target.directory}/flatly/bootstrap.css</output>
+              <includes>
+                <include>${project.css}/flatly.css</include>
+                <include>${project.css}/bootstrap-virtuozo.css</include>
+              </includes>
+            </aggregation>
+            
+            <aggregation>
+              <output>${css.target.directory}/journal/bootstrap.css</output>
+              <includes>
+                <include>${project.css}/journal.css</include>
+                <include>${project.css}/bootstrap-virtuozo.css</include>
+              </includes>
+            </aggregation>
+            
+            <aggregation>
+              <output>${css.target.directory}/lumen/bootstrap.css</output>
+              <includes>
+                <include>${project.css}/lumen.css</include>
+                <include>${project.css}/bootstrap-virtuozo.css</include>
+              </includes>
+            </aggregation>
+            
+            <aggregation>
+              <output>${css.target.directory}/paper/bootstrap.css</output>
+              <includes>
+                <include>${project.css}/paper.css</include>
+                <include>${project.css}/bootstrap-virtuozo.css</include>
+              </includes>
+            </aggregation>
+            
+            <aggregation>
+              <output>${css.target.directory}/readable/bootstrap.css</output>
+              <includes>
+                <include>${project.css}/readable.css</include>
+                <include>${project.css}/bootstrap-virtuozo.css</include>
+              </includes>
+            </aggregation>
+            
+            <aggregation>
+              <output>${css.target.directory}/sandstone/bootstrap.css</output>
+              <includes>
+                <include>${project.css}/sandstone.css</include>
+                <include>${project.css}/bootstrap-virtuozo.css</include>
+              </includes>
+            </aggregation>
+            
+            <aggregation>
+              <output>${css.target.directory}/simplex/bootstrap.css</output>
+              <includes>
+                <include>${project.css}/simplex.css</include>
+                <include>${project.css}/bootstrap-virtuozo.css</include>
+              </includes>
+            </aggregation>
+            
+            <aggregation>
+              <output>${css.target.directory}/slate/bootstrap.css</output>
+              <includes>
+                <include>${project.css}/slate.css</include>
+                <include>${project.css}/bootstrap-virtuozo.css</include>
+              </includes>
+            </aggregation>
+            
+            <aggregation>
+              <output>${css.target.directory}/spacelab/bootstrap.css</output>
+              <includes>
+                <include>${project.css}/spacelab.css</include>
+                <include>${project.css}/bootstrap-virtuozo.css</include>
+              </includes>
+            </aggregation>
+            
+            <aggregation>
+              <output>${css.target.directory}/superhero/bootstrap.css</output>
+              <includes>
+                <include>${project.css}/superhero.css</include>
+                <include>${project.css}/bootstrap-virtuozo.css</include>
+              </includes>
+            </aggregation>
+            
+            <aggregation>
+              <output>${css.target.directory}/united/bootstrap.css</output>
+              <includes>
+                <include>${project.css}/united.css</include>
+                <include>${project.css}/bootstrap-virtuozo.css</include>
+              </includes>
+            </aggregation>
+            
+            <aggregation>
+              <output>${css.target.directory}/yeti/bootstrap.css</output>
+              <includes>
+                <include>${project.css}/yeti.css</include>
+                <include>${project.css}/bootstrap-virtuozo.css</include>
+              </includes>
+            </aggregation>
+            
+            <!-- Icons -->
+            <aggregation>
+              <output>${css.target.directory}/glyphicons/glyphicons.css</output>
+              <includes>
+                <include>${project.css}/glyphicons.css</include>
+              </includes>
+            </aggregation>
+            
+            <aggregation>
+              <output>${css.target.directory}/font-awesome/font-awesome.css</output>
+              <includes>
+                <include>${project.css}/font-awesome.css</include>
+              </includes>
+            </aggregation>            
+            
+          </aggregations>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

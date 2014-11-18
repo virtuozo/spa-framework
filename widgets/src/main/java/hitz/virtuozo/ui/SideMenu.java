@@ -22,7 +22,7 @@ public class SideMenu extends Widget<SideMenu> {
   private OrderList list = new OrderList(Type.UNORDERED);
   
   public SideMenu() {
-    this.compound(this.list);
+    this.incorporate(this.list);
     this.css("sidemenu");
   }
   
@@ -132,7 +132,7 @@ public class SideMenu extends Widget<SideMenu> {
     private OrderList list = new OrderList(Type.UNORDERED);
     
     public SideMenuItem() {
-      this.compound(this.list);
+      this.incorporate(this.list);
       this.list.css("menu-item");
     }
     

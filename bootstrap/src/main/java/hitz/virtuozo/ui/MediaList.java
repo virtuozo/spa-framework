@@ -20,7 +20,7 @@ public class MediaList extends Parent<MediaList, Media>{
   private OrderList list = new OrderList(OrderList.Type.UNORDERED);
   
   public MediaList() {
-    this.compound(this.list);
+    this.incorporate(this.list);
     this.css().set("media-list");
   }
   

@@ -2,9 +2,7 @@ package hitz.virtuozo.ui;
 
 import hitz.virtuozo.infra.api.HasClickHandlers;
 import hitz.virtuozo.infra.api.HasMouseHandlers;
-import hitz.virtuozo.ui.Glyphicon;
-import hitz.virtuozo.ui.Tag;
-import hitz.virtuozo.ui.Widget;
+import hitz.virtuozo.ui.api.Icon;
 
 import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -21,10 +19,10 @@ public class Iconic extends Widget<Iconic> implements HasClickHandlers<Iconic>, 
   private Tag<AnchorElement> anchor = Tag.asAnchor();
 
   public Iconic() {
-    this.compound(this.anchor);
+    this.incorporate(this.anchor);
   }
 
-  public Iconic icon(Glyphicon icon) {
+  public Iconic icon(Icon icon) {
     icon.appendTo(this);
     return this;
   }

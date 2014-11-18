@@ -1,0 +1,5 @@
+<module>
+  <public path="sandstone"/>
+  
+  <stylesheet src="bootstrap.css"/>
+</module>

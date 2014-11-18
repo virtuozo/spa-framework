@@ -1,40 +1,38 @@
 package hitz.virtuozo.ui;
 
 import hitz.virtuozo.infra.SimpleValidator;
-import hitz.virtuozo.ui.Button;
-import hitz.virtuozo.ui.Elements;
-import hitz.virtuozo.ui.Glyphicon;
-import hitz.virtuozo.ui.Input;
-import hitz.virtuozo.ui.InputGroup;
-import hitz.virtuozo.ui.InputText;
-import hitz.virtuozo.ui.Widget;
+import hitz.virtuozo.ui.api.Assets;
+import hitz.virtuozo.ui.api.Icon;
 import hitz.virtuozo.ui.api.UIInput;
 import hitz.virtuozo.ui.css.ButtonColor;
 
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 
 public final class InputFile extends Widget<InputFile> implements UIInput<InputFile, String> {
-
+  private Assets assets = GWT.create(Assets.class);
+  
   private File file = new File();
 
   private InputGroup input = new InputGroup(new InputText());
 
   private Button submit = new Button();
 
-  private Button reset = new Button().css(ButtonColor.DANGER).icon(Glyphicon.REMOVE).hide();
+  private Button reset = new Button().css(ButtonColor.DANGER).hide();
 
   public InputFile() {
     super(Elements.div());
+    this.reset.icon(this.assets.clearIcon());
     this.init();
   }
 
   private void init() {
     this.addChild(this.file).addChild(this.input);
     this.input.append(this.submit).append(this.reset);
-    this.submit.icon(Glyphicon.UPLOAD).css(ButtonColor.INFO).onClick(new ClickHandler() {
+    this.submit.icon(this.assets.uploadIcon()).css(ButtonColor.INFO).onClick(new ClickHandler() {
 
       @Override
       public void onClick(ClickEvent event) {
@@ -100,7 +98,7 @@ public final class InputFile extends Widget<InputFile> implements UIInput<InputF
     return this;
   }
 
-  public InputFile icon(Glyphicon icon) {
+  public InputFile icon(Icon icon) {
     this.submit.icon(icon);
     return this;
   }

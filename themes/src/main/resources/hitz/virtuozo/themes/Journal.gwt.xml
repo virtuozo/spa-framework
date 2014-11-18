@@ -1,0 +1,5 @@
+<module>
+  <public path="journal"/>
+  
+  <stylesheet src="bootstrap.css"/>
+</module>

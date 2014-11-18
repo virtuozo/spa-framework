@@ -2,10 +2,13 @@ package hitz.virtuozo.ui;
 
 import hitz.virtuozo.infra.api.ToggleEvent;
 import hitz.virtuozo.infra.api.ToggleEvent.ToggleHandler;
+import hitz.virtuozo.ui.api.Assets;
 import hitz.virtuozo.ui.api.HasFeedback;
+import hitz.virtuozo.ui.api.Icon;
 import hitz.virtuozo.ui.api.UIInput;
 import hitz.virtuozo.ui.api.UIWidget;
 
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.DivElement;
 
 public class RichForm extends Form<RichForm> {
@@ -83,7 +86,7 @@ public class RichForm extends Form<RichForm> {
     public HorizontalFormGroup(I input) {
       super(input, new Feedback());
       this.addChild(this.label().css("control-label")).addChild(this.container);
-      this.feedback().asWidget().compound(this.container);
+      this.feedback().asWidget().incorporate(this.container);
       this.container.add(input).add(this.helpBlock());
       
       this.label().onToggleVisibility(new ToggleHandler() {
@@ -103,7 +106,7 @@ public class RichForm extends Form<RichForm> {
   static class DefaultFormGroup<I extends UIInput<?, V>, V> extends FormGroup<I, V> {
     public DefaultFormGroup(I input) {
       super(input, new Feedback());
-      this.feedback().asWidget().compound(this);
+      this.feedback().asWidget().incorporate(this);
       this.addChild(this.label().css("control-label")).addChild(input).addChild(this.helpBlock());
     }
   }
@@ -111,30 +114,32 @@ public class RichForm extends Form<RichForm> {
   static class Feedback extends Widget<Feedback> implements HasFeedback<Feedback> {
     private UIWidget icon;
     
+    private Assets assets = GWT.create(Assets.class);
+    
     @Override
-    protected Feedback compound(Widget<?> widget) {
-      return super.compound(widget).css("has-feedback");
+    protected Feedback incorporate(Widget<?> widget) {
+      return super.incorporate(widget).css("has-feedback");
     }
     
     @Override
     public Feedback success() {
-      this.css(Styles.SUCCESS).icon(Glyphicon.OK);
+      this.css(Styles.SUCCESS).icon(this.assets.successIcon());
       return this;
     }
 
     @Override
     public Feedback warning() {
-      this.css(Styles.WARNING).icon(Glyphicon.WARNING_SIGN);
+      this.css(Styles.WARNING).icon(this.assets.warningIcon());
       return this;
     }
 
     @Override
     public Feedback error() {
-      this.css(Styles.ERROR).icon(Glyphicon.REMOVE);
+      this.css(Styles.ERROR).icon(this.assets.errorIcon());
       return this;
     }
     
-    private Feedback icon(Glyphicon icon){
+    private Feedback icon(Icon icon){
       if(this.icon != null){
         this.icon.asWidget().detach();
       }

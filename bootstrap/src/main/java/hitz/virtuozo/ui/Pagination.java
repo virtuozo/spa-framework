@@ -14,13 +14,18 @@
  */
 package hitz.virtuozo.ui;
 
+import hitz.virtuozo.ui.api.Assets;
+import hitz.virtuozo.ui.api.Icon;
 import hitz.virtuozo.ui.api.PageChangeEvent;
 import hitz.virtuozo.ui.api.PageChangeEvent.PageChangeHandler;
 
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 
 public class Pagination extends Widget<Pagination> {
+  private Assets assets = GWT.create(Assets.class);
+
   private PaginationItem previous;
 
   private PaginationItem next;
@@ -30,8 +35,18 @@ public class Pagination extends Widget<Pagination> {
   private OrderList list = new OrderList(OrderList.Type.UNORDERED);
 
   public Pagination() {
-    this.compound(this.list);
+    this.incorporate(this.list);
     this.css().set("pagination");
+  }
+  
+  public Pagination previous(Icon previous){
+    previous.appendTo(this.previous);
+    return this;
+  }
+  
+  public Pagination next(Icon next){
+    next.appendTo(this.next);
+    return this;
   }
   
   public PaginationItem previousItem(){
@@ -47,7 +62,7 @@ public class Pagination extends Widget<Pagination> {
 
     if (this.previous == null) {
       this.previous = new PaginationItem(this.list.addItem());
-      this.previous.icon(Glyphicon.CHEVRON_LEFT);
+      this.previous.icon(this.assets.previousIcon());
       this.previous.onClick(new ClickHandler() {
         public void onClick(ClickEvent event) {
           Pagination.this.doPrevious();
@@ -77,7 +92,7 @@ public class Pagination extends Widget<Pagination> {
 
     if (this.next == null) {
       this.next = new PaginationItem(this.list.addItem());
-      this.next.icon(Glyphicon.CHEVRON_RIGHT);
+      this.next.icon(this.assets.nextIcon());
       this.next.onClick(new ClickHandler() {
         public void onClick(ClickEvent event) {
           Pagination.this.doNext();

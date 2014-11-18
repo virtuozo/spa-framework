@@ -1,0 +1,5 @@
+<module>
+  <public path="readable"/>
+  
+  <stylesheet src="bootstrap.css"/>
+</module>

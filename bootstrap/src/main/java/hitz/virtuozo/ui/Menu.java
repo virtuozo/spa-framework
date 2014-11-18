@@ -54,7 +54,7 @@ public class Menu extends Widget<Menu>{
   public Menu() {
     super();
     this.menu = new OrderList(Type.UNORDERED).hide();
-    this.compound(this.menu);
+    this.incorporate(this.menu);
     this.role("menu").css().set("dropdown-menu");
     BrowserEventInterceptor.get().onClick(this.closeHandler);
     this.on(new MouseOverHandler() {

@@ -35,7 +35,7 @@ public class Media extends Widget<Media> {
   }
 
   Media(ListItem item) {
-    this.compound(item);
+    this.incorporate(item);
     this.init();
   }
 

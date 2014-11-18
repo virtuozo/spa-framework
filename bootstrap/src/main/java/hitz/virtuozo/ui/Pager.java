@@ -15,21 +15,25 @@
 package hitz.virtuozo.ui;
 
 import hitz.virtuozo.infra.MessageFormat;
+import hitz.virtuozo.ui.api.Assets;
+import hitz.virtuozo.ui.api.Icon;
 import hitz.virtuozo.ui.api.PageChangeEvent;
 import hitz.virtuozo.ui.api.PageChangeEvent.PageChangeHandler;
 
-import com.google.gwt.dom.client.StyleInjector;
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 
 public class Pager extends Widget<Pager> {
+  private Assets assets = GWT.create(Assets.class);
+  
   private OrderList list = new OrderList(OrderList.Type.UNORDERED);
 
-  private PaginationItem previous = new PaginationItem(this.list.addItem()).icon(Glyphicon.CHEVRON_LEFT).disable();
+  private PaginationItem previous = new PaginationItem(this.list.addItem()).disable();
 
   private ListItem message = this.list.addItem();
 
-  private PaginationItem next = new PaginationItem(this.list.addItem()).icon(Glyphicon.CHEVRON_RIGHT);
+  private PaginationItem next = new PaginationItem(this.list.addItem());
 
   private int page = 1;
 
@@ -38,10 +42,10 @@ public class Pager extends Widget<Pager> {
   private String messageTemplate = "{0} - {1}";
 
   public Pager() {
-    this.compound(this.list);
+    this.incorporate(this.list);
     this.css().set("pager");
 
-    this.previous.onClick(new ClickHandler() {
+    this.previous.icon(this.assets.previousIcon()).onClick(new ClickHandler() {
       public void onClick(ClickEvent event) {
         Pager.this.doPrevious();
       }
@@ -49,12 +53,21 @@ public class Pager extends Widget<Pager> {
 
     this.message.css().set("pager-text");
 
-    StyleInjector.inject(".pager-text {padding:6px;}");
-    this.next.onClick(new ClickHandler() {
+    this.next.icon(this.assets.nextIcon()).onClick(new ClickHandler() {
       public void onClick(ClickEvent event) {
         Pager.this.doNext();
       }
     });
+  }
+  
+  public Pager previous(Icon previous){
+    previous.appendTo(this.previous);
+    return this;
+  }
+  
+  public Pager next(Icon next){
+    next.appendTo(this.next);
+    return this;
   }
 
   public PaginationItem previousItem() {

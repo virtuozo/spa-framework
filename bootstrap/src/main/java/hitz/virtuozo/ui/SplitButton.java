@@ -41,7 +41,7 @@ public final class SplitButton extends Widget<SplitButton> implements HasText<Sp
   private CompositeClasses classes = new CompositeClasses(button.css(), caret.css());
   
   public SplitButton() {
-    this.compound(this.group);
+    this.incorporate(this.group);
     this.addChild(this.dropdown);
     this.dropdown.addChild(new ButtonGroup().add(this.button).add(this.caret)).addChild(this.menu).css().set("dropdown");
     

@@ -1,8 +1,9 @@
 package hitz.virtuozo.application;
 
 import hitz.virtuozo.infra.HashObject;
+import hitz.virtuozo.interfaces.api.Request;
 
-public class RequestJSO<H extends HashObject> extends HashObject {
+public class RequestJSO<H extends HashObject> extends HashObject implements Request<RequestJSO<H>, H> {
 
   protected RequestJSO() {
   }

@@ -32,7 +32,7 @@ public final class DropButton extends Widget<DropButton> implements HasText<Drop
   private final Menu menu = new Menu();
   
   public DropButton() {
-    this.compound(new ButtonGroup());
+    this.incorporate(new ButtonGroup());
     this.addChild(this.dropdown);
     Caret caret = new Caret();
     this.dropdown.addChild(this.dropButton.addChild(caret)).addChild(this.menu).css().set("dropdown");

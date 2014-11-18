@@ -21,11 +21,13 @@ import hitz.virtuozo.ui.DrawEvent.DrawHandler;
 import hitz.virtuozo.ui.SelectionEvent.SelectionHandler;
 import hitz.virtuozo.ui.Table.Cell;
 import hitz.virtuozo.ui.Table.Row;
+import hitz.virtuozo.ui.api.Assets;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gwt.core.client.JsArray;
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.SpanElement;
 import com.google.gwt.event.dom.client.ChangeEvent;
@@ -56,7 +58,7 @@ public final class Datagrid<H extends HashObject> extends Widget<Datagrid<H>> {
   private int totalRows;
   
   public Datagrid() {
-    this.compound(this.table);
+    this.incorporate(this.table);
     this.css("datagrid");
     
     this.caption = new GridCaption(this.table.header().addRow());
@@ -371,12 +373,14 @@ public final class Datagrid<H extends HashObject> extends Widget<Datagrid<H>> {
     }
 
     class GridSearch extends Widget<GridSearch> {
+      
+      private Assets assets = GWT.create(Assets.class);
 
       private InputGroup input = new InputGroup(new InputText()).css("datagrid-search");
 
-      private Button searchButton = new Button().icon(Glyphicon.FILTER);
+      private Button searchButton = new Button();
 
-      private Button clearButton = new Button().icon(Glyphicon.REMOVE);
+      private Button clearButton = new Button();
 
       private GridFilter<H> filter = new DefaultGridFilter();
 
@@ -384,6 +388,8 @@ public final class Datagrid<H extends HashObject> extends Widget<Datagrid<H>> {
 
       public GridSearch() {
         super(Elements.div());
+        this.searchButton.icon(this.assets.searchIcon());
+        this.clearButton.icon(this.assets.clearIcon());
         this.init();
       }
 

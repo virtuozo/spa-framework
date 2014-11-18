@@ -1,0 +1,9 @@
+<module>
+  <public path="glyphicons"/>
+  
+  <stylesheet src="glyphicons.css"/>
+  
+  <replace-with class="hitz.virtuozo.ui.GhyphiconAssets">
+    <when-type-is class="hitz.virtuozo.ui.api.Assets" />
+  </replace-with>
+</module>

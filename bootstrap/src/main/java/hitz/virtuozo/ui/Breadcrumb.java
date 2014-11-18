@@ -27,7 +27,7 @@ public class Breadcrumb extends Widget<Breadcrumb> {
   private OrderList breadcrumb = new OrderList(OrderList.Type.ORDERED);
 
   public Breadcrumb() {
-    this.compound(this.breadcrumb);
+    this.incorporate(this.breadcrumb);
     this.css().set("breadcrumb");
   }
 

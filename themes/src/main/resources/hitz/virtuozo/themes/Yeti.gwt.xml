@@ -1,0 +1,5 @@
+<module>
+  <public path="yeti"/>
+  
+  <stylesheet src="bootstrap.css"/>
+</module>

@@ -1,0 +1,5 @@
+<module>
+  <public path="cerulean"/>
+  
+  <stylesheet src="bootstrap.css"/>
+</module>

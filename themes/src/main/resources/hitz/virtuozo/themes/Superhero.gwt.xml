@@ -1,0 +1,5 @@
+<module>
+  <public path="superhero"/>
+  
+  <stylesheet src="bootstrap.css"/>
+</module>

@@ -113,10 +113,10 @@ public abstract class Widget<W extends Widget<W>> implements HasVisibility<W>, U
   }
   
   public Widget(Widget<?> widget){
-    this.compound(widget);
+    this.incorporate(widget);
   }
   
-  protected W compound(Widget<?> widget){
+  protected W incorporate(Widget<?> widget){
     this.holder = widget.holder;
     this.holder.reference(this);
     this.classes = widget.classes;

@@ -46,7 +46,7 @@ public class PillPanel extends Widget<PillPanel> {
   private ActivationHelper activationHelper = new ActivationHelper();
 
   public PillPanel() {
-    this.compound(nav);
+    this.incorporate(nav);
     this.nav.css("nav", "nav-pills");
   }
 

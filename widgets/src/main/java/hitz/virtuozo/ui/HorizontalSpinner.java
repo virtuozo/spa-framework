@@ -15,23 +15,27 @@
 
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.ui.Glyphicon;
-import hitz.virtuozo.ui.Table;
 import hitz.virtuozo.ui.Table.Row;
+import hitz.virtuozo.ui.api.Assets;
 
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 
 public final class HorizontalSpinner extends Spinner<HorizontalSpinner> {
 
+  private Assets assets = GWT.create(Assets.class);
+  
   private Table table = new Table();
 
-  private Iconic down = new Iconic().icon(Glyphicon.CHEVRON_LEFT);
+  private Iconic down = new Iconic();//.icon(Glyphicon.CHEVRON_LEFT);
 
-  private Iconic up = new Iconic().icon(Glyphicon.CHEVRON_RIGHT);
+  private Iconic up = new Iconic();//.icon(Glyphicon.CHEVRON_RIGHT);
 
   public HorizontalSpinner() {
-    this.compound(this.table);
+    this.incorporate(this.table);
+    this.down.icon(this.assets.downIcon());
+    this.up.icon(this.assets.upIcon());
     this.init();
   }
 

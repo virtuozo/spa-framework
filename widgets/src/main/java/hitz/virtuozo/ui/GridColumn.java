@@ -17,6 +17,7 @@ package hitz.virtuozo.ui;
 
 import hitz.virtuozo.infra.HashObject;
 import hitz.virtuozo.ui.Table.Cell;
+import hitz.virtuozo.ui.api.Icon;
 
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.dom.client.SpanElement;
@@ -85,7 +86,7 @@ public abstract class GridColumn<G extends GridColumn<G, H>, H extends HashObjec
     return (G) this;
   }
 
-  public G icon(Glyphicon icon) {
+  public G icon(Icon icon) {
     icon.appendTo(this.headerCell);
     return (G) this;
   }
