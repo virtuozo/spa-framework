@@ -49,13 +49,6 @@
         <scope>provided</scope>
       </dependency>
 
-      <dependency>
-        <groupId>com.google.gwt.inject</groupId>
-        <artifactId>gin</artifactId>
-        <version>2.1.2</version>
-        <optional>true</optional>
-      </dependency>
-
       <!-- virtuozo modules -->
       <dependency>
         <groupId>hitz</groupId>
