@@ -18,6 +18,7 @@ import hitz.virtuozo.ui.api.ActivationEvent;
 import hitz.virtuozo.ui.api.ActivationEvent.ActivationHandler;
 import hitz.virtuozo.ui.api.DeactivationEvent;
 import hitz.virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
+import hitz.virtuozo.ui.api.DetachChildrenEvent;
 import hitz.virtuozo.ui.api.HasActivation;
 import hitz.virtuozo.ui.api.HasClickHandlers;
 import hitz.virtuozo.ui.api.HasIcon;
@@ -53,6 +54,15 @@ public class Navbar extends Component<Navbar> {
     this.collapse.addChild(this.left).addChild(this.right);
     this.left.css("navbar-left");
     this.right.css("navbar-right");
+  }
+  
+  @Override
+  protected Navbar detachChildren() {
+    this.leftFacet().detachChildren();
+    this.rightFacet().detachChildren();
+    this.header.brand.detachChildren();
+    this.fireEvent(new DetachChildrenEvent());
+    return this;
   }
 
   public Brand brand() {
@@ -138,6 +148,11 @@ public class Navbar extends Component<Navbar> {
       @Override
       public NavItem onDoubleClick(DoubleClickHandler handler) {
         this.anchor.onDoubleClick(handler);
+        return this;
+      }
+      
+      public NavItem target(UIComponent target){
+        this.anchor.element().setHref("#" + target.asComponent().id());
         return this;
       }
 

@@ -15,11 +15,13 @@
 package hitz.virtuozo.ui;
 
 import hitz.virtuozo.ui.api.Clause;
+import hitz.virtuozo.ui.api.DetachChildrenEvent.DetachChildrenHandler;
+import hitz.virtuozo.ui.api.HasComponents;
 import hitz.virtuozo.ui.api.UIComponent;
 
 import com.google.gwt.dom.client.Element;
 
-public abstract class Composite<C extends Composite<C>> extends Component<C> {
+public abstract class Composite<C extends Composite<C>> extends Component<C> implements HasComponents<C> {
 
   public Composite() {
     super();
@@ -31,6 +33,11 @@ public abstract class Composite<C extends Composite<C>> extends Component<C> {
 
   public Composite(Component<?> widget) {
     super(widget);
+  }
+  
+  @Override
+  public C onDetachChildren(DetachChildrenHandler handler) {
+    return super.onDetachChildren(handler);
   }
 
   @Override
@@ -51,7 +58,7 @@ public abstract class Composite<C extends Composite<C>> extends Component<C> {
   }
 
   public Iterable<UIComponent> children() {
-    return super.childrenWidgets();
+    return super.childrenComponents();
   }
 
   public <C extends UIComponent> C childAt(int index) {

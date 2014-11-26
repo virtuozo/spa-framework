@@ -28,6 +28,13 @@ public class StickyLayout implements Layout {
     StyleInjector.inject("#page-layout-footer { position: absolute; bottom: 0; width: 100%; height: 10%; background-color: #f5f5f5;}");
     HTML.body().addChild(this.body).addChild(this.footer);
   }
+  
+  @Override
+  public void detach() {
+    HTML.body().detachChildren();
+    this.body.detachChildren();
+    this.footer.detachChildren();
+  }
 
   public Body body() {
     return this.body;

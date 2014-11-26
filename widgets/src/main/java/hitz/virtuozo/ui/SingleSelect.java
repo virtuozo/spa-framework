@@ -420,7 +420,7 @@ public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Comp
     void select(E value) {
       this.fireEvent(new SelectionEvent<E>(value));
       this.search.input.clear();
-      for (UIComponent child : this.items.childrenWidgets()) {
+      for (UIComponent child : this.items.childrenComponents()) {
         child.asComponent().show();
       }
       Item first = this.items.childAt(0);
@@ -531,7 +531,7 @@ public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Comp
       }
 
       public Item find(E entry) {
-        for (UIComponent child : this.childrenWidgets()) {
+        for (UIComponent child : this.childrenComponents()) {
           Item item = (Item) child;
           if (item.value().equals(entry)) {
             return item;

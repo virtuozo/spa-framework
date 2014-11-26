@@ -21,18 +21,20 @@ import hitz.virtuozo.ui.api.AttachHandler;
 import hitz.virtuozo.ui.api.Clause;
 import hitz.virtuozo.ui.api.CssChangeEvent;
 import hitz.virtuozo.ui.api.CssChangeHandler;
+import hitz.virtuozo.ui.api.DetachChildrenEvent;
+import hitz.virtuozo.ui.api.DetachChildrenEvent.DetachChildrenHandler;
 import hitz.virtuozo.ui.api.DetachHandler;
 import hitz.virtuozo.ui.api.EventInterceptor;
 import hitz.virtuozo.ui.api.HasVisibility;
 import hitz.virtuozo.ui.api.HideEvent;
+import hitz.virtuozo.ui.api.HideEvent.HideHandler;
 import hitz.virtuozo.ui.api.ShowEvent;
+import hitz.virtuozo.ui.api.ShowEvent.ShowHandler;
 import hitz.virtuozo.ui.api.ToggleEvent;
+import hitz.virtuozo.ui.api.ToggleEvent.ToggleHandler;
 import hitz.virtuozo.ui.api.UIClass;
 import hitz.virtuozo.ui.api.UIClasses;
 import hitz.virtuozo.ui.api.UIComponent;
-import hitz.virtuozo.ui.api.HideEvent.HideHandler;
-import hitz.virtuozo.ui.api.ShowEvent.ShowHandler;
-import hitz.virtuozo.ui.api.ToggleEvent.ToggleHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,6 +81,7 @@ import com.google.gwt.event.dom.client.TouchStartHandler;
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Offset;
 import com.google.gwt.user.client.ui.WidgetHolder;
 
@@ -292,6 +295,11 @@ public abstract class Component<C extends Component<C>> implements HasVisibility
     return (C) this;
   }
   
+  protected C onDetachChildren(DetachChildrenHandler handler){
+    this.holder.addHandler(handler, DetachChildrenEvent.type());
+    return (C) this;
+  }
+  
   public C onEvent(EventInterceptor interceptor){
     this.holder.setInterceptor(interceptor);
     return (C) this;
@@ -299,6 +307,7 @@ public abstract class Component<C extends Component<C>> implements HasVisibility
 
   protected C detachChildren() {
     this.holder.detachChildren();
+    this.fireEvent(new DetachChildrenEvent());
     return (C) this;
   }
 
@@ -329,7 +338,7 @@ public abstract class Component<C extends Component<C>> implements HasVisibility
     return (C) this;
   }
 
-  protected Iterable<UIComponent> childrenWidgets() {
+  protected Iterable<UIComponent> childrenComponents() {
     return new CastIterable<UIComponent, WidgetHolder>(this.holder.children()).use(new TypeCast<UIComponent, WidgetHolder>() {
       @Override
       public UIComponent castFrom(WidgetHolder instance) {
@@ -343,7 +352,7 @@ public abstract class Component<C extends Component<C>> implements HasVisibility
   }
   
   protected <C extends UIComponent> C find(Clause clause){
-    for(UIComponent child : this.childrenWidgets()){
+    for(UIComponent child : this.childrenComponents()){
       if(clause.matches(child)){
         return (C) child;
       }
@@ -355,7 +364,7 @@ public abstract class Component<C extends Component<C>> implements HasVisibility
   protected Iterable<UIComponent> findAll(Clause clause){
     List<UIComponent> children = new ArrayList<UIComponent>();
     
-    for(UIComponent child : this.childrenWidgets()){
+    for(UIComponent child : this.childrenComponents()){
       if(clause.matches(child)){
         children.add(child);
       }
@@ -422,8 +431,8 @@ public abstract class Component<C extends Component<C>> implements HasVisibility
     return (C) this;
   }
 
-  public C scrollTo(int left, int top) {
-    this.holder.dimensions().scrollTo(left, top);
+  public C scrollTo() {
+    Window.scrollTo(Window.getScrollLeft() + this.left(), Window.getScrollTop() + this.top());
     return (C) this;
   }
 

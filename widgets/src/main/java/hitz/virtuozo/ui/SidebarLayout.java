@@ -52,4 +52,10 @@ public class SidebarLayout implements Layout {
     
     StyleInjector.inject("@media (min-width: 768px) { #page-layout-left { bottom: 0; display: block; left: 0; overflow-x: hidden; overflow-y: auto; padding: 20px; position: fixed; top: 51px;}}");
   }
+
+  @Override
+  public void detach() {
+    HTML.body().detachChildren();
+    this.container.detachChildren();
+  }
 }

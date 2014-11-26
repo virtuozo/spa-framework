@@ -228,14 +228,14 @@ public enum Glyphicon implements Icon {
     this.name = name;
   }
   
-  public UIComponent asWidget(){
+  public UIComponent asComponent(){
     Tag<SpanElement> icon = Tag.asSpan();
     icon.css().set("glyphicon").append(this.name);
     return icon;
   }
 
   public <C extends UIComponent> void appendTo(C component) {
-    UIComponent icon = this.asWidget();
+    UIComponent icon = this.asComponent();
     
     if(!component.asComponent().hasChildren()){
       component.asComponent().addChild(icon);

@@ -15,7 +15,6 @@
 package hitz.virtuozo.ui;
 
 import hitz.virtuozo.ui.api.Assets;
-import hitz.virtuozo.ui.api.Icon;
 import hitz.virtuozo.ui.api.PageChangeEvent;
 import hitz.virtuozo.ui.api.PageChangeEvent.PageChangeHandler;
 
@@ -39,24 +38,6 @@ public class Pagination extends Component<Pagination> {
     this.css().set("pagination");
   }
   
-  public Pagination previous(Icon previous){
-    previous.appendTo(this.previous);
-    return this;
-  }
-  
-  public Pagination next(Icon next){
-    next.appendTo(this.next);
-    return this;
-  }
-  
-  public PaginationItem previousItem(){
-    return this.previous;
-  }
-  
-  public PaginationItem nextItem(){
-    return this.next;
-  }
-
   public Pagination pages(int pages) {
     this.detachChildren();
 
@@ -65,7 +46,7 @@ public class Pagination extends Component<Pagination> {
       this.previous.icon(this.assets.previousIcon());
       this.previous.onClick(new ClickHandler() {
         public void onClick(ClickEvent event) {
-          Pagination.this.doPrevious();
+          Pagination.this.previous();
         }
       });
     }
@@ -95,7 +76,7 @@ public class Pagination extends Component<Pagination> {
       this.next.icon(this.assets.nextIcon());
       this.next.onClick(new ClickHandler() {
         public void onClick(ClickEvent event) {
-          Pagination.this.doNext();
+          Pagination.this.next();
         }
       });
     }
@@ -114,7 +95,7 @@ public class Pagination extends Component<Pagination> {
     return this.addHandler(PageChangeEvent.TYPE, handler);
   }
 
-  protected Pagination doPrevious() {
+  public Pagination previous() {
     this.next.enable();
     if(this.previous.disabled()){
       return this;
@@ -122,7 +103,7 @@ public class Pagination extends Component<Pagination> {
     return this.run(-1);
   }
 
-  protected Pagination doNext() {
+  public Pagination next() {
     this.previous.enable();
     if(this.next.disabled()){
       return this;

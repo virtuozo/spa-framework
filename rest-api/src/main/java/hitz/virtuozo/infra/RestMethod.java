@@ -81,9 +81,9 @@ public class RestMethod {
   }
 
   public RestMethod(HttpMethod method, PathBuilder path) {
-    this.defaultAcceptType(MediaType.JSON);
     StringBuilder baseUri = new StringBuilder(GWT.getHostPageBaseURL());
     this.builder = new MethodRequestBuilder(method.name(), baseUri.append(path).toString());
+    this.defaultAcceptType(MediaType.JSON);
   }
 
   public RestMethod user(String user) {
@@ -203,7 +203,7 @@ public class RestMethod {
 
     Request request = null;
     try {
-      request = this.builder.send();
+      request = this.builder.sendRequest(content, callback);
     } catch (RequestException e) {
       GWT.log("Received http error for: " + builder.getHTTPMethod() + " " + builder.getUrl(), e);
       callback.onError(request, e);

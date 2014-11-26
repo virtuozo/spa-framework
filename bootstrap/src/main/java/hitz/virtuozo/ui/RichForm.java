@@ -144,7 +144,7 @@ public class RichForm extends Form<RichForm> {
         this.icon.asComponent().detach();
       }
       
-      this.icon = icon.asWidget().asComponent().css("form-control-feedback");
+      this.icon = icon.asComponent().asComponent().css("form-control-feedback");
       
       return this.addChild(this.icon);
     }

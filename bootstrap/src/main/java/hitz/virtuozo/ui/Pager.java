@@ -16,7 +16,6 @@ package hitz.virtuozo.ui;
 
 import hitz.virtuozo.infra.MessageFormat;
 import hitz.virtuozo.ui.api.Assets;
-import hitz.virtuozo.ui.api.Icon;
 import hitz.virtuozo.ui.api.PageChangeEvent;
 import hitz.virtuozo.ui.api.PageChangeEvent.PageChangeHandler;
 
@@ -47,7 +46,7 @@ public class Pager extends Component<Pager> {
 
     this.previous.icon(this.assets.previousIcon()).onClick(new ClickHandler() {
       public void onClick(ClickEvent event) {
-        Pager.this.doPrevious();
+        Pager.this.previous();
       }
     });
 
@@ -55,29 +54,11 @@ public class Pager extends Component<Pager> {
 
     this.next.icon(this.assets.nextIcon()).onClick(new ClickHandler() {
       public void onClick(ClickEvent event) {
-        Pager.this.doNext();
+        Pager.this.next();
       }
     });
   }
   
-  public Pager previous(Icon previous){
-    previous.appendTo(this.previous);
-    return this;
-  }
-  
-  public Pager next(Icon next){
-    next.appendTo(this.next);
-    return this;
-  }
-
-  public PaginationItem previousItem() {
-    return this.previous;
-  }
-
-  public PaginationItem nextItem() {
-    return this.previous;
-  }
-
   public Pager block() {
     this.previous.css().set("previous");
     this.next.css().set("next");
@@ -102,12 +83,12 @@ public class Pager extends Component<Pager> {
     return this.addHandler(PageChangeEvent.TYPE, handler);
   }
 
-  protected Pager doPrevious() {
+  public Pager previous() {
     this.next.enable();
     return this.run(-1);
   }
 
-  protected Pager doNext() {
+  public Pager next() {
     this.previous.enable();
     return this.run(1);
   }

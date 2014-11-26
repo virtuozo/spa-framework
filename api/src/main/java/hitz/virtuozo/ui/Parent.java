@@ -52,7 +52,7 @@ public abstract class Parent<P extends Parent<P, C>, C extends UIComponent> exte
   }
 
   public Iterable<C> children() {
-    return new CastIterable<C, UIComponent>(super.childrenWidgets());
+    return new CastIterable<C, UIComponent>(super.childrenComponents());
   }
 
   @Override

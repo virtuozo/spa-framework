@@ -1,7 +1,7 @@
 package hitz.virtuozo.ui;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
@@ -12,7 +12,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
 public class EventHandlers {
   private HandlerManager bus;
   
-  private List<HandlerRegistration> register = new ArrayList<HandlerRegistration>();
+  private Map<EventHandler, HandlerRegistration> register = new HashMap<EventHandler, HandlerRegistration>();
   
   public EventHandlers() {
     this(new HandlerManager(null));
@@ -23,7 +23,12 @@ public class EventHandlers {
   }
   
   public <H extends EventHandler> EventHandlers add(Type<H> type, H handler){
-    this.register.add(this.bus.addHandler(type, handler));
+    if(this.register.containsKey(handler)){
+      this.register.get(handler).removeHandler();
+    }
+    
+    HandlerRegistration registration = this.bus.addHandler(type, handler);
+    this.register.put(handler, registration);
     return this;
   }
   
@@ -39,7 +44,7 @@ public class EventHandlers {
   
   public EventHandlers release(){
     
-    for(HandlerRegistration registration : this.register){
+    for(HandlerRegistration registration : this.register.values()){
       registration.removeHandler();
     }
     

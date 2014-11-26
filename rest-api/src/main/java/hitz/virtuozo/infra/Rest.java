@@ -107,8 +107,8 @@ public class Rest {
     }
 
     String parse(String uri) {
-      if(!uri.startsWith("/")){
-        uri = "/" + uri;
+      if(uri.startsWith("/")){
+        uri = uri.substring(1);
       }
       return uri.endsWith("/") ? uri.substring(0, uri.length() - 1) : uri;
     }

@@ -17,6 +17,7 @@ package com.google.gwt.user.client.ui;
 
 import hitz.virtuozo.infra.CastIterator;
 import hitz.virtuozo.ui.api.CssChangeEvent;
+import hitz.virtuozo.ui.api.DetachChildrenEvent;
 import hitz.virtuozo.ui.api.EventInterceptor;
 import hitz.virtuozo.ui.api.UIComponent;
 
@@ -133,7 +134,6 @@ public final class WidgetHolder extends ComplexPanel {
     for (Widget child : this.getChildren()) {
       child.removeFromParent();
     }
-
     this.clear();
   }
 

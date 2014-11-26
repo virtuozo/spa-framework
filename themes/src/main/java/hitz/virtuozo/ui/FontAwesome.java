@@ -562,14 +562,14 @@ public enum FontAwesome implements Icon {
     this.name = name;
   }
   
-  public UIComponent asWidget(){
+  public UIComponent asComponent(){
     Tag<SpanElement> icon = Tag.asSpan();
-    icon.css().set("fa").append(this.name).append("fa-fw");
+    icon.css().set("fa").append(this.name);
     return icon;
   }
 
   public <C extends UIComponent> void appendTo(C component) {
-    UIComponent icon = this.asWidget();
+    UIComponent icon = this.asComponent();
     
     if(!component.asComponent().hasChildren()){
       component.asComponent().addChild(icon);
