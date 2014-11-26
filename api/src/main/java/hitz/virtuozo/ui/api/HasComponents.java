@@ -2,30 +2,30 @@ package hitz.virtuozo.ui.api;
 
 import hitz.virtuozo.ui.api.DetachChildrenEvent.DetachChildrenHandler;
 
-public interface HasComponents<C extends HasComponents<C>> extends UIComponent {
-  C onDetachChildren(DetachChildrenHandler handler);
+public interface HasComponents<H extends HasComponents<H, C>, C extends UIComponent> extends UIComponent {
+  H onDetachChildren(DetachChildrenHandler handler);
   
-  C detachChildren();
+  H detachChildren();
 
-  C add(UIComponent add);
+  H add(C add);
 
-  C adopt(UIComponent child);
+  H adopt(C child);
 
-  C insert(UIComponent add, UIComponent before);
+  H insert(C add, C before);
 
-  Iterable<UIComponent> children();
+  Iterable<C> children();
 
-  <UI extends UIComponent> UI childAt(int index);
+  C childAt(int index);
   
-  <UI extends UIComponent> UI find(Clause clause);
+  C find(Clause clause);
   
-  Iterable<UIComponent> findAll(Clause clause);
+  Iterable<C> findAll(Clause clause);
 
-  int indexOf(UIComponent child);
+  int indexOf(C child);
 
   int childrenCount();
 
   boolean hasChildren();
 
-  C remove(UIComponent child);
+  H remove(C child);
 }

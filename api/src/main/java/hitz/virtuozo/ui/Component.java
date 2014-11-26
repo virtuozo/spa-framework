@@ -25,6 +25,7 @@ import hitz.virtuozo.ui.api.DetachChildrenEvent;
 import hitz.virtuozo.ui.api.DetachChildrenEvent.DetachChildrenHandler;
 import hitz.virtuozo.ui.api.DetachHandler;
 import hitz.virtuozo.ui.api.EventInterceptor;
+import hitz.virtuozo.ui.api.HasComponents;
 import hitz.virtuozo.ui.api.HasVisibility;
 import hitz.virtuozo.ui.api.HideEvent;
 import hitz.virtuozo.ui.api.HideEvent.HideHandler;
@@ -133,8 +134,8 @@ public abstract class Component<C extends Component<C>> implements HasVisibility
   }
 
   @Override
-  public Component<C> asComponent() {
-    return this;
+  public C asComponent() {
+    return (C) this;
   }
   
   public UIComponent parent(){
@@ -276,6 +277,11 @@ public abstract class Component<C extends Component<C>> implements HasVisibility
   }
 
   /** Traverse behaviors **/
+  public <UI extends UIComponent> C attachTo(HasComponents<?, UI> parent){
+    parent.add((UI) this);
+    return (C) this;
+  }
+  
   public boolean attached() {
     return this.holder.isAttached();
   }
@@ -338,35 +344,35 @@ public abstract class Component<C extends Component<C>> implements HasVisibility
     return (C) this;
   }
 
-  protected Iterable<UIComponent> childrenComponents() {
-    return new CastIterable<UIComponent, WidgetHolder>(this.holder.children()).use(new TypeCast<UIComponent, WidgetHolder>() {
+  protected <UI extends UIComponent> Iterable<UI> childrenComponents() {
+    return new CastIterable<UI, WidgetHolder>(this.holder.children()).use(new TypeCast<UI, WidgetHolder>() {
       @Override
-      public UIComponent castFrom(WidgetHolder instance) {
+      public UI castFrom(WidgetHolder instance) {
         return instance.getReference();
       }
     });
   }
 
-  protected <C extends UIComponent> C childAt(int index) {
+  protected <UI extends UIComponent> UI childAt(int index) {
     return this.holder.childAt(index).getReference();
   }
   
-  protected <C extends UIComponent> C find(Clause clause){
+  protected <UI extends UIComponent> UI find(Clause clause){
     for(UIComponent child : this.childrenComponents()){
       if(clause.matches(child)){
-        return (C) child;
+        return (UI) child;
       }
     }
     
     return null;
   }
   
-  protected Iterable<UIComponent> findAll(Clause clause){
-    List<UIComponent> children = new ArrayList<UIComponent>();
+  protected <UI extends UIComponent> Iterable<UI> findAll(Clause clause){
+    List<UI> children = new ArrayList<UI>();
     
     for(UIComponent child : this.childrenComponents()){
       if(clause.matches(child)){
-        children.add(child);
+        children.add((UI) child);
       }
     }
     

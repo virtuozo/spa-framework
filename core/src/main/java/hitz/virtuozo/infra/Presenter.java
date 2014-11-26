@@ -23,7 +23,7 @@ public abstract class Presenter<V extends View> {
     return this.view;
   }
 
-  public final void go(HasComponents<?> container){
+  public final void go(HasComponents<?, ?> container){
     this.bind();
     this.view.render(container.detachChildren());
     container.onDetachChildren(this.handler);

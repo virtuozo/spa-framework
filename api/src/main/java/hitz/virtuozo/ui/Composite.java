@@ -21,7 +21,8 @@ import hitz.virtuozo.ui.api.UIComponent;
 
 import com.google.gwt.dom.client.Element;
 
-public abstract class Composite<C extends Composite<C>> extends Component<C> implements HasComponents<C> {
+@SuppressWarnings("unchecked")
+public abstract class Composite<C extends Composite<C>> extends Component<C> implements HasComponents<C, UIComponent> {
 
   public Composite() {
     super();
@@ -44,30 +45,35 @@ public abstract class Composite<C extends Composite<C>> extends Component<C> imp
   public C detachChildren() {
     return super.detachChildren();
   }
-
+  
+  @Override
   public C add(UIComponent add) {
     return super.addChild(add);
   }
 
+  @Override
   public C adopt(UIComponent child) {
     return super.adoptChild(child);
   }
 
+  @Override
   public C insert(UIComponent add, UIComponent before) {
     return super.insertChild(add, before);
   }
 
+  @Override
   public Iterable<UIComponent> children() {
     return super.childrenComponents();
   }
 
-  public <C extends UIComponent> C childAt(int index) {
+  @Override
+  public UIComponent childAt(int index) {
     return super.childAt(index);
   }
   
   @Override
-  public <C extends UIComponent> C find(Clause clause) {
-    return super.find(clause);
+  public UIComponent find(Clause clause) {
+    return (UIComponent) super.find(clause);
   }
   
   @Override

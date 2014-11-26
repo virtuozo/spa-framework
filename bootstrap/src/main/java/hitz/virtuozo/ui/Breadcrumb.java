@@ -41,7 +41,7 @@ public class Breadcrumb extends Component<Breadcrumb> {
     public BreadcrumbItem(ListItem item) {
       super(item);
       if(item.childrenCount() > 1){
-        this.anchor = item.childAt(1);
+        this.anchor = item.childAt(1).asComponent();
         return;
       }
       

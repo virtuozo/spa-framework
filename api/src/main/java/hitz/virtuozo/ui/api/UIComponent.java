@@ -17,7 +17,7 @@ package hitz.virtuozo.ui.api;
 import hitz.virtuozo.ui.Component;
 
 public interface UIComponent {
-  Component<?> asComponent();
+  <C extends Component<?>> C asComponent();
   
   UIComponent parent();
 }

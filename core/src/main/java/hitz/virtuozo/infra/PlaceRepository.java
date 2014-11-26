@@ -16,7 +16,7 @@ public class PlaceRepository {
   
   private Map<String, Place> places = new HashMap<String, Place>();
   
-  private HasComponents<?> container;
+  private HasComponents<?, ?> container;
   
   private PlaceRepository() {
     History.addValueChangeHandler(new HistoryHandler());
@@ -43,7 +43,7 @@ public class PlaceRepository {
     return this;
   }
   
-  public Forward forwardTo(final HasComponents<?> container){
+  public Forward forwardTo(final HasComponents<?, ?> container){
     this.container = container;
     
     PlaceChangeEvent.get().subscribe().to(new SubscriptionCallback<Place>() {
