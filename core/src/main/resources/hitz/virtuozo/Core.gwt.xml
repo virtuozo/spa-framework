@@ -1,7 +1,6 @@
 <module>
   <inherits name='hitz.virtuozo.API' />
   <inherits name='hitz.virtuozo.Commons' />
-  <inherits name="com.google.gwt.inject.Inject"/>
 
   <source path="application" />
 </module>

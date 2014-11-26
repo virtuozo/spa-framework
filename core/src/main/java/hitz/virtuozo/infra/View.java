@@ -1,7 +1,7 @@
 package hitz.virtuozo.infra;
 
-import hitz.virtuozo.ui.api.UIComponent;
+import hitz.virtuozo.ui.api.HasComponents;
 
 public interface View {
-  UIComponent render();
+  void render(HasComponents<?> container);
 }

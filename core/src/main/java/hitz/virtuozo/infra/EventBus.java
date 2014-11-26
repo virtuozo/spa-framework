@@ -68,7 +68,3 @@ class EventBus {
     }
   }
 }
-
-//EventBus.get().publish(event).with(subject).go();
-//EventBus.get().publish(event).go();
-//EventBus.get().subscribe(event).to(callback);

@@ -1,8 +1,5 @@
 package hitz.virtuozo.infra;
 
-import com.google.inject.Singleton;
-
-@Singleton
 public abstract class Event<S> {
   protected abstract String name();
   
