@@ -1,4 +1,6 @@
 <module>
+  <inherits name="hitz.virtuozo.API" />
+  
   <public path="font-awesome"/>
   
   <stylesheet src="font-awesome.css"/>

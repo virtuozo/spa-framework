@@ -29,6 +29,8 @@ import hitz.virtuozo.ui.api.HasComponents;
 import hitz.virtuozo.ui.api.HasVisibility;
 import hitz.virtuozo.ui.api.HideEvent;
 import hitz.virtuozo.ui.api.HideEvent.HideHandler;
+import hitz.virtuozo.ui.api.ScrollSpyEvent;
+import hitz.virtuozo.ui.api.ScrollSpyEvent.ScrollSpyHandler;
 import hitz.virtuozo.ui.api.ShowEvent;
 import hitz.virtuozo.ui.api.ShowEvent.ShowHandler;
 import hitz.virtuozo.ui.api.ToggleEvent;
@@ -326,6 +328,15 @@ public abstract class Component<C extends Component<C>> implements HasVisibility
     this.holder.add(add.asComponent().holder);
     return (C) this;
   }
+  
+  protected C firstChild(UIComponent add){
+    if(!this.hasChildren()) {
+      this.addChild(add);
+      return (C) this;
+    }
+    
+    return this.insertChild(add, this.childAt(0));
+  }
 
   protected C adoptChild(UIComponent child) {
     this.holder.adoptIt(child.asComponent().holder);
@@ -450,7 +461,7 @@ public abstract class Component<C extends Component<C>> implements HasVisibility
     this.holder.dimensions().scrollTop(top);
     return (C) this;
   }
-
+  
   public int top() {
     return this.holder.dimensions().top();
   }
@@ -528,6 +539,11 @@ public abstract class Component<C extends Component<C>> implements HasVisibility
 
   protected C on(MouseWheelHandler handler) {
     this.holder.addDomHandler(handler, MouseWheelEvent.getType());
+    return (C) this;
+  }
+  
+  C on(ScrollSpyHandler handler){
+    this.addHandler(ScrollSpyEvent.type(), handler);
     return (C) this;
   }
 

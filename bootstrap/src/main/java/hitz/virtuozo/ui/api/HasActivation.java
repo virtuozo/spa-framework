@@ -21,7 +21,7 @@ import com.google.gwt.dom.client.Element;
 
 public interface HasActivation<C extends UIComponent> extends HasClickHandlers<C>, UIComponent {
   C activate();
-
+  
   C onActivate(ActivationHandler handler);
 
   C deactivate();

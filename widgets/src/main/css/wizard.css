@@ -1,0 +1,150 @@
+.wizard-container {
+	padding-top: 100px;
+	z-index: 3;
+}
+
+.wizard-card {
+	background-color: #FFFFFF;
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.15), 0 0 1px 1px rgba(0, 0, 0, 0.1);
+	border-radius: 10px;
+	padding: 10px 0;
+	transition: all 0.2s;
+	-webkit-transition: all 0.2s;
+}
+
+.wizard-card>.nav-pills>li+li {
+	margin-left: 0;
+}
+
+.wizard-card>.nav-pills>li>a {
+	border: 1px solid #2CA8FF;
+	border-radius: 0;
+	color: #2CA8FF;
+	margin-left: -1px;
+}
+
+.wizard-card>.nav-pills>li:first-child>a {
+	border-radius: 4px 0 0 4px;
+	margin: 0;
+}
+
+.wizard-card>.nav-pills>li:last-child>a {
+	border-radius: 0 4px 4px 0;
+}
+
+.wizard-card .picture-container {
+	position: relative;
+	cursor: pointer;
+	text-align: center;
+}
+
+.wizard-card .picture {
+	width: 106px;
+	height: 106px;
+	background-color: #999999;
+	border: 4px solid #CCCCCC;
+	color: #FFFFFF;
+	border-radius: 50%;
+	margin: 5px auto;
+	overflow: hidden;
+	transition: all 0.2s;
+	-webkit-transition: all 0.2s;
+}
+
+.wizard-card .picture:hover {
+	border-color: #2ca8ff;
+}
+
+.wizard-card.ct-wizard-green .picture:hover {
+	border-color: #05ae0e;
+}
+
+.wizard-card.ct-wizard-blue .picture:hover {
+	border-color: #3472f7;
+}
+
+.wizard-card.ct-wizard-orange .picture:hover {
+	border-color: #ff9500;
+}
+
+.wizard-card.ct-wizard-red .picture:hover {
+	border-color: #ff3b30;
+}
+
+.wizard-card .picture input[type="file"] {
+	cursor: pointer;
+	display: block;
+	height: 100%;
+	left: 0;
+	opacity: 0 !important;
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+
+.wizard-card .picture-src {
+	width: 100%;
+}
+
+.wizard-card .tab-content {
+	padding: 20px 10px;
+}
+
+.wizard-card .wizard-footer {
+	padding: 0 10px;
+}
+
+.wizard-card .disabled {
+	display: none;
+}
+
+.wizard-card .wizard-header h3 {
+	font-weight: 200;
+	text-align: center;
+}
+
+.wizard-card>ul>li {
+	text-align: center;
+}
+
+.wizard-card>ul>li a {
+	border: 0 !important;
+	text-transform: uppercase;
+	background-color: #999999;
+	color: #FFFFFF !important;
+	font-size: 12px;
+}
+
+.wizard-card.ct-wizard-green>ul>li.active a {
+	background-color: #05ae0e;
+}
+
+.wizard-card.ct-wizard-blue>ul>li.active a {
+	background-color: #3472f7;
+}
+
+.wizard-card.ct-wizard-orange>ul>li.active a {
+	background-color: #ff9500;
+}
+
+.wizard-card.ct-wizard-red>ul>li.active a {
+	background-color: #ff3b30;
+}
+
+.wizard-card>ul>li>a:hover, .wizard-card>ul>li>a:focus {
+	background-color: #999999;
+	cursor: default;
+}
+
+.wizard-card .btn {
+	text-transform: uppercase;
+}
+
+.wizard-card .nav-pills>li:first-child>a {
+	border-radius: 0;
+	margin: 0;
+}
+
+.wizard-card .nav-pills>li:last-child>a {
+	border-radius: 0;
+}

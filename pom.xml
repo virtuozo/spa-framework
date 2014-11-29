@@ -11,7 +11,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.compiler.version>1.6</java.compiler.version>
-    <gwt.version>2.6.1</gwt.version>
+    <gwt.version>2.7.0</gwt.version>
     <project.css>${project.basedir}/src/main/css</project.css>
   </properties>
 

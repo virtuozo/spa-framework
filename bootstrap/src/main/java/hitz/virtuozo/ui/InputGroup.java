@@ -1,10 +1,5 @@
 package hitz.virtuozo.ui;
 
-import hitz.virtuozo.ui.CssClass;
-import hitz.virtuozo.ui.Elements;
-import hitz.virtuozo.ui.StyleChooser;
-import hitz.virtuozo.ui.Tag;
-import hitz.virtuozo.ui.Component;
 import hitz.virtuozo.ui.api.HasChangeHandlers;
 import hitz.virtuozo.ui.api.HasClickHandlers;
 import hitz.virtuozo.ui.api.HasFocusHandlers;
@@ -12,8 +7,8 @@ import hitz.virtuozo.ui.api.HasKeyHandlers;
 import hitz.virtuozo.ui.api.HasMouseHandlers;
 import hitz.virtuozo.ui.api.UIClass;
 import hitz.virtuozo.ui.api.UIClasses;
-import hitz.virtuozo.ui.api.UIInput;
 import hitz.virtuozo.ui.api.UIComponent;
+import hitz.virtuozo.ui.api.UIInput;
 
 import com.google.gwt.dom.client.SpanElement;
 import com.google.gwt.event.dom.client.BlurHandler;
@@ -34,11 +29,11 @@ import com.google.gwt.event.dom.client.MouseWheelHandler;
 public class InputGroup extends Component<InputGroup> implements UIInput<InputGroup, String>, HasClickHandlers<InputGroup>, HasMouseHandlers<InputGroup>, HasKeyHandlers<InputGroup>,
     HasFocusHandlers<InputGroup>, HasChangeHandlers<InputGroup> {
 
-  private AddOn left = new AddOn();
+  private AddOn left = new AddOn().hide();
 
   private UIInput<?, String> input;
 
-  private AddOn right = new AddOn();
+  private AddOn right = new AddOn().hide();
 
   public InputGroup(UIInput<?, String> input) {
     super(Elements.div());
@@ -66,22 +61,29 @@ public class InputGroup extends Component<InputGroup> implements UIInput<InputGr
   
   @Override
   public String id() {
-    return this.input.asComponent().id();
+    if(this.input != null){
+      return this.input.asComponent().id();
+    }
+    return super.id();
   }
   
   @Override
   public InputGroup id(String id) {
-    this.input.asComponent().id(id);
-    return this;
+    if(this.input != null){
+      this.input.asComponent().id(id);
+      return this;
+    }
+    
+    return super.id(id);
   }
 
   public InputGroup prepend(UIComponent widget) {
-    this.left.detachChildren().add(widget);
+    this.left.show().add(widget);
     return this;
   }
 
   public InputGroup append(UIComponent widget) {
-    this.right.detachChildren().addChild(widget);
+    this.right.show().add(widget);
     return this;
   }
 
@@ -214,17 +216,16 @@ public class InputGroup extends Component<InputGroup> implements UIInput<InputGr
   }
   
   class AddOn extends Component<AddOn>{
-    private Tag<SpanElement> buttons = Tag.asSpan().css("input-group-btn");
-    
     public AddOn() {
       super(Elements.span());
-      this.css("input-group-addon").addChild(this.buttons);
+      this.css("input-group-addon", "input-group-btn");
     }
     
     public AddOn add(UIComponent widget){
+      this.detachChildren().css("input-group-addon");
+      
       if (widget instanceof Button || widget instanceof DropButton || widget instanceof SplitButton) {
-        this.buttons.add(widget);
-        return this;
+        this.css().remove("input-group-addon");
       }
       
       return this.addChild(widget);

@@ -5,7 +5,7 @@ import java.util.logging.Level;
 public class Logger {
   private static final Logger instance = new Logger();
   
-  private final java.util.logging.Logger impl = java.util.logging.Logger.getLogger("GWT Logger");
+  private final java.util.logging.Logger impl = java.util.logging.Logger.getLogger("");
 
   public static Logger get() {
     return instance;

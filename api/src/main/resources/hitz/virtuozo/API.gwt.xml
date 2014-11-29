@@ -11,6 +11,4 @@
   <replace-with class="hitz.virtuozo.ui.PlaceholderHTML5">
     <when-type-is class="hitz.virtuozo.ui.api.Placeholder" />
   </replace-with>
-  
-  <set-property name="gwt.logging.popupHandler" value="DISABLED"/>
 </module>

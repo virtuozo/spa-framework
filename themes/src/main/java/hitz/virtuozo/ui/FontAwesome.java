@@ -1,5 +1,6 @@
 package hitz.virtuozo.ui;
 
+import hitz.virtuozo.ui.api.HasText;
 import hitz.virtuozo.ui.api.Icon;
 import hitz.virtuozo.ui.api.UIComponent;
 
@@ -144,7 +145,6 @@ public enum FontAwesome implements Icon {
   LEMON_O( "fa-lemon-o"),
   LEVEL_DOWN( "fa-level-down"),
   LEVEL_UP( "fa-level-up"),
-  LIFE_BOUY( "fa-life-bouy"),
   LIFE_BUOY( "fa-life-buoy"),
   LIFE_RING( "fa-life-ring"),
   LIFE_SAVER( "fa-life-saver"),
@@ -556,26 +556,65 @@ public enum FontAwesome implements Icon {
   USER_MD( "fa-user-md"),
   WHEELCHAIR( "fa-wheelchair");
   
-  private String name;
+  private String key;
   
-  private FontAwesome(String name) {
-    this.name = name;
+  private FontAwesome(String key) {
+    this.key = key;
+  }
+  
+  public String key() {
+    return key;
   }
   
   public UIComponent asComponent(){
     Tag<SpanElement> icon = Tag.asSpan();
-    icon.css().set("fa").append(this.name);
+    icon.css().set("fa").append(this.key).append(Styles.LARGE);
     return icon;
   }
 
   public <C extends UIComponent> void appendTo(C component) {
     UIComponent icon = this.asComponent();
-    
-    if(!component.asComponent().hasChildren()){
-      component.asComponent().addChild(icon);
-      return;
+    component.asComponent().firstChild(icon);
+  }
+  
+  public static class Styles extends CssClass {
+    private Styles(String name) {
+      super(name);
     }
+
+    @Override
+    protected StyleChooser chooser() {
+      return STYLES;
+    }
+
+    public static final Styles LARGE = new Styles("fa-lg");
     
-    component.asComponent().insertChild(icon, component.asComponent().childAt(0));
+    public static final Styles TWICE_LARGE = new Styles("fa-2x");
+    
+    public static final Styles THREE_TIMES_LARGE = new Styles("fa-3x");
+    
+    public static final Styles FOUR_TIMES_LARGE = new Styles("fa-4x");
+    
+    public static final Styles FIVE_TIMES_LARGE = new Styles("fa-5x");
+
+    public static final Styles FIXED = new Styles("fa-fw");
+    
+    public static final Styles BORDERED = new Styles("fa-border");
+    
+    public static final Styles SPINNING = new Styles("fa-spin");
+    
+    public static final Styles ROTATE_90 = new Styles("fa-rotate-90");
+    
+    public static final Styles ROTATE_180 = new Styles("fa-rotate-180");
+    
+    public static final Styles ROTATE_270 = new Styles("fa-rotate-270");
+    
+    public static final Styles FLIP_HORIZONTAL = new Styles("fa-flip-horizontal");
+    
+    public static final Styles FLIP_VERTICAL = new Styles("fa-flip-vertical");
+    
+    public static final Styles INVERSE = new Styles("fa-inverse");
+    
+    private static final StyleChooser STYLES = new StyleChooser(LARGE, TWICE_LARGE, THREE_TIMES_LARGE, FOUR_TIMES_LARGE, FIVE_TIMES_LARGE, FIXED, BORDERED, SPINNING, ROTATE_90, ROTATE_180, ROTATE_270, FLIP_HORIZONTAL, FLIP_VERTICAL, INVERSE);
   }
 }
