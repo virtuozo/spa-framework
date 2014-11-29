@@ -1,6 +1,6 @@
 <module>
-  <inherits name="hitz.virtuozo.Bootstrap" />
-  <inherits name='hitz.virtuozo.Rest' />
+  <inherits name="virtuozo.Bootstrap" />
+  <inherits name='virtuozo.Rest' />
   
   <public path="css"/>
   

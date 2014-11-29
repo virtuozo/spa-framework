@@ -1,12 +1,13 @@
 package hitz.virtuozo.infra;
 
-import hitz.virtuozo.infra.CEPFormat;
-import hitz.virtuozo.infra.CNPJFormat;
-import hitz.virtuozo.infra.CPFFormat;
-import hitz.virtuozo.infra.HexaFormat;
 import junit.framework.Assert;
 
 import org.junit.Test;
+
+import virtuozo.infra.CEPFormat;
+import virtuozo.infra.CNPJFormat;
+import virtuozo.infra.CPFFormat;
+import virtuozo.infra.HexaFormat;
 
 public class FormatTests {
 

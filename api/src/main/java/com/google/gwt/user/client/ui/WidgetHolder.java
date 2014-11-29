@@ -15,13 +15,13 @@
 
 package com.google.gwt.user.client.ui;
 
-import hitz.virtuozo.infra.CastIterator;
-import hitz.virtuozo.ui.api.CssChangeEvent;
-import hitz.virtuozo.ui.api.DetachChildrenEvent;
-import hitz.virtuozo.ui.api.EventInterceptor;
-import hitz.virtuozo.ui.api.UIComponent;
-
 import java.util.Iterator;
+
+import virtuozo.infra.CastIterator;
+import virtuozo.ui.api.CssChangeEvent;
+import virtuozo.ui.api.DetachChildrenEvent;
+import virtuozo.ui.api.EventInterceptor;
+import virtuozo.ui.api.UIComponent;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;

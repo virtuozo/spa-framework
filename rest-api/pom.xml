@@ -4,12 +4,12 @@
   xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>virtuozo-rest-api</artifactId>
+  <artifactId>rest-api</artifactId>
   <name>virtuozo Rest Client API</name>
 
   <parent>
-    <groupId>hitz</groupId>
-    <artifactId>virtuozo</artifactId>
+    <groupId>com.github.virtuozo</groupId>
+    <artifactId>parent</artifactId>
     <version>1.0.0</version>
   </parent>
 
@@ -20,12 +20,12 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>hitz</groupId>
-      <artifactId>virtuozo-api</artifactId>
+      <groupId>com.github.virtuozo</groupId>
+      <artifactId>api</artifactId>
     </dependency>
     <dependency>
-      <groupId>hitz</groupId>
-      <artifactId>virtuozo-commons</artifactId>
+      <groupId>com.github.virtuozo</groupId>
+      <artifactId>commons</artifactId>
     </dependency>
   </dependencies>
 </project>

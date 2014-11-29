@@ -1,6 +1,6 @@
 <module>
-  <inherits name='hitz.virtuozo.API' />
-  <inherits name='hitz.virtuozo.Commons' />
+  <inherits name='virtuozo.API' />
+  <inherits name='virtuozo.Commons' />
 
   <source path="application" />
 </module>

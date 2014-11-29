@@ -1,11 +1,11 @@
 <module>
-  <inherits name="hitz.virtuozo.API" />
+  <inherits name="virtuozo.API" />
   
   <public path="font-awesome"/>
   
   <stylesheet src="font-awesome.css"/>
   
-  <replace-with class="hitz.virtuozo.ui.FontAwesomeAssets">
-    <when-type-is class="hitz.virtuozo.ui.api.Assets" />
+  <replace-with class="virtuozo.ui.FontAwesomeAssets">
+    <when-type-is class="virtuozo.ui.api.Assets" />
   </replace-with>
 </module>

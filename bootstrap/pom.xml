@@ -2,12 +2,12 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>virtuozo-bootstrap</artifactId>
+  <artifactId>bootstrap</artifactId>
   <name>virtuozo Bootstrap </name>
 
   <parent>
-    <groupId>hitz</groupId>
-    <artifactId>virtuozo</artifactId>
+    <groupId>com.github.virtuozo</groupId>
+    <artifactId>parent</artifactId>
     <version>1.0.0</version>
   </parent>
 
@@ -18,13 +18,13 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>hitz</groupId>
-      <artifactId>virtuozo-api</artifactId>
+      <groupId>com.github.virtuozo</groupId>
+      <artifactId>api</artifactId>
       <scope>provided</scope>
     </dependency>
     <dependency>
-        <groupId>hitz</groupId>
-        <artifactId>virtuozo-themes</artifactId>
+        <groupId>com.github.virtuozo</groupId>
+        <artifactId>themes</artifactId>
         <optional>true</optional>
       </dependency>
   </dependencies>

@@ -2,12 +2,12 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>virtuozo-widgets</artifactId>
+  <artifactId>widgets</artifactId>
   <name>virtuozo Widgets</name>
 
   <parent>
-    <groupId>hitz</groupId>
-    <artifactId>virtuozo</artifactId>
+    <groupId>com.github.virtuozo</groupId>
+    <artifactId>parent</artifactId>
     <version>1.0.0</version>
   </parent>
   
@@ -18,18 +18,18 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>hitz</groupId>
-      <artifactId>virtuozo-api</artifactId>
+      <groupId>com.github.virtuozo</groupId>
+      <artifactId>api</artifactId>
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>hitz</groupId>
-      <artifactId>virtuozo-bootstrap</artifactId>
+      <groupId>com.github.virtuozo</groupId>
+      <artifactId>bootstrap</artifactId>
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>hitz</groupId>
-      <artifactId>virtuozo-themes</artifactId>
+      <groupId>com.github.virtuozo</groupId>
+      <artifactId>themes</artifactId>
       <scope>provided</scope>
     </dependency>
   </dependencies>
@@ -56,7 +56,7 @@
             <aggregation>
               <insertNewLine>true</insertNewLine>
               <removeIncluded>false</removeIncluded>
-              <output>${project.build.directory}/classes/hitz/virtuozo/css/widgets.css</output>
+              <output>${project.build.directory}/classes/com.github.virtuozo/virtuozo/css/widgets.css</output>
               <includes>
                 <include>${project.css}/notifier.css</include>
                 <include>${project.css}/select.css</include>

@@ -2,10 +2,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>hitz</groupId>
-  <artifactId>virtuozo</artifactId>
+  <groupId>com.github.virtuozo</groupId>
+  <artifactId>parent</artifactId>
   <version>1.0.0</version>
-  <name>Hitz Virtuozo</name>
+  <name>Virtuozo</name>
   <packaging>pom</packaging>
 
   <properties>
@@ -51,44 +51,44 @@
 
       <!-- virtuozo modules -->
       <dependency>
-        <groupId>hitz</groupId>
-        <artifactId>virtuozo-api</artifactId>
+        <groupId>com.github.virtuozo</groupId>
+        <artifactId>api</artifactId>
         <version>${project.version}</version>
         <optional>true</optional>
       </dependency>
       <dependency>
-        <groupId>hitz</groupId>
-        <artifactId>virtuozo-bootstrap</artifactId>
+        <groupId>com.github.virtuozo</groupId>
+        <artifactId>bootstrap</artifactId>
         <version>${project.version}</version>
         <optional>true</optional>
       </dependency>
       <dependency>
-        <groupId>hitz</groupId>
-        <artifactId>virtuozo-rest-api</artifactId>
+        <groupId>com.github.virtuozo</groupId>
+        <artifactId>rest-api</artifactId>
         <version>${project.version}</version>
         <optional>true</optional>
       </dependency>
       <dependency>
-        <groupId>hitz</groupId>
-        <artifactId>virtuozo-widgets</artifactId>
+        <groupId>com.github.virtuozo</groupId>
+        <artifactId>widgets</artifactId>
         <version>${project.version}</version>
         <optional>true</optional>
       </dependency>
       <dependency>
-        <groupId>hitz</groupId>
-        <artifactId>virtuozo-core</artifactId>
+        <groupId>com.github.virtuozo</groupId>
+        <artifactId>core</artifactId>
         <version>${project.version}</version>
         <optional>true</optional>
       </dependency>
       <dependency>
-        <groupId>hitz</groupId>
-        <artifactId>virtuozo-themes</artifactId>
+        <groupId>com.github.virtuozo</groupId>
+        <artifactId>themes</artifactId>
         <version>${project.version}</version>
         <optional>true</optional>
       </dependency>
       <dependency>
-        <groupId>hitz</groupId>
-        <artifactId>virtuozo-commons</artifactId>
+        <groupId>com.github.virtuozo</groupId>
+        <artifactId>commons</artifactId>
         <version>${project.version}</version>
         <optional>true</optional>
       </dependency>
@@ -169,13 +169,13 @@
 
   <issueManagement>
     <system>Github issue tracker</system>
-    <url>https://github.com/brazoft/virtuozo/issues</url>
+    <url>https://github.com/virtuozo/spa-framework/issues</url>
   </issueManagement>
 
   <scm>
-    <connection>scm:git:git://github.com/brazoft/virtuozo.git</connection>
-    <developerConnection>scm:git:git@github.com:/brazoft/virtuozo.git</developerConnection>
-    <url>http://github.com/brazoft/virtuozo</url>
+    <connection>scm:git:git://github.com/virtuozo/spa-framework.git</connection>
+    <developerConnection>scm:git:mrbraz@github.com:/virtuozo/spa-framework.git</developerConnection>
+    <url>https://github.com/virtuozo</url>
   </scm>
 
   <developers>
@@ -186,9 +186,6 @@
     </developer>
   </developers>
 
-  <organization>
-    <name>Brazoft</name>
-  </organization>
-  <url>http://hitz-project.uni.me</url>
-  <description>Virtuozo is a spa framework on top of GWT and Bootstrap.</description>
+  <description>Virtuozo is a spa framework for Java Lovers</description>
+  <url>https://github.com/virtuozo</url>
 </project>
