@@ -13,7 +13,7 @@
   <name>Virtuozo Themes</name>
 
   <properties>
-    <css.target.directory>${project.build.directory}/classes/com.github.virtuozo/virtuozo/themes</css.target.directory>
+    <css.target.directory>${project.build.directory}/classes/virtuozo/themes</css.target.directory>
   </properties>
   
   <dependencies>
