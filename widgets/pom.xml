@@ -56,7 +56,7 @@
             <aggregation>
               <insertNewLine>true</insertNewLine>
               <removeIncluded>false</removeIncluded>
-              <output>${project.build.directory}/classes/com.github.virtuozo/virtuozo/css/widgets.css</output>
+              <output>${project.build.directory}/classes/virtuozo/css/widgets.css</output>
               <includes>
                 <include>${project.css}/notifier.css</include>
                 <include>${project.css}/select.css</include>
