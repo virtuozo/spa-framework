@@ -46,7 +46,7 @@ public final class DescriptionList extends Component<DescriptionList> {
   public DescriptionList description(String description){
     return this.addChild(new Description(description));
   }
-
+  
   class Title extends Component<Title> {
 
     public Title(String text) {

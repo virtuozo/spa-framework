@@ -135,7 +135,7 @@ public class Carousel extends Component<Carousel> {
     public Control(ControlType type) {
       super(Elements.a());
       this.css(type.css(), "carousel-control");
-      type.icon().appendTo(this);
+      type.icon().attachTo(this);
       this.element().setHref("#");
     }
 

@@ -15,11 +15,6 @@
 
 package virtuozo.ui;
 
-import virtuozo.ui.CssClass;
-import virtuozo.ui.Elements;
-import virtuozo.ui.Parent;
-import virtuozo.ui.StyleChooser;
-
 import com.google.gwt.dom.client.Element;
 
 public final class OrderList extends Parent<OrderList, ListItem> {
@@ -33,11 +28,7 @@ public final class OrderList extends Parent<OrderList, ListItem> {
     this.add(item);
     return item;
   }
-
-  public OrderList add(OrderList add) {
-    return this.add(add);
-  }
-
+  
   public static enum Type {
     UNORDERED, ORDERED;
 

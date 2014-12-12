@@ -19,7 +19,6 @@ import java.util.Iterator;
 
 import virtuozo.infra.CastIterator;
 import virtuozo.ui.api.CssChangeEvent;
-import virtuozo.ui.api.DetachChildrenEvent;
 import virtuozo.ui.api.EventInterceptor;
 import virtuozo.ui.api.UIComponent;
 
@@ -190,6 +189,10 @@ public final class WidgetHolder extends ComplexPanel {
     public int outerWidth() {
       return this.element().getOffsetWidth();
     }
+    
+    public int scrollHeight() {
+      return this.element().getScrollHeight();
+    }
 
     public int scrollLeft() {
       return this.element().getScrollLeft();
@@ -210,6 +213,10 @@ public final class WidgetHolder extends ComplexPanel {
 
     public void scrollTop(int top) {
       this.element().setScrollTop(top);
+    }
+    
+    public int scrollWidth() {
+      return this.element().getScrollWidth();
     }
 
     public int top() {

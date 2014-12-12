@@ -64,11 +64,11 @@ public class Panel extends Component<Panel> {
       super(Elements.div());
       this.css().set("panel-heading");
       this.heading = new Heading(Heading.Level.THREE).css("panel-title");
-      this.add(this.heading);
+      this.add(this.heading.hide());
     }
 
     public Heading heading() {
-      return this.heading;
+      return this.heading.show();
     }
   }
 

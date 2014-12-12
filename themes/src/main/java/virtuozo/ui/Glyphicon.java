@@ -235,7 +235,7 @@ public enum Glyphicon implements Icon {
     return icon;
   }
 
-  public <C extends UIComponent> void appendTo(C component) {
+  public <C extends UIComponent> void attachTo(C component) {
     UIComponent icon = this.asComponent();
     
     if(!component.asComponent().hasChildren()){

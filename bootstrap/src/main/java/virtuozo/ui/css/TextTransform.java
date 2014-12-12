@@ -12,32 +12,26 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package virtuozo.ui;
+package virtuozo.ui.css;
 
-import virtuozo.ui.OrderList.Type;
-import virtuozo.ui.api.HasText;
+import virtuozo.ui.CssClass;
+import virtuozo.ui.StyleChooser;
 
-public final class ListItem extends Composite<ListItem> implements HasText<ListItem>{
-  private Text text = new Text();
-  
-  public ListItem() {
-    super(Elements.li());
-    this.add(this.text);
+public class TextTransform extends CssClass {
+  private TextTransform(String name) {
+    super(name);
   }
-  
-  public OrderList addList(Type type){
-    OrderList list = new OrderList(type);
-    this.addChild(list);
-    return list;
-  }
-  
+
   @Override
-  public String text() {
-    return this.text.text();
+  protected StyleChooser chooser() {
+    return STYLES;
   }
-  
-  public ListItem text(String text) {
-    this.text.text(text);
-    return this;
-  }
+
+  public static final TextTransform LOWERCASE = new TextTransform("text-lowercase");
+
+  public static final TextTransform UPPERCASE = new TextTransform("text-uppercase");
+
+  public static final TextTransform CAPITALIZE = new TextTransform("text-capitalize");
+
+  private static final StyleChooser STYLES = new StyleChooser(LOWERCASE, UPPERCASE, CAPITALIZE);
 }

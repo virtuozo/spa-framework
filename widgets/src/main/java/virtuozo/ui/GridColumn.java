@@ -88,7 +88,7 @@ public abstract class GridColumn<G extends GridColumn<G, H>, H extends HashObjec
   }
 
   public G icon(Icon icon) {
-    icon.appendTo(this.headerCell);
+    icon.attachTo(this.headerCell);
     return (G) this;
   }
 

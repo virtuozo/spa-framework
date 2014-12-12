@@ -203,7 +203,7 @@ public class Button extends Component<Button> implements HasText<Button>, HasIco
   
   @Override
   public Button icon(Icon icon) {
-    icon.appendTo(this);
+    icon.attachTo(this);
     return this;
   }
   

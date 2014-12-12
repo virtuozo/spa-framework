@@ -14,13 +14,10 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.Component;
-import virtuozo.ui.CssClass;
-import virtuozo.ui.Elements;
-import virtuozo.ui.StyleChooser;
-import virtuozo.ui.Tag;
 import virtuozo.ui.api.ActivationEvent;
+import virtuozo.ui.api.ActivationEvent.ActivationHandler;
 import virtuozo.ui.api.DeactivationEvent;
+import virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
 import virtuozo.ui.api.DetachChildrenEvent;
 import virtuozo.ui.api.HasActivation;
 import virtuozo.ui.api.HasClickHandlers;
@@ -28,11 +25,11 @@ import virtuozo.ui.api.HasIcon;
 import virtuozo.ui.api.HasText;
 import virtuozo.ui.api.Icon;
 import virtuozo.ui.api.UIComponent;
-import virtuozo.ui.api.ActivationEvent.ActivationHandler;
-import virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
+import virtuozo.ui.api.UIInput;
 import virtuozo.ui.css.State;
 
 import com.google.gwt.dom.client.AnchorElement;
+import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -46,6 +43,10 @@ public class Navbar extends Component<Navbar> {
   private Collapse collapse = new Collapse();
 
   private Facet left = new Facet();
+  
+  private FormFacet leftForm = new FormFacet();
+  
+  private FormFacet rightForm = new FormFacet();
 
   private Facet right = new Facet();
 
@@ -56,15 +57,19 @@ public class Navbar extends Component<Navbar> {
     this.role("navigation").css().set("navbar", "navbar-default");
     this.addChild(this.container);
     this.container.addChild(this.header).addChild(this.collapse);
-    this.collapse.addChild(this.left).addChild(this.right);
+    this.collapse.addChild(this.left).addChild(this.leftForm).addChild(this.rightForm).addChild(this.right);
     this.left.css("navbar-left");
+    this.leftForm.css("navbar-left");
+    this.rightForm.css("navbar-right");
     this.right.css("navbar-right");
   }
   
   @Override
   protected Navbar detachChildren() {
-    this.leftFacet().detachChildren();
-    this.rightFacet().detachChildren();
+    this.left.detachChildren();
+    this.leftForm.detachChildren();
+    this.right.detachChildren();
+    this.rightForm.detachChildren();
     this.header.brand.detachChildren();
     this.fireEvent(new DetachChildrenEvent());
     return this;
@@ -77,9 +82,36 @@ public class Navbar extends Component<Navbar> {
   public Facet leftFacet() {
     return this.left;
   }
+  
+  public FormFacet leftForm() {
+    return this.leftForm;
+  }
 
   public Facet rightFacet() {
     return this.right;
+  }
+  
+  public FormFacet rightForm() {
+    return this.rightForm;
+  }
+  
+  public class FormFacet extends Component<FormFacet>{
+    public FormFacet() {
+      super(Elements.div());
+      this.css().set("nav", "navbar-form");
+    }
+    
+    public <I extends UIInput<?, V>, V> FormFacet addInput(I input){
+      Tag<DivElement> group = Tag.asDiv().css("form-group");
+      group.add(input.asComponent().css("form-control"));
+      return this.addChild(group);
+    }
+    
+    public Button addButton(){
+      Button button = new Button();
+      this.addChild(button);
+      return button;
+    }
   }
 
   public class Facet extends Component<Facet> {
@@ -104,7 +136,7 @@ public class Navbar extends Component<Navbar> {
     public DropItem addDropItem() {
       return new DropItem(this.createNav().addItem());
     }
-
+    
     public NavItem addItem() {
       OrderList nav = this.createNav();
 
@@ -253,7 +285,7 @@ public class Navbar extends Component<Navbar> {
 
     @Override
     public Brand icon(Icon icon) {
-      icon.appendTo(this);
+      icon.attachTo(this);
       return this;
     }
 

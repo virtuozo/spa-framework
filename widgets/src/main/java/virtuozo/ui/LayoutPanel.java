@@ -1,7 +1,5 @@
 package virtuozo.ui;
 
-import virtuozo.ui.Component;
-import virtuozo.ui.Table;
 import virtuozo.ui.Table.Cell;
 import virtuozo.ui.Table.Row;
 import virtuozo.ui.api.UIComponent;

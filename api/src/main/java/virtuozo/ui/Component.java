@@ -18,29 +18,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 import virtuozo.infra.CastIterable;
-import virtuozo.infra.StringProperty;
 import virtuozo.infra.CastIterable.TypeCast;
+import virtuozo.infra.StringProperty;
 import virtuozo.ui.api.AttachHandler;
 import virtuozo.ui.api.Clause;
 import virtuozo.ui.api.CssChangeEvent;
 import virtuozo.ui.api.CssChangeHandler;
 import virtuozo.ui.api.DetachChildrenEvent;
+import virtuozo.ui.api.DetachChildrenEvent.DetachChildrenHandler;
 import virtuozo.ui.api.DetachHandler;
 import virtuozo.ui.api.EventInterceptor;
 import virtuozo.ui.api.HasComponents;
 import virtuozo.ui.api.HasVisibility;
 import virtuozo.ui.api.HideEvent;
+import virtuozo.ui.api.HideEvent.HideHandler;
 import virtuozo.ui.api.ScrollSpyEvent;
+import virtuozo.ui.api.ScrollSpyEvent.ScrollSpyHandler;
 import virtuozo.ui.api.ShowEvent;
+import virtuozo.ui.api.ShowEvent.ShowHandler;
 import virtuozo.ui.api.ToggleEvent;
+import virtuozo.ui.api.ToggleEvent.ToggleHandler;
 import virtuozo.ui.api.UIClass;
 import virtuozo.ui.api.UIClasses;
 import virtuozo.ui.api.UIComponent;
-import virtuozo.ui.api.DetachChildrenEvent.DetachChildrenHandler;
-import virtuozo.ui.api.HideEvent.HideHandler;
-import virtuozo.ui.api.ScrollSpyEvent.ScrollSpyHandler;
-import virtuozo.ui.api.ShowEvent.ShowHandler;
-import virtuozo.ui.api.ToggleEvent.ToggleHandler;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
@@ -314,8 +314,11 @@ public abstract class Component<C extends Component<C>> implements HasVisibility
   }
 
   protected C detachChildren() {
+    if(this.hasChildren()){
+      this.fireEvent(new DetachChildrenEvent());
+    }
     this.holder.detachChildren();
-    this.fireEvent(new DetachChildrenEvent());
+    
     return (C) this;
   }
 
@@ -438,6 +441,10 @@ public abstract class Component<C extends Component<C>> implements HasVisibility
   public int outerWidth() {
     return this.holder.dimensions().outerWidth();
   }
+  
+  public int scrollHeight(){
+    return this.holder.dimensions().scrollHeight();
+  }
 
   public int scrollLeft() {
     return this.holder.dimensions().scrollLeft();
@@ -460,6 +467,10 @@ public abstract class Component<C extends Component<C>> implements HasVisibility
   public C scrollTop(int top) {
     this.holder.dimensions().scrollTop(top);
     return (C) this;
+  }
+  
+  public int scrollWidth(){
+    return this.holder.dimensions().scrollWidth();
   }
   
   public int top() {

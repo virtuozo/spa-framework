@@ -9,6 +9,7 @@ import virtuozo.ui.api.ScrollSpyEvent;
 import virtuozo.ui.api.UIComponent;
 import virtuozo.ui.api.ScrollSpyEvent.ScrollSpyHandler;
 
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.Window.ScrollEvent;
@@ -52,21 +53,16 @@ public class ScrollSpy {
         handle();
       }
     });
+    
   }
   
   private void handle(){
     for(UIComponent target : this.monitor){
-      Logger.get().warning("window scroll top: " + Window.getScrollTop());
-      
       int top = Window.getScrollTop() + target.asComponent().top();
-      Logger.get().warning("computed scroll top: " + top);
+      int max = Math.max(Document.get().getDocumentElement().getScrollHeight(), HTML.body().scrollHeight());
       
       int height = top + target.asComponent().innerHeight();
-      Logger.get().warning("computed scroll height: " + height);
-      
-      boolean inRange = Window.getScrollTop() >= top && Window.getScrollTop() <= height;
-      Logger.get().warning("scroll in range for target: " + inRange);
-      
+      boolean inRange = Window.getScrollTop() >= top && Window.getScrollTop() < height;
       target.asComponent().fireEvent(new ScrollSpyEvent(inRange));
     }
   }

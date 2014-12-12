@@ -62,7 +62,7 @@ public class PanelGroup extends Component<PanelGroup> {
     }
     
     public CollapsePanel icon(Icon icon){
-      icon.appendTo(this.anchor);
+      icon.attachTo(this.anchor);
       return this;
     }
 

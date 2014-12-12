@@ -14,9 +14,11 @@
  */
 package virtuozo.ui;
 
+import virtuozo.ui.api.HasHtml;
 import virtuozo.ui.api.HasText;
 
-public final class Text extends Component<Text> implements HasText<Text> {
+
+public final class Text extends Component<Text> implements HasText<Text>, HasHtml<Text>{
 
   public Text() {
     super(Elements.span());
@@ -24,13 +26,23 @@ public final class Text extends Component<Text> implements HasText<Text> {
   }
   
   @Override
-  public Text text(String text) {
-    this.element().setInnerText(text);
+  public String html() {
+    return this.element().getInnerHTML();
+  }
+  
+  @Override
+  public Text html(String html) {
+    this.element().setInnerHTML(html);
     return this.show();
   }
-
+  
   @Override
   public String text() {
     return this.element().getInnerText();
+  }
+  
+  public Text text(String text) {
+    this.element().setInnerText(text);
+    return this.show();
   }
 }

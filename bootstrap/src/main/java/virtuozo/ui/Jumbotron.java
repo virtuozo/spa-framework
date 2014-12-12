@@ -14,9 +14,6 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.Component;
-import virtuozo.ui.Elements;
-import virtuozo.ui.Tag;
 import virtuozo.ui.css.ButtonColor;
 
 import com.google.gwt.dom.client.DivElement;

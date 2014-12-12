@@ -184,7 +184,8 @@ public class RestMethod {
           JSONValue val = JSONParser.parseStrict(content);
           if (val.isObject() != null) {
             return (H) val.isObject().getJavaScriptObject();
-          } else if (val.isArray() != null) {
+          } 
+          if (val.isArray() != null) {
             return (H) val.isArray().getJavaScriptObject();
           }
           throw new RestException("Response was not a JSON object");

@@ -1,19 +1,10 @@
 package virtuozo.infra;
 
-import virtuozo.ui.api.DetachChildrenEvent;
 import virtuozo.ui.api.HasComponents;
-import virtuozo.ui.api.DetachChildrenEvent.DetachChildrenHandler;
 
 public abstract class Presenter<V extends View> {
 
   private V view;
-  
-  private DetachChildrenHandler handler = new DetachChildrenHandler(){
-    @Override
-    public void onDetachChildren(DetachChildrenEvent event) {
-      Presenter.this.unbind();
-    }
-  };
   
   public Presenter(V view) {
     this.view = view;
@@ -26,8 +17,12 @@ public abstract class Presenter<V extends View> {
   public final void go(HasComponents<?, ?> container){
     this.bind();
     this.view.render(container.detachChildren());
-    container.onDetachChildren(this.handler);
   }
+  
+  final void detach(){
+    this.view.detach();
+    this.unbind();
+  } 
   
   protected void bind(){}
   

@@ -15,12 +15,15 @@
 package virtuozo.ui;
 
 import virtuozo.infra.CastIterable;
+import virtuozo.ui.api.Clause;
+import virtuozo.ui.api.HasComponents;
 import virtuozo.ui.api.UIComponent;
+import virtuozo.ui.api.DetachChildrenEvent.DetachChildrenHandler;
 
 import com.google.gwt.dom.client.Element;
 
 @SuppressWarnings("unchecked")
-public abstract class Parent<P extends Parent<P, C>, C extends UIComponent> extends Component<P> {
+public abstract class Parent<P extends Parent<P, C>, C extends UIComponent> extends Component<P> implements HasComponents<P, C> {
 
   public Parent() {
     super();
@@ -76,5 +79,20 @@ public abstract class Parent<P extends Parent<P, C>, C extends UIComponent> exte
 
   public P remove(C child) {
     return super.removeChild(child);
+  }
+  
+  @Override
+  public C find(Clause clause) {
+    return super.find(clause);
+  }
+  
+  @Override
+  public Iterable<C> findAll(Clause clause) {
+    return super.findAll(clause);
+  }
+  
+  @Override
+  public P onDetachChildren(DetachChildrenHandler handler) {
+    return super.onDetachChildren(handler);
   }
 }

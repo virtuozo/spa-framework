@@ -14,16 +14,8 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.Composite;
-import virtuozo.ui.Container;
-import virtuozo.ui.Elements;
-import virtuozo.ui.HTML;
-import virtuozo.ui.Heading;
-import virtuozo.ui.Navbar;
-import virtuozo.ui.Tag;
-import virtuozo.ui.Container.Row;
-import virtuozo.ui.Container.Row.Column;
 import virtuozo.ui.Heading.Level;
+import virtuozo.ui.Row.Column;
 import virtuozo.ui.api.DetachChildrenEvent;
 import virtuozo.ui.api.Icon;
 import virtuozo.ui.api.Layout;
@@ -99,7 +91,7 @@ public class LandingPageLayout implements Layout {
           section.scrollTo();
         }
       });
-      icon.appendTo(this.link);
+      icon.attachTo(this.link);
       return this;
     }
 

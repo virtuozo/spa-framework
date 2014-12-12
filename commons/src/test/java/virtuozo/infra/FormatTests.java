@@ -1,4 +1,4 @@
-package hitz.virtuozo.infra;
+package virtuozo.infra;
 
 import junit.framework.Assert;
 

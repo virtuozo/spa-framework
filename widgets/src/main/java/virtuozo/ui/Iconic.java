@@ -25,7 +25,7 @@ public class Iconic extends Component<Iconic> implements HasClickHandlers<Iconic
   }
 
   public Iconic icon(Icon icon) {
-    icon.appendTo(this);
+    icon.attachTo(this);
     return this;
   }
 

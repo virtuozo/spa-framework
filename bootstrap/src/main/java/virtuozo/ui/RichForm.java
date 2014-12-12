@@ -1,17 +1,12 @@
 package virtuozo.ui;
 
-import virtuozo.ui.Component;
-import virtuozo.ui.CssClass;
-import virtuozo.ui.Form;
-import virtuozo.ui.StyleChooser;
-import virtuozo.ui.Tag;
 import virtuozo.ui.api.Assets;
 import virtuozo.ui.api.HasFeedback;
 import virtuozo.ui.api.Icon;
 import virtuozo.ui.api.ToggleEvent;
+import virtuozo.ui.api.ToggleEvent.ToggleHandler;
 import virtuozo.ui.api.UIComponent;
 import virtuozo.ui.api.UIInput;
-import virtuozo.ui.api.ToggleEvent.ToggleHandler;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.DivElement;
@@ -89,7 +84,8 @@ public class RichForm extends Form<RichForm> {
     private Tag<DivElement> container = Tag.asDiv().css("col-sm-10", "col-sm-offset-2");
     
     public HorizontalFormGroup(I input) {
-      super(input, new Feedback());
+      super(input);
+      this.feedback(new Feedback());
       this.addChild(this.label().css("control-label")).addChild(this.container);
       this.feedback().asComponent().incorporate(this.container);
       this.container.add(input).add(this.helpBlock());
@@ -110,7 +106,8 @@ public class RichForm extends Form<RichForm> {
 
   static class DefaultFormGroup<I extends UIInput<?, V>, V> extends FormGroup<I, V> {
     public DefaultFormGroup(I input) {
-      super(input, new Feedback());
+      super(input);
+      this.feedback(new Feedback());
       this.feedback().asComponent().incorporate(this);
       this.addChild(this.label().css("control-label")).addChild(input).addChild(this.helpBlock());
     }

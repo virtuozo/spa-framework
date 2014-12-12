@@ -14,11 +14,7 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.Container;
-import virtuozo.ui.HTML;
-import virtuozo.ui.ViewPort;
-import virtuozo.ui.Container.Row;
-import virtuozo.ui.Container.Row.Column;
+import virtuozo.ui.Row.Column;
 import virtuozo.ui.api.Layout;
 
 import com.google.gwt.dom.client.StyleInjector;
@@ -50,8 +46,8 @@ public class SidebarLayout implements Layout {
     this.top = this.container.addRow().addColumn().span(12, ViewPort.LARGE).id("page-layout-top");
     
     Row row = this.container.addRow();
-    this.left = row.addColumn().span(4, ViewPort.SMALL).id("page-layout-left");
-    this.main = row.addColumn().span(8, ViewPort.SMALL).offset(4, ViewPort.SMALL).id("page-layout-main");
+    this.left = row.addColumn().span(2, ViewPort.SMALL).id("page-layout-left");
+    this.main = row.addColumn().span(10, ViewPort.SMALL).offset(4, ViewPort.SMALL).id("page-layout-main");
     
     StyleInjector.inject("@media (min-width: 768px) { #page-layout-left { bottom: 0; display: block; left: 0; overflow-x: hidden; overflow-y: auto; padding: 20px; position: fixed; top: 51px;}}");
   }

@@ -19,24 +19,26 @@ public class IconifiedList extends Parent<IconifiedList, IconifiedListItem> {
     }
     
     public static class IconifiedListItem extends Composite<IconifiedListItem> implements HasText<IconifiedListItem> {
+      private Text text = new Text();
+      
       private IconifiedListItem() {
         super(Elements.li());
-        this.css("fa-li");
+        this.add(this.text);
       }
       
       public IconifiedListItem icon(FontAwesome icon){
-        icon.appendTo(this);
+        this.add(icon.asComponent().asComponent().css("fa-li"));
         return this;
       }
       
       @Override
       public String text() {
-        return this.element().getInnerText();
+        return this.text.text();
       }
       
       @Override
       public IconifiedListItem text(String text) {
-        this.element().setInnerText(text);
+        this.text.text(text);
         return this;
       }
     }

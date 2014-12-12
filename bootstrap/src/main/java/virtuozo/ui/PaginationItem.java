@@ -51,7 +51,7 @@ public class PaginationItem extends Component<PaginationItem> implements HasText
 
   @Override
   public PaginationItem icon(Icon icon) {
-    icon.appendTo(this.link);
+    icon.attachTo(this.link);
     return this;
   }
   

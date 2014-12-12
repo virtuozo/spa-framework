@@ -36,7 +36,7 @@ public abstract class SortableGridColumn<T extends SortableGridColumn<T, H>, H e
 
   public T mark(SortDirection direction) {
     Cell cell = this.headerCell().css("sorted");
-    direction.icon().appendTo(cell);
+    direction.icon().attachTo(cell);
     return (T) this;
   }
 
