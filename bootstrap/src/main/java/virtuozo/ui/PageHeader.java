@@ -14,8 +14,6 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.Component;
-import virtuozo.ui.Elements;
 import virtuozo.ui.api.HasText;
 
 public class PageHeader extends Component<PageHeader> implements HasText<PageHeader> {
@@ -38,12 +36,12 @@ public class PageHeader extends Component<PageHeader> implements HasText<PageHea
     return this.heading.text();
   }
   
-  public PageHeader subText(String text) {
+  public PageHeader headline(String text) {
     this.heading.headline(text);
     return this;
   }
 
-  public String subText() {
+  public String headline() {
     return this.heading.headline();
   }
 }

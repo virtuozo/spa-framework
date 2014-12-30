@@ -1,22 +1,18 @@
 package virtuozo.ui;
 
-import virtuozo.ui.Component;
-import virtuozo.ui.Elements;
-import virtuozo.ui.Tag;
-import virtuozo.ui.api.ActivationEvent;
-import virtuozo.ui.api.DeactivationEvent;
-import virtuozo.ui.api.HasActivation;
-import virtuozo.ui.api.HasIcon;
-import virtuozo.ui.api.Icon;
-import virtuozo.ui.api.ActivationEvent.ActivationHandler;
-import virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
+import java.util.List;
 
-import com.google.gwt.dom.client.AnchorElement;
+import virtuozo.ui.ActivationHelper.Behavior;
+import virtuozo.ui.api.ActivationEvent;
+import virtuozo.ui.api.ActivationEvent.ActivationHandler;
+import virtuozo.ui.api.DeactivationEvent;
+import virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
+import virtuozo.ui.api.HasActivation;
+
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DoubleClickHandler;
-import com.google.gwt.user.cellview.client.ColumnSortEvent.ListHandler;
 
 public class PanelGroup extends Component<PanelGroup> {
   private ActivationHelper helper = new ActivationHelper();
@@ -24,10 +20,22 @@ public class PanelGroup extends Component<PanelGroup> {
   public PanelGroup() {
     super(Elements.div());
     this.css("panel-group");
+    this.helper.behavior(new Behavior() {
+      @Override
+      public void doActivation(Element element, List<HasActivation<?>> activationList) {
+        for (HasActivation<?> widget : activationList) {
+          if (widget.match(element) && !widget.active()) {
+            widget.activate().asComponent().fireEvent(new ActivationEvent());
+            continue;
+          }
+          widget.deactivate().asComponent().fireEvent(new DeactivationEvent());
+        }
+      }
+    });
   }
-
-  public CollapsePanel addPanel(String title) {
-    CollapsePanel panel = new CollapsePanel(title);
+  
+  public CollapsePanel addPanel() {
+    CollapsePanel panel = new CollapsePanel();
     if(!this.hasChildren()){
       panel.activate();
     }
@@ -36,13 +44,10 @@ public class PanelGroup extends Component<PanelGroup> {
     return panel;
   }
 
-  public class CollapsePanel extends Panel implements HasActivation<CollapsePanel>, HasIcon<CollapsePanel> {
+  public class CollapsePanel extends Panel implements HasActivation<CollapsePanel> {
     private Tag<DivElement> collapse = Tag.asDiv().css("panel-collapse", "collapse");
 
-    private Tag<AnchorElement> anchor = Tag.asAnchor().css("collapsed");
-
-    public CollapsePanel(String title) {
-      this.header().heading().addChild(this.anchor.html(title));
+    CollapsePanel() {
       this.addChild(this.collapse);
       this.collapse.add(this.body().detach().hide()).add(this.footer().detach().hide());
     }
@@ -61,20 +66,15 @@ public class PanelGroup extends Component<PanelGroup> {
       return table;
     }
     
-    public CollapsePanel icon(Icon icon){
-      icon.attachTo(this.anchor);
-      return this;
-    }
-
     @Override
     public CollapsePanel onClick(ClickHandler handler) {
-      this.anchor.onClick(handler);
+      this.header().on(handler);
       return this;
     }
 
     @Override
     public CollapsePanel onDoubleClick(DoubleClickHandler handler) {
-      this.anchor.onDoubleClick(handler);
+      this.header().on(handler);
       return this;
     }
 
@@ -111,7 +111,7 @@ public class PanelGroup extends Component<PanelGroup> {
 
     @Override
     public boolean match(Element element) {
-      return this.anchor.id().equals(element.getId());
+      return this.header().id().equals(element.getId());
     }
   }
 }

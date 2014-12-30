@@ -3,7 +3,7 @@ package virtuozo.ui;
 import virtuozo.infra.BooleanProperty;
 import virtuozo.infra.api.ChangeHandler;
 
-public class InputState {
+class InputState {
   private BooleanProperty enablement = new BooleanProperty();
 
   public InputState enable() {

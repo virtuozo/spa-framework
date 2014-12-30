@@ -76,11 +76,11 @@ public final class Datagrid<H extends HashObject> extends Component<Datagrid<H>>
   }
 
   public Datagrid<H> onDraw(DrawHandler handler) {
-    return this.addHandler(DrawEvent.type(), handler);
+    return this.addHandler(DrawEvent.TYPE, handler);
   }
 
   public Datagrid<H> onSelection(SelectionHandler<H> handler) {
-    return this.addHandler(SelectionEvent.type(), handler);
+    return this.addHandler(SelectionEvent.TYPE, handler);
   }
 
   public Datagrid<H> add(final GridColumn<?, H> column) {

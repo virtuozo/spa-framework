@@ -6,15 +6,11 @@ import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
 
 public class ToggleEvent extends GwtEvent<ToggleHandler> {
-  private static final Type<ToggleHandler> type = new Type<ToggleHandler>();
-  
-  public static Type<ToggleHandler> type(){
-    return type;
-  }
+  public static final Type<ToggleHandler> TYPE = new Type<ToggleHandler>();
   
   @Override
   public Type<ToggleHandler> getAssociatedType() {
-    return type;
+    return TYPE;
   }
 
   @Override

@@ -577,7 +577,7 @@ public enum FontAwesome implements Icon {
 
   public <C extends UIComponent> void attachTo(C component) {
     UIComponent icon = this.asComponent();
-    component.asComponent().firstChild(icon);
+    component.asComponent().addFirstChild(icon);
   }
   
   public static class Styles extends CssClass {

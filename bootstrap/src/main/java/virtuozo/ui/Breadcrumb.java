@@ -14,12 +14,9 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.Component;
-import virtuozo.ui.Tag;
 import virtuozo.ui.api.HasClickHandlers;
 import virtuozo.ui.api.HasText;
 
-import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DoubleClickHandler;
 
@@ -35,41 +32,54 @@ public class Breadcrumb extends Component<Breadcrumb> {
     return new BreadcrumbItem(this.breadcrumb.addItem());
   }
   
-  public class BreadcrumbItem extends Component<BreadcrumbItem> implements HasText<BreadcrumbItem>, HasClickHandlers<BreadcrumbItem> {
-    private Tag<AnchorElement> anchor;
+  public BreadcrumbLink addLink(){
+    return new BreadcrumbLink().attachTo(this.breadcrumb.addItem());
+  }
+  
+  public class BreadcrumbLink extends Component<BreadcrumbLink> implements HasText<BreadcrumbLink>, HasClickHandlers<BreadcrumbLink>{
+    BreadcrumbLink() {
+      super(Tag.asAnchor());
+    }
+    
+    @Override
+    public BreadcrumbLink onClick(ClickHandler handler) {
+      this.on(handler);
+      return this;
+    }
 
-    public BreadcrumbItem(ListItem item) {
+    @Override
+    public BreadcrumbLink onDoubleClick(DoubleClickHandler handler) {
+      this.on(handler);
+      return this;
+    }
+    
+    @Override
+    public BreadcrumbLink text(String text) {
+      this.element().setInnerText(text);
+      return this;
+    }
+    
+    @Override
+    public String text() {
+      return this.element().getInnerText();
+    }
+  }
+  
+  public class BreadcrumbItem extends Component<BreadcrumbItem> implements HasText<BreadcrumbItem> {
+
+    BreadcrumbItem(ListItem item) {
       super(item);
-      if(item.childrenCount() > 1){
-        this.anchor = (Tag) item.childAt(1).asComponent();
-        return;
-      }
-      
-      this.anchor = Tag.asAnchor();
-      this.addChild(this.anchor);
-    }
-
-    @Override
-    public BreadcrumbItem onClick(ClickHandler handler) {
-      this.anchor.onClick(handler);
-      return this;
-    }
-
-    @Override
-    public BreadcrumbItem onDoubleClick(DoubleClickHandler handler) {
-      this.anchor.onDoubleClick(handler);
-      return this;
     }
 
     @Override
     public BreadcrumbItem text(String text) {
-      this.anchor.text(text);
+      this.element().setInnerText(text);
       return this;
     }
 
     @Override
     public String text() {
-      return this.anchor.text();
+      return this.element().getInnerText();
     }
   }
 }

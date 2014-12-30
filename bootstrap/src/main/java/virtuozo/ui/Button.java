@@ -14,14 +14,10 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.Component;
-import virtuozo.ui.CssClass;
-import virtuozo.ui.Elements;
-import virtuozo.ui.StyleChooser;
-import virtuozo.ui.Text;
 import virtuozo.ui.api.ActivationEvent;
+import virtuozo.ui.api.ActivationEvent.ActivationHandler;
 import virtuozo.ui.api.DeactivationEvent;
-import virtuozo.ui.api.HasActivation;
+import virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
 import virtuozo.ui.api.HasClickHandlers;
 import virtuozo.ui.api.HasFocusHandlers;
 import virtuozo.ui.api.HasIcon;
@@ -31,8 +27,6 @@ import virtuozo.ui.api.HasState;
 import virtuozo.ui.api.HasText;
 import virtuozo.ui.api.Icon;
 import virtuozo.ui.api.UIComponent;
-import virtuozo.ui.api.ActivationEvent.ActivationHandler;
-import virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
 import virtuozo.ui.css.State;
 
 import com.google.gwt.dom.client.Element;

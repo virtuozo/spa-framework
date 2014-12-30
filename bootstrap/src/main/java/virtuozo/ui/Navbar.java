@@ -80,25 +80,25 @@ public class Navbar extends Component<Navbar> {
   }
 
   public Facet leftFacet() {
-    return this.left;
+    return this.left.show();
   }
   
   public FormFacet leftForm() {
-    return this.leftForm;
+    return this.leftForm.show();
   }
 
   public Facet rightFacet() {
-    return this.right;
+    return this.right.show();
   }
   
   public FormFacet rightForm() {
-    return this.rightForm;
+    return this.rightForm.show();
   }
   
   public class FormFacet extends Component<FormFacet>{
     public FormFacet() {
       super(Elements.div());
-      this.css().set("nav", "navbar-form");
+      this.hide().css().set("nav", "navbar-form");
     }
     
     public <I extends UIInput<?, V>, V> FormFacet addInput(I input){
@@ -117,7 +117,7 @@ public class Navbar extends Component<Navbar> {
   public class Facet extends Component<Facet> {
     public Facet() {
       super(Elements.div());
-      this.css().set("nav");
+      this.hide().css().set("nav");
     }
 
     public Paragraph addText() {

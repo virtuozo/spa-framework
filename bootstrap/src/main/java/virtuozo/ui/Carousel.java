@@ -1,13 +1,11 @@
 package virtuozo.ui;
 
-import virtuozo.ui.Component;
-import virtuozo.ui.Composite;
-import virtuozo.ui.Elements;
-import virtuozo.ui.Tag;
+import virtuozo.ui.Heading.Level;
 import virtuozo.ui.OrderList.Type;
 import virtuozo.ui.api.Assets;
 import virtuozo.ui.api.Icon;
 import virtuozo.ui.api.UIComponent;
+import virtuozo.ui.css.State;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.AnchorElement;
@@ -16,10 +14,9 @@ import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.resources.client.ImageResource;
+import com.google.gwt.user.client.Timer;
 
 public class Carousel extends Component<Carousel> {
-  private Assets assets = GWT.create(Assets.class);
-  
   private OrderList indicators = new OrderList(Type.ORDERED).css("carousel-indicators");
 
   private Tag<DivElement> slides = Tag.asDiv().css("carousel-inner");
@@ -47,6 +44,19 @@ public class Carousel extends Component<Carousel> {
       }
     });
   }
+  
+  public Carousel autoPlay(int delay){
+    Timer timer = new Timer() {
+      
+      @Override
+      public void run() {
+        Carousel.this.next();
+      }
+    };
+    
+    timer.scheduleRepeating(delay);
+    return this;
+  }
 
   public Slide addSlide() {
     final Slide slide = new Slide();
@@ -60,7 +70,7 @@ public class Carousel extends Component<Carousel> {
 
     if (!this.slides.hasChildren()) {
       slide.style().display(Display.BLOCK);
-      indicator.css("active");
+      indicator.css(State.ACTIVE);
     }
 
     this.slides.add(slide);
@@ -88,13 +98,13 @@ public class Carousel extends Component<Carousel> {
   private void go(Slide slide) {
     int index = 0;
     for (UIComponent child : this.slides.children()) {
-      child.asComponent().hide().css().remove("active");
-      this.indicators.childAt(index++).css().remove("active");
+      child.asComponent().hide().css().remove(State.ACTIVE);
+      this.indicators.childAt(index++).css().remove(State.ACTIVE);
     }
 
     index = this.slides.indexOf(slide);
-    this.indicators.childAt(index).css("active");
-    slide.show().css("active");
+    this.indicators.childAt(index).css(State.ACTIVE);
+    slide.show().css(State.ACTIVE);
     this.selection = index;
   }
 
@@ -127,6 +137,14 @@ public class Carousel extends Component<Carousel> {
         super(Elements.div());
         this.css("carousel-caption");
       }
+
+      public Heading addHeading() {
+        return new Heading(Level.THREE).attachTo(this);
+      }
+
+      public Paragraph addText() {
+        return new Paragraph().attachTo(this);
+      }
     }
   }
 
@@ -136,7 +154,7 @@ public class Carousel extends Component<Carousel> {
       super(Elements.a());
       this.css(type.css(), "carousel-control");
       type.icon().attachTo(this);
-      this.element().setHref("#");
+      this.element().setHref("javascript:void(0)");
     }
 
     @Override
@@ -148,18 +166,18 @@ public class Carousel extends Component<Carousel> {
   enum ControlType {
     LEFT, RIGHT;
 
+    private Assets assets = GWT.create(Assets.class);
+    
     String css() {
       return this.name().toLowerCase();
     }
-    
-    public Icon icon(){
-      Assets assets = GWT.create(Assets.class);
-      
-      if(this.equals(LEFT)){
-        return assets.previousIcon();
+
+    public Icon icon() {
+      if (this.equals(LEFT)) {
+        return this.assets.previousIcon();
       }
-      
-      return assets.nextIcon();
+
+      return this.assets.nextIcon();
     }
   }
 }

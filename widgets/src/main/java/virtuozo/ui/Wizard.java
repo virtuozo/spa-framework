@@ -16,6 +16,7 @@ import virtuozo.ui.api.UIClasses;
 import virtuozo.ui.api.UIComponent;
 import virtuozo.ui.css.ButtonColor;
 import virtuozo.ui.css.Floating;
+import virtuozo.ui.css.State;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.DivElement;
@@ -34,17 +35,21 @@ public class Wizard extends Component<Wizard> {
   
   private Tag<DivElement> footer = Tag.asDiv().css("wizard-footer");
   
-  private Button next = new Button().css(Button.Size.SMALL).css(ButtonColor.PRIMARY);
+  private Button next = new Button().css(Button.Size.SMALL).hide();
   
-  private Button previous = new Button().css(Button.Size.SMALL).css(ButtonColor.PRIMARY).hide();
+  private Button previous = new Button().css(Button.Size.SMALL).hide();
   
-  private Button finish = new Button().css(Button.Size.SMALL).css(ButtonColor.PRIMARY).hide();
+  private Button finish = new Button().css(Button.Size.SMALL).hide();
+  
+  private SimpleEventInterceptor interceptor = new SimpleEventInterceptor().off();
+  
+  private Color color;
   
   private int index;
   
-  public Wizard() {
+  public Wizard(){
     super(Elements.div());
-    this.css("wizard-container").addChild(this.card);
+    this.css(Color.DEFAULT).css("wizard-container").addChild(this.card);
     this.init();
   }
   
@@ -82,6 +87,20 @@ public class Wizard extends Component<Wizard> {
     });;
   }
   
+  public Wizard css(Color color){
+    this.color = color;
+    this.color.visit(this.previous).visit(this.next).visit(this.finish);
+    
+    for(UIComponent child : this.navigation.childrenComponents()){
+      Pill pill = (Pill) child;
+      if(pill.active()){
+        pill.activate();
+      }
+    }
+    
+    return this;
+  }
+  
   @Override
   public UIClasses css() {
     return this.card.css();
@@ -100,6 +119,7 @@ public class Wizard extends Component<Wizard> {
   }
   
   public Wizard hideControls(){
+    this.interceptor.on();
     this.footer.hide();
     return this;
   }
@@ -111,8 +131,11 @@ public class Wizard extends Component<Wizard> {
   public Wizard next(){
     this.index++;
     
-    if(this.index >= this.navigation.childrenCount()){
+    if(this.index >= this.navigation.childrenCount() - 1){
       this.index = this.navigation.childrenCount() - 1;
+      this.next.hide();
+      this.finish.show();
+      this.previous.show();
     }
     
     return this.go();
@@ -120,9 +143,11 @@ public class Wizard extends Component<Wizard> {
   
   public Wizard previous(){
     this.index--;
-    if(this.index < 0){
+    if(this.index <= 0){
       this.index = 0;
       this.previous.hide();
+      this.finish.hide();
+      this.next.show();
     }
     
     return this.go();
@@ -142,7 +167,12 @@ public class Wizard extends Component<Wizard> {
   
   public Step addStep(){
     final Pill pill = this.navigation.addPill();
+    pill.childAt(1).asComponent().onEvent(this.interceptor);
+    this.next.show();
+    this.finish.hide();
     Step step = new Step(pill);
+    this.body.add(step);
+
     if(this.navigation.childrenCount() == 1) {
       step.activate();
     }
@@ -152,7 +182,6 @@ public class Wizard extends Component<Wizard> {
       child.asComponent().style().width(width, Unit.PCT);
     }
     
-    this.body.add(step);
     return step;
   }
   
@@ -178,13 +207,18 @@ public class Wizard extends Component<Wizard> {
         
         @Override
         public void onActivate(ActivationEvent event) {
-          Step.this.activate();
+          Step.this.css(State.ACTIVE);
+          Step.this.pill.css(Wizard.this.color.translate()).childAt(1).asComponent().css(Wizard.this.color.translate());
         }
       }).onDeactivate(new DeactivationHandler() {
         
         @Override
         public void onDeactivate(DeactivationEvent event) {
-          Step.this.deactivate();
+          Step.this.css().remove(State.ACTIVE);
+          for(Color color : Color.values()){
+            Step.this.pill.css().remove(color.translate());
+            Step.this.pill.childAt(1).asComponent().css().remove(color.translate());
+          }
         }
       });
       
@@ -203,32 +237,51 @@ public class Wizard extends Component<Wizard> {
     }
     
     private void activate(){
-      this.css("active");
+      this.pill.activate();
     }
     
     private void deactivate(){
-      this.css().remove("active");
+      this.pill.deactivate();
     }
   }
   
-  public static class Color extends CssClass {
-    private Color(String name) {
-      super(name);
+  public static enum Color {
+    DEFAULT{
+      @Override
+      UIClass translate() {
+        return ButtonColor.PRIMARY;
+      }
     }
-
-    @Override
-    protected StyleChooser chooser() {
-      return STYLES;
+    ,INFO{
+      @Override
+      UIClass translate() {
+        return ButtonColor.INFO;
+      }
     }
-
-    public static final Color BLUE = new Color("ct-wizard-blue");
-
-    public static final Color GREEN = new Color("ct-wizard-green");
-
-    public static final Color ORANGE = new Color("ct-wizard-orange");
-
-    public static final Color RED = new Color("ct-wizard-red");
-
-    private static final StyleChooser STYLES = new StyleChooser(BLUE, GREEN, ORANGE, RED);
+    ,SUCCESS{
+      @Override
+      UIClass translate() {
+        return ButtonColor.SUCCESS;
+      }
+    }
+    ,WARNING{
+      @Override
+      UIClass translate() {
+        return ButtonColor.WARNING;
+      }
+    }
+    ,DANGER{
+      @Override
+      UIClass translate() {
+        return ButtonColor.DANGER;
+      }
+    };
+    
+    Color visit(Button button){
+      button.css(this.translate());
+      return this;
+    }
+    
+    abstract UIClass translate();
   }
 }

@@ -16,13 +16,12 @@ package virtuozo.ui;
 
 import virtuozo.infra.CastIterable;
 import virtuozo.ui.api.Clause;
+import virtuozo.ui.api.DetachChildrenEvent.DetachChildrenHandler;
 import virtuozo.ui.api.HasComponents;
 import virtuozo.ui.api.UIComponent;
-import virtuozo.ui.api.DetachChildrenEvent.DetachChildrenHandler;
 
 import com.google.gwt.dom.client.Element;
 
-@SuppressWarnings("unchecked")
 public abstract class Parent<P extends Parent<P, C>, C extends UIComponent> extends Component<P> implements HasComponents<P, C> {
 
   public Parent() {
@@ -41,6 +40,11 @@ public abstract class Parent<P extends Parent<P, C>, C extends UIComponent> exte
   public P detachChildren() {
     return super.detachChildren();
   }
+  
+  @Override
+  public P firstChild(C add) {
+    return super.addFirstChild(add);
+  }
 
   public P add(C add) {
     return super.addChild(add);
@@ -56,6 +60,16 @@ public abstract class Parent<P extends Parent<P, C>, C extends UIComponent> exte
 
   public Iterable<C> children() {
     return new CastIterable<C, UIComponent>(super.childrenComponents());
+  }
+  
+  @Override
+  public C firstChild() {
+    return super.firstChild();
+  }
+  
+  @Override
+  public C lastChild() {
+    return super.lastChild();
   }
 
   @Override

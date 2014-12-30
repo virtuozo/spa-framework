@@ -14,12 +14,7 @@
  */
 package virtuozo.ui.api;
 
-import virtuozo.ui.api.UIComponent;
 
 
-public interface HasState<C extends UIComponent> extends HasActivation<C>{
-  
-  C disable();
-  C enable();
-  boolean disabled();
+public interface HasState<C extends UIComponent> extends HasActivation<C>, HasEnablement<C> {
 }

@@ -51,12 +51,12 @@ public class LayoutPanel extends Component<LayoutPanel> {
       
       @Override
       Cell cell(Table table) {
-        return table.body().childAt(0).addCell();
+        return table.body().childAt(0).addCell().css("layout-horizontal");
       }
     }, VERTICAL{
       @Override
       Cell cell(Table table) {
-        return table.body().addRow().addCell();
+        return table.body().addRow().addCell().css("layout-vertical");
       }
       
       @Override

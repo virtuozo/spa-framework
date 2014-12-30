@@ -27,7 +27,7 @@ public final class Heading extends Component<Heading> implements HasText<Heading
 
   private Text textHolder = new Text();
 
-  private Tag<Element> secondary = Tag.as(Elements.small());
+  private Tag<Element> secondary = Tag.as(Elements.small()).hide();
 
   public Heading(Level level) {
     super(Elements.heading(level.ordinal() + 1));
@@ -35,7 +35,7 @@ public final class Heading extends Component<Heading> implements HasText<Heading
   }
 
   public Heading headline(String text) {
-    this.secondary.text(text);
+    this.secondary.text(text).show();
     return this;
   }
 

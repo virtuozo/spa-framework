@@ -15,9 +15,9 @@
 package virtuozo.ui;
 
 import virtuozo.ui.api.Clause;
+import virtuozo.ui.api.DetachChildrenEvent.DetachChildrenHandler;
 import virtuozo.ui.api.HasComponents;
 import virtuozo.ui.api.UIComponent;
-import virtuozo.ui.api.DetachChildrenEvent.DetachChildrenHandler;
 
 import com.google.gwt.dom.client.Element;
 
@@ -50,6 +50,11 @@ public abstract class Composite<C extends Composite<C>> extends Component<C> imp
   public C add(UIComponent add) {
     return super.addChild(add);
   }
+  
+  @Override
+  public C addFirstChild(UIComponent add) {
+    return super.addFirstChild(add);
+  }
 
   @Override
   public C adopt(UIComponent child) {
@@ -64,6 +69,21 @@ public abstract class Composite<C extends Composite<C>> extends Component<C> imp
   @Override
   public Iterable<UIComponent> children() {
     return super.childrenComponents();
+  }
+  
+  @Override
+  public C firstChild(UIComponent add) {
+    return super.addFirstChild(add);
+  }
+  
+  @Override
+  public UIComponent firstChild() {
+    return super.firstChild();
+  }
+  
+  @Override
+  public UIComponent lastChild() {
+    return super.lastChild();
   }
 
   @Override

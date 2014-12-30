@@ -391,7 +391,7 @@ public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Comp
     }
 
     public DropDown onSelection(SelectionHandler<E> handler) {
-      return this.addHandler(SelectionEvent.type(), handler);
+      return this.addHandler(SelectionEvent.TYPE, handler);
     }
 
     public DropDown activate() {

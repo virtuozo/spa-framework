@@ -6,15 +6,11 @@ import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
 
 public class MoveDownEvent extends GwtEvent<MoveDownHandler> {
-  private static final Type<MoveDownHandler> type = new Type<MoveDownEvent.MoveDownHandler>();
-  
-  public static Type<MoveDownHandler> type() {
-    return type;
-  }
+  public static final Type<MoveDownHandler> TYPE = new Type<MoveDownEvent.MoveDownHandler>();
   
   @Override
   public Type<MoveDownHandler> getAssociatedType() {
-    return type;
+    return TYPE;
   }
   
   @Override

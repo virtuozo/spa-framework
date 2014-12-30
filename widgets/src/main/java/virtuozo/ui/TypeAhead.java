@@ -108,15 +108,15 @@ public abstract class TypeAhead<T extends TypeAhead<T, V>, V> extends Component<
   }
 
   public T onMoveUp(MoveUpHandler handler) {
-    return this.addHandler(MoveUpEvent.type(), handler);
+    return this.addHandler(MoveUpEvent.TYPE, handler);
   }
 
   public T onMoveDown(MoveDownHandler handler) {
-    return this.addHandler(MoveDownEvent.type(), handler);
+    return this.addHandler(MoveDownEvent.TYPE, handler);
   }
 
   public T onSelect(SelectionHandler<T> handler) {
-    this.addHandler(SelectionEvent.type(), handler);
+    this.addHandler(SelectionEvent.TYPE, handler);
     return (T) this;
   }
 

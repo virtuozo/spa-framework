@@ -38,7 +38,7 @@ public class ButtonGroup extends Component<ButtonGroup> {
   
   public ButtonGroup(Type type) {
     super(Elements.div());
-    this.activationHelper.behaviour(new Behavior() {
+    this.activationHelper.behavior(new Behavior() {
       @Override
       public void doActivation(Element element, List<HasActivation<?>> activationList) {
       }
@@ -48,12 +48,12 @@ public class ButtonGroup extends Component<ButtonGroup> {
   }
   
   public ButtonGroup checkbox(){
-    this.activationHelper.behaviour(new CheckboxBehavior());
+    this.activationHelper.behavior(new CheckboxBehavior());
     return this;
   }
   
   public ButtonGroup radio(){
-    this.activationHelper.behaviour(new ToggleBehavior());
+    this.activationHelper.behavior(new ToggleBehavior());
     return this;
   }
   

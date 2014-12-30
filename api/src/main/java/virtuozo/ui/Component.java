@@ -143,9 +143,18 @@ public abstract class Component<C extends Component<C>> implements HasVisibility
   public UIComponent parent(){
     return this.holder.parent();
   }
-
+  
+  protected C html(String html){
+    this.element().setInnerHTML(html);
+    return (C) this;
+  }
+  
+  protected String html(){
+    return this.element().getInnerHTML();
+  }
+  
   /** Element behaviors **/
-  public <E extends Element> E element() {
+  <E extends Element> E element() {
     return this.holder.getElement().cast();
   }
   
@@ -231,17 +240,17 @@ public abstract class Component<C extends Component<C>> implements HasVisibility
   /** Visbility behaviors **/
   @Override
   public C onHide(HideHandler handler) {
-    return this.addHandler(HideEvent.type(), handler);
+    return this.addHandler(HideEvent.TYPE, handler);
   }
 
   @Override
   public C onShow(ShowHandler handler) {
-    return this.addHandler(ShowEvent.type(), handler);
+    return this.addHandler(ShowEvent.TYPE, handler);
   }
 
   @Override
   public C onToggleVisibility(ToggleHandler handler) {
-    return this.addHandler(ToggleEvent.type(), handler);
+    return this.addHandler(ToggleEvent.TYPE, handler);
   }
   
   @Override
@@ -304,7 +313,7 @@ public abstract class Component<C extends Component<C>> implements HasVisibility
   }
   
   protected C onDetachChildren(DetachChildrenHandler handler){
-    this.holder.addHandler(handler, DetachChildrenEvent.type());
+    this.holder.addHandler(handler, DetachChildrenEvent.TYPE);
     return (C) this;
   }
   
@@ -332,7 +341,7 @@ public abstract class Component<C extends Component<C>> implements HasVisibility
     return (C) this;
   }
   
-  protected C firstChild(UIComponent add){
+  protected C addFirstChild(UIComponent add){
     if(!this.hasChildren()) {
       this.addChild(add);
       return (C) this;
@@ -365,6 +374,22 @@ public abstract class Component<C extends Component<C>> implements HasVisibility
         return instance.getReference();
       }
     });
+  }
+  
+  protected <UI extends UIComponent> UI firstChild(){
+    if(this.hasChildren()){
+      return this.childAt(0);
+    }
+    
+    return null;
+  }
+  
+  protected <UI extends UIComponent> UI lastChild(){
+    if(this.hasChildren()){
+      return this.childAt(this.childrenCount() - 1);
+    }
+    
+    return null;
   }
 
   protected <UI extends UIComponent> UI childAt(int index) {
@@ -554,7 +579,7 @@ public abstract class Component<C extends Component<C>> implements HasVisibility
   }
   
   C on(ScrollSpyHandler handler){
-    this.addHandler(ScrollSpyEvent.type(), handler);
+    this.addHandler(ScrollSpyEvent.TYPE, handler);
     return (C) this;
   }
 

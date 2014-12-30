@@ -14,11 +14,8 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.Component;
-import virtuozo.ui.Composite;
-import virtuozo.ui.CssClass;
-import virtuozo.ui.Elements;
-import virtuozo.ui.StyleChooser;
+import virtuozo.ui.TextChangeEvent.TextChangeHandler;
+import virtuozo.ui.api.HasText;
 
 public class Panel extends Component<Panel> {
   private Header header = new Header();
@@ -32,7 +29,7 @@ public class Panel extends Component<Panel> {
     this.css().set("panel").append(Panel.Color.DEFAULT);
     this.addChild(this.header.hide()).addChild(this.body.hide()).addChild(this.footer.hide());
   }
-
+  
   public Header header() {
     return this.header.show();
   }
@@ -57,18 +54,33 @@ public class Panel extends Component<Panel> {
     return group;
   }
 
-  public class Header extends Composite<Header> {
-    private Heading heading;
+  public class Header extends Composite<Header> implements HasText<Header>{
+    private Heading heading = new Heading(Heading.Level.THREE).css("panel-title").hide();
     
     public Header() {
       super(Elements.div());
       this.css().set("panel-heading");
-      this.heading = new Heading(Heading.Level.THREE).css("panel-title");
-      this.add(this.heading.hide());
+      this.add(heading);
     }
-
-    public Heading heading() {
-      return this.heading.show();
+    
+    Heading heading(){
+      return this.heading;
+    }
+    
+    Header onTextChange(TextChangeHandler handler){
+      this.addHandler(TextChangeEvent.TYPE, handler);
+      return this;
+    }
+    
+    @Override
+    public String text() {
+      return this.heading.text();
+    }
+    
+    @Override
+    public Header text(String text) {
+      this.heading.text(text).show();
+      return this.fireEvent(new TextChangeEvent(text));
     }
   }
 

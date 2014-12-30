@@ -15,19 +15,16 @@
 package virtuozo.ui;
 
 import virtuozo.infra.BrowserEventInterceptor;
-import virtuozo.ui.Component;
-import virtuozo.ui.CssClass;
-import virtuozo.ui.StyleChooser;
-import virtuozo.ui.Tag;
 import virtuozo.ui.OrderList.Type;
 import virtuozo.ui.api.ActivationEvent;
+import virtuozo.ui.api.ActivationEvent.ActivationHandler;
 import virtuozo.ui.api.DeactivationEvent;
+import virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
 import virtuozo.ui.api.HasActivation;
 import virtuozo.ui.api.HasClickHandlers;
 import virtuozo.ui.api.HasMouseHandlers;
 import virtuozo.ui.api.HasText;
-import virtuozo.ui.api.ActivationEvent.ActivationHandler;
-import virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
+import virtuozo.ui.css.State;
 
 import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.dom.client.Element;
@@ -193,7 +190,7 @@ public class Menu extends Component<Menu>{
 
     @Override
     public MenuItem activate() {
-      this.css("active");
+      this.css(State.ACTIVE);
       return this.fireEvent(new ActivationEvent());
     }
 

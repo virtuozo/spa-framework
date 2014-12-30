@@ -13,8 +13,14 @@ public interface HasComponents<H extends HasComponents<H, C>, C extends UICompon
 
   H insert(C add, C before);
 
+  H firstChild(C add);
+  
   Iterable<C> children();
 
+  C firstChild();
+  
+  C lastChild();
+  
   C childAt(int index);
   
   C find(Clause clause);

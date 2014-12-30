@@ -14,7 +14,7 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.Parent;
+import virtuozo.ui.Media.Floating;
 
 public class MediaList extends Parent<MediaList, Media>{
   private OrderList list = new OrderList(OrderList.Type.UNORDERED);
@@ -25,6 +25,10 @@ public class MediaList extends Parent<MediaList, Media>{
   }
   
   public Media addMedia(){
-    return new Media(this.list.addItem());
+	  return this.addMedia(Floating.LEFT);
+  }
+  
+  public Media addMedia(Floating floating){
+    return new Media(this.list.addItem(), floating);
   }
 }

@@ -14,8 +14,6 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.Component;
-import virtuozo.ui.Elements;
 import virtuozo.ui.api.HasText;
 import virtuozo.ui.api.UIComponent;
 
@@ -25,7 +23,7 @@ public class Badge extends Component<Badge> implements HasText<Badge>{
     this.css().set("badge");
   }
   
-  public Badge appendTo(UIComponent widget){
+  public Badge attachTo(UIComponent widget){
     widget.asComponent().addChild(this);
     return this;
   }

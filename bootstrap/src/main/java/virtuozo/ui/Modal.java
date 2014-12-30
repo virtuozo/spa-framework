@@ -1,16 +1,11 @@
 package virtuozo.ui;
 
-import virtuozo.ui.Component;
-import virtuozo.ui.Composite;
-import virtuozo.ui.Elements;
-import virtuozo.ui.EventHandlers;
-import virtuozo.ui.Tag;
 import virtuozo.ui.api.HasVisibility;
 import virtuozo.ui.api.HideEvent;
-import virtuozo.ui.api.ShowEvent;
-import virtuozo.ui.api.ToggleEvent;
 import virtuozo.ui.api.HideEvent.HideHandler;
+import virtuozo.ui.api.ShowEvent;
 import virtuozo.ui.api.ShowEvent.ShowHandler;
+import virtuozo.ui.api.ToggleEvent;
 import virtuozo.ui.api.ToggleEvent.ToggleHandler;
 
 import com.google.gwt.dom.client.DivElement;
@@ -69,19 +64,19 @@ public class Modal implements HasVisibility<Modal> {
   
   @Override
   public Modal onHide(HideHandler handler) {
-    this.eventBus.add(HideEvent.type(), handler);
+    this.eventBus.add(HideEvent.TYPE, handler);
     return this;
   }
 
   @Override
   public Modal onShow(ShowHandler handler) {
-    this.eventBus.add(ShowEvent.type(), handler);
+    this.eventBus.add(ShowEvent.TYPE, handler);
     return this;
   }
 
   @Override
   public Modal onToggleVisibility(ToggleHandler handler) {
-    this.eventBus.add(ToggleEvent.type(), handler);
+    this.eventBus.add(ToggleEvent.TYPE, handler);
     return this;
   }
 

@@ -28,10 +28,10 @@ import com.google.gwt.event.dom.client.ClickHandler;
 public class ActivationHelper implements ClickHandler {
   private List<HasActivation<?>> activationList = new ArrayList<HasActivation<?>>();
 
-  private Behavior behaviour = new ToggleBehavior();
+  private Behavior behavior = new ToggleBehavior();
   
-  public void behaviour(Behavior behaviour) {
-    this.behaviour = behaviour;
+  public void behavior(Behavior behaviour) {
+    this.behavior = behaviour;
   }
 
   public ActivationHelper add(HasActivation<?> add) {
@@ -49,7 +49,7 @@ public class ActivationHelper implements ClickHandler {
 
   @Override
   public void onClick(ClickEvent event) {
-    this.behaviour.doActivation(event.getRelativeElement(), activationList);
+    this.behavior.doActivation(event.getRelativeElement(), activationList);
   }
   
   public static class ToggleBehavior implements Behavior {

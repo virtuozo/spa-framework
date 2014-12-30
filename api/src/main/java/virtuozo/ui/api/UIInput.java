@@ -16,12 +16,6 @@
 package virtuozo.ui.api;
 
 
-public interface UIInput<C extends UIComponent, V> extends HasValue<C, V>, HasVisibility<C>, UIComponent {
+public interface UIInput<C extends UIComponent, V> extends HasValue<C, V>, HasVisibility<C>, HasEnablement<C>, UIComponent {
   C clear();
-  
-  C disable();
-  
-  boolean disabled();
-  
-  C enable();
 }

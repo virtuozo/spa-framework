@@ -14,22 +14,18 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.Component;
-import virtuozo.ui.Composite;
-import virtuozo.ui.CssClass;
-import virtuozo.ui.Elements;
-import virtuozo.ui.StyleChooser;
-import virtuozo.ui.Tag;
 import virtuozo.ui.Menu.MenuItem;
 import virtuozo.ui.api.ActivationEvent;
+import virtuozo.ui.api.ActivationEvent.ActivationHandler;
 import virtuozo.ui.api.DeactivationEvent;
+import virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
 import virtuozo.ui.api.HasActivation;
 import virtuozo.ui.api.HasClickHandlers;
 import virtuozo.ui.api.HasMouseHandlers;
 import virtuozo.ui.api.HasText;
+import virtuozo.ui.api.UIClass;
 import virtuozo.ui.api.UIClasses;
-import virtuozo.ui.api.ActivationEvent.ActivationHandler;
-import virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
+import virtuozo.ui.css.State;
 
 import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.dom.client.DivElement;
@@ -71,6 +67,18 @@ public class TabPanel extends Component<TabPanel> {
 
   public TabDroppable addDropTab() {
     return new TabDroppable(this.nav.addItem());
+  }
+  
+  @Override
+  public TabPanel css(String... classes) {
+    this.nav.css(classes);
+    return this;
+  }
+  
+  @Override
+  public TabPanel css(UIClass... classes) {
+    this.nav.css(classes);
+    return this;
   }
 
   @Override
@@ -229,20 +237,20 @@ public class TabPanel extends Component<TabPanel> {
 
     @Override
     public Tab activate() {
-      this.css("active");
-      this.panel.css().remove("out").append("active", "in");
+      this.css(State.ACTIVE);
+      this.panel.css().remove("out").append(State.ACTIVE).append("in");
       return this;
     }
 
     @Override
     public boolean active() {
-      return this.css().contains("active");
+      return this.css().contains(State.ACTIVE);
     }
 
     @Override
     public Tab deactivate() {
       this.css().remove("active");
-      this.panel.css().remove("active", "in").append("out");
+      this.panel.css().remove(State.ACTIVE).remove("in").append("out");
       return this;
     }
 

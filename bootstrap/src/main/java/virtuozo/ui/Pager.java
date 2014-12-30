@@ -15,9 +15,6 @@
 package virtuozo.ui;
 
 import virtuozo.infra.MessageFormat;
-import virtuozo.ui.Component;
-import virtuozo.ui.CssClass;
-import virtuozo.ui.StyleChooser;
 import virtuozo.ui.api.Assets;
 import virtuozo.ui.api.PageChangeEvent;
 import virtuozo.ui.api.PageChangeEvent.PageChangeHandler;
@@ -128,21 +125,5 @@ public class Pager extends Component<Pager> {
   private Pager count() {
     this.message.text(MessageFormat.format(this.messageTemplate, this.page, this.pages));
     return this;
-  }
-
-  public static class Size extends CssClass {
-    private Size(String name) {
-      super(name);
-    }
-
-    @Override
-    protected StyleChooser chooser() {
-      return STYLES;
-    }
-
-    public static final Size LARGE = new Size("pagination-lg");
-    public static final Size MEDIUM = new Size("pagination-md");
-    public static final Size SMALL = new Size("pagination-sm");
-    private static final StyleChooser STYLES = new StyleChooser(LARGE, MEDIUM, SMALL);
   }
 }

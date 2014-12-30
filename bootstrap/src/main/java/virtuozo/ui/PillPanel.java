@@ -14,19 +14,15 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.Component;
-import virtuozo.ui.CssClass;
-import virtuozo.ui.StyleChooser;
-import virtuozo.ui.Tag;
 import virtuozo.ui.Menu.MenuItem;
 import virtuozo.ui.api.ActivationEvent;
+import virtuozo.ui.api.ActivationEvent.ActivationHandler;
 import virtuozo.ui.api.DeactivationEvent;
-import virtuozo.ui.api.HasActivation;
+import virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
 import virtuozo.ui.api.HasClickHandlers;
 import virtuozo.ui.api.HasMouseHandlers;
+import virtuozo.ui.api.HasState;
 import virtuozo.ui.api.HasText;
-import virtuozo.ui.api.ActivationEvent.ActivationHandler;
-import virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
 import virtuozo.ui.css.State;
 
 import com.google.gwt.dom.client.AnchorElement;
@@ -110,12 +106,15 @@ public class PillPanel extends Component<PillPanel> {
     private static final StyleChooser TYPES = new StyleChooser(STACKED, BLOCK);
   }
 
-  public class Pill extends Component<Pill> implements HasText<Pill>, HasClickHandlers<Pill>, HasMouseHandlers<Pill>, HasActivation<Pill> {
+  public class Pill extends Component<Pill> implements HasText<Pill>, HasClickHandlers<Pill>, HasMouseHandlers<Pill>, HasState<Pill> {
     private Tag<AnchorElement> anchor = Tag.asAnchor();
+    
+    private EnablementHelper<Pill> helper;
 
     public Pill(ListItem item) {
       super(item);
       this.addChild(this.anchor);
+      this.helper = new EnablementHelper<Pill>(this).intercept(this.anchor);
     }
 
     public Badge addBadge() {
@@ -210,6 +209,19 @@ public class PillPanel extends Component<PillPanel> {
     @Override
     public boolean active() {
       return this.css().contains(State.ACTIVE);
+    }
+    
+    public Pill disable() {
+      return this.helper.disable();
+    }
+    
+    public Pill enable(){
+      return this.helper.enable();
+    }
+    
+    @Override
+    public boolean disabled() {
+      return this.helper.disabled();
     }
 
     @Override

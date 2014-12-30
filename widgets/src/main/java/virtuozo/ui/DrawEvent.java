@@ -6,14 +6,10 @@ import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
 
 public class DrawEvent extends GwtEvent<DrawHandler> {
-  private static final Type<DrawHandler> type = new Type<DrawHandler>();
-
-  public static Type<DrawHandler> type() {
-    return type;
-  }
+  public static final Type<DrawHandler> TYPE = new Type<DrawHandler>();
 
   public Type<DrawHandler> getAssociatedType() {
-    return type;
+    return TYPE;
   }
 
   protected void dispatch(DrawHandler handler) {

@@ -6,13 +6,9 @@ import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
 
 public class ScrollSpyEvent extends GwtEvent<ScrollSpyHandler> {
-  private static final Type<ScrollSpyHandler> type = new Type<ScrollSpyHandler>();
+  public static final Type<ScrollSpyHandler> TYPE = new Type<ScrollSpyHandler>();
   
   private boolean inRange;
-  
-  public static Type<ScrollSpyHandler> type() {
-    return type;
-  }
   
   public ScrollSpyEvent(boolean inRange) {
     this.inRange = inRange;
@@ -24,7 +20,7 @@ public class ScrollSpyEvent extends GwtEvent<ScrollSpyHandler> {
   
   @Override
   public Type<ScrollSpyHandler> getAssociatedType() {
-    return type;
+    return TYPE;
   }
 
   @Override

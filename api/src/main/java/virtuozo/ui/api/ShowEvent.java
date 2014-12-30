@@ -6,15 +6,11 @@ import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
 
 public class ShowEvent extends GwtEvent<ShowHandler> {
-  private static final Type<ShowHandler> type = new Type<ShowHandler>();
-  
-  public static Type<ShowHandler> type() {
-    return type;
-  }
+  public static final Type<ShowHandler> TYPE = new Type<ShowHandler>();
   
   @Override
   public Type<ShowHandler> getAssociatedType() {
-    return type;
+    return TYPE;
   }
 
   @Override

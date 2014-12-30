@@ -1,12 +1,8 @@
 package virtuozo.ui;
 
-import virtuozo.ui.Component;
-import virtuozo.ui.Elements;
-import virtuozo.ui.InputCheckbox;
-import virtuozo.ui.InputLabel;
-import virtuozo.ui.Text;
 import virtuozo.ui.api.HasText;
 import virtuozo.ui.api.UISelection;
+import virtuozo.ui.css.State;
 
 import com.google.gwt.event.dom.client.ChangeHandler;
 
@@ -55,18 +51,18 @@ public class Checkbox extends Component<Checkbox> implements UISelection<Checkbo
 
   @Override
   public Checkbox disable() {
-    this.css("disabled");
+    this.css(State.DISABLED);
     return this;
   }
 
   @Override
   public boolean disabled() {
-    return this.css().contains("disabled");
+    return this.css().contains(State.DISABLED);
   }
 
   @Override
   public Checkbox enable() {
-    this.css().remove("disabled");
+    this.css().remove(State.DISABLED);
     return this;
   }
 

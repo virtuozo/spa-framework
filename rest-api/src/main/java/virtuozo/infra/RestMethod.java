@@ -18,8 +18,6 @@ package virtuozo.infra;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import virtuozo.infra.HashObject;
-import virtuozo.infra.Logger;
 import virtuozo.infra.Rest.PathBuilder;
 import virtuozo.infra.api.HashCallback;
 import virtuozo.infra.api.JsonCallback;

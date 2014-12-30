@@ -6,15 +6,11 @@ import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
 
 public class DetachChildrenEvent extends GwtEvent<DetachChildrenHandler> {
-  private static final Type<DetachChildrenHandler> type = new Type<DetachChildrenHandler>();
-  
-  public static Type<DetachChildrenHandler> type() {
-    return type;
-  }
+  public static final Type<DetachChildrenHandler> TYPE = new Type<DetachChildrenHandler>();
   
   @Override
   public Type<DetachChildrenHandler> getAssociatedType() {
-    return type;
+    return TYPE;
   }
 
   @Override

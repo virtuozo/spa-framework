@@ -14,38 +14,29 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.css.ButtonColor;
+import virtuozo.ui.Heading.Level;
 
 import com.google.gwt.dom.client.DivElement;
 
-public class Jumbotron extends Component<Jumbotron> {
+public class Jumbotron extends Composite<Jumbotron> {
   private Tag<DivElement> container = Tag.asDiv();
-
-  private Heading heading = new Heading(Heading.Level.ONE);
-  
-  private Paragraph message = new Paragraph();
-  
-  private Button button = new Button();
 
   public Jumbotron() {
     super(Elements.div());
     this.css().set("jumbotron");
     this.addChild(this.container);
-    this.container.add(this.heading).css().set(Container.Type.FIXED);
+    this.container.css().set(Container.Type.FIXED);
   }
 
-  public Heading header() {
-    return this.heading;
+  public Heading addHeading() {
+    return new Heading(Level.ONE).attachTo(this.container);
   }
 
-  public Paragraph message(){
-    this.container.add(this.message);
-    return this.message;
+  public Paragraph addText(){
+    return new Paragraph().attachTo(this.container);
   }
   
-  public Button button(){
-    this.container.add(this.button);
-    this.button.css(ButtonColor.PRIMARY, Button.Size.LARGE);
-    return this.button;
+  public Button addButton(){
+    return new Button().css(Button.Size.LARGE).attachTo(this.container);
   }
 }

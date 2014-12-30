@@ -14,85 +14,95 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.Component;
-import virtuozo.ui.Composite;
-import virtuozo.ui.CssClass;
-import virtuozo.ui.Elements;
-import virtuozo.ui.StyleChooser;
-import virtuozo.ui.Tag;
 import virtuozo.ui.api.ActivationEvent;
+import virtuozo.ui.api.ActivationEvent.ActivationHandler;
 import virtuozo.ui.api.DeactivationEvent;
+import virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
 import virtuozo.ui.api.HasActivation;
 import virtuozo.ui.api.HasClickHandlers;
-import virtuozo.ui.api.ActivationEvent.ActivationHandler;
-import virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
+import virtuozo.ui.api.HasEnablement;
 import virtuozo.ui.css.State;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DoubleClickHandler;
 
-public class ListGroup extends Component<ListGroup>{
+public class ListGroup extends Component<ListGroup> {
   private ActivationHelper activationHelper = new ActivationHelper();
-  
+
   public ListGroup() {
     super(Elements.div());
     this.css().set("list-group");
   }
-  
-  public ListGroup reset(){
+
+  public ListGroup reset() {
     this.activationHelper.reset();
     return this;
   }
-  
-  public ListGroupItem addItem(){
+
+  public ListGroupItem addItem() {
     ListGroupItem item = new ListGroupItem();
     this.addChild(item);
     this.activationHelper.add(item);
     return item;
   }
-  
-  public class ListGroupItem extends Composite<ListGroupItem> implements HasClickHandlers<ListGroupItem>, HasActivation<ListGroupItem>{
+
+  public class ListGroupItem extends Composite<ListGroupItem> implements HasClickHandlers<ListGroupItem>, HasActivation<ListGroupItem>, HasEnablement<ListGroupItem> {
+    private EnablementHelper<ListGroupItem> helper;
+    
     public ListGroupItem() {
       super(Tag.asAnchor());
       this.css().set("list-group-item");
+      this.helper = new EnablementHelper<ListGroupItem>(this).intercept(this);
     }
-    
-    public Heading addHeading(){
+
+    public Heading addHeading() {
       Heading heading = new Heading(Heading.Level.FOUR);
       heading.css().set("list-group-item-heading");
       this.add(heading);
       return heading;
     }
-    
-    public Paragraph addText(){
+
+    public Paragraph addText() {
       Paragraph text = new Paragraph();
       text.css().set("list-group-item-text");
       this.add(text);
       return text;
     }
-    
-    public Badge addBadge(){
+
+    public Badge addBadge() {
       Badge badge = new Badge();
       this.add(badge);
       return badge;
     }
-    
+
+    public ListGroupItem disable() {
+      return this.helper.disable();
+    }
+
+    public ListGroupItem enable() {
+      return this.helper.enable();
+    }
+
+    public boolean disabled() {
+      return this.helper.disabled();
+    }
+
     @Override
     public ListGroupItem onActivate(ActivationHandler handler) {
       return this.addHandler(ActivationEvent.TYPE, handler);
     }
-    
+
     @Override
     public ListGroupItem onDeactivate(DeactivationHandler handler) {
       return this.addHandler(DeactivationEvent.TYPE, handler);
     }
-    
+
     @Override
     public ListGroupItem onClick(ClickHandler handler) {
       return this.on(handler);
     }
-    
+
     @Override
     public ListGroupItem onDoubleClick(DoubleClickHandler handler) {
       return this.on(handler);
@@ -100,7 +110,9 @@ public class ListGroup extends Component<ListGroup>{
 
     @Override
     public ListGroupItem activate() {
-      this.css(State.ACTIVE);
+      if(!this.disabled()) {
+        this.css(State.ACTIVE);
+      }
       return this;
     }
 
@@ -120,8 +132,8 @@ public class ListGroup extends Component<ListGroup>{
       return this.id().equals(element.getId());
     }
   }
-  
-  public static class ItemColor extends CssClass{
+
+  public static class ItemColor extends CssClass {
     private ItemColor(String name) {
       super(name);
     }
@@ -130,7 +142,7 @@ public class ListGroup extends Component<ListGroup>{
     protected StyleChooser chooser() {
       return STYLES;
     }
-    
+
     public static final ItemColor SUCCESS = new ItemColor("list-group-item-success");
     public static final ItemColor INFO = new ItemColor("list-group-item-info");
     public static final ItemColor WARNING = new ItemColor("list-group-item-warning");

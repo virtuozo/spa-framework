@@ -51,41 +51,6 @@
 	-webkit-transition: all 0.2s;
 }
 
-.wizard-card .picture:hover {
-	border-color: #2ca8ff;
-}
-
-.wizard-card.ct-wizard-green .picture:hover {
-	border-color: #05ae0e;
-}
-
-.wizard-card.ct-wizard-blue .picture:hover {
-	border-color: #3472f7;
-}
-
-.wizard-card.ct-wizard-orange .picture:hover {
-	border-color: #ff9500;
-}
-
-.wizard-card.ct-wizard-red .picture:hover {
-	border-color: #ff3b30;
-}
-
-.wizard-card .picture input[type="file"] {
-	cursor: pointer;
-	display: block;
-	height: 100%;
-	left: 0;
-	opacity: 0 !important;
-	position: absolute;
-	top: 0;
-	width: 100%;
-}
-
-.wizard-card .picture-src {
-	width: 100%;
-}
-
 .wizard-card .tab-content {
 	padding: 20px 10px;
 }
@@ -115,22 +80,6 @@
 	font-size: 12px;
 }
 
-.wizard-card.ct-wizard-green>ul>li.active a {
-	background-color: #05ae0e;
-}
-
-.wizard-card.ct-wizard-blue>ul>li.active a {
-	background-color: #3472f7;
-}
-
-.wizard-card.ct-wizard-orange>ul>li.active a {
-	background-color: #ff9500;
-}
-
-.wizard-card.ct-wizard-red>ul>li.active a {
-	background-color: #ff3b30;
-}
-
 .wizard-card>ul>li>a:hover, .wizard-card>ul>li>a:focus {
 	background-color: #999999;
 	cursor: default;
@@ -147,4 +96,8 @@
 
 .wizard-card .nav-pills>li:last-child>a {
 	border-radius: 0;
+}
+
+.wizard-card > ul > li.active > a:hover, .wizard-card > ul > li.active > a:focus{
+	background-color: inherit;
 }

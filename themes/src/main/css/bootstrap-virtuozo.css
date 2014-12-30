@@ -36,3 +36,7 @@
 .pager-text {
 	padding:6px;
 }
+
+.panel-group > .panel > .panel-heading:hover {
+	cursor: pointer;
+}

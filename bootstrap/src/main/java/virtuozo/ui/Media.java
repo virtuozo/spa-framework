@@ -14,9 +14,6 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.Component;
-import virtuozo.ui.Composite;
-import virtuozo.ui.Elements;
 import virtuozo.ui.api.HasClickHandlers;
 import virtuozo.ui.api.UIComponent;
 
@@ -25,92 +22,143 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DoubleClickHandler;
 
 public class Media extends Component<Media> {
-  private Object object = new Object();
+	private Object object = new Object();
 
-  private Body body = new Body();
+	private Body body = new Body();
 
-  public Media() {
-    super(Elements.div());
-    this.init();
-  }
+	Media(Floating floating) {
+		super(Elements.div());
+		this.init(floating);
+	}
 
-  Media(ListItem item) {
-    this.incorporate(item);
-    this.init();
-  }
+	Media(ListItem item, Floating floating) {
+		this.incorporate(item);
+		this.init(floating);
+	}
 
-  private void init() {
-    this.addChild(this.object).addChild(this.body);
-    this.css().set("media");
-  }
+	private void init(Floating floating) {
+		this.css().set("media");
+		this.addChild(this.object).addChild(this.body);
 
-  public Object object() {
-    return this.object;
-  }
+		if(floating.equals(Floating.RIGHT)){
+			this.addChild(this.object.detach());
+		}
+		this.object.css(floating);
+	}
+	
+	public Media css(Alignment alignment) {
+		this.object.css(alignment);
+		return this;
+	}
 
-  public Body body() {
-    return this.body;
-  }
+	public Object object() {
+		return this.object;
+	}
 
-  public class Body extends Composite<Body> {
-    public Body() {
-      super(Elements.div());
-      this.css().set("media-body");
-    }
+	public Body body() {
+		return this.body;
+	}
 
-    public Heading addHeading() {
-      Heading heading = new Heading(Heading.Level.FOUR);
-      heading.css().set("media-heading");
-      this.addChild(heading);
-      return heading;
-    }
+	public class Body extends Composite<Body> {
+		public Body() {
+			super(Elements.div());
+			this.css().set("media-body");
+		}
 
-    public Paragraph addText() {
-      Paragraph text = new Paragraph();
-      this.add(text);
-      return text;
-    }
-    
-    public Media addMedia() {
-      Media media = new Media();
-      this.add(media);
-      return media;
-    }
-  }
+		public Heading addHeading() {
+			Heading heading = new Heading(Heading.Level.FOUR);
+			heading.css().set("media-heading");
+			this.addChild(heading);
+			return heading;
+		}
 
-  public class Object extends Component<Object> implements HasClickHandlers<Object> {
+		public Paragraph addText() {
+			Paragraph text = new Paragraph();
+			this.add(text);
+			return text;
+		}
+		
+		public Media addMedia() {
+			return this.addMedia(Floating.LEFT);
+		}
 
-    public Object() {
-      super(Elements.a());
-      this.element().setHref("javascript:void(0)");
-      this.css().set(virtuozo.ui.css.Floating.LEFT);
-    }
+		public Media addMedia(Floating floating) {
+			Media media = new Media(floating);
+			this.add(media);
+			return media;
+		}
+	}
 
-    public Object add(UIComponent widget) {
-      this.add(widget);
-      widget.asComponent().css("media-object");
-      return this;
-    }
+	public class Object extends Component<Object> implements
+			HasClickHandlers<Object> {
 
-    public Image addImage() {
-      Image image = new Image();
-      this.addChild(image);
-      image.css().set("media-object");
-      return image;
-    }
+		public Object() {
+			super(Elements.a());
+			this.element().setHref("javascript:void(0)");
+			this.css(Floating.LEFT).css(Alignment.TOP);
+		}
+		
+		public Object add(UIComponent widget) {
+			this.add(widget);
+			widget.asComponent().css("media-object");
+			return this;
+		}
 
-    @Override
-    public Object onClick(ClickHandler handler) {
-      return this.on(handler);
-    }
+		public Image addImage() {
+			Image image = new Image();
+			this.addChild(image);
+			image.css().set("media-object");
+			return image;
+		}
 
-    @Override
-    public Object onDoubleClick(DoubleClickHandler handler) {
-      return this.on(handler);
-    }
+		@Override
+		public Object onClick(ClickHandler handler) {
+			return this.on(handler);
+		}
 
-    public AnchorElement element() {
-      return super.element();
-    }
-  }
+		@Override
+		public Object onDoubleClick(DoubleClickHandler handler) {
+			return this.on(handler);
+		}
+
+		public AnchorElement element() {
+			return super.element();
+		}
+	}
+	
+	public static class Alignment extends CssClass{
+		private Alignment(String name) {
+			super(name);
+		}
+
+		@Override
+		protected StyleChooser chooser() {
+			return STYLES;
+		}
+
+		public static final Alignment TOP = new Alignment("media-top");
+
+		public static final Alignment MIDDLE = new Alignment("media-middle");
+		
+		public static final Alignment BOTTOM = new Alignment("media-bottom");
+
+		private static final StyleChooser STYLES = new StyleChooser(TOP, MIDDLE, BOTTOM);
+	}
+
+	public static class Floating extends CssClass {
+		private Floating(String name) {
+			super(name);
+		}
+
+		@Override
+		protected StyleChooser chooser() {
+			return STYLES;
+		}
+		
+		public static final Floating LEFT = new Floating("media-left");
+
+		public static final Floating RIGHT = new Floating("media-right");
+
+		private static final StyleChooser STYLES = new StyleChooser(LEFT, RIGHT);
+	}
 }

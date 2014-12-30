@@ -6,11 +6,7 @@ import virtuozo.ui.api.ValueEvent;
 import com.google.gwt.event.shared.EventHandler;
 
 public class SelectionEvent<T> extends ValueEvent<T, SelectionHandler<T>> {
-  private static final Type<SelectionHandler<?>> type = new Type<SelectionEvent.SelectionHandler<?>>();
-  
-  public static Type<SelectionHandler<?>> type() {
-    return type;
-  }
+  public static final Type<SelectionHandler<?>> TYPE = new Type<SelectionEvent.SelectionHandler<?>>();
   
   public SelectionEvent(T value) {
     super(value);
@@ -18,7 +14,7 @@ public class SelectionEvent<T> extends ValueEvent<T, SelectionHandler<T>> {
   
   @Override
   public Type<SelectionHandler<T>> getAssociatedType() {
-    return (Type) type;
+    return (Type) TYPE;
   }
 
   @Override
