@@ -9,6 +9,6 @@
   <source path="ui" />
   
   <replace-with class="virtuozo.ui.PlaceholderHTML5">
-    <when-type-is class="virtuozo.infra.interfaces.Placeholder" />
+    <when-type-is class="virtuozo.ui.interfaces.Placeholder" />
   </replace-with>
 </module>

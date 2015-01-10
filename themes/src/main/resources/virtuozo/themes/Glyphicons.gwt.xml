@@ -4,6 +4,6 @@
   <stylesheet src="glyphicons.css"/>
   
   <replace-with class="virtuozo.ui.GhyphiconAssets">
-    <when-type-is class="virtuozo.ui.api.Assets" />
+    <when-type-is class="virtuozo.ui.interfaces.Assets" />
   </replace-with>
 </module>
