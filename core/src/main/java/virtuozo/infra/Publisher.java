@@ -1,6 +1,7 @@
 package virtuozo.infra;
 
 import virtuozo.infra.EventBus.PublishEvent;
+import virtuozo.infra.interfaces.SubscriptionCallback;
 
 import com.google.gwt.event.shared.GwtEvent.Type;
 

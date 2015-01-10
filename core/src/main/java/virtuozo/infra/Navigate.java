@@ -1,6 +1,7 @@
 package virtuozo.infra;
 
-import virtuozo.ui.api.HasClickHandlers;
+import virtuozo.infra.interfaces.Place;
+import virtuozo.ui.interfaces.HasClickHandlers;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;

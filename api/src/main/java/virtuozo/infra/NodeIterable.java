@@ -24,8 +24,12 @@ public class NodeIterable<N extends Node> implements Iterable<N> {
 
   private Iterator<N> iterator;
 
-  public NodeIterable(NodeList<N> list) {
+  private NodeIterable(NodeList<N> list) {
     this.iterator = new NodeIterator<N>(list);
+  }
+  
+  public static <N extends Node> NodeIterable<N> of(NodeList<N> list) {
+    return new NodeIterable<N>(list);
   }
 
   @Override
@@ -51,12 +55,12 @@ public class NodeIterable<N extends Node> implements Iterable<N> {
         return false;
       }
 
-      return index < list.getLength();
+      return this.index < this.list.getLength();
     }
 
     @Override
     public N next() {
-      return list.getItem(this.index++);
+      return this.list.getItem(this.index++);
     }
 
     @Override

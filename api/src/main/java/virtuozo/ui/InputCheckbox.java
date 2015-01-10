@@ -15,22 +15,31 @@
 
 package virtuozo.ui;
 
-import virtuozo.ui.api.UISelection;
-
+import virtuozo.ui.interfaces.UISelection;
 
 public final class InputCheckbox extends Input<InputCheckbox> implements UISelection<InputCheckbox, String> {
 
-  public InputCheckbox() {
+  public static InputCheckbox create(){
+    return new InputCheckbox();
+  }
+  
+  private InputCheckbox() {
     super(Elements.checkbox());
   }
 
   @Override
   public InputCheckbox clear() {
-    return this.checked(false);
+    return this.uncheck();
   }
-
-  public InputCheckbox checked(Boolean selected) {
-    this.element().setChecked(selected);
+  
+  public InputCheckbox check() {
+    this.element().setChecked(true);
+    return this;
+  }
+  
+  @Override
+  public InputCheckbox uncheck() {
+    this.element().setChecked(false);
     return this;
   }
 

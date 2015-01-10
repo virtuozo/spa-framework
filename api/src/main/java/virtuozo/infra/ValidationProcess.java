@@ -19,7 +19,7 @@ import java.util.List;
 
 import virtuozo.infra.ValidationProcess.ValidationResult.FieldState;
 import virtuozo.infra.api.Validator;
-import virtuozo.ui.api.UIInput;
+import virtuozo.ui.interfaces.UIInput;
 
 import com.google.gwt.core.shared.GWT;
 
@@ -28,6 +28,14 @@ public class ValidationProcess {
   private List<ValidationConstraint<?>> constraints = new ArrayList<ValidationConstraint<?>>();
 
   private ValidationCallback callback;
+  
+  public static ValidationProcess create(){
+    return new ValidationProcess();
+  }
+  
+  private ValidationProcess() {
+    super();
+  }
 
   public ValidationProcess onComplete(ValidationCallback callback) {
     this.callback = callback;

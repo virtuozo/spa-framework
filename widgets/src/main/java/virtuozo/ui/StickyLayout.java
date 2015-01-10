@@ -14,10 +14,7 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.Composite;
-import virtuozo.ui.Elements;
-import virtuozo.ui.HTML;
-import virtuozo.ui.api.Layout;
+import virtuozo.ui.interfaces.Layout;
 
 import com.google.gwt.dom.client.StyleInjector;
 
@@ -25,6 +22,14 @@ public class StickyLayout implements Layout {
   private Body body = new Body();
   private Footer footer = new Footer();
 
+  public static StickyLayout layout(){
+    return new StickyLayout();
+  }
+  
+  private StickyLayout() {
+    super();
+  }
+  
   public void attach() {
     StyleInjector.inject("html { position: relative; min-height: 100%;}");
     StyleInjector.inject("body { margin-bottom: 60px;}");

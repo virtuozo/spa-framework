@@ -14,8 +14,9 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.TextChangeEvent.TextChangeHandler;
-import virtuozo.ui.api.HasText;
+import virtuozo.ui.events.TextChangeEvent;
+import virtuozo.ui.events.TextChangeEvent.TextChangeHandler;
+import virtuozo.ui.interfaces.HasText;
 
 public class Panel extends Component<Panel> {
   private Header header = new Header();
@@ -24,7 +25,11 @@ public class Panel extends Component<Panel> {
 
   private Footer footer = new Footer();
 
-  public Panel() {
+  public static Panel create(){
+    return new Panel();
+  }
+  
+  protected Panel() {
     super(Elements.div());
     this.css().set("panel").append(Panel.Color.DEFAULT);
     this.addChild(this.header.hide()).addChild(this.body.hide()).addChild(this.footer.hide());
@@ -43,19 +48,19 @@ public class Panel extends Component<Panel> {
   }
 
   public Table addTable() {
-    Table table = new Table();
+    Table table = Table.create();
     this.addChild(table);
     return table;
   }
 
   public ListGroup addListGroup() {
-    ListGroup group = new ListGroup();
+    ListGroup group = ListGroup.create();
     this.addChild(group);
     return group;
   }
 
   public class Header extends Composite<Header> implements HasText<Header>{
-    private Heading heading = new Heading(Heading.Level.THREE).css("panel-title").hide();
+    private Heading heading = Heading.three().css("panel-title").hide();
     
     public Header() {
       super(Elements.div());

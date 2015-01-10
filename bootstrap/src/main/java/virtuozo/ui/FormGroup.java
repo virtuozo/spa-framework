@@ -3,8 +3,8 @@ package virtuozo.ui;
 import virtuozo.infra.ValidationProcess.ValidationAction;
 import virtuozo.infra.ValidationProcess.ValidationConstraint;
 import virtuozo.infra.api.Validator;
-import virtuozo.ui.api.HasFeedback;
-import virtuozo.ui.api.UIInput;
+import virtuozo.ui.interfaces.HasFeedback;
+import virtuozo.ui.interfaces.UIInput;
 
 public abstract class FormGroup<I extends UIInput<?, V>, V> extends Component<FormGroup<I, V>> implements UIInput<FormGroup<I, V>, V>{
   private I control;
@@ -21,7 +21,7 @@ public abstract class FormGroup<I extends UIInput<?, V>, V> extends Component<Fo
       this.css("sr-only");
       return this;
     };
-  }.hide();
+  }.css("col-sm-2").hide();
   
   private final HelpBlock help = new HelpBlock(){
     public HelpBlock show() {
@@ -41,9 +41,9 @@ public abstract class FormGroup<I extends UIInput<?, V>, V> extends Component<Fo
     super(Elements.div());
     this.css("form-group");
     this.control = input;
-    this.control.asComponent().css("form-control");
     this.constraint = new ValidationConstraint<V>(this.control);
     this.label.to(this.control);
+    this.control.asComponent().css("form-control");
   }
   
   public FormGroup<I, V> feedback(HasFeedback<?> feedback){

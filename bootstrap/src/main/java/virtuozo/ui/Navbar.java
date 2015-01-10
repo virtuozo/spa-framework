@@ -14,19 +14,19 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.api.ActivationEvent;
-import virtuozo.ui.api.ActivationEvent.ActivationHandler;
-import virtuozo.ui.api.DeactivationEvent;
-import virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
-import virtuozo.ui.api.DetachChildrenEvent;
-import virtuozo.ui.api.HasActivation;
-import virtuozo.ui.api.HasClickHandlers;
-import virtuozo.ui.api.HasIcon;
-import virtuozo.ui.api.HasText;
-import virtuozo.ui.api.Icon;
-import virtuozo.ui.api.UIComponent;
-import virtuozo.ui.api.UIInput;
 import virtuozo.ui.css.State;
+import virtuozo.ui.events.ActivationEvent;
+import virtuozo.ui.events.ActivationEvent.ActivationHandler;
+import virtuozo.ui.events.DeactivationEvent;
+import virtuozo.ui.events.DeactivationEvent.DeactivationHandler;
+import virtuozo.ui.events.DetachChildrenEvent;
+import virtuozo.ui.interfaces.HasActivation;
+import virtuozo.ui.interfaces.HasClickHandlers;
+import virtuozo.ui.interfaces.HasIcon;
+import virtuozo.ui.interfaces.HasText;
+import virtuozo.ui.interfaces.Icon;
+import virtuozo.ui.interfaces.UIComponent;
+import virtuozo.ui.interfaces.UIInput;
 
 import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.dom.client.DivElement;
@@ -36,7 +36,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DoubleClickHandler;
 
 public class Navbar extends Component<Navbar> {
-  private Container container = new Container(Container.Type.FLUID);
+  private Container container = Container.fluid();
 
   private Header header = new Header();
 
@@ -50,9 +50,13 @@ public class Navbar extends Component<Navbar> {
 
   private Facet right = new Facet();
 
-  private ActivationHelper activationHelper = new ActivationHelper();
+  private ActivationHelper activationHelper = ActivationHelper.create();
 
-  public Navbar() {
+  public static Navbar create(){
+    return new Navbar();
+  }
+  
+  private Navbar() {
     super(Elements.create("nav"));
     this.role("navigation").css().set("navbar", "navbar-default");
     this.addChild(this.container);
@@ -108,7 +112,7 @@ public class Navbar extends Component<Navbar> {
     }
     
     public Button addButton(){
-      Button button = new Button();
+      Button button = Button.create();
       this.addChild(button);
       return button;
     }
@@ -121,13 +125,13 @@ public class Navbar extends Component<Navbar> {
     }
 
     public Paragraph addText() {
-      Paragraph text = new Paragraph();
+      Paragraph text = Paragraph.create();
       this.add(text, "navbar-text");
       return text;
     }
 
     public Button addButton() {
-      Button button = new Button();
+      Button button = Button.create();
       this.add(button, "navbar-btn");
 
       return button;
@@ -146,7 +150,7 @@ public class Navbar extends Component<Navbar> {
     }
 
     private OrderList createNav() {
-      OrderList nav = new OrderList(OrderList.Type.UNORDERED);
+      OrderList nav = OrderList.unordered();
       nav.css("nav", "navbar-nav");
       this.addChild(nav);
 
@@ -236,7 +240,7 @@ public class Navbar extends Component<Navbar> {
   }
 
   class Header extends Component<Header> {
-    private Button toggle = new Button();
+    private Button toggle = Button.create();
 
     private Brand brand = new Brand();
 

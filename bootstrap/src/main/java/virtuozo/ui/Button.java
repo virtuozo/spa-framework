@@ -14,20 +14,20 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.api.ActivationEvent;
-import virtuozo.ui.api.ActivationEvent.ActivationHandler;
-import virtuozo.ui.api.DeactivationEvent;
-import virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
-import virtuozo.ui.api.HasClickHandlers;
-import virtuozo.ui.api.HasFocusHandlers;
-import virtuozo.ui.api.HasIcon;
-import virtuozo.ui.api.HasKeyHandlers;
-import virtuozo.ui.api.HasMouseHandlers;
-import virtuozo.ui.api.HasState;
-import virtuozo.ui.api.HasText;
-import virtuozo.ui.api.Icon;
-import virtuozo.ui.api.UIComponent;
 import virtuozo.ui.css.State;
+import virtuozo.ui.events.ActivationEvent;
+import virtuozo.ui.events.ActivationEvent.ActivationHandler;
+import virtuozo.ui.events.DeactivationEvent;
+import virtuozo.ui.events.DeactivationEvent.DeactivationHandler;
+import virtuozo.ui.interfaces.HasClickHandlers;
+import virtuozo.ui.interfaces.HasFocusHandlers;
+import virtuozo.ui.interfaces.HasIcon;
+import virtuozo.ui.interfaces.HasKeyHandlers;
+import virtuozo.ui.interfaces.HasMouseHandlers;
+import virtuozo.ui.interfaces.HasState;
+import virtuozo.ui.interfaces.HasText;
+import virtuozo.ui.interfaces.Icon;
+import virtuozo.ui.interfaces.UIComponent;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.BlurHandler;
@@ -46,27 +46,29 @@ import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.dom.client.MouseWheelHandler;
 
 public class Button extends Component<Button> implements HasText<Button>, HasIcon<Button>, HasState<Button>, HasClickHandlers<Button>, HasMouseHandlers<Button>, HasFocusHandlers<Button>, HasKeyHandlers<Button> {
-  private Text textHolder = new Text();
+  private Text textHolder = Text.create();
   
-  private ClickHandler toggleHandler = new ClickHandler() {
-    @Override
-    public void onClick(ClickEvent event) {
-      if(Button.this.active()){
-        Button.this.deactivate();
-        return;
-      }
-      Button.this.activate();
-    }
-  };
-  
-  public Button() {
-    super(Elements.button());
-    this.addChild(textHolder).css().set("btn btn-default");
+  public static Button create(){
+    return new Button();
   }
   
-  public Button toggleable() {
-    this.on(this.toggleHandler);
-    return this;
+  public static Button toggleable() {
+    final Button button = Button.create();
+    return button.on(new ClickHandler() {
+      @Override
+      public void onClick(ClickEvent event) {
+        if(button.active()){
+          button.deactivate();
+          return;
+        }
+        button.activate();
+      }
+    });
+  }
+  
+  private Button() {
+    super(Elements.button());
+    this.addChild(textHolder).css().set("btn btn-default");
   }
   
   @Override

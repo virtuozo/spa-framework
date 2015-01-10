@@ -14,11 +14,10 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.Heading.Level;
 import virtuozo.ui.Row.Column;
-import virtuozo.ui.api.DetachChildrenEvent;
-import virtuozo.ui.api.Icon;
-import virtuozo.ui.api.Layout;
+import virtuozo.ui.events.DetachChildrenEvent;
+import virtuozo.ui.interfaces.Icon;
+import virtuozo.ui.interfaces.Layout;
 
 import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.dom.client.DivElement;
@@ -27,9 +26,17 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 
 public class LandingPageLayout implements Layout {
-  private Navbar bar = new Navbar();
+  private Navbar bar = Navbar.create();
 
   private Intro intro = new Intro();
+
+  public static LandingPageLayout create() {
+    return new LandingPageLayout();
+  }
+
+  private LandingPageLayout() {
+    super();
+  }
 
   public Navbar navbar() {
     return this.bar;
@@ -109,25 +116,25 @@ public class LandingPageLayout implements Layout {
 
   public class Section extends Composite<Section> {
     private Row row;
-    
-    private Heading heading = new Heading(Level.ONE);
-    
+
+    private Heading heading = Heading.one();
+
     public Section() {
       super(Elements.create("section"));
       this.init();
     }
-    
-    private void init(){
-      Container container = new Container(Container.Type.FLUID);
+
+    private void init() {
+      Container container = Container.fluid();
       this.row = container.addRow();
       this.add(this.heading).add(container);
     }
-    
-    public Heading heading(){
+
+    public Heading heading() {
       return this.heading;
     }
-    
-    public Column addColumn(){
+
+    public Column addColumn() {
       return this.row.addColumn();
     }
   }

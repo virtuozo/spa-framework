@@ -1,9 +1,6 @@
 package virtuozo.ui;
 
-import virtuozo.ui.Component;
-import virtuozo.ui.Elements;
-import virtuozo.ui.Tag;
-import virtuozo.ui.api.UIClass;
+import virtuozo.ui.interfaces.UIClass;
 
 import com.google.gwt.dom.client.SpanElement;
 
@@ -12,7 +9,11 @@ public class StackedIcon extends Component<StackedIcon>{
     
     private Tag<SpanElement> larger = Tag.asSpan();
     
-    public StackedIcon() {
+    public static StackedIcon create(){
+      return new StackedIcon();
+    }
+    
+    private StackedIcon() {
       super(Elements.span());
       this.css("fa-stack", "fa-lg").addChild(this.larger).addChild(this.regular);
     }

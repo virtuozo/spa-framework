@@ -14,15 +14,15 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.Component;
-import virtuozo.ui.CssClass;
-import virtuozo.ui.Elements;
-import virtuozo.ui.StyleChooser;
-import virtuozo.ui.api.HasText;
-import virtuozo.ui.api.UIComponent;
+import virtuozo.ui.interfaces.HasText;
+import virtuozo.ui.interfaces.UIComponent;
 
 public class Label extends Component<Label> implements HasText<Label>{
-  public Label() {
+  public static Label create(){
+    return new Label();
+  }
+  
+  private Label() {
     super(Elements.span());
     this.css().set("label", "label-default");
   }

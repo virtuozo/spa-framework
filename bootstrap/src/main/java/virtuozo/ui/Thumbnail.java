@@ -14,16 +14,17 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.Component;
-import virtuozo.ui.Composite;
-import virtuozo.ui.Elements;
 
 public final class Thumbnail extends Component<Thumbnail> {
   private Caption caption = new Caption().hide();
 
-  private Image image = new Image();
+  private Image image = Image.create();
 
-  public Thumbnail() {
+  public static Thumbnail create(){
+    return new Thumbnail();
+  }
+  
+  private Thumbnail() {
     super(Elements.div());
     this.addChild(this.image).addChild(this.caption).css().set("thumbnail");
   }

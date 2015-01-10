@@ -12,3 +12,5 @@ bin
 **/.classpath
 **/bin
 **/.settings
+**/gwt-unitCache
+**/www-test

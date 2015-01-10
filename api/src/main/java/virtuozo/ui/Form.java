@@ -4,11 +4,11 @@ import com.google.gwt.dom.client.FormElement;
 
 @SuppressWarnings("unchecked")
 public abstract class Form<F extends Form<F>> extends Component<F> {
-  public Form() {
+  protected Form() {
     super(Elements.form());
     this.role("form");
   }
-
+  
   public F action(String action) {
     this.element().setAction(action);
     return (F) this;

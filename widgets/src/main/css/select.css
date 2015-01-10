@@ -26,7 +26,7 @@
 
 .select-container .select-choice {
     display: block;
-    height: 28px;
+    height: 34px;
     padding: 0 0 0 8px;
     overflow: hidden;
     position: relative;
@@ -80,6 +80,7 @@
 
 .select-container .select-choice span {
     margin-right: 26px;
+    margin-top: 2px;
     display: block;
     overflow: hidden;
 

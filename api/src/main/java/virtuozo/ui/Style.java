@@ -42,7 +42,7 @@ public final class Style {
 
   private Component<?> widget;
 
-  public Style(Component<?> widget) {
+  Style(Component<?> widget) {
     this.widget = widget;
   }
 

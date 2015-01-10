@@ -15,11 +15,6 @@
 package virtuozo.ui;
 
 import virtuozo.infra.NumberFormat;
-import virtuozo.ui.Component;
-import virtuozo.ui.CssClass;
-import virtuozo.ui.Elements;
-import virtuozo.ui.StyleChooser;
-import virtuozo.ui.Tag;
 
 import com.google.gwt.dom.client.SpanElement;
 import com.google.gwt.dom.client.Style.Unit;
@@ -29,7 +24,11 @@ public class Progress extends Component<Progress> {
   
   private double worked;
   
-  public Progress() {
+  public static Progress create(){
+    return new Progress();
+  }
+  
+  private Progress() {
     super(Elements.div());
     this.css().set("progress");
   }
@@ -46,7 +45,7 @@ public class Progress extends Component<Progress> {
   }
   
   public class ProgressBar extends Component<ProgressBar> {
-    private Tag<SpanElement> message = Tag.asSpan();
+    private Tag<SpanElement> message = Tag.asSpan().hide();
     
     private LabelFormat format = new DefaultFormat();
     
@@ -59,6 +58,7 @@ public class Progress extends Component<Progress> {
     
     public ProgressBar format(LabelFormat format){
       this.format = format;
+      this.message.show();
       return this.update();
     }
     
@@ -82,7 +82,7 @@ public class Progress extends Component<Progress> {
     }
   }
   
-  static class DefaultFormat implements LabelFormat {
+  public static class DefaultFormat implements LabelFormat {
     private NumberFormat format = NumberFormat.PERCENT;
     
     @Override

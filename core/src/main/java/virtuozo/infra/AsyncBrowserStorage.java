@@ -1,10 +1,10 @@
 package virtuozo.infra;
 
-import virtuozo.infra.BrowserStorage;
 import virtuozo.infra.HashObject;
-import virtuozo.infra.BrowserStorage.StoreKey;
 import virtuozo.infra.api.HashCallback;
 import virtuozo.infra.api.RestException;
+import virtuozo.ui.BrowserStorage;
+import virtuozo.ui.BrowserStorage.StoreKey;
 
 public class AsyncBrowserStorage {
 

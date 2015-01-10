@@ -1,0 +1,211 @@
+/**
+ * Copyright (C) 2009-2012 the original author or authors.
+ * See the notice.md file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.datepicker.dropdown-menu {
+  max-width: none;
+}
+
+.datepicker.opensleft .ranges, .datepicker.opensleft .calendar {
+  float: left;
+  margin: 4px;
+}
+
+.datepicker.opensright .ranges, .datepicker.opensright .calendar {
+  float: right;
+  margin: 4px;
+}
+
+.datepicker .ranges {
+  width: 160px;
+  text-align: left;
+}
+
+.datepicker .ranges .range_inputs>div {
+  float: left;
+}
+
+.datepicker .ranges .range_inputs>div:nth-child(2) {
+  padding-left: 11px;
+}
+
+.datepicker .calendar {
+  max-width: 230px;
+}
+
+.datepicker .calendar th, .datepicker .calendar td {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.datepicker .ranges label {
+  color: #333;
+  font-size: 11px;
+  margin-bottom: 2px;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 0 #fff;
+}
+
+.datepicker .ranges input {
+  font-size: 11px;
+}
+
+.datepicker .ranges ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.datepicker .ranges li {
+  font-size: 13px;
+  background: #f5f5f5;
+  border: 1px solid #f5f5f5;
+  color: #08c;
+  padding: 3px 12px;
+  margin-bottom: 8px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.datepicker .ranges li.active, .datepicker .ranges li:hover {
+  background: #3BC2D1;
+  border: 1px solid #08c;
+  color: #fff;
+}
+
+.datepicker .calendar {
+  border: 1px solid #ddd;
+  padding: 4px;
+  border-radius: 4px;
+  background: #fff;
+}
+
+.datepicker {
+  background: #fff;
+  top: 100px;
+  left: 20px;
+  padding: 4px;
+  margin-top: 1px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+.datepicker.opensleft:before {
+  position: absolute;
+  top: -7px;
+  right: 9px;
+  display: inline-block;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid #ccc;
+  border-left: 7px solid transparent;
+  border-bottom-color: rgba(0, 0, 0, 0.2);
+  content: '';
+}
+
+.datepicker.opensleft:after {
+  position: absolute;
+  top: -6px;
+  right: 10px;
+  display: inline-block;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid #fff;
+  border-left: 6px solid transparent;
+  content: '';
+}
+
+.datepicker.opensright:before {
+  position: absolute;
+  top: -7px;
+  left: 9px;
+  display: inline-block;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid #ccc;
+  border-left: 7px solid transparent;
+  border-bottom-color: rgba(0, 0, 0, 0.2);
+  content: '';
+}
+
+.datepicker.opensright:after {
+  position: absolute;
+  top: -6px;
+  left: 10px;
+  display: inline-block;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid #fff;
+  border-left: 6px solid transparent;
+  content: '';
+}
+
+.calendar table {
+  width: 100%;
+  margin: 0;
+}
+
+.calendar td, .calendar th {
+  text-align: center;
+  width: 20px;
+  height: 20px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.calendar td.off {
+  color: #999;
+}
+.calendar td.disabled {
+  color: #999;
+}
+
+.calendar td.available:hover, .calendar th.available:hover {
+  background: #3BC2D1;
+}
+
+.calendar td.in-range {
+  background: #ebf4f8;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+
+.calendar td.active, .calendar td.active:hover {
+  background-color: #3BC2D1;
+  background-image: -moz-linear-gradient(top, #3BC2D1, #08c);
+  background-image: -ms-linear-gradient(top, #3BC2D1, #08c);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#3BC2D1), to(#08c));
+  background-image: -webkit-linear-gradient(top, #3BC2D1, #08c);
+  background-image: -o-linear-gradient(top, #3BC2D1, #08c);
+  background-image: linear-gradient(top, #3BC2D1, #08c);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3BC2D1', endColorstr='#08c', GradientType=0);
+  border-color: #0044cc #0044cc #002a80;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.calendar td.week, .calendar th.week {
+    font-size: 80%;
+    color: #ccc;
+}

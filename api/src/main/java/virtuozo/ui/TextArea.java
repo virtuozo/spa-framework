@@ -15,14 +15,12 @@
 
 package virtuozo.ui;
 
-import virtuozo.ui.api.HasChangeHandlers;
-import virtuozo.ui.api.HasFocusHandlers;
-import virtuozo.ui.api.HasKeyHandlers;
-import virtuozo.ui.api.HasMouseHandlers;
-import virtuozo.ui.api.Placeholder;
-import virtuozo.ui.api.UIInput;
+import virtuozo.ui.interfaces.HasChangeHandlers;
+import virtuozo.ui.interfaces.HasFocusHandlers;
+import virtuozo.ui.interfaces.HasKeyHandlers;
+import virtuozo.ui.interfaces.HasMouseHandlers;
+import virtuozo.ui.interfaces.UIInput;
 
-import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.TextAreaElement;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -37,21 +35,16 @@ import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.dom.client.MouseWheelHandler;
 
+@SuppressWarnings("unchecked")
 public final class TextArea extends Component<TextArea> implements UIInput<TextArea, String>, HasFocusHandlers<TextArea>, HasMouseHandlers<TextArea>, HasKeyHandlers<TextArea>,
     HasChangeHandlers<TextArea> {
 
-  private InputState state = new InputState();
+  public static TextArea create(){
+    return new TextArea();
+  }
   
-  private Placeholder placeholderImpl = GWT.create(Placeholder.class);
-  
-  public TextArea() {
+  private TextArea() {
     super(Elements.textarea());
-    this.state.onEnablementChange(new virtuozo.infra.api.ChangeHandler<Boolean>() {
-      @Override
-      public void onChange(Boolean oldValue, Boolean newValue) {
-        TextArea.this.element().setDisabled(newValue);
-      }
-    });
   }
 
   public TextArea onChange(ChangeHandler handler) {
@@ -136,32 +129,27 @@ public final class TextArea extends Component<TextArea> implements UIInput<TextA
 
   @Override
   public String value() {
-    return this.placeholderImpl.valueOf(this);
+    return this.element().getValue();
   }
 
-  public TextArea placeholder(String placeholder) {
-    this.placeholderImpl.apply(this, placeholder);
-    return this;
-  }
-
-  public TextAreaElement element() {
+  protected TextAreaElement element() {
     return super.element();
   }
 
   @Override
   public TextArea disable() {
-    this.state.disable();
+    this.element().setDisabled(true);
     return this;
   }
   
   @Override
   public boolean disabled() {
-    return this.state.disabled();
+    return this.element().isDisabled();
   }
 
   @Override
   public TextArea enable() {
-    this.state.enable();
+    this.element().setDisabled(false);
     return this;
   }
 }

@@ -15,7 +15,7 @@
 
 package virtuozo.ui;
 
-import virtuozo.ui.api.Placeholder;
+import virtuozo.ui.interfaces.Placeholder;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.impl.TextBoxImpl;
@@ -26,7 +26,11 @@ public final class InputPassword extends Input<InputPassword> {
   
   private final Placeholder placeholderImpl = GWT.create(Placeholder.class);
 
-  public InputPassword() {
+  public static InputPassword create(){
+    return new InputPassword();
+  }
+  
+  private InputPassword() {
     super(Elements.password());
   }
 

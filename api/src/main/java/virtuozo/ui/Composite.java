@@ -14,25 +14,25 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.api.Clause;
-import virtuozo.ui.api.DetachChildrenEvent.DetachChildrenHandler;
-import virtuozo.ui.api.HasComponents;
-import virtuozo.ui.api.UIComponent;
+import virtuozo.ui.events.DetachChildrenEvent.DetachChildrenHandler;
+import virtuozo.ui.interfaces.Clause;
+import virtuozo.ui.interfaces.HasComponents;
+import virtuozo.ui.interfaces.UIComponent;
 
 import com.google.gwt.dom.client.Element;
 
 @SuppressWarnings("unchecked")
 public abstract class Composite<C extends Composite<C>> extends Component<C> implements HasComponents<C, UIComponent> {
 
-  public Composite() {
+  protected Composite() {
     super();
   }
 
-  public Composite(Element element) {
+  protected Composite(Element element) {
     super(element);
   }
 
-  public Composite(Component<?> widget) {
+  protected Composite(Component<?> widget) {
     super(widget);
   }
   

@@ -53,7 +53,7 @@ import com.google.gwt.dom.client.UListElement;
 
 public class Elements {
 
-  public static Element elementByTagName(Element parent, String tagName) {
+  public static Element byTagName(Element parent, String tagName) {
     NodeList<Element> nodeList = parent.getElementsByTagName(tagName);
 
     if (nodeList.getLength() > 0) {
@@ -63,12 +63,12 @@ public class Elements {
     return null;
   }
 
-  public static NodeIterable<Element> elementsByTagName(Element parent, String tagName) {
-    return new NodeIterable<Element>(parent.getElementsByTagName(tagName));
+  public static NodeIterable<Element> allByTagName(Element parent, String tagName) {
+    return NodeIterable.of(parent.getElementsByTagName(tagName));
   }
 
   public static Element childById(Element parent, String id) {
-    NodeIterable<Node> elements = new NodeIterable<Node>(parent.getChildNodes());
+    NodeIterable<Node> elements = NodeIterable.of(parent.getChildNodes());
 
     for (Node node : elements) {
       Element child = (Element) node;

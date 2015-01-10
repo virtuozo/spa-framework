@@ -1,12 +1,12 @@
 package virtuozo.ui;
 
-import virtuozo.ui.api.Assets;
-import virtuozo.ui.api.HasFeedback;
-import virtuozo.ui.api.Icon;
-import virtuozo.ui.api.ToggleEvent;
-import virtuozo.ui.api.ToggleEvent.ToggleHandler;
-import virtuozo.ui.api.UIComponent;
-import virtuozo.ui.api.UIInput;
+import virtuozo.ui.events.ToggleEvent;
+import virtuozo.ui.events.ToggleEvent.ToggleHandler;
+import virtuozo.ui.interfaces.Assets;
+import virtuozo.ui.interfaces.HasFeedback;
+import virtuozo.ui.interfaces.Icon;
+import virtuozo.ui.interfaces.UIComponent;
+import virtuozo.ui.interfaces.UIInput;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.DivElement;
@@ -14,36 +14,36 @@ import com.google.gwt.dom.client.DivElement;
 public class RichForm extends Form<RichForm> {
   private Type type;
   
-  public RichForm(Type type) {
+  private Footer footer = new Footer();
+  
+  private RichForm(Type type) {
     this.type = type;
-    this.css(type.css());
+    this.css(type.css()).addChild(this.footer);
+  }
+  
+  public static RichForm inline(){
+    return new RichForm(Type.INLINE);
+  }
+  
+  public static RichForm horizontal(){
+    return new RichForm(Type.HORIZONTAL);
+  }
+  
+  public static RichForm vertical(){
+    return new RichForm(Type.VERTICAL);
   }
   
   public <I extends UIInput<?, V>, V> FormGroup<I, V> add(I input) {
     FormGroup<I, V> group = this.type.asGroup(input);
-    this.addChild(group);
+    this.insertChild(group, this.footer);
     return group;
   }
   
-  public Button addButton(){
-    Button button = new Button();
-    this.addChild(button);
-    return button;
+  public Footer footer() {
+    return footer;
   }
   
-  public SplitButton addSplitButton(){
-    SplitButton button = new SplitButton();
-    this.addChild(button);
-    return button;
-  }
-  
-  public DropButton addDropButton(){
-    DropButton button = new DropButton();
-    this.addChild(button);
-    return button;
-  }
-  
-  public enum Type {
+  enum Type {
     INLINE{
       public String css() {
         return "form-inline";
@@ -60,6 +60,9 @@ public class RichForm extends Form<RichForm> {
       
       @Override
       public <I extends UIInput<?, V>, V> FormGroup<I, V> asGroup(I input) {
+        if(input instanceof Checkbox || input instanceof RadioButton){
+          return new SelectionFormGroup<I, V>(input);
+        }
         return new HorizontalFormGroup<I, V>(input);
       }
     }, VERTICAL{
@@ -79,14 +82,38 @@ public class RichForm extends Form<RichForm> {
     public abstract String css();
   }
   
-  static class HorizontalFormGroup<I extends UIInput<?, V>, V> extends FormGroup<I, V>{
+  static class SelectionFormGroup<I extends UIInput<?, V>, V> extends FormGroup<I, V> {
 
     private Tag<DivElement> container = Tag.asDiv().css("col-sm-10", "col-sm-offset-2");
+    
+    public SelectionFormGroup(I input) {
+      super(input);
+      input.asComponent().css().remove("form-control");
+      this.feedback(new Feedback());
+      this.addChild(this.label());
+      this.addChild(this.container);
+      this.feedback().asComponent().incorporate(this.container);
+      this.container.add(input).add(this.helpBlock());
+    }
+    
+    @Override
+    public InputLabel label() {
+      if(this.control() instanceof Checkbox) {
+        return ((Checkbox) this.control()).label();
+      }
+      
+      return ((RadioButton) this.control()).label();
+    }
+  }
+  
+  static class HorizontalFormGroup<I extends UIInput<?, V>, V> extends FormGroup<I, V>{
+
+    private Tag<DivElement> container = Tag.asDiv().css("col-sm-10");
     
     public HorizontalFormGroup(I input) {
       super(input);
       this.feedback(new Feedback());
-      this.addChild(this.label().css("control-label")).addChild(this.container);
+      this.addChild(this.label().css("control-label", "col-sm-2")).addChild(this.container);
       this.feedback().asComponent().incorporate(this.container);
       this.container.add(input).add(this.helpBlock());
       
@@ -110,6 +137,33 @@ public class RichForm extends Form<RichForm> {
       this.feedback(new Feedback());
       this.feedback().asComponent().incorporate(this);
       this.addChild(this.label().css("control-label")).addChild(input).addChild(this.helpBlock());
+    }
+  }
+  
+  public class Footer extends Component<Footer> {
+    private Tag<DivElement> toolbar = Tag.asDiv().css("col-sm-offset-2", "col-sm-10", "form-footer");
+    
+    public Footer() {
+      super(Elements.div());
+      this.css("form-group").addChild(this.toolbar);
+    }
+    
+    public Button addButton() {
+      Button button = Button.create();
+      this.toolbar.add(button);
+      return button;
+    }
+    
+    public SplitButton addSplitButton() {
+      SplitButton button = SplitButton.create();
+      this.toolbar.add(button);
+      return button;
+    }
+    
+    public DropButton addDropButton(){
+      DropButton button = DropButton.create();
+      this.toolbar.add(button);
+      return button;
     }
   }
   

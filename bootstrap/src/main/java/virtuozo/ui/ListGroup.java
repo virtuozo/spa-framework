@@ -14,23 +14,27 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.api.ActivationEvent;
-import virtuozo.ui.api.ActivationEvent.ActivationHandler;
-import virtuozo.ui.api.DeactivationEvent;
-import virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
-import virtuozo.ui.api.HasActivation;
-import virtuozo.ui.api.HasClickHandlers;
-import virtuozo.ui.api.HasEnablement;
 import virtuozo.ui.css.State;
+import virtuozo.ui.events.ActivationEvent;
+import virtuozo.ui.events.ActivationEvent.ActivationHandler;
+import virtuozo.ui.events.DeactivationEvent;
+import virtuozo.ui.events.DeactivationEvent.DeactivationHandler;
+import virtuozo.ui.interfaces.HasActivation;
+import virtuozo.ui.interfaces.HasClickHandlers;
+import virtuozo.ui.interfaces.HasEnablement;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DoubleClickHandler;
 
 public class ListGroup extends Component<ListGroup> {
-  private ActivationHelper activationHelper = new ActivationHelper();
+  private ActivationHelper activationHelper = ActivationHelper.create();
 
-  public ListGroup() {
+  public static ListGroup create(){
+    return new ListGroup();
+  }
+  
+  private ListGroup() {
     super(Elements.div());
     this.css().set("list-group");
   }
@@ -57,21 +61,21 @@ public class ListGroup extends Component<ListGroup> {
     }
 
     public Heading addHeading() {
-      Heading heading = new Heading(Heading.Level.FOUR);
+      Heading heading = Heading.four();
       heading.css().set("list-group-item-heading");
       this.add(heading);
       return heading;
     }
 
     public Paragraph addText() {
-      Paragraph text = new Paragraph();
+      Paragraph text = Paragraph.create();
       text.css().set("list-group-item-text");
       this.add(text);
       return text;
     }
 
     public Badge addBadge() {
-      Badge badge = new Badge();
+      Badge badge = Badge.create();
       this.add(badge);
       return badge;
     }

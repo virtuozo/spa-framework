@@ -14,13 +14,13 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.Composite;
-import virtuozo.ui.CssClass;
-import virtuozo.ui.Elements;
-import virtuozo.ui.StyleChooser;
 
 public class Well extends Composite<Well> {
-  public Well() {
+  public static Well create(){
+    return new Well();
+  }
+  
+  private Well() {
     super(Elements.div());
     this.css().set("well");
   }

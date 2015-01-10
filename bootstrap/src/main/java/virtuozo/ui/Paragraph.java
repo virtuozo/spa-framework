@@ -15,14 +15,16 @@
 
 package virtuozo.ui;
 
-import virtuozo.ui.Component;
-import virtuozo.ui.Elements;
-import virtuozo.ui.api.HasHtml;
-import virtuozo.ui.api.HasText;
+import virtuozo.ui.interfaces.HasHtml;
+import virtuozo.ui.interfaces.HasText;
 
 public final class Paragraph extends Component<Paragraph> implements HasText<Paragraph>, HasHtml<Paragraph> {
 
-  public Paragraph() {
+  public static Paragraph create(){
+    return new Paragraph();
+  }
+  
+  private Paragraph() {
     super(Elements.p());
   }
 

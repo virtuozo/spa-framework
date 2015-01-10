@@ -15,15 +15,15 @@
 package virtuozo.ui;
 
 import virtuozo.ui.Menu.MenuItem;
-import virtuozo.ui.api.ActivationEvent;
-import virtuozo.ui.api.ActivationEvent.ActivationHandler;
-import virtuozo.ui.api.DeactivationEvent;
-import virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
-import virtuozo.ui.api.HasClickHandlers;
-import virtuozo.ui.api.HasMouseHandlers;
-import virtuozo.ui.api.HasState;
-import virtuozo.ui.api.HasText;
 import virtuozo.ui.css.State;
+import virtuozo.ui.events.ActivationEvent;
+import virtuozo.ui.events.ActivationEvent.ActivationHandler;
+import virtuozo.ui.events.DeactivationEvent;
+import virtuozo.ui.events.DeactivationEvent.DeactivationHandler;
+import virtuozo.ui.interfaces.HasClickHandlers;
+import virtuozo.ui.interfaces.HasMouseHandlers;
+import virtuozo.ui.interfaces.HasState;
+import virtuozo.ui.interfaces.HasText;
 
 import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.dom.client.Element;
@@ -37,11 +37,15 @@ import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.dom.client.MouseWheelHandler;
 
 public class PillPanel extends Component<PillPanel> {
-  private OrderList nav = new OrderList(OrderList.Type.UNORDERED);
+  private OrderList nav = OrderList.unordered();
 
-  private ActivationHelper activationHelper = new ActivationHelper();
+  private ActivationHelper activationHelper = ActivationHelper.create();
 
-  public PillPanel() {
+  public static PillPanel create(){
+    return new PillPanel();
+  }
+  
+  private PillPanel() {
     this.incorporate(nav);
     this.nav.css("nav", "nav-pills");
   }
@@ -118,7 +122,7 @@ public class PillPanel extends Component<PillPanel> {
     }
 
     public Badge addBadge() {
-      Badge badge = new Badge();
+      Badge badge = Badge.create();
       this.anchor.add(badge);
       return badge;
     }

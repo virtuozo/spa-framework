@@ -1,10 +1,8 @@
 package virtuozo.ui;
 
-import virtuozo.ui.Component;
-import virtuozo.ui.Tag;
-import virtuozo.ui.api.HasClickHandlers;
-import virtuozo.ui.api.HasMouseHandlers;
-import virtuozo.ui.api.Icon;
+import virtuozo.ui.interfaces.HasClickHandlers;
+import virtuozo.ui.interfaces.HasMouseHandlers;
+import virtuozo.ui.interfaces.Icon;
 
 import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -20,7 +18,11 @@ public class Iconic extends Component<Iconic> implements HasClickHandlers<Iconic
 
   private Tag<AnchorElement> anchor = Tag.asAnchor();
 
-  public Iconic() {
+  public static Iconic create(){
+    return new Iconic();
+  }
+  
+  private Iconic() {
     this.incorporate(this.anchor);
   }
 

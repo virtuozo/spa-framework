@@ -23,8 +23,12 @@ public class HashCollection<H extends HashObject> implements Iterable<H>, Iterat
   private JsArray<H> array;
 
   int index;
+  
+  public static <H extends HashObject> HashCollection<H> of(JsArray<H> array){
+    return new HashCollection<H>(array);
+  }
 
-  public HashCollection(JsArray<H> array) {
+  private HashCollection(JsArray<H> array) {
     this.array = array;
   }
 

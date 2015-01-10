@@ -14,25 +14,27 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.Component;
-import virtuozo.ui.Tag;
-import virtuozo.ui.api.HasText;
-import virtuozo.ui.api.UIClass;
-import virtuozo.ui.api.UIClasses;
+import virtuozo.ui.interfaces.HasText;
+import virtuozo.ui.interfaces.UIClass;
+import virtuozo.ui.interfaces.UIClasses;
 
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 
 public final class DropButton extends Component<DropButton> implements HasText<DropButton> {
-  private final Button dropButton = new Button();
+  private final Button dropButton = Button.create();
 
   private Tag<DivElement> dropdown = Tag.asDiv();
 
-  private final Menu menu = new Menu();
+  private final Menu menu = Menu.create();
   
-  public DropButton() {
-    this.incorporate(new ButtonGroup());
+  public static DropButton create(){
+    return new DropButton();
+  }
+  
+  private DropButton() {
+    this.incorporate(ButtonGroup.create());
     this.addChild(this.dropdown);
     Caret caret = new Caret();
     this.dropdown.addChild(this.dropButton.addChild(caret)).addChild(this.menu).css().set("dropdown");

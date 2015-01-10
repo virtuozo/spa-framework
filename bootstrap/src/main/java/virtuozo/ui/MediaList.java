@@ -17,9 +17,13 @@ package virtuozo.ui;
 import virtuozo.ui.Media.Floating;
 
 public class MediaList extends Parent<MediaList, Media>{
-  private OrderList list = new OrderList(OrderList.Type.UNORDERED);
+  private OrderList list = OrderList.unordered();
   
-  public MediaList() {
+  public static MediaList create(){
+    return new MediaList();
+  }
+  
+  private MediaList() {
     this.incorporate(this.list);
     this.css().set("media-list");
   }

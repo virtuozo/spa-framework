@@ -15,24 +15,24 @@
 package virtuozo.ui;
 
 import virtuozo.infra.CastIterable;
-import virtuozo.ui.api.Clause;
-import virtuozo.ui.api.DetachChildrenEvent.DetachChildrenHandler;
-import virtuozo.ui.api.HasComponents;
-import virtuozo.ui.api.UIComponent;
+import virtuozo.ui.events.DetachChildrenEvent.DetachChildrenHandler;
+import virtuozo.ui.interfaces.Clause;
+import virtuozo.ui.interfaces.HasComponents;
+import virtuozo.ui.interfaces.UIComponent;
 
 import com.google.gwt.dom.client.Element;
 
-public abstract class Parent<P extends Parent<P, C>, C extends UIComponent> extends Component<P> implements HasComponents<P, C> {
+public class Parent<P extends Parent<P, C>, C extends UIComponent> extends Component<P> implements HasComponents<P, C> {
 
-  public Parent() {
+  protected Parent() {
     super();
   }
 
-  public Parent(Element element) {
+  protected Parent(Element element) {
     super(element);
   }
 
-  public Parent(Component<?> widget) {
+  protected Parent(Component<?> widget) {
     super(widget);
   }
 

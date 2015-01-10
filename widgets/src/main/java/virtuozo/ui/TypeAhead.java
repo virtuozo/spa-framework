@@ -4,25 +4,23 @@ import java.util.List;
 
 import virtuozo.infra.Keyboard;
 import virtuozo.infra.api.Converter;
-import virtuozo.ui.Component;
-import virtuozo.ui.Elements;
-import virtuozo.ui.InputText;
-import virtuozo.ui.Menu;
 import virtuozo.ui.Menu.MenuItem;
-import virtuozo.ui.MoveDownEvent.MoveDownHandler;
-import virtuozo.ui.MoveUpEvent.MoveUpHandler;
-import virtuozo.ui.SelectionEvent.SelectionHandler;
-import virtuozo.ui.api.ShowEvent;
-import virtuozo.ui.api.UIComponent;
-import virtuozo.ui.api.UIInput;
-import virtuozo.ui.api.UIRenderer;
+import virtuozo.ui.events.MoveDownEvent;
+import virtuozo.ui.events.MoveUpEvent;
+import virtuozo.ui.events.SelectionEvent;
+import virtuozo.ui.events.ShowEvent;
+import virtuozo.ui.events.MoveDownEvent.MoveDownHandler;
+import virtuozo.ui.events.MoveUpEvent.MoveUpHandler;
+import virtuozo.ui.events.SelectionEvent.SelectionHandler;
+import virtuozo.ui.interfaces.UIComponent;
+import virtuozo.ui.interfaces.UIInput;
+import virtuozo.ui.interfaces.UIRenderer;
 
 import com.google.gwt.dom.client.Style.Position;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.Timer;
@@ -30,9 +28,9 @@ import com.google.gwt.user.client.Timer;
 @SuppressWarnings("unchecked")
 public abstract class TypeAhead<T extends TypeAhead<T, V>, V> extends Component<T> implements UIInput<T, V> {
 
-  private Menu menu = new Menu();
+  private Menu menu = Menu.create();
 
-  private InputText input = new InputText();
+  private InputText input = InputText.create();
 
   private List<V> entries;
 
@@ -259,28 +257,27 @@ public abstract class TypeAhead<T extends TypeAhead<T, V>, V> extends Component<
 
     @Override
     public final void onKeyUp(KeyUpEvent event) {
-      int keyCode = event.getNativeEvent().getKeyCode();
 
-      if (KeyCodes.KEY_ESCAPE == keyCode) {
+      if (Keyboard.get().escape(event)) {
         TypeAhead.this.menu.close();
         return;
       }
 
-      if (KeyCodes.KEY_UP == keyCode) {
+      if (Keyboard.get().up(event)) {
         TypeAhead.this.up();
         return;
       }
 
-      if (KeyCodes.KEY_DOWN == keyCode) {
+      if (Keyboard.get().down(event)) {
         TypeAhead.this.down();
         return;
       }
 
-      if (Keyboard.get().controlKey(keyCode) && keyCode != KeyCodes.KEY_BACKSPACE) {
+      if (Keyboard.get().nonInputKey(event) && Keyboard.get().erase(event)) {
         return;
       }
 
-      this.onKeyUp(keyCode, (char) event.getNativeEvent().getCharCode());
+      this.onKeyUp(event.getNativeKeyCode(), (char) event.getNativeEvent().getCharCode());
     }
 
     void onKeyUp(int keyCode, char charCode) {

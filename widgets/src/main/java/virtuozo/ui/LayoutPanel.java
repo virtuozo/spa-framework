@@ -2,14 +2,14 @@ package virtuozo.ui;
 
 import virtuozo.ui.Table.Cell;
 import virtuozo.ui.Table.Row;
-import virtuozo.ui.api.UIComponent;
+import virtuozo.ui.interfaces.UIComponent;
 
 import com.google.gwt.dom.client.Style.Unit;
 
 public class LayoutPanel extends Component<LayoutPanel> {
   private Orientation orientation;
   
-  private Table table = new Table();
+  private Table table = Table.create();
   
   private LayoutPanel(Orientation orientation) {
     this.orientation = orientation;

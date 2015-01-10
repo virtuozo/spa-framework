@@ -15,18 +15,26 @@
 package virtuozo.ui;
 
 import virtuozo.ui.Row.Column;
-import virtuozo.ui.api.Layout;
+import virtuozo.ui.interfaces.Layout;
 
 import com.google.gwt.dom.client.StyleInjector;
 
 public class SidebarLayout implements Layout {
-  private Container container = new Container(Container.Type.FLUID);
+  private Container container = Container.fluid();
 
   private Column top;
 
   private Column left;
   
   private Column main;
+  
+  public static SidebarLayout create(){
+    return new SidebarLayout();
+  }
+  
+  private SidebarLayout() {
+    super();
+  }
 
   public Column top(){
     return this.top;

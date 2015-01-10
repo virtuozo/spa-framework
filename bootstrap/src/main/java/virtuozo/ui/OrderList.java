@@ -19,17 +19,25 @@ import com.google.gwt.dom.client.Element;
 
 public final class OrderList extends Parent<OrderList, ListItem> {
 
-  public OrderList(Type option) {
+  public static OrderList ordered(){
+    return new OrderList(Type.ORDERED);
+  }
+  
+  public static OrderList unordered(){
+    return new OrderList(Type.UNORDERED);
+  }
+  
+  private OrderList(Type option) {
     super(option.resolveElement());
   }
-
+  
   public ListItem addItem() {
-    ListItem item = new ListItem();
+    ListItem item = ListItem.create();
     this.add(item);
     return item;
   }
   
-  public static enum Type {
+  static enum Type {
     UNORDERED, ORDERED;
 
     Element resolveElement() {

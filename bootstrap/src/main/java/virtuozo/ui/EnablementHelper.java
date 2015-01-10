@@ -14,10 +14,10 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.api.EventInterceptor;
-import virtuozo.ui.api.HasEnablement;
-import virtuozo.ui.api.UIComponent;
 import virtuozo.ui.css.State;
+import virtuozo.ui.interfaces.EventInterceptor;
+import virtuozo.ui.interfaces.HasEnablement;
+import virtuozo.ui.interfaces.UIComponent;
 
 import com.google.gwt.user.client.Event;
 
@@ -32,6 +32,10 @@ public class EnablementHelper<C extends UIComponent> implements HasEnablement<C>
       return !EnablementHelper.this.target.asComponent().css().contains(State.DISABLED);
     }
   };
+  
+  public static <C extends UIComponent> EnablementHelper<C> create(C target){
+    return new EnablementHelper<C>(target);
+  }
   
   public EnablementHelper(C target) {
     this.target = target;

@@ -1,12 +1,14 @@
 package virtuozo.ui;
 
-import virtuozo.ui.Component;
-import virtuozo.ui.Elements;
-import virtuozo.ui.api.HasHtml;
-import virtuozo.ui.api.HasText;
+import virtuozo.ui.interfaces.HasHtml;
+import virtuozo.ui.interfaces.HasText;
 
 public class StaticControl extends Component<StaticControl> implements HasText<StaticControl>, HasHtml<StaticControl> {
-  public StaticControl() {
+  public static StaticControl create(){
+    return new StaticControl();
+  }
+  
+  private StaticControl() {
     super(Elements.p());
     this.css("form-control-static");
   }

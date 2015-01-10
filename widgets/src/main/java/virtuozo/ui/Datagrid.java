@@ -20,20 +20,13 @@ import java.util.List;
 
 import virtuozo.infra.HashObject;
 import virtuozo.infra.JSArrays;
-import virtuozo.ui.Button;
-import virtuozo.ui.Component;
-import virtuozo.ui.Elements;
-import virtuozo.ui.InputGroup;
-import virtuozo.ui.InputText;
-import virtuozo.ui.Pager;
-import virtuozo.ui.Paragraph;
-import virtuozo.ui.Table;
-import virtuozo.ui.Tag;
-import virtuozo.ui.DrawEvent.DrawHandler;
-import virtuozo.ui.SelectionEvent.SelectionHandler;
 import virtuozo.ui.Table.Cell;
 import virtuozo.ui.Table.Row;
-import virtuozo.ui.api.Assets;
+import virtuozo.ui.events.DrawEvent;
+import virtuozo.ui.events.DrawEvent.DrawHandler;
+import virtuozo.ui.events.SelectionEvent;
+import virtuozo.ui.events.SelectionEvent.SelectionHandler;
+import virtuozo.ui.interfaces.Assets;
 
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.core.shared.GWT;
@@ -52,7 +45,7 @@ public final class Datagrid<H extends HashObject> extends Component<Datagrid<H>>
   
   private List<Integer> filteredRows = new ArrayList<Integer>();
 
-  private Table table = new Table().bordered();
+  private Table table = Table.create().bordered();
 
   private GridCaption caption;
 
@@ -253,7 +246,7 @@ public final class Datagrid<H extends HashObject> extends Component<Datagrid<H>>
     String emptyMessage = this.options.emptyMessage;
     if (this.totalRows == 0 && emptyMessage != null) {
       Row row = this.table.body().addRow().css(Table.Color.WARNING);
-      row.addCell().colspan(this.columns.size()).add(new Paragraph().text(emptyMessage));
+      row.addCell().colspan(this.columns.size()).add(Paragraph.create().text(emptyMessage));
     }
   }
 
@@ -301,7 +294,7 @@ public final class Datagrid<H extends HashObject> extends Component<Datagrid<H>>
       return this;
     }
 
-    public VerticalSpinner rowsPerPage() {
+    public Spinner rowsPerPage() {
       return Datagrid.this.footer.rowsPerPage;
     }
   }
@@ -385,11 +378,11 @@ public final class Datagrid<H extends HashObject> extends Component<Datagrid<H>>
       
       private Assets assets = GWT.create(Assets.class);
 
-      private InputGroup input = new InputGroup(new InputText()).css("datagrid-search");
+      private InputGroup input = new InputGroup(InputText.create()).css("datagrid-search");
 
-      private Button searchButton = new Button();
+      private Button searchButton = Button.create();
 
-      private Button clearButton = new Button();
+      private Button clearButton = Button.create();
 
       private GridFilter<H> filter = new DefaultGridFilter();
 
@@ -473,9 +466,9 @@ public final class Datagrid<H extends HashObject> extends Component<Datagrid<H>>
 
     private Cell cell;
 
-    private VerticalSpinner rowsPerPage = new VerticalSpinner().range(0, Integer.MAX_VALUE).value(5).step(5);
+    private Spinner rowsPerPage;// = new Spinner().range(0, Integer.MAX_VALUE).value(5).step(5);
 
-    private Pager pager = new Pager().css("grid-pager");
+    private Pager pager = Pager.create().css("grid-pager");
 
     public GridFooter(Row row) {
       super();

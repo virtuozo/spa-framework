@@ -14,14 +14,16 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.Heading.Level;
-
 import com.google.gwt.dom.client.DivElement;
 
 public class Jumbotron extends Composite<Jumbotron> {
   private Tag<DivElement> container = Tag.asDiv();
 
-  public Jumbotron() {
+  public static Jumbotron create(){
+    return new Jumbotron();
+  }
+  
+  private Jumbotron() {
     super(Elements.div());
     this.css().set("jumbotron");
     this.addChild(this.container);
@@ -29,14 +31,14 @@ public class Jumbotron extends Composite<Jumbotron> {
   }
 
   public Heading addHeading() {
-    return new Heading(Level.ONE).attachTo(this.container);
+    return Heading.one().attachTo(this.container);
   }
 
   public Paragraph addText(){
-    return new Paragraph().attachTo(this.container);
+    return Paragraph.create().attachTo(this.container);
   }
   
   public Button addButton(){
-    return new Button().css(Button.Size.LARGE).attachTo(this.container);
+    return Button.create().css(Button.Size.LARGE).attachTo(this.container);
   }
 }

@@ -34,15 +34,7 @@ public class Calendar {
     this.wrapped = date;
   }
 
-  public static Calendar as(Date date) {
-    if (date == null) {
-      return null;
-    }
-
-    return new Calendar(date);
-  }
-
-  public static Calendar date(Date date) {
+  public static Calendar of(Date date) {
     if (date == null) {
       return null;
     }
@@ -50,7 +42,7 @@ public class Calendar {
     return new Calendar().setTime(date.getTime());
   }
 
-  public static Calendar time(long time) {
+  public static Calendar of(long time) {
     return new Calendar().setTime(time);
   }
 

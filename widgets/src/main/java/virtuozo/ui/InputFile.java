@@ -1,16 +1,10 @@
 package virtuozo.ui;
 
 import virtuozo.infra.SimpleValidator;
-import virtuozo.ui.Button;
-import virtuozo.ui.Component;
-import virtuozo.ui.Elements;
-import virtuozo.ui.Input;
-import virtuozo.ui.InputGroup;
-import virtuozo.ui.InputText;
-import virtuozo.ui.api.Assets;
-import virtuozo.ui.api.Icon;
-import virtuozo.ui.api.UIInput;
 import virtuozo.ui.css.ButtonColor;
+import virtuozo.ui.interfaces.Assets;
+import virtuozo.ui.interfaces.Icon;
+import virtuozo.ui.interfaces.UIInput;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
@@ -23,13 +17,17 @@ public final class InputFile extends Component<InputFile> implements UIInput<Inp
   
   private File file = new File();
 
-  private InputGroup input = new InputGroup(new InputText());
+  private InputGroup input = InputGroup.create(InputText.create());
 
-  private Button submit = new Button();
+  private Button submit = Button.create();
 
-  private Button reset = new Button().css(ButtonColor.DANGER).hide();
+  private Button reset = Button.create().css(ButtonColor.DANGER).hide();
 
-  public InputFile() {
+  public static InputFile create(){
+    return new InputFile();
+  }
+  
+  private InputFile() {
     super(Elements.div());
     this.reset.icon(this.assets.clearIcon());
     this.init();

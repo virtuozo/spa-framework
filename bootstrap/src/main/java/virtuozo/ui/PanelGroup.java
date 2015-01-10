@@ -3,11 +3,11 @@ package virtuozo.ui;
 import java.util.List;
 
 import virtuozo.ui.ActivationHelper.Behavior;
-import virtuozo.ui.api.ActivationEvent;
-import virtuozo.ui.api.ActivationEvent.ActivationHandler;
-import virtuozo.ui.api.DeactivationEvent;
-import virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
-import virtuozo.ui.api.HasActivation;
+import virtuozo.ui.events.ActivationEvent;
+import virtuozo.ui.events.ActivationEvent.ActivationHandler;
+import virtuozo.ui.events.DeactivationEvent;
+import virtuozo.ui.events.DeactivationEvent.DeactivationHandler;
+import virtuozo.ui.interfaces.HasActivation;
 
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.Element;
@@ -15,9 +15,13 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DoubleClickHandler;
 
 public class PanelGroup extends Component<PanelGroup> {
-  private ActivationHelper helper = new ActivationHelper();
+  private ActivationHelper helper = ActivationHelper.create();
 
-  public PanelGroup() {
+  public static PanelGroup create(){
+    return new PanelGroup();
+  }
+  
+  private PanelGroup() {
     super(Elements.div());
     this.css("panel-group");
     this.helper.behavior(new Behavior() {

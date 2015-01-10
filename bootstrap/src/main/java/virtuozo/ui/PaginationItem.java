@@ -1,15 +1,15 @@
 package virtuozo.ui;
 
-import virtuozo.ui.api.ActivationEvent;
-import virtuozo.ui.api.ActivationEvent.ActivationHandler;
-import virtuozo.ui.api.DeactivationEvent;
-import virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
-import virtuozo.ui.api.HasClickHandlers;
-import virtuozo.ui.api.HasIcon;
-import virtuozo.ui.api.HasState;
-import virtuozo.ui.api.HasText;
-import virtuozo.ui.api.Icon;
 import virtuozo.ui.css.State;
+import virtuozo.ui.events.ActivationEvent;
+import virtuozo.ui.events.ActivationEvent.ActivationHandler;
+import virtuozo.ui.events.DeactivationEvent;
+import virtuozo.ui.events.DeactivationEvent.DeactivationHandler;
+import virtuozo.ui.interfaces.HasClickHandlers;
+import virtuozo.ui.interfaces.HasIcon;
+import virtuozo.ui.interfaces.HasState;
+import virtuozo.ui.interfaces.HasText;
+import virtuozo.ui.interfaces.Icon;
 
 import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.dom.client.Element;

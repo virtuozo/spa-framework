@@ -1,31 +1,35 @@
 package virtuozo.ui;
 
-import virtuozo.ui.Tag;
-
-import com.google.gwt.dom.client.DivElement;
-
 public class Popover extends FloatPanel<Popover> {
 
-  private Heading title = new Heading(Heading.Level.THREE).css("popover-title");
+  private Heading title = Heading.three().css("popover-title");
 
-  private Tag<DivElement> body = Tag.asDiv().css("popover-content");
+  private Body body = new Body();
 
-  private Tag<DivElement> footer = Tag.asDiv().css("popover-footer");
-
-  public Popover() {
-    this.css("popover").add(Tag.asDiv().css("arrow")).add(this.title).add(this.body).add(this.footer.hide());
+  private Popover() {
+    this.css("popover").add(Tag.asDiv().css("arrow")).add(this.title).add(this.body);
+  }
+  
+  public static Popover create() {
+    return new Popover();
   }
 
-  public Tag<DivElement> body() {
+  public Body body() {
     return this.body;
   }
 
-  public Tag<DivElement> footer() {
-    return this.footer.show();
+  public Heading heading() {
+    return this.title;
   }
-
-  public Popover title(String title) {
-    this.title.text(title);
-    return this;
+  
+  public class Body extends Composite<Body> {
+    public Body() {
+      super(Elements.div());
+      this.css("popover-content");
+    }
+    
+    public Text addText(){
+      return Text.create().attachTo(this);
+    }
   }
 }

@@ -1,12 +1,15 @@
 package virtuozo.ui;
 
-import virtuozo.ui.Component;
-import virtuozo.ui.Elements;
-import virtuozo.ui.api.HasHtml;
-import virtuozo.ui.api.HasText;
+import virtuozo.ui.interfaces.HasHtml;
+import virtuozo.ui.interfaces.HasText;
 
 public class HelpBlock extends Component<HelpBlock> implements HasText<HelpBlock>, HasHtml<HelpBlock> {
-  public HelpBlock() {
+  
+  public static HelpBlock create(){
+    return new HelpBlock();
+  }
+  
+  HelpBlock() {
     super(Elements.p());
     this.css("help-block");
   }

@@ -14,13 +14,18 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.api.HasHtml;
-import virtuozo.ui.api.HasText;
+import virtuozo.ui.interfaces.HasHtml;
+import virtuozo.ui.interfaces.HasText;
+
 
 
 public final class Text extends Component<Text> implements HasText<Text>, HasHtml<Text>{
 
-  public Text() {
+  public static Text create(){
+    return new Text();
+  }
+  
+  private Text() {
     super(Elements.span());
     this.hide();
   }

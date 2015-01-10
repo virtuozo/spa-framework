@@ -1,11 +1,19 @@
 package virtuozo.ui;
 
-import virtuozo.ui.api.HasText;
-import virtuozo.ui.api.UIInput;
+import virtuozo.ui.interfaces.HasText;
+import virtuozo.ui.interfaces.UIInput;
+
 
 public class InputLabel extends Component<InputLabel> implements HasText<InputLabel>{
-  public InputLabel() {
+  private Text text = Text.create();
+  
+  public static InputLabel create(){
+    return new InputLabel();
+  }
+  
+  InputLabel() {
     super(Elements.label());
+    this.addChild(this.text);
   }
 
   public InputLabel to(UIInput<?, ?> input) {
@@ -14,12 +22,12 @@ public class InputLabel extends Component<InputLabel> implements HasText<InputLa
   
   @Override
   public String text() {
-    return this.element().getInnerText();
+    return this.text.text();
   }
   
   @Override
   public InputLabel text(String text) {
-    this.element().setInnerText(text);
+    this.text.text(text);
     return this;
   }
 }

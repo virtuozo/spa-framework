@@ -3,13 +3,11 @@ package virtuozo.ui;
 import java.util.ArrayList;
 import java.util.List;
 
-import virtuozo.infra.Logger;
-import virtuozo.ui.api.DetachHandler;
-import virtuozo.ui.api.ScrollSpyEvent;
-import virtuozo.ui.api.UIComponent;
-import virtuozo.ui.api.ScrollSpyEvent.ScrollSpyHandler;
+import virtuozo.ui.events.ScrollSpyEvent;
+import virtuozo.ui.events.ScrollSpyEvent.ScrollSpyHandler;
+import virtuozo.ui.interfaces.DetachHandler;
+import virtuozo.ui.interfaces.UIComponent;
 
-import com.google.gwt.dom.client.Document;
 import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.Window.ScrollEvent;
@@ -37,7 +35,7 @@ public class ScrollSpy {
       protected void onDetach(AttachEvent event) {
         ScrollSpy.this.monitor.remove(target);
       }
-    }).on(handler);
+    }).onScroll(handler);
     
     return this;
   }
@@ -59,7 +57,6 @@ public class ScrollSpy {
   private void handle(){
     for(UIComponent target : this.monitor){
       int top = Window.getScrollTop() + target.asComponent().top();
-      int max = Math.max(Document.get().getDocumentElement().getScrollHeight(), HTML.body().scrollHeight());
       
       int height = top + target.asComponent().innerHeight();
       boolean inRange = Window.getScrollTop() >= top && Window.getScrollTop() < height;

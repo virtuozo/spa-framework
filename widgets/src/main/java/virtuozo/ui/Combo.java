@@ -5,7 +5,11 @@ import virtuozo.infra.api.Converter;
 
 public class Combo extends SingleSelect<Combo, Combo.Item> {
 
-  public Combo() {
+  public static Combo create(){
+    return new Combo();
+  }
+  
+  private Combo() {
     this.converter(new Converter<Item, String>() {
       
       @Override
@@ -20,6 +24,10 @@ public class Combo extends SingleSelect<Combo, Combo.Item> {
   }
   
   public static class Item extends KeyValue<String, String>{
+    public Item(String value) {
+      this(value, value);
+    }
+    
     public Item(String key, String value) {
       this.key(key).value(value);
     }

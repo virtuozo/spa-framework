@@ -18,7 +18,7 @@ package virtuozo.ui;
 import virtuozo.infra.HashObject;
 import virtuozo.ui.Tag;
 import virtuozo.ui.Table.Cell;
-import virtuozo.ui.api.Icon;
+import virtuozo.ui.interfaces.Icon;
 
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.dom.client.SpanElement;

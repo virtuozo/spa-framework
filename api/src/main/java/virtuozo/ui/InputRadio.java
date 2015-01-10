@@ -15,25 +15,38 @@
 
 package virtuozo.ui;
 
-import virtuozo.ui.api.UISelection;
+import virtuozo.ui.interfaces.UISelection;
+
 
 
 public final class InputRadio extends Input<InputRadio> implements UISelection<InputRadio, String> {
 
-  public InputRadio(String name) {
+  public static InputRadio create(String name){
+    return new InputRadio(name);
+  }
+  
+  private InputRadio(String name) {
     super(Elements.radio(name));
   }
 
   @Override
   public InputRadio clear() {
-    return this.checked(false);
+    return this.uncheck();
   }
 
-  public InputRadio checked(Boolean selected) {
-    this.element().setChecked(selected);
+  @Override
+  public InputRadio check() {
+    this.element().setChecked(true);
     return this;
   }
-
+  
+  @Override
+  public InputRadio uncheck() {
+    this.element().setChecked(false);
+    return this;
+  }
+  
+  @Override
   public Boolean checked() {
     return this.element().isChecked();
   }

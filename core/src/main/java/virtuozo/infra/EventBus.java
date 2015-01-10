@@ -3,7 +3,8 @@ package virtuozo.infra;
 import java.util.HashMap;
 import java.util.Map;
 
-import virtuozo.ui.EventHandlers;
+import virtuozo.infra.interfaces.SubscriptionCallback;
+import virtuozo.ui.EventManager;
 
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
@@ -13,7 +14,7 @@ import com.google.gwt.event.shared.GwtEvent.Type;
 class EventBus {
   private static final EventBus instance = new EventBus();
   
-  private EventHandlers handlers = new EventHandlers();
+  private EventManager handlers = EventManager.create();
   
   private Map<Event, Type<SubscriptionCallback>> types = new HashMap<Event, Type<SubscriptionCallback>>();
   

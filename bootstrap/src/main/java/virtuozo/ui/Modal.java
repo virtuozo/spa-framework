@@ -1,12 +1,12 @@
 package virtuozo.ui;
 
-import virtuozo.ui.api.HasVisibility;
-import virtuozo.ui.api.HideEvent;
-import virtuozo.ui.api.HideEvent.HideHandler;
-import virtuozo.ui.api.ShowEvent;
-import virtuozo.ui.api.ShowEvent.ShowHandler;
-import virtuozo.ui.api.ToggleEvent;
-import virtuozo.ui.api.ToggleEvent.ToggleHandler;
+import virtuozo.ui.events.HideEvent;
+import virtuozo.ui.events.HideEvent.HideHandler;
+import virtuozo.ui.events.ShowEvent;
+import virtuozo.ui.events.ShowEvent.ShowHandler;
+import virtuozo.ui.events.ToggleEvent;
+import virtuozo.ui.events.ToggleEvent.ToggleHandler;
+import virtuozo.ui.interfaces.HasVisibility;
 
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.Style.Unit;
@@ -15,21 +15,27 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.CloseEvent;
 import com.google.gwt.event.logical.shared.CloseHandler;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.PopupPanel;
 
 public class Modal implements HasVisibility<Modal> {
-  private PopupPanel dialog = new PopupPanel();
+  private PopupPanel dialog = new DialogBox();
   
   private InnerModal innerModal = new InnerModal();
   
-  private EventHandlers eventBus = new EventHandlers();
+  private EventManager eventBus = EventManager.create();
   
-  public Modal() {
+  private Modal() {
     this.dialog.setGlassEnabled(true);
     this.dialog.setModal(true);
+    this.dialog.setAutoHideOnHistoryEventsEnabled(true);
     this.dialog.setWidget(this.innerModal.holder());
     this.dialog.setGlassStyleName("modal-glass");
     this.dialog.setStyleName("modal-window");
+  }
+  
+  public static Modal create(){
+    return new Modal();
   }
   
   public Modal animate(){
@@ -144,9 +150,9 @@ public class Modal implements HasVisibility<Modal> {
   }
   
   public class Header extends Component<Header>{
-    private Button close = new Button();
+    private Button close = Button.create();
     
-    private Heading heading = new Heading(Heading.Level.FOUR);
+    private Heading heading = Heading.four();
     
     public Header() {
       super(Elements.div());

@@ -20,27 +20,27 @@ import java.util.List;
 import virtuozo.infra.CastIterable;
 import virtuozo.infra.CastIterable.TypeCast;
 import virtuozo.infra.StringProperty;
-import virtuozo.ui.api.AttachHandler;
-import virtuozo.ui.api.Clause;
-import virtuozo.ui.api.CssChangeEvent;
-import virtuozo.ui.api.CssChangeHandler;
-import virtuozo.ui.api.DetachChildrenEvent;
-import virtuozo.ui.api.DetachChildrenEvent.DetachChildrenHandler;
-import virtuozo.ui.api.DetachHandler;
-import virtuozo.ui.api.EventInterceptor;
-import virtuozo.ui.api.HasComponents;
-import virtuozo.ui.api.HasVisibility;
-import virtuozo.ui.api.HideEvent;
-import virtuozo.ui.api.HideEvent.HideHandler;
-import virtuozo.ui.api.ScrollSpyEvent;
-import virtuozo.ui.api.ScrollSpyEvent.ScrollSpyHandler;
-import virtuozo.ui.api.ShowEvent;
-import virtuozo.ui.api.ShowEvent.ShowHandler;
-import virtuozo.ui.api.ToggleEvent;
-import virtuozo.ui.api.ToggleEvent.ToggleHandler;
-import virtuozo.ui.api.UIClass;
-import virtuozo.ui.api.UIClasses;
-import virtuozo.ui.api.UIComponent;
+import virtuozo.ui.events.CssChangeEvent;
+import virtuozo.ui.events.CssChangeEvent.CssChangeHandler;
+import virtuozo.ui.events.DetachChildrenEvent;
+import virtuozo.ui.events.DetachChildrenEvent.DetachChildrenHandler;
+import virtuozo.ui.events.HideEvent;
+import virtuozo.ui.events.HideEvent.HideHandler;
+import virtuozo.ui.events.ScrollSpyEvent;
+import virtuozo.ui.events.ScrollSpyEvent.ScrollSpyHandler;
+import virtuozo.ui.events.ShowEvent;
+import virtuozo.ui.events.ShowEvent.ShowHandler;
+import virtuozo.ui.events.ToggleEvent;
+import virtuozo.ui.events.ToggleEvent.ToggleHandler;
+import virtuozo.ui.interfaces.AttachHandler;
+import virtuozo.ui.interfaces.Clause;
+import virtuozo.ui.interfaces.DetachHandler;
+import virtuozo.ui.interfaces.EventInterceptor;
+import virtuozo.ui.interfaces.HasComponents;
+import virtuozo.ui.interfaces.HasVisibility;
+import virtuozo.ui.interfaces.UIClass;
+import virtuozo.ui.interfaces.UIClasses;
+import virtuozo.ui.interfaces.UIComponent;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
@@ -89,7 +89,7 @@ import com.google.gwt.user.client.ui.Offset;
 import com.google.gwt.user.client.ui.WidgetHolder;
 
 @SuppressWarnings("unchecked")
-public abstract class Component<C extends Component<C>> implements HasVisibility<C>, UIComponent {
+public class Component<C extends Component<C>> implements HasVisibility<C>, UIComponent {
   private WidgetHolder holder;
 
   private final Style style = new Style(this);
@@ -98,15 +98,15 @@ public abstract class Component<C extends Component<C>> implements HasVisibility
   
   private StringProperty id = new StringProperty();
   
-  private EventHandlers bus;
+  private EventManager bus;
   
-  public Component() {
+  protected Component() {
     super();
   }
   
-  public Component(Element element) {
+  protected Component(Element element) {
     this.holder = new WidgetHolder(element, this);
-    this.bus = new EventHandlers(this.holder.getHandlerManager());
+    this.bus = new EventManager(this.holder.getHandlerManager());
     this.id.onChange(new virtuozo.infra.api.ChangeHandler<String>() {
       
       @Override
@@ -118,7 +118,7 @@ public abstract class Component<C extends Component<C>> implements HasVisibility
     this.classes = new Classes(this.holder);
   }
   
-  public Component(Component<?> widget){
+  protected Component(Component<?> widget){
     this.incorporate(widget);
   }
   
@@ -154,7 +154,7 @@ public abstract class Component<C extends Component<C>> implements HasVisibility
   }
   
   /** Element behaviors **/
-  <E extends Element> E element() {
+  protected <E extends Element> E element() {
     return this.holder.getElement().cast();
   }
   
@@ -319,6 +319,11 @@ public abstract class Component<C extends Component<C>> implements HasVisibility
   
   public C onEvent(EventInterceptor interceptor){
     this.holder.setInterceptor(interceptor);
+    return (C) this;
+  }
+  
+  public C onScroll(ScrollSpyHandler handler){
+    this.addHandler(ScrollSpyEvent.TYPE, handler);
     return (C) this;
   }
 
@@ -578,11 +583,6 @@ public abstract class Component<C extends Component<C>> implements HasVisibility
     return (C) this;
   }
   
-  C on(ScrollSpyHandler handler){
-    this.addHandler(ScrollSpyEvent.TYPE, handler);
-    return (C) this;
-  }
-
   protected C on(TouchCancelHandler handler) {
     this.holder.addDomHandler(handler, TouchCancelEvent.getType());
     return (C) this;
@@ -618,7 +618,7 @@ public abstract class Component<C extends Component<C>> implements HasVisibility
     return (C) this;
   }
 
-  EventHandlers eventBus() {
+  EventManager eventBus() {
     return this.bus;
   }
   

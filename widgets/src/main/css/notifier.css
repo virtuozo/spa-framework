@@ -65,23 +65,3 @@
 	padding: 15px;
 	width: 300px
 }
-
-.notification.notification-default {
-	background: #7f8c8d;
-	color: #fff
-}
-
-.notification.notification-error {
-	background: #e66454;
-	color: #fff
-}
-
-.notification.notification-notice {
-	background: #5ebd5e;
-	color: #fff
-}
-
-.notification.notification-warning {
-	background: #f4b04f;
-	color: #fff
-}

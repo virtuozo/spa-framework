@@ -1,9 +1,7 @@
 package virtuozo.ui;
 
-import virtuozo.ui.HTML;
-import virtuozo.ui.Tag;
-import virtuozo.ui.api.ShowEvent;
-import virtuozo.ui.api.ShowEvent.ShowHandler;
+import virtuozo.ui.events.ShowEvent;
+import virtuozo.ui.events.ShowEvent.ShowHandler;
 
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -45,7 +43,6 @@ public class Notifier {
       
       @Override
       public void onClick(ClickEvent event) {
-        notification.hide();
         timer.cancel();
       }
     });

@@ -15,7 +15,6 @@
 package virtuozo.ui.css;
 
 import virtuozo.ui.CssClass;
-import virtuozo.ui.Heading;
 import virtuozo.ui.StyleChooser;
 
 public class HeadingClass extends CssClass{
@@ -28,30 +27,11 @@ public class HeadingClass extends CssClass{
     return STYLES;
   }
   
-  public static HeadingClass get(Heading.Level level){
-    switch(level){
-      case ONE:
-        return HeadingClass.LEVEL_ONE;
-      case TWO:
-        return HeadingClass.LEVEL_TWO;
-      case THREE:
-        return HeadingClass.LEVEL_THREE;
-      case FOUR:
-        return HeadingClass.LEVEL_FOUR;
-      case FIVE:
-        return HeadingClass.LEVEL_FIVE;
-      case SIX:
-        return HeadingClass.LEVEL_SIX;
-    }
-    
-    return null;
-  }
-
-  public static final HeadingClass LEVEL_ONE = new HeadingClass("h1");
-  public static final HeadingClass LEVEL_TWO = new HeadingClass("h2");
-  public static final HeadingClass LEVEL_THREE = new HeadingClass("h3");
-  public static final HeadingClass LEVEL_FOUR = new HeadingClass("h4");
-  public static final HeadingClass LEVEL_FIVE = new HeadingClass("h5");
-  public static final HeadingClass LEVEL_SIX = new HeadingClass("h6");
-  private static final StyleChooser STYLES = new StyleChooser(LEVEL_ONE, LEVEL_TWO, LEVEL_THREE, LEVEL_FOUR, LEVEL_FIVE, LEVEL_SIX);
+  public static final HeadingClass ONE = new HeadingClass("h1");
+  public static final HeadingClass TWO = new HeadingClass("h2");
+  public static final HeadingClass THREE = new HeadingClass("h3");
+  public static final HeadingClass FOUR = new HeadingClass("h4");
+  public static final HeadingClass FIVE = new HeadingClass("h5");
+  public static final HeadingClass SIX = new HeadingClass("h6");
+  private static final StyleChooser STYLES = new StyleChooser(ONE, TWO, THREE, FOUR, FIVE, SIX);
 }

@@ -1,12 +1,11 @@
 package virtuozo.ui;
 
-import virtuozo.ui.Container.Type;
-import virtuozo.ui.api.Layout;
+import virtuozo.ui.interfaces.Layout;
 
 public class BareLayout implements Layout {
-  private Navbar navbar = new Navbar();
+  private Navbar navbar = Navbar.create();
   
-  private Container container = new Container(Type.FLUID);
+  private Container container = Container.fluid();
   
   public Container container() {
     return container;

@@ -15,13 +15,13 @@
 
 package virtuozo.ui;
 
-import virtuozo.ui.api.HasClickHandlers;
-import virtuozo.ui.api.HasFocusHandlers;
-import virtuozo.ui.api.HasHtml;
-import virtuozo.ui.api.HasKeyHandlers;
-import virtuozo.ui.api.HasMouseHandlers;
-import virtuozo.ui.api.HasText;
-import virtuozo.ui.api.HasTouchHandlers;
+import virtuozo.ui.interfaces.HasClickHandlers;
+import virtuozo.ui.interfaces.HasFocusHandlers;
+import virtuozo.ui.interfaces.HasHtml;
+import virtuozo.ui.interfaces.HasKeyHandlers;
+import virtuozo.ui.interfaces.HasMouseHandlers;
+import virtuozo.ui.interfaces.HasText;
+import virtuozo.ui.interfaces.HasTouchHandlers;
 
 import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.dom.client.DivElement;

@@ -15,21 +15,41 @@
 
 package virtuozo.ui;
 
-import virtuozo.ui.Component;
-import virtuozo.ui.Elements;
-import virtuozo.ui.Tag;
-import virtuozo.ui.Text;
-import virtuozo.ui.api.HasText;
+import virtuozo.ui.interfaces.HasText;
 
 import com.google.gwt.dom.client.Element;
 
 public final class Heading extends Component<Heading> implements HasText<Heading> {
 
-  private Text textHolder = new Text();
+  private Text textHolder = Text.create();
 
   private Tag<Element> secondary = Tag.as(Elements.small()).hide();
+  
+  public static Heading one(){
+    return new Heading(Level.ONE);
+  }
+  
+  public static Heading two(){
+    return new Heading(Level.TWO);
+  }
+  
+  public static Heading three(){
+    return new Heading(Level.THREE);
+  }
+  
+  public static Heading four(){
+    return new Heading(Level.FOUR);
+  }
+  
+  public static Heading five(){
+    return new Heading(Level.FIVE);
+  }
+  
+  public static Heading six(){
+    return new Heading(Level.SIX);
+  }
 
-  public Heading(Level level) {
+  private Heading(Level level) {
     super(Elements.heading(level.ordinal() + 1));
     this.addChild(this.textHolder).addChild(this.secondary);
   }
@@ -54,7 +74,7 @@ public final class Heading extends Component<Heading> implements HasText<Heading
     return this.textHolder.text();
   }
 
-  public static enum Level {
+  static enum Level {
     ONE, TWO, THREE, FOUR, FIVE, SIX;
 
     public String level() {

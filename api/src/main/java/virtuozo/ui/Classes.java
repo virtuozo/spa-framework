@@ -1,8 +1,8 @@
 package virtuozo.ui;
 
-import virtuozo.ui.api.UIClass;
-import virtuozo.ui.api.UIClasses;
-import virtuozo.ui.api.UIComponent;
+import virtuozo.ui.interfaces.UIClass;
+import virtuozo.ui.interfaces.UIClasses;
+import virtuozo.ui.interfaces.UIComponent;
 
 import com.google.gwt.user.client.ui.WidgetHolder;
 

@@ -14,20 +14,29 @@
  */
 package virtuozo.ui;
 
+
 public final class Container extends Composite<Container> {
 
-  public Container(Type type) {
+  public static Container fixed() {
+    return new Container(Type.FIXED);
+  }
+  
+  public static Container fluid() {
+    return new Container(Type.FIXED);
+  }
+  
+  private Container(Type type) {
     super(Elements.div());
     this.css().set(type);
   }
 
   public Row addRow() {
-    Row row = new Row();
+    Row row = Row.create();
     this.addChild(row);
     return row;
   }
   
-  public static class Type extends CssClass {
+  static class Type extends CssClass {
     private Type(String name) {
       super(name);
     }
@@ -37,8 +46,8 @@ public final class Container extends Composite<Container> {
       return STYLES;
     }
 
-    public static final Type FIXED = new Type("container");
-    public static final Type FLUID = new Type("container-fluid");
-    private static final StyleChooser STYLES = new StyleChooser(FIXED, FLUID);
+    static final Type FIXED = new Type("container");
+    static final Type FLUID = new Type("container-fluid");
+    static final StyleChooser STYLES = new StyleChooser(FIXED, FLUID);
   }
 }

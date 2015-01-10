@@ -1,11 +1,9 @@
 package virtuozo.ui;
 
-import virtuozo.ui.Heading.Level;
-import virtuozo.ui.OrderList.Type;
-import virtuozo.ui.api.Assets;
-import virtuozo.ui.api.Icon;
-import virtuozo.ui.api.UIComponent;
 import virtuozo.ui.css.State;
+import virtuozo.ui.interfaces.Assets;
+import virtuozo.ui.interfaces.Icon;
+import virtuozo.ui.interfaces.UIComponent;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.AnchorElement;
@@ -17,7 +15,7 @@ import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.user.client.Timer;
 
 public class Carousel extends Component<Carousel> {
-  private OrderList indicators = new OrderList(Type.ORDERED).css("carousel-indicators");
+  private OrderList indicators = OrderList.ordered().css("carousel-indicators");
 
   private Tag<DivElement> slides = Tag.asDiv().css("carousel-inner");
 
@@ -109,7 +107,7 @@ public class Carousel extends Component<Carousel> {
   }
 
   public class Slide extends Component<Slide> {
-    private Image image = new Image();
+    private Image image = Image.create();
 
     private Caption caption = new Caption();
 
@@ -139,11 +137,11 @@ public class Carousel extends Component<Carousel> {
       }
 
       public Heading addHeading() {
-        return new Heading(Level.THREE).attachTo(this);
+        return Heading.three().attachTo(this);
       }
 
       public Paragraph addText() {
-        return new Paragraph().attachTo(this);
+        return Paragraph.create().attachTo(this);
       }
     }
   }

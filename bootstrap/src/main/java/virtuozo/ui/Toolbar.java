@@ -14,18 +14,20 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.Elements;
-import virtuozo.ui.Parent;
 
 public final class Toolbar extends Parent<Toolbar, ButtonGroup> {
 
-  public Toolbar() {
+  public static Toolbar create(){
+    return new Toolbar();
+  }
+  
+  private Toolbar() {
     super(Elements.div());
     this.role("toolbar").css().set("btn-toolbar");
   }
   
   public ButtonGroup addButtonGroup(){
-    ButtonGroup group = new ButtonGroup();
+    ButtonGroup group = ButtonGroup.create();
     this.add(group);
     return group;
   }

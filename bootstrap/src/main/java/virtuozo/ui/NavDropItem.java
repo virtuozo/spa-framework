@@ -1,13 +1,12 @@
 package virtuozo.ui;
 
-import virtuozo.ui.Component;
 import virtuozo.ui.Menu.MenuItem;
-import virtuozo.ui.api.HasActivation;
-import virtuozo.ui.api.HasClickHandlers;
-import virtuozo.ui.api.HasMouseHandlers;
-import virtuozo.ui.api.HasText;
-import virtuozo.ui.api.ActivationEvent.ActivationHandler;
-import virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
+import virtuozo.ui.events.ActivationEvent.ActivationHandler;
+import virtuozo.ui.events.DeactivationEvent.DeactivationHandler;
+import virtuozo.ui.interfaces.HasActivation;
+import virtuozo.ui.interfaces.HasClickHandlers;
+import virtuozo.ui.interfaces.HasMouseHandlers;
+import virtuozo.ui.interfaces.HasText;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickHandler;

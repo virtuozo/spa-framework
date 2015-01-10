@@ -1,27 +1,27 @@
 package virtuozo.ui;
 
-import virtuozo.ui.Component;
-import virtuozo.ui.CssClass;
-import virtuozo.ui.Elements;
-import virtuozo.ui.StyleChooser;
-import virtuozo.ui.Tag;
-import virtuozo.ui.api.UIComponent;
-
 import com.google.gwt.dom.client.DivElement;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 
 public class Notification extends Component<Notification> {
   
   private Tag<DivElement> close = Tag.asDiv().css("notification-close").html("&times;");
   
-  private Tag<DivElement> title = Tag.asDiv().css("notification-title");
+  private Header header = new Header();
   
-  private Tag<DivElement> message = Tag.asDiv().css("notification-message");
+  private Body body = new Body();
   
   Notification() {
     super(Elements.div());
     this.css("notification").css(Color.DEFAULT, Size.NORMAL).hide();
-    this.addChild(this.close).addChild(this.title).addChild(this.message);
+    this.addChild(this.close).addChild(this.header).addChild(this.body);
+    this.close.onClick(new ClickHandler() {
+      @Override
+      public void onClick(ClickEvent event) {
+        Notification.this.detach();
+      }
+    });
   }
   
   public Notification onClose(ClickHandler handler) {
@@ -29,20 +29,34 @@ public class Notification extends Component<Notification> {
     return this;
   }
   
-  @Override
-  public Notification title(String title) {
-    this.title.text(title);
-    return this;
+  public Header header() {
+    return header;
   }
   
-  public Notification message(String message){
-    this.message.text(message);
-    return this;
+  public Body body() {
+    return body;
   }
   
-  public Notification message(UIComponent message){
-    this.message.add(message);
-    return this;
+  public class Header extends Composite<Header>{
+    public Header() {
+      super(Elements.div());
+      this.css("notification-title");
+    }
+    
+    public Text addText(){
+      return Text.create().attachTo(this);
+    }
+  }
+  
+  public class Body extends Composite<Body>{
+    public Body() {
+      super(Elements.div());
+      this.css("notification-message");
+    }
+    
+    public Text addText(){
+      return Text.create().attachTo(this);
+    }
   }
   
   public static final class Color extends CssClass {
@@ -56,11 +70,12 @@ public class Notification extends Component<Notification> {
       return STYLES;
     }
 
-    public static final Color DEFAULT = new Color("notification-default");
-    public static final Color ERROR = new Color("notification-error");
-    public static final Color NOTICE = new Color("notification-notice");
-    public static final Color WARNING = new Color("notification-warning");
-    static final StyleChooser STYLES = new StyleChooser(DEFAULT, ERROR, NOTICE, WARNING);
+    public static final Color DEFAULT = new Color("btn-default");
+    public static final Color DANGER = new Color("btn-danger");
+    public static final Color INFO = new Color("btn-info");
+    public static final Color SUCCESS = new Color("btn-success");
+    public static final Color WARNING = new Color("btn-warning");
+    static final StyleChooser STYLES = new StyleChooser(DEFAULT, DANGER, INFO, SUCCESS, WARNING);
   }
 
   public static final class Size extends CssClass {

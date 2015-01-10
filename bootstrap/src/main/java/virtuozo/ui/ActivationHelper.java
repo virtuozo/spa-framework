@@ -17,9 +17,9 @@ package virtuozo.ui;
 import java.util.ArrayList;
 import java.util.List;
 
-import virtuozo.ui.api.ActivationEvent;
-import virtuozo.ui.api.DeactivationEvent;
-import virtuozo.ui.api.HasActivation;
+import virtuozo.ui.events.ActivationEvent;
+import virtuozo.ui.events.DeactivationEvent;
+import virtuozo.ui.interfaces.HasActivation;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -29,6 +29,14 @@ public class ActivationHelper implements ClickHandler {
   private List<HasActivation<?>> activationList = new ArrayList<HasActivation<?>>();
 
   private Behavior behavior = new ToggleBehavior();
+  
+  public static ActivationHelper create(){
+    return new ActivationHelper();
+  }
+  
+  private ActivationHelper() {
+    super();
+  }
   
   public void behavior(Behavior behaviour) {
     this.behavior = behaviour;

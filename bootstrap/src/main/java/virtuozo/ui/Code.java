@@ -1,9 +1,14 @@
 package virtuozo.ui;
 
-import virtuozo.ui.api.HasHtml;
+import virtuozo.ui.interfaces.HasHtml;
+
 
 public class Code extends Component<Code> implements HasHtml<Code> {
-  public Code() {
+  public static Code create(){
+    return new Code();
+  }
+  
+  private Code() {
     super(Elements.p());
   }
   
@@ -36,7 +41,7 @@ public class Code extends Component<Code> implements HasHtml<Code> {
   }
   
   public Code text(String text){
-    return this.addChild(new Text().text(text));
+    return this.addChild(Text.create().text(text));
   }
   
   @Override

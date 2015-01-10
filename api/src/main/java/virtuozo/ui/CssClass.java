@@ -14,9 +14,8 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.api.UIClass;
-import virtuozo.ui.api.UIComponent;
-
+import virtuozo.ui.interfaces.UIClass;
+import virtuozo.ui.interfaces.UIComponent;
 
 public abstract class CssClass implements UIClass {
   private String name;

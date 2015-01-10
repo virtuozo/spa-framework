@@ -14,17 +14,15 @@
  */
 package virtuozo.ui;
 
-import virtuozo.infra.BrowserEventInterceptor;
-import virtuozo.ui.OrderList.Type;
-import virtuozo.ui.api.ActivationEvent;
-import virtuozo.ui.api.ActivationEvent.ActivationHandler;
-import virtuozo.ui.api.DeactivationEvent;
-import virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
-import virtuozo.ui.api.HasActivation;
-import virtuozo.ui.api.HasClickHandlers;
-import virtuozo.ui.api.HasMouseHandlers;
-import virtuozo.ui.api.HasText;
 import virtuozo.ui.css.State;
+import virtuozo.ui.events.ActivationEvent;
+import virtuozo.ui.events.ActivationEvent.ActivationHandler;
+import virtuozo.ui.events.DeactivationEvent;
+import virtuozo.ui.events.DeactivationEvent.DeactivationHandler;
+import virtuozo.ui.interfaces.HasClickHandlers;
+import virtuozo.ui.interfaces.HasMouseHandlers;
+import virtuozo.ui.interfaces.HasState;
+import virtuozo.ui.interfaces.HasText;
 
 import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.dom.client.Element;
@@ -52,9 +50,12 @@ public class Menu extends Component<Menu>{
     }
   };
 
-  public Menu() {
-    super();
-    this.menu = new OrderList(Type.UNORDERED).hide();
+  public static Menu create(){
+    return new Menu();
+  }
+  
+  private Menu() {
+    this.menu = OrderList.unordered().hide();
     this.incorporate(this.menu);
     this.role("menu").css().set("dropdown-menu");
     BrowserEventInterceptor.get().onClick(this.closeHandler);
@@ -121,12 +122,16 @@ public class Menu extends Component<Menu>{
     return hover;
   }
 
-  public class MenuItem extends Component<MenuItem> implements HasText<MenuItem>, HasClickHandlers<MenuItem>, HasMouseHandlers<MenuItem>, HasActivation<MenuItem> {
+  public class MenuItem extends Component<MenuItem> implements HasText<MenuItem>, HasClickHandlers<MenuItem>, HasMouseHandlers<MenuItem>, HasState<MenuItem> {
     private Tag<AnchorElement> anchor = Tag.asAnchor().role("menuitem");
+    
+    private EnablementHelper<MenuItem> helper;
 
     public MenuItem(ListItem item) {
       super(item);
       this.role("presentation").addChild(this.anchor);
+      this.helper = new EnablementHelper<MenuItem>(this);
+      this.helper.intercept(this.anchor);
     }
     
     @Override
@@ -187,7 +192,7 @@ public class Menu extends Component<Menu>{
       this.anchor.onDoubleClick(handler);
       return this;
     }
-
+    
     @Override
     public MenuItem activate() {
       this.css(State.ACTIVE);
@@ -219,6 +224,21 @@ public class Menu extends Component<Menu>{
     @Override
     public boolean match(Element element) {
       return this.anchor.id().equals(element.getId());
+    }
+    
+    @Override
+    public MenuItem enable() {
+      return this.helper.enable();
+    }
+    
+    @Override
+    public MenuItem disable() {
+      return this.helper.disable();
+    }
+    
+    @Override
+    public boolean disabled() {
+      return this.helper.disabled();
     }
   }
   

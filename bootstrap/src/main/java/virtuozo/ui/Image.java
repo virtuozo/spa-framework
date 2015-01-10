@@ -15,23 +15,22 @@
 
 package virtuozo.ui;
 
-import virtuozo.ui.Component;
-import virtuozo.ui.CssClass;
-import virtuozo.ui.Elements;
-import virtuozo.ui.StyleChooser;
-
 import com.google.gwt.dom.client.ImageElement;
 import com.google.gwt.resources.client.ImageResource;
 
 public final class Image extends Component<Image> {
 
-  public Image() {
+  public static Image create(){
+    return new Image();
+  }
+  
+  private Image() {
     super(Elements.img());
   }
 
-  public Image(Shape shape) {
-    this();
+  public Image shape(Shape shape) {
     this.css().set(shape);
+    return this;
   }
 
   public Image src(ImageResource resource) {
@@ -49,7 +48,7 @@ public final class Image extends Component<Image> {
 	  return this;
   }
 
-  public ImageElement element() {
+  protected ImageElement element() {
     return super.element();
   }
 

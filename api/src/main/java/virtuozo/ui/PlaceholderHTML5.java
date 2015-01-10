@@ -1,7 +1,8 @@
 package virtuozo.ui;
 
-import virtuozo.ui.api.Placeholder;
-import virtuozo.ui.api.UIInput;
+import virtuozo.ui.interfaces.Placeholder;
+import virtuozo.ui.interfaces.UIInput;
+
 
 public class PlaceholderHTML5 implements Placeholder {
 

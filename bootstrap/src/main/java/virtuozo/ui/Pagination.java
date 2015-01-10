@@ -14,12 +14,9 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.Component;
-import virtuozo.ui.CssClass;
-import virtuozo.ui.StyleChooser;
-import virtuozo.ui.api.Assets;
-import virtuozo.ui.api.PageChangeEvent;
-import virtuozo.ui.api.PageChangeEvent.PageChangeHandler;
+import virtuozo.ui.events.PageChangeEvent;
+import virtuozo.ui.events.PageChangeEvent.PageChangeHandler;
+import virtuozo.ui.interfaces.Assets;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -34,9 +31,13 @@ public class Pagination extends Component<Pagination> {
 
   private PaginationItem active;
 
-  private OrderList list = new OrderList(OrderList.Type.UNORDERED);
+  private OrderList list = OrderList.unordered();
 
-  public Pagination() {
+  public static Pagination create(){
+    return new Pagination();
+  }
+  
+  private Pagination() {
     this.incorporate(this.list);
     this.css().set("pagination");
   }

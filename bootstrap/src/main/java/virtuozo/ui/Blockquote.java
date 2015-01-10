@@ -15,19 +15,20 @@
 
 package virtuozo.ui;
 
-import virtuozo.ui.Component;
-import virtuozo.ui.Elements;
-import virtuozo.ui.Tag;
-import virtuozo.ui.api.HasText;
+import virtuozo.ui.interfaces.HasText;
 
 import com.google.gwt.dom.client.Element;
 
 public final class Blockquote extends Component<Blockquote> implements HasText<Blockquote>{
-  private Paragraph textHolder = new Paragraph();
+  private Paragraph textHolder = Paragraph.create();
   
   private Tag<Element> footer = Tag.as(Elements.create("footer")).hide();
   
-  public Blockquote() {
+  public static Blockquote create(){
+    return new Blockquote();
+  }
+  
+  private Blockquote() {
     super(Elements.blockquote());
     this.addChild(textHolder).addChild(this.footer);
   }

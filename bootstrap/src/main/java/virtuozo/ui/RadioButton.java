@@ -1,33 +1,37 @@
 package virtuozo.ui;
 
-import virtuozo.ui.Component;
-import virtuozo.ui.Elements;
-import virtuozo.ui.InputCheckbox;
-import virtuozo.ui.InputLabel;
-import virtuozo.ui.Text;
-import virtuozo.ui.api.HasText;
-import virtuozo.ui.api.UISelection;
+import virtuozo.ui.interfaces.HasText;
+import virtuozo.ui.interfaces.UISelection;
 
 import com.google.gwt.event.dom.client.ChangeHandler;
 
 public class RadioButton extends Component<RadioButton> implements UISelection<RadioButton, String>, HasText<RadioButton>{
 
-  private InputLabel label = new InputLabel();
+  private InputLabel label = InputLabel.create();
   
-  private InputCheckbox input = new InputCheckbox();
+  private InputRadio input;
   
-  private Text text = new Text();
+  public static RadioButton create(String name){
+    return new RadioButton(name);
+  }
   
-  private RadioButton() {
+  private RadioButton(String name) {
     super(Elements.div());
+    this.input = InputRadio.create(name);
     this.css("radio");
-    this.label.addChild(this.input).addChild(this.text);
+    this.label.addFirstChild(this.input);
     this.addChild(this.label);
   }
   
   @Override
-  public RadioButton checked(Boolean checked) {
-    this.input.checked(checked);
+  public RadioButton check() {
+    this.input.check();
+    return this;
+  }
+  
+  @Override
+  public RadioButton uncheck() {
+    this.input.uncheck();
     return this;
   }
   
@@ -55,6 +59,7 @@ public class RadioButton extends Component<RadioButton> implements UISelection<R
 
   @Override
   public RadioButton disable() {
+    this.input.disable();
     this.css("disabled");
     return this;
   }
@@ -66,19 +71,24 @@ public class RadioButton extends Component<RadioButton> implements UISelection<R
 
   @Override
   public RadioButton enable() {
+    this.input.enable();
     this.css().remove("disabled");
     return this;
   }
 
   @Override
   public RadioButton text(String text) {
-    this.text.text(text);
+    this.label.text(text);
     return this;
   }
 
   @Override
   public String text() {
-    return this.text.text();
+    return this.label.text();
+  }
+  
+  public InputLabel label() {
+    return label;
   }
 
   @Override

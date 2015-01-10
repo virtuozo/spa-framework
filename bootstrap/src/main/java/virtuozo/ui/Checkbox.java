@@ -1,29 +1,37 @@
 package virtuozo.ui;
 
-import virtuozo.ui.api.HasText;
-import virtuozo.ui.api.UISelection;
 import virtuozo.ui.css.State;
+import virtuozo.ui.interfaces.HasText;
+import virtuozo.ui.interfaces.UISelection;
 
 import com.google.gwt.event.dom.client.ChangeHandler;
 
 public class Checkbox extends Component<Checkbox> implements UISelection<Checkbox, String>, HasText<Checkbox>{
 
-  private InputLabel label = new InputLabel();
+  private InputLabel label = InputLabel.create();
   
-  private InputCheckbox input = new InputCheckbox();
+  private InputCheckbox input = InputCheckbox.create();
   
-  private Text text = new Text();
+  public static Checkbox create(){
+    return new Checkbox();
+  }
   
   private Checkbox() {
     super(Elements.div());
     this.css("checkbox");
-    this.label.addChild(this.input).addChild(this.text);
+    this.label.addFirstChild(this.input);
     this.addChild(this.label);
   }
   
   @Override
-  public Checkbox checked(Boolean checked) {
-    this.input.checked(checked);
+  public Checkbox check() {
+    this.input.check();
+    return this;
+  }
+  
+  @Override
+  public Checkbox uncheck() {
+    this.input.uncheck();
     return this;
   }
   
@@ -51,6 +59,7 @@ public class Checkbox extends Component<Checkbox> implements UISelection<Checkbo
 
   @Override
   public Checkbox disable() {
+    this.input.disable();
     this.css(State.DISABLED);
     return this;
   }
@@ -62,19 +71,24 @@ public class Checkbox extends Component<Checkbox> implements UISelection<Checkbo
 
   @Override
   public Checkbox enable() {
+    this.input.enable();
     this.css().remove(State.DISABLED);
     return this;
   }
 
   @Override
   public Checkbox text(String text) {
-    this.text.text(text);
+    this.label.text(text);
     return this;
   }
 
   @Override
   public String text() {
-    return this.text.text();
+    return this.label.text();
+  }
+  
+  InputLabel label(){
+    return this.label;
   }
 
   @Override

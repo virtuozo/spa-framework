@@ -15,17 +15,17 @@
 package virtuozo.ui;
 
 import virtuozo.ui.Menu.MenuItem;
-import virtuozo.ui.api.ActivationEvent;
-import virtuozo.ui.api.ActivationEvent.ActivationHandler;
-import virtuozo.ui.api.DeactivationEvent;
-import virtuozo.ui.api.DeactivationEvent.DeactivationHandler;
-import virtuozo.ui.api.HasActivation;
-import virtuozo.ui.api.HasClickHandlers;
-import virtuozo.ui.api.HasMouseHandlers;
-import virtuozo.ui.api.HasText;
-import virtuozo.ui.api.UIClass;
-import virtuozo.ui.api.UIClasses;
 import virtuozo.ui.css.State;
+import virtuozo.ui.events.ActivationEvent;
+import virtuozo.ui.events.ActivationEvent.ActivationHandler;
+import virtuozo.ui.events.DeactivationEvent;
+import virtuozo.ui.events.DeactivationEvent.DeactivationHandler;
+import virtuozo.ui.interfaces.HasActivation;
+import virtuozo.ui.interfaces.HasClickHandlers;
+import virtuozo.ui.interfaces.HasMouseHandlers;
+import virtuozo.ui.interfaces.HasText;
+import virtuozo.ui.interfaces.UIClass;
+import virtuozo.ui.interfaces.UIClasses;
 
 import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.dom.client.DivElement;
@@ -40,13 +40,17 @@ import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.dom.client.MouseWheelHandler;
 
 public class TabPanel extends Component<TabPanel> {
-  private OrderList nav = new OrderList(OrderList.Type.UNORDERED);
+  private OrderList nav = OrderList.unordered();
 
   private Tag<DivElement> content = Tag.asDiv();
 
-  private ActivationHelper activationHelper = new ActivationHelper();
+  private ActivationHelper activationHelper = ActivationHelper.create();
 
-  public TabPanel() {
+  public static TabPanel create(){
+    return new TabPanel();
+  }
+  
+  private TabPanel() {
     super(Elements.div());
     this.addChild(nav).addChild(this.content);
     this.nav.css("nav", "nav-tabs");
@@ -56,7 +60,7 @@ public class TabPanel extends Component<TabPanel> {
   public Tab addTab() {
     Tab tab = new Tab(this.nav.addItem());
     this.activationHelper.add(tab);
-    this.content.addChild(tab.panel());
+    this.content.add(tab.panel());
 
     if (this.nav.childrenCount() == 1) {
       tab.activate();

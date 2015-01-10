@@ -8,7 +8,7 @@
   <version>1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Virtuozo</name>
-  <description>Virtuozo is a spa framework for Java Lovers</description>
+  <description>Virtuozo is a all-in-one SPA framework for Java Lovers</description>
   <url>http://virtuozo.github.com/site</url>
 
   <properties>
@@ -205,6 +205,29 @@
               <autoReleaseAfterClose>true</autoReleaseAfterClose>
             </configuration>
           </plugin>
+
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>gwt-maven-plugin</artifactId>
+            <version>2.7.0</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>test</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
+          <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.6</version>
+            <configuration>
+              <excludes>
+                <exclude>**/*UT*.java</exclude>
+              </excludes>
+            </configuration>
+          </plugin>
         </plugins>
       </build>
     </profile>
@@ -238,6 +261,7 @@
   </developers>
 
   <distributionManagement>
+    <!-- Maven central -->
     <snapshotRepository>
       <id>ossrh</id>
       <url>https://oss.sonatype.org/content/repositories/snapshots</url>
@@ -246,6 +270,10 @@
       <id>ossrh</id>
       <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
     </repository>
-  </distributionManagement>
 
+    <!-- Bintray <repository> <id>bintray-mrbraz-maven-virtuozo</id> <name>mrbraz-maven-virtuozo</name> 
+      <url>https://api.bintray.com/maven/mrbraz/maven/virtuozo</url> </repository> 
+      <snapshotRepository> <id>oss-jfrog-artifactory</id> <name>oss-jfrog-artifactory-snapshots</name> 
+      <url>http://oss.jfrog.org/artifactory/oss-snapshot-local</url> </snapshotRepository> -->
+  </distributionManagement>
 </project>

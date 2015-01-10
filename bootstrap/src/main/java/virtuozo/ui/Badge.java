@@ -14,18 +14,16 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.api.HasText;
-import virtuozo.ui.api.UIComponent;
+import virtuozo.ui.interfaces.HasText;
 
 public class Badge extends Component<Badge> implements HasText<Badge>{
-  public Badge() {
-    super(Elements.span());
-    this.css().set("badge");
+  public static Badge create(){
+    return new Badge();
   }
   
-  public Badge attachTo(UIComponent widget){
-    widget.asComponent().addChild(this);
-    return this;
+  private Badge() {
+    super(Elements.span());
+    this.css().set("badge");
   }
 
   @Override

@@ -15,26 +15,22 @@
 
 package virtuozo.ui;
 
-import virtuozo.ui.Component;
-import virtuozo.ui.Elements;
 
 
 public final class DescriptionList extends Component<DescriptionList> {
 
-  public DescriptionList() {
+  public static DescriptionList horizontal() {
+    return new DescriptionList().css("dl-horizontal");
+  }
+
+  public static DescriptionList vertical() {
+    return new DescriptionList();
+  }
+  
+  private DescriptionList() {
     super(Elements.dl());
   }
 
-  public DescriptionList horizontal() {
-    this.css("dl-horizontal");
-    return this;
-  }
-
-  public DescriptionList vertical() {
-    this.css().remove("dl-horizontal");
-    return this;
-  }
-  
   public DescriptionList addItem(String title, String description){
     return this.title(title).description(description);
   }

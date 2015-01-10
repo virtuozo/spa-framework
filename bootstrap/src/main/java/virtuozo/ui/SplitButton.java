@@ -14,13 +14,10 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.Component;
-import virtuozo.ui.CompositeClasses;
-import virtuozo.ui.Tag;
-import virtuozo.ui.api.HasClickHandlers;
-import virtuozo.ui.api.HasText;
-import virtuozo.ui.api.UIClass;
-import virtuozo.ui.api.UIClasses;
+import virtuozo.ui.interfaces.HasClickHandlers;
+import virtuozo.ui.interfaces.HasText;
+import virtuozo.ui.interfaces.UIClass;
+import virtuozo.ui.interfaces.UIClasses;
 
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -28,22 +25,26 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DoubleClickHandler;
 
 public final class SplitButton extends Component<SplitButton> implements HasText<SplitButton>, HasClickHandlers<SplitButton>{
-  private final ButtonGroup group = new ButtonGroup();
+  private final ButtonGroup group = ButtonGroup.create();
   
-  private final Button button = new Button();
+  private final Button button = Button.create();
   
-  private final Button caret = new Button();
+  private final Button caret = Button.create();
   
   private Tag<DivElement> dropdown = Tag.asDiv();
   
-  private final Menu menu = new Menu();
+  private final Menu menu = Menu.create();
   
-  private CompositeClasses classes = new CompositeClasses(button.css(), caret.css());
+  private CompositeClasses classes = CompositeClasses.create(button.css(), caret.css());
   
-  public SplitButton() {
+  public static SplitButton create(){
+    return new SplitButton();
+  }
+  
+  private SplitButton() {
     this.incorporate(this.group);
     this.addChild(this.dropdown);
-    this.dropdown.addChild(new ButtonGroup().add(this.button).add(this.caret)).addChild(this.menu).css().set("dropdown");
+    this.dropdown.add(ButtonGroup.create().add(this.button).add(this.caret)).add(this.menu).css().set("dropdown");
     
     this.caret.addChild(new Caret()).css("dropdown-toggle");
     this.caret.onClick(new ClickHandler() {

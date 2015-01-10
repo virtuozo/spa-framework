@@ -15,7 +15,7 @@
 
 package virtuozo.ui;
 
-import virtuozo.ui.api.Placeholder;
+import virtuozo.ui.interfaces.Placeholder;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.impl.TextBoxImpl;
@@ -26,7 +26,11 @@ public final class InputText extends Input<InputText> {
   
   private final Placeholder placeholderImpl = GWT.create(Placeholder.class);
 
-  public InputText() {
+  public static InputText create() {
+    return new InputText();
+  }
+  
+  private InputText() {
     super(Elements.text());
   }
 

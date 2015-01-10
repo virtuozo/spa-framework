@@ -15,20 +15,18 @@
 
 package virtuozo.ui;
 
-import virtuozo.ui.Component;
-import virtuozo.ui.InputGroup;
 import virtuozo.ui.InputGroup.Size;
-import virtuozo.ui.api.HasChangeHandlers;
-import virtuozo.ui.api.UIInput;
+import virtuozo.ui.interfaces.HasChangeHandlers;
+import virtuozo.ui.interfaces.UIInput;
 
-import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ChangeHandler;
 
+@SuppressWarnings("unchecked")
 abstract class Spinner<S extends Spinner<S>> extends Component<S> implements UIInput<S, Integer>, HasChangeHandlers<S> {
 
-  private InputGroup input = new NumberBox().css(Size.SMALL).css("spinner-input").maxLength(3);
+  private InputGroup input = InputNumber.create().css(Size.SMALL).css("spinner-input").maxLength(3);
   
   private int step = 1;
   
@@ -38,12 +36,8 @@ abstract class Spinner<S extends Spinner<S>> extends Component<S> implements UII
 
   private int maxValue = Integer.MAX_VALUE;
   
-  public Spinner() {
-    this.init();
-  }
-  
-  public Spinner(Element element) {
-    super(element);
+  protected Spinner() {
+    this.incorporate(this.input);
     this.init();
   }
   

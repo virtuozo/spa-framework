@@ -1,14 +1,21 @@
 package virtuozo.ui;
 
+import virtuozo.ui.interfaces.Layout;
+
 import com.google.gwt.dom.client.StyleInjector;
 
-import virtuozo.ui.Heading.Level;
-import virtuozo.ui.api.Layout;
-
 public class HeroPageLayout implements Layout {
-  private Navbar bar = new Navbar();
+  private Navbar bar = Navbar.create();
   
   private Header header = new Header();
+  
+  public static HeroPageLayout create(){
+    return new HeroPageLayout();
+  }
+  
+  private HeroPageLayout() {
+    super();
+  }
   
   public Navbar navbar() {
     return this.bar;
@@ -39,7 +46,7 @@ public class HeroPageLayout implements Layout {
   }
   
   public Container addContainer(){
-    return new Container(Container.Type.FLUID).attachTo(HTML.body());
+    return Container.fluid().attachTo(HTML.body());
   }
 
   public class Header extends Composite<Header> {
@@ -49,13 +56,13 @@ public class HeroPageLayout implements Layout {
     }
 
     public Heading addHeading() {
-      Heading heading = new Heading(Level.ONE);
+      Heading heading = Heading.one();
       this.add(heading);
       return heading;
     }
 
     public Paragraph addText() {
-      Paragraph text = new Paragraph();
+      Paragraph text = Paragraph.create();
       this.add(text);
       return text;
     }

@@ -14,12 +14,17 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.api.HasText;
+import virtuozo.ui.interfaces.HasText;
+
 
 public class PageHeader extends Component<PageHeader> implements HasText<PageHeader> {
-  private Heading heading = new Heading(Heading.Level.ONE);
+  private Heading heading = Heading.one();
   
-  public PageHeader() {
+  public static PageHeader create(){
+    return new PageHeader();
+  }
+  
+  private PageHeader() {
     super(Elements.div());
     this.addChild(this.heading);
     this.css("page-header");

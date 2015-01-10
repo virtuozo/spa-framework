@@ -16,27 +16,27 @@ package virtuozo.ui;
 
 import java.util.List;
 
-import virtuozo.ui.Component;
-import virtuozo.ui.CssClass;
-import virtuozo.ui.Elements;
-import virtuozo.ui.StyleChooser;
 import virtuozo.ui.ActivationHelper.Behavior;
 import virtuozo.ui.ActivationHelper.ToggleBehavior;
-import virtuozo.ui.api.HasActivation;
-import virtuozo.ui.api.UIComponent;
+import virtuozo.ui.interfaces.HasActivation;
+import virtuozo.ui.interfaces.UIComponent;
 
 import com.google.gwt.dom.client.Element;
 
 public class ButtonGroup extends Component<ButtonGroup> {
-  private ActivationHelper activationHelper = new ActivationHelper();
+  private ActivationHelper activationHelper = ActivationHelper.create();
   
   private Type type;
   
-  public ButtonGroup() {
-    this(Type.DEFAULT);
+  public static ButtonGroup block(){
+    return new ButtonGroup(Type.BLOCK);
   }
   
-  public ButtonGroup(Type type) {
+  public static ButtonGroup create(){
+    return new ButtonGroup(Type.DEFAULT);
+  }
+  
+  private ButtonGroup(Type type) {
     super(Elements.div());
     this.activationHelper.behavior(new Behavior() {
       @Override
@@ -58,7 +58,7 @@ public class ButtonGroup extends Component<ButtonGroup> {
   }
   
   public Button addButton(){
-    Button button = new Button();
+    Button button = Button.create();
     this.add(button);
     return button;
   }
@@ -69,7 +69,7 @@ public class ButtonGroup extends Component<ButtonGroup> {
   }
   
   public ButtonGroup addButtonGroup(){
-    ButtonGroup group = new ButtonGroup();
+    ButtonGroup group = ButtonGroup.create();
     this.add(group);
     return group;
   }
@@ -79,7 +79,7 @@ public class ButtonGroup extends Component<ButtonGroup> {
   }
   
   public DropButton addDropButton(){
-    DropButton button = new DropButton();
+    DropButton button = DropButton.create();
     this.add(button);
     return button;
   }
@@ -89,7 +89,7 @@ public class ButtonGroup extends Component<ButtonGroup> {
   }
   
   public SplitButton addSplitButton(){
-    SplitButton button = new SplitButton();
+    SplitButton button = SplitButton.create();
     this.add(button);
     return button;
   }
@@ -98,7 +98,7 @@ public class ButtonGroup extends Component<ButtonGroup> {
     return this.type.add(this, add);
   }
   
-  public static enum Type{
+  static enum Type {
     BLOCK{
       String css() {
         return "btn-group btn-group-justified";
@@ -106,7 +106,7 @@ public class ButtonGroup extends Component<ButtonGroup> {
       
       @Override
       ButtonGroup add(ButtonGroup group, UIComponent button) {
-        group.add(new ButtonGroup().addChild(button));
+        group.add(ButtonGroup.create().addChild(button));
         return group;
       }
     }, DEFAULT{

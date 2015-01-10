@@ -14,19 +14,28 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.OrderList.Type;
-import virtuozo.ui.api.HasText;
+import virtuozo.ui.interfaces.HasText;
 
 public final class ListItem extends Composite<ListItem> implements HasText<ListItem>{
-  private Text text = new Text();
+  private Text text = Text.create();
   
-  public ListItem() {
+  public static ListItem create(){
+    return new ListItem();
+  }
+  
+  private ListItem() {
     super(Elements.li());
     this.add(this.text);
   }
   
-  public OrderList addList(Type type){
-    OrderList list = new OrderList(type);
+  public OrderList addUnorderedList(){
+    OrderList list = OrderList.unordered();
+    this.addChild(list);
+    return list;
+  }
+  
+  public OrderList addOrderedList(){
+    OrderList list = OrderList.ordered();
     this.addChild(list);
     return list;
   }

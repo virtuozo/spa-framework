@@ -1,5 +1,7 @@
 package virtuozo.infra;
 
+import virtuozo.infra.interfaces.SubscriptionCallback;
+
 import com.google.gwt.event.shared.GwtEvent.Type;
 
 public class Subscriber<S> {

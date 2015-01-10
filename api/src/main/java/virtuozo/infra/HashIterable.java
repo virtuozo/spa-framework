@@ -16,27 +16,31 @@ package virtuozo.infra;
 
 import java.util.Iterator;
 
-import com.google.gwt.core.client.*;
+import com.google.gwt.core.client.JsArray;
+import com.google.gwt.core.client.JsArrayBoolean;
+import com.google.gwt.core.client.JsArrayInteger;
+import com.google.gwt.core.client.JsArrayNumber;
+import com.google.gwt.core.client.JsArrayString;
 
 public class HashIterable {
 
-  public static <H extends HashObject> Iterable<H> from(JsArray<H> values) {
+  public static <H extends HashObject> Iterable<H> of(JsArray<H> values) {
     return new JSObjectIterable<H>(values);
   }
 
-  public static Iterable<Boolean> from(JsArrayBoolean values) {
+  public static Iterable<Boolean> of(JsArrayBoolean values) {
     return new BooleanIterable(values);
   }
 
-  public static Iterable<Integer> from(JsArrayInteger values) {
+  public static Iterable<Integer> of(JsArrayInteger values) {
     return new IntegerIterable(values);
   }
 
-  public static Iterable<Number> from(JsArrayNumber values) {
+  public static Iterable<Number> of(JsArrayNumber values) {
     return new NumberIterable(values);
   }
 
-  public static Iterable<String> from(JsArrayString values) {
+  public static Iterable<String> of(JsArrayString values) {
     return new StringIterable(values);
   }
 

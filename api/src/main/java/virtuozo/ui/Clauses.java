@@ -1,7 +1,8 @@
 package virtuozo.ui;
 
-import virtuozo.ui.api.Clause;
-import virtuozo.ui.api.UIComponent;
+import virtuozo.ui.interfaces.Clause;
+import virtuozo.ui.interfaces.UIComponent;
+
 
 public enum Clauses implements Clause{
   ATTACHED{

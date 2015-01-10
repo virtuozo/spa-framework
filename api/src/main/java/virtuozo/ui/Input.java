@@ -15,12 +15,12 @@
 
 package virtuozo.ui;
 
-import virtuozo.ui.api.HasChangeHandlers;
-import virtuozo.ui.api.HasClickHandlers;
-import virtuozo.ui.api.HasFocusHandlers;
-import virtuozo.ui.api.HasKeyHandlers;
-import virtuozo.ui.api.HasMouseHandlers;
-import virtuozo.ui.api.UIInput;
+import virtuozo.ui.interfaces.HasChangeHandlers;
+import virtuozo.ui.interfaces.HasClickHandlers;
+import virtuozo.ui.interfaces.HasFocusHandlers;
+import virtuozo.ui.interfaces.HasKeyHandlers;
+import virtuozo.ui.interfaces.HasMouseHandlers;
+import virtuozo.ui.interfaces.UIInput;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.InputElement;
@@ -45,18 +45,9 @@ public abstract class Input<I extends Input<I>> extends Component<I> implements 
 
   private InputElement element;
   
-  private InputState state = new InputState();
-
-  public Input(InputElement element) {
+  protected Input(InputElement element) {
     super(element);
     this.element = element;
-    this.state.onEnablementChange(new virtuozo.infra.api.ChangeHandler<Boolean>() {
-      
-      @Override
-      public void onChange(Boolean oldValue, Boolean newValue) {
-        Input.this.element.setDisabled(newValue);
-      }
-    });
   }
 
   public InputElement element() {
@@ -143,17 +134,17 @@ public abstract class Input<I extends Input<I>> extends Component<I> implements 
   }
 
   public I disable() {
-    this.state.disable();
+    this.element.setDisabled(true);;
     return (I) this;
   }
   
   @Override
   public boolean disabled() {
-    return this.state.disabled();
+    return this.element.isDisabled();
   }
 
   public I enable() {
-    this.state.enable();
+    this.element.setDisabled(false);
     return (I) this;
   }
 }

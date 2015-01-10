@@ -15,9 +15,9 @@
 package virtuozo.ui;
 
 import virtuozo.infra.MessageFormat;
-import virtuozo.ui.api.Assets;
-import virtuozo.ui.api.PageChangeEvent;
-import virtuozo.ui.api.PageChangeEvent.PageChangeHandler;
+import virtuozo.ui.events.PageChangeEvent;
+import virtuozo.ui.events.PageChangeEvent.PageChangeHandler;
+import virtuozo.ui.interfaces.Assets;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -26,7 +26,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 public class Pager extends Component<Pager> {
   private Assets assets = GWT.create(Assets.class);
   
-  private OrderList list = new OrderList(OrderList.Type.UNORDERED);
+  private OrderList list = OrderList.unordered();
 
   private PaginationItem previous = new PaginationItem(this.list.addItem()).disable();
 
@@ -40,7 +40,11 @@ public class Pager extends Component<Pager> {
 
   private String messageTemplate = "{0} - {1}";
 
-  public Pager() {
+  public static Pager create(){
+    return new Pager();
+  }
+  
+  private Pager() {
     this.incorporate(this.list);
     this.css().set("pager");
 

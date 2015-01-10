@@ -14,16 +14,20 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.api.HasClickHandlers;
-import virtuozo.ui.api.HasText;
+import virtuozo.ui.interfaces.HasClickHandlers;
+import virtuozo.ui.interfaces.HasText;
 
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DoubleClickHandler;
 
 public class Breadcrumb extends Component<Breadcrumb> {
-  private OrderList breadcrumb = new OrderList(OrderList.Type.ORDERED);
+  private OrderList breadcrumb = OrderList.ordered();
 
-  public Breadcrumb() {
+  public static Breadcrumb create(){
+    return new Breadcrumb();
+  }
+  
+  private Breadcrumb() {
     this.incorporate(this.breadcrumb);
     this.css().set("breadcrumb");
   }

@@ -14,8 +14,8 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.api.HasClickHandlers;
-import virtuozo.ui.api.UIComponent;
+import virtuozo.ui.interfaces.HasClickHandlers;
+import virtuozo.ui.interfaces.UIComponent;
 
 import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -66,14 +66,14 @@ public class Media extends Component<Media> {
 		}
 
 		public Heading addHeading() {
-			Heading heading = new Heading(Heading.Level.FOUR);
+			Heading heading = Heading.four();
 			heading.css().set("media-heading");
 			this.addChild(heading);
 			return heading;
 		}
 
 		public Paragraph addText() {
-			Paragraph text = new Paragraph();
+			Paragraph text = Paragraph.create();
 			this.add(text);
 			return text;
 		}
@@ -105,7 +105,7 @@ public class Media extends Component<Media> {
 		}
 
 		public Image addImage() {
-			Image image = new Image();
+			Image image = Image.create();
 			this.addChild(image);
 			image.css().set("media-object");
 			return image;
@@ -121,7 +121,7 @@ public class Media extends Component<Media> {
 			return this.on(handler);
 		}
 
-		public AnchorElement element() {
+		protected AnchorElement element() {
 			return super.element();
 		}
 	}

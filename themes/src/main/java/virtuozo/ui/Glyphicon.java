@@ -15,8 +15,8 @@
 package virtuozo.ui;
 
 import virtuozo.ui.Tag;
-import virtuozo.ui.api.Icon;
-import virtuozo.ui.api.UIComponent;
+import virtuozo.ui.interfaces.Icon;
+import virtuozo.ui.interfaces.UIComponent;
 
 import com.google.gwt.dom.client.SpanElement;
 

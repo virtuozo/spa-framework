@@ -15,17 +15,10 @@
 
 package virtuozo.ui;
 
-import virtuozo.ui.Component;
-import virtuozo.ui.Composite;
-import virtuozo.ui.CssClass;
-import virtuozo.ui.Elements;
-import virtuozo.ui.Parent;
-import virtuozo.ui.StyleChooser;
-import virtuozo.ui.Tag;
-import virtuozo.ui.api.HasClickHandlers;
-import virtuozo.ui.api.HasMouseHandlers;
-import virtuozo.ui.api.HasText;
-import virtuozo.ui.api.UICell;
+import virtuozo.ui.interfaces.HasClickHandlers;
+import virtuozo.ui.interfaces.HasMouseHandlers;
+import virtuozo.ui.interfaces.HasText;
+import virtuozo.ui.interfaces.UICell;
 
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.TableCellElement;
@@ -51,7 +44,11 @@ public final class Table extends Component<Table> {
 
   private Footer footer;
 
-  public Table() {
+  public static Table create() {
+    return new Table();
+  }
+  
+  private Table() {
     super(Elements.table());
     this.css().set("table");
   }

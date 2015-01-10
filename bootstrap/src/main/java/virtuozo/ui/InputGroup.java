@@ -1,20 +1,15 @@
 package virtuozo.ui;
 
-import virtuozo.ui.Component;
-import virtuozo.ui.CssClass;
-import virtuozo.ui.Elements;
-import virtuozo.ui.StyleChooser;
-import virtuozo.ui.api.HasChangeHandlers;
-import virtuozo.ui.api.HasClickHandlers;
-import virtuozo.ui.api.HasFocusHandlers;
-import virtuozo.ui.api.HasKeyHandlers;
-import virtuozo.ui.api.HasMouseHandlers;
-import virtuozo.ui.api.UIClass;
-import virtuozo.ui.api.UIClasses;
-import virtuozo.ui.api.UIComponent;
-import virtuozo.ui.api.UIInput;
+import virtuozo.ui.interfaces.HasChangeHandlers;
+import virtuozo.ui.interfaces.HasClickHandlers;
+import virtuozo.ui.interfaces.HasFocusHandlers;
+import virtuozo.ui.interfaces.HasKeyHandlers;
+import virtuozo.ui.interfaces.HasMouseHandlers;
+import virtuozo.ui.interfaces.UIClass;
+import virtuozo.ui.interfaces.UIClasses;
+import virtuozo.ui.interfaces.UIComponent;
+import virtuozo.ui.interfaces.UIInput;
 
-import com.google.gwt.dom.client.SpanElement;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -35,50 +30,70 @@ public class InputGroup extends Component<InputGroup> implements UIInput<InputGr
 
   private AddOn left = new AddOn().hide();
 
-  private UIInput<?, String> input;
+  private UIInput<?, String> control;
 
   private AddOn right = new AddOn().hide();
 
-  public InputGroup(UIInput<?, String> input) {
+  public static InputGroup create(UIInput<?, String> control){
+    return new InputGroup(control);
+  }
+  
+  protected InputGroup(UIInput<?, String> control) {
     super(Elements.div());
-    this.input = input;
-    this.input.asComponent().css("form-control");
-    super.css("input-group").addChild(this.left).addChild(this.input).addChild(this.right);
+    this.control= control;
+    this.control.asComponent().css("form-control");
+    super.css("input-group").addChild(this.left).addChild(this.control).addChild(this.right);
+  }
+  
+  public UIInput<?, String> control() {
+    return control;
   }
   
   @Override
   public InputGroup css(String... classes) {
-    this.input.asComponent().css(classes);
+    this.control.asComponent().css(classes);
     return this;
   }
   
   @Override
   public InputGroup css(UIClass... classes) {
-    this.input.asComponent().css(classes);
+    this.control.asComponent().css(classes);
     return this;
   }
   
   @Override
   public UIClasses css() {
-    return this.input.asComponent().css();
+    return this.control.asComponent().css();
   }
   
   @Override
   public String id() {
-    if(this.input != null){
-      return this.input.asComponent().id();
+    if(this.control != null){
+      return this.control.asComponent().id();
     }
     return super.id();
   }
   
   @Override
   public InputGroup id(String id) {
-    if(this.input != null){
-      this.input.asComponent().id(id);
+    if(this.control != null){
+      this.control.asComponent().id(id);
       return this;
     }
     
     return super.id(id);
+  }
+  
+  @Override
+  protected InputGroup focus() {
+    this.control.asComponent().focus();
+    return this;
+  }
+  
+  @Override
+  protected InputGroup blur() {
+    this.control.asComponent().blur();
+    return this;
   }
 
   public InputGroup prepend(UIComponent widget) {
@@ -93,129 +108,129 @@ public class InputGroup extends Component<InputGroup> implements UIInput<InputGr
 
   @Override
   public InputGroup value(String value) {
-    this.input.value(value);
+    this.control.value(value);
     return this;
   }
 
   @Override
   public String value() {
-    return this.input.value();
+    return this.control.value();
   }
 
   @Override
   public InputGroup clear() {
-    this.input.clear();
+    this.control.clear();
     return this;
   }
 
   @Override
   public InputGroup disable() {
-    this.input.disable();
+    this.control.disable();
     return this;
   }
   
   @Override
   public boolean disabled() {
-    return this.input.disabled();
+    return this.control.disabled();
   }
 
   @Override
   public InputGroup enable() {
-    this.input.enable();
+    this.control.enable();
     return this;
   }
 
   @Override
   public InputGroup onFocus(FocusHandler handler) {
-    this.input.asComponent().on(handler);
+    this.control.asComponent().on(handler);
     return this;
   }
 
   @Override
   public InputGroup onBlur(BlurHandler handler) {
-    this.input.asComponent().on(handler);
+    this.control.asComponent().on(handler);
     return this;
   }
 
   @Override
   public InputGroup onKeyPress(KeyPressHandler handler) {
-    this.input.asComponent().on(handler);
+    this.control.asComponent().on(handler);
     return this;
   }
 
   @Override
   public InputGroup onKeyDown(KeyDownHandler handler) {
-    this.input.asComponent().on(handler);
+    this.control.asComponent().on(handler);
     return this;
   }
 
   @Override
   public InputGroup onKeyUp(KeyUpHandler handler) {
-    this.input.asComponent().on(handler);
+    this.control.asComponent().on(handler);
     return this;
   }
 
   @Override
   public InputGroup onMouseDown(MouseDownHandler handler) {
-    this.input.asComponent().on(handler);
+    this.control.asComponent().on(handler);
     return this;
   }
 
   @Override
   public InputGroup onMouseMove(MouseMoveHandler handler) {
-    this.input.asComponent().on(handler);
+    this.control.asComponent().on(handler);
     return this;
   }
 
   @Override
   public InputGroup onMouseOut(MouseOutHandler handler) {
-    this.input.asComponent().on(handler);
+    this.control.asComponent().on(handler);
     return this;
   }
 
   @Override
   public InputGroup onMouseOver(MouseOverHandler handler) {
-    this.input.asComponent().on(handler);
+    this.control.asComponent().on(handler);
     return this;
   }
 
   @Override
   public InputGroup onMouseUp(MouseUpHandler handler) {
-    this.input.asComponent().on(handler);
+    this.control.asComponent().on(handler);
     return this;
   }
 
   @Override
   public InputGroup onMouseWheel(MouseWheelHandler handler) {
-    this.input.asComponent().on(handler);
+    this.control.asComponent().on(handler);
     return this;
   }
 
   @Override
   public InputGroup onClick(ClickHandler handler) {
-    this.input.asComponent().on(handler);
+    this.control.asComponent().on(handler);
     return this;
   }
 
   @Override
   public InputGroup onDoubleClick(DoubleClickHandler handler) {
-    this.input.asComponent().on(handler);
+    this.control.asComponent().on(handler);
     return this;
   }
 
   @Override
   public InputGroup onChange(ChangeHandler handler) {
-    this.input.asComponent().on(handler);
+    this.control.asComponent().on(handler);
     return this;
   }
 
   public InputGroup maxLength(int maxLength) {
-    this.input.asComponent().attribute("maxLength", String.valueOf(maxLength));
+    this.control.asComponent().attribute("maxLength", String.valueOf(maxLength));
     return this;
   }
   
   public InputGroup placeholder(String placeholder){
-    this.input.asComponent().attribute("placeholder", placeholder);
+    this.control.asComponent().attribute("placeholder", placeholder);
     return this;
   }
   

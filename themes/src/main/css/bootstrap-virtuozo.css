@@ -40,3 +40,7 @@
 .panel-group > .panel > .panel-heading:hover {
 	cursor: pointer;
 }
+
+.form-footer > button, .form-footer > .btn {
+	margin-right: 5px;
+}

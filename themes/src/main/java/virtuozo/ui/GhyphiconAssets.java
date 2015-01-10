@@ -1,7 +1,7 @@
 package virtuozo.ui;
 
-import virtuozo.ui.api.Assets;
-import virtuozo.ui.api.Icon;
+import virtuozo.ui.interfaces.Assets;
+import virtuozo.ui.interfaces.Icon;
 
 public class GhyphiconAssets implements Assets {
 

@@ -4,7 +4,11 @@ import virtuozo.ui.Row.Column;
 
 public class Row extends Parent<Row, Column> {
 
-  public Row() {
+  public static Row create(){
+    return new Row();
+  }
+  
+  private Row() {
     super(Elements.div());
     this.css().set("row");
   }
@@ -16,12 +20,12 @@ public class Row extends Parent<Row, Column> {
   }
   
   public class Column extends Composite<Column> {
-    public Column() {
+    Column() {
       super(Elements.div());
     }
     
     public Row addRow(){
-      Row row = new Row();
+      Row row = Row.create();
       this.add(row);
       return row;
     }

@@ -3,28 +3,21 @@ package virtuozo.ui;
 import java.util.ArrayList;
 import java.util.List;
 
-import virtuozo.infra.BrowserEventInterceptor;
 import virtuozo.infra.Keyboard;
 import virtuozo.infra.api.Converter;
-import virtuozo.ui.Clauses;
-import virtuozo.ui.Component;
-import virtuozo.ui.CssClass;
-import virtuozo.ui.Elements;
-import virtuozo.ui.InputText;
-import virtuozo.ui.StyleChooser;
-import virtuozo.ui.Tag;
-import virtuozo.ui.SelectionEvent.SelectionHandler;
-import virtuozo.ui.api.CssChangeEvent;
-import virtuozo.ui.api.CssChangeHandler;
-import virtuozo.ui.api.EventInterceptor;
-import virtuozo.ui.api.HasClickHandlers;
-import virtuozo.ui.api.HasFocusHandlers;
-import virtuozo.ui.api.HasMouseHandlers;
-import virtuozo.ui.api.HasText;
-import virtuozo.ui.api.HasValue;
-import virtuozo.ui.api.UIComponent;
-import virtuozo.ui.api.UIInput;
-import virtuozo.ui.api.UIRenderer;
+import virtuozo.ui.events.CssChangeEvent;
+import virtuozo.ui.events.SelectionEvent;
+import virtuozo.ui.events.CssChangeEvent.CssChangeHandler;
+import virtuozo.ui.events.SelectionEvent.SelectionHandler;
+import virtuozo.ui.interfaces.EventInterceptor;
+import virtuozo.ui.interfaces.HasClickHandlers;
+import virtuozo.ui.interfaces.HasFocusHandlers;
+import virtuozo.ui.interfaces.HasMouseHandlers;
+import virtuozo.ui.interfaces.HasText;
+import virtuozo.ui.interfaces.HasValue;
+import virtuozo.ui.interfaces.UIComponent;
+import virtuozo.ui.interfaces.UIInput;
+import virtuozo.ui.interfaces.UIRenderer;
 
 import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.dom.client.DivElement;
@@ -38,7 +31,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DoubleClickHandler;
 import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
-import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.dom.client.MouseDownHandler;
@@ -50,7 +42,6 @@ import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.dom.client.MouseWheelHandler;
 import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.ui.Offset;
 
 @SuppressWarnings("unchecked")
 public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Component<S> implements UIInput<S, E>, HasFocusHandlers<S> {
@@ -72,8 +63,8 @@ public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Comp
       return value.toString();
     };
   };
-
-  public SingleSelect() {
+  
+  protected SingleSelect() {
     super(Elements.div());
     this.init();
   }
@@ -245,7 +236,7 @@ public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Comp
 
       @Override
       public void onKeyUp(KeyUpEvent event) {
-        if (KeyCodes.KEY_ESCAPE == event.getNativeEvent().getKeyCode()) {
+        if (Keyboard.get().escape(event)) {
           SingleSelect.this.close();
         }
       }
@@ -406,12 +397,7 @@ public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Comp
     public DropDown show() {
       super.show();
 
-      int parentTop = SingleSelect.this.parent().asComponent().top();
-      Offset offset = SingleSelect.this.container.choice.offset();
-      int height = SingleSelect.this.container.choice.offsetHeight();
-
-      int top = (offset.top() - parentTop) + height;
-      this.style().width(SingleSelect.this.container.outerWidth(), Unit.PX).top(top, Unit.PX);
+      this.style().width(SingleSelect.this.container.outerWidth(), Unit.PX);
 
       SingleSelect.this.container.css("select-dropdown-open").deactivate();
       this.search.input.focus();
@@ -440,7 +426,7 @@ public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Comp
 
     class Search extends Component<Search> {
 
-      private InputText input = new InputText().css("select-input");
+      private InputText input = InputText.create().css("select-input");
 
       private Matcher<E> matcher;
 

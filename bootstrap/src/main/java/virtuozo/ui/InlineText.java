@@ -1,9 +1,14 @@
 package virtuozo.ui;
 
-import virtuozo.ui.api.HasHtml;
+import virtuozo.ui.interfaces.HasHtml;
+
 
 public class InlineText extends Component<InlineText> implements HasHtml<InlineText> {
-  public InlineText() {
+  public static InlineText create(){
+    return new InlineText();
+  }
+  
+  private InlineText() {
     super(Elements.p());
   }
   
@@ -40,7 +45,7 @@ public class InlineText extends Component<InlineText> implements HasHtml<InlineT
   }
   
   public InlineText text(String text) {
-    return this.addChild(new Text().text(text));
+    return this.addChild(Text.create().text(text));
   }
   
   public InlineText underlined(String text){

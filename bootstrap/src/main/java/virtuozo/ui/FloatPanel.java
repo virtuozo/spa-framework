@@ -1,19 +1,15 @@
 package virtuozo.ui;
 
-import virtuozo.ui.HTML;
-import virtuozo.ui.Tag;
-import virtuozo.ui.api.Direction;
-import virtuozo.ui.api.HasMouseHandlers;
-import virtuozo.ui.api.HasVisibility;
-import virtuozo.ui.api.HideEvent;
-import virtuozo.ui.api.ShowEvent;
-import virtuozo.ui.api.UIComponent;
-import virtuozo.ui.api.HideEvent.HideHandler;
-import virtuozo.ui.api.ShowEvent.ShowHandler;
-import virtuozo.ui.api.ToggleEvent.ToggleHandler;
+import virtuozo.ui.events.HideEvent;
+import virtuozo.ui.events.HideEvent.HideHandler;
+import virtuozo.ui.events.ShowEvent;
+import virtuozo.ui.events.ShowEvent.ShowHandler;
+import virtuozo.ui.events.ToggleEvent.ToggleHandler;
+import virtuozo.ui.interfaces.HasMouseHandlers;
+import virtuozo.ui.interfaces.HasVisibility;
+import virtuozo.ui.interfaces.UIComponent;
 
 import com.google.gwt.dom.client.DivElement;
-import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
@@ -40,14 +36,14 @@ abstract class FloatPanel<T extends FloatPanel<T>> implements HasMouseHandlers<T
 
   private Direction direction;
 
-  public FloatPanel() {
+  protected FloatPanel() {
     HTML.body().add(this.tip.hide());
 
     this.tip.onShow(new ShowHandler() {
 
       @Override
       public void onShow(ShowEvent event) {
-        FloatPanel.this.tip.css("in").style().display(Display.BLOCK);
+        FloatPanel.this.tip.css("in");
         FloatPanel.this.positioning();
       }
     }).onHide(new HideHandler() {
@@ -55,7 +51,6 @@ abstract class FloatPanel<T extends FloatPanel<T>> implements HasMouseHandlers<T
       @Override
       public void onHide(HideEvent event) {
         FloatPanel.this.tip.css().remove("in");
-        FloatPanel.this.tip.style().clearDisplay();
       }
     });
   }
@@ -115,6 +110,12 @@ abstract class FloatPanel<T extends FloatPanel<T>> implements HasMouseHandlers<T
 
   public T trigger(UIComponent holder, Trigger... triggers) {
     this.target = holder;
+    
+    if(triggers == null){
+      Trigger.MANUAL.register(holder, (T) this);
+      return (T) this;
+    }
+    
     for (Trigger trigger : triggers) {
       trigger.register(this.target, (T) this);
     }
@@ -182,22 +183,22 @@ abstract class FloatPanel<T extends FloatPanel<T>> implements HasMouseHandlers<T
     if (Direction.BOTTOM.equals(this.direction)) {
       top = pos.top() + height;
       left = pos.left() + width / 2 - actualWidth / 2;
-      return new Offset(top, left);
+      return new Offset(left, top);
     } 
     if (Direction.TOP.equals(this.direction)) {
       top = pos.top() - actualHeight;
       left = pos.left() + width / 2 - actualWidth / 2;
-      return new Offset(top, left);
+      return new Offset(left, top);
     } 
     if (Direction.LEFT.equals(this.direction)) {
       top = pos.top() + height / 2 - actualHeight / 2;
       left = pos.left() - actualWidth;
-      return new Offset(top, left);
+      return new Offset(left, top);
     }
     
     top = pos.top() + height / 2 - actualHeight / 2;
     left = pos.left() + width;
-    return new Offset(top, left);
+    return new Offset(left, top);
   }
 
   public enum Trigger {
