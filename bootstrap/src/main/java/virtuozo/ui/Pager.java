@@ -15,6 +15,7 @@
 package virtuozo.ui;
 
 import virtuozo.infra.MessageFormat;
+import virtuozo.ui.OrderList.ListItem;
 import virtuozo.ui.events.PageChangeEvent;
 import virtuozo.ui.events.PageChangeEvent.PageChangeHandler;
 import virtuozo.ui.interfaces.Assets;

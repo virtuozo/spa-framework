@@ -116,7 +116,7 @@ public final class Table extends Component<Table> {
   }
 
   public class Caption extends Component<Caption> implements HasText<Caption> {
-    public Caption() {
+    private Caption() {
       super(Elements.caption());
     }
     
@@ -133,7 +133,7 @@ public final class Table extends Component<Table> {
 
   public class Header extends Parent<Header, Row> {
 
-    public Header() {
+    private Header() {
       super(Elements.thead());
     }
 
@@ -146,7 +146,7 @@ public final class Table extends Component<Table> {
 
   public class Footer extends Parent<Footer, Row> {
 
-    public Footer() {
+    private Footer() {
       super(Elements.tfoot());
     }
 
@@ -161,7 +161,7 @@ public final class Table extends Component<Table> {
 
   public class Body extends Parent<Body, Row> {
 
-    public Body() {
+    private Body() {
       super(Elements.tbody());
     }
 
@@ -176,7 +176,7 @@ public final class Table extends Component<Table> {
 
     private boolean head;
 
-    public Row(boolean head) {
+    private Row(boolean head) {
       super(Elements.tr());
       this.head = head;
     }
@@ -230,7 +230,7 @@ public final class Table extends Component<Table> {
   
   public class Cell extends Composite<Cell> implements UICell<Cell> {
 
-    public Cell(boolean head) {
+    private Cell(boolean head) {
       super(head ? Elements.th() : Elements.td());
     }
 

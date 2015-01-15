@@ -4,7 +4,11 @@ import virtuozo.infra.ValidationProcess.ValidationAction;
 import virtuozo.infra.ValidationProcess.ValidationConstraint;
 import virtuozo.infra.api.Validator;
 import virtuozo.ui.interfaces.HasFeedback;
+import virtuozo.ui.interfaces.HasFocusHandlers;
 import virtuozo.ui.interfaces.UIInput;
+
+import com.google.gwt.event.dom.client.BlurEvent;
+import com.google.gwt.event.dom.client.BlurHandler;
 
 public abstract class FormGroup<I extends UIInput<?, V>, V> extends Component<FormGroup<I, V>> implements UIInput<FormGroup<I, V>, V>{
   private I control;
@@ -21,7 +25,7 @@ public abstract class FormGroup<I extends UIInput<?, V>, V> extends Component<Fo
       this.css("sr-only");
       return this;
     };
-  }.css("col-sm-2").hide();
+  }.hide();
   
   private final HelpBlock help = new HelpBlock(){
     public HelpBlock show() {
@@ -41,9 +45,13 @@ public abstract class FormGroup<I extends UIInput<?, V>, V> extends Component<Fo
     super(Elements.div());
     this.css("form-group");
     this.control = input;
-    this.constraint = new ValidationConstraint<V>(this.control);
+    this.constraint = ValidationConstraint.create(this.control);
     this.label.to(this.control);
     this.control.asComponent().css("form-control");
+  }
+  
+  ValidationConstraint<V> constraint(){
+    return this.constraint;
   }
   
   public FormGroup<I, V> feedback(HasFeedback<?> feedback){
@@ -58,7 +66,32 @@ public abstract class FormGroup<I extends UIInput<?, V>, V> extends Component<Fo
   
   public FormGroup<I, V> addValidator(Validator<?, V> validator){
     this.constraint.add(validator);
+    this.onValidation(new ValidationAction() {
+      
+      @Override
+      public void whenValid() {
+        FormGroup.this.feedback().success();
+      }
+      
+      @Override
+      public void whenInvalid() {
+        FormGroup.this.feedback().error();
+      }
+    });
+    if(this.control instanceof HasFocusHandlers){
+      ((HasFocusHandlers<?>) this.control).onBlur(new BlurHandler() {
+        
+        @Override
+        public void onBlur(BlurEvent event) {
+          FormGroup.this.validate();
+        }
+      });
+    }
     return this;
+  }
+  
+  boolean validate(){
+    return this.constraint.validate();
   }
 
   public InputLabel label() {

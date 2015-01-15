@@ -140,7 +140,7 @@ public class Modal implements HasVisibility<Modal> {
     
     private Footer footer = new Footer();
     
-    public InnerModal() {
+    private InnerModal() {
       super(Elements.div());
       Tag<DivElement> content = Tag.asDiv();
       content.css("modal-content");
@@ -154,7 +154,7 @@ public class Modal implements HasVisibility<Modal> {
     
     private Heading heading = Heading.four();
     
-    public Header() {
+    private Header() {
       super(Elements.div());
       this.css().set("modal-header");
       this.addChild(this.close).addChild(this.heading);
@@ -175,7 +175,7 @@ public class Modal implements HasVisibility<Modal> {
   }
   
   public class Body extends Composite<Body>{
-    public Body() {
+    private Body() {
       super(Elements.div());
       this.css().set("modal-body");
     }

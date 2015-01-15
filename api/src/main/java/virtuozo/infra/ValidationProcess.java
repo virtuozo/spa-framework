@@ -83,7 +83,7 @@ public class ValidationProcess {
 
     void whenValid();
 
-    void whenInvalid(String message);
+    void whenInvalid();
   }
 
   public static class ValidationConstraint<V> {
@@ -96,7 +96,11 @@ public class ValidationProcess {
 
     private ValidationAction action;
 
-    public ValidationConstraint(UIInput<?, V> input) {
+    public static <V> ValidationConstraint<V> create(UIInput<?, V> input){
+      return new ValidationConstraint<V>(input);
+    }
+    
+    private ValidationConstraint(UIInput<?, V> input) {
       this.input = input;
     }
 
@@ -127,7 +131,7 @@ public class ValidationProcess {
         for (Validator<?, V> validator : this.validators) {
           boolean valid = validator.validate(value);
           if (!valid) {
-            this.action.whenInvalid(validator.message());
+            this.action.whenInvalid();
             return false;
           }
         }
@@ -146,6 +150,10 @@ public class ValidationProcess {
 
     private List<FieldState> fields = new ArrayList<FieldState>();
 
+    private ValidationResult() {
+      super();
+    }
+    
     void add(FieldState field) {
       this.fields.add(field);
     }
@@ -160,7 +168,7 @@ public class ValidationProcess {
 
       private String name;
 
-      FieldState(boolean valid, String name) {
+      private FieldState(boolean valid, String name) {
         super();
         this.valid = valid;
         this.name = name;

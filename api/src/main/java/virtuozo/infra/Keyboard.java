@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.google.gwt.event.dom.client.DomEvent;
 import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyPressEvent;
 
 public class Keyboard {
   private static final Keyboard instance = new Keyboard();
@@ -146,6 +147,11 @@ public class Keyboard {
 
   public boolean number(DomEvent<?> event) {
     Integer key = event.getNativeEvent().getKeyCode();
+    
+    if(event instanceof KeyPressEvent){
+      String charKey = String.valueOf(((KeyPressEvent) event).getCharCode());
+      return "01234567890".contains(charKey);
+    }
 
     return key == KeyCodes.KEY_NUM_ZERO || key == KeyCodes.KEY_NUM_ONE || key == KeyCodes.KEY_NUM_TWO || key == KeyCodes.KEY_NUM_THREE || key == KeyCodes.KEY_NUM_FOUR || key == KeyCodes.KEY_NUM_FIVE
         || key == KeyCodes.KEY_NUM_SIX || key == KeyCodes.KEY_NUM_SEVEN || key == KeyCodes.KEY_NUM_EIGHT || key == KeyCodes.KEY_NUM_NINE || key == KeyCodes.KEY_ZERO || key == KeyCodes.KEY_ONE

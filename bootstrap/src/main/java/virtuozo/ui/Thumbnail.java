@@ -38,7 +38,7 @@ public final class Thumbnail extends Component<Thumbnail> {
   }
 
   public class Caption extends Composite<Caption> {
-    public Caption() {
+    private Caption() {
       super(Elements.div());
       this.css().set("caption");
     }

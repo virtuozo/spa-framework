@@ -1,5 +1,6 @@
 package virtuozo.ui;
 
+import virtuozo.ui.OrderList.ListItem;
 import virtuozo.ui.interfaces.HasText;
 
 import com.google.gwt.dom.client.AnchorElement;
@@ -16,7 +17,7 @@ public class DropItem extends Component<DropItem> implements HasText<DropItem> {
   DropItem(ListItem item) {
     super(item);
     this.addChild(this.anchor).addChild(this.menu).css("dropdown");
-    this.anchor.add(this.text).add(new Caret()).css("dropdown-toggle");
+    this.anchor.add(this.text).add(Caret.create()).css("dropdown-toggle");
     this.anchor.onClick(new ClickHandler() {
       @Override
       public void onClick(ClickEvent event) {

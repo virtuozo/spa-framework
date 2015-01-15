@@ -15,6 +15,9 @@
 
 package virtuozo.ui;
 
+import virtuozo.ui.OrderList.ListItem;
+import virtuozo.ui.interfaces.HasText;
+
 import com.google.gwt.dom.client.Element;
 
 public final class OrderList extends Parent<OrderList, ListItem> {
@@ -32,9 +35,40 @@ public final class OrderList extends Parent<OrderList, ListItem> {
   }
   
   public ListItem addItem() {
-    ListItem item = ListItem.create();
+    ListItem item = new ListItem();
     this.add(item);
     return item;
+  }
+  
+  public class ListItem extends Composite<ListItem> implements HasText<ListItem>{
+    private Text text = Text.create();
+    
+    private ListItem() {
+      super(Elements.li());
+      this.add(this.text);
+    }
+    
+    public OrderList addUnorderedList(){
+      OrderList list = OrderList.unordered();
+      this.addChild(list);
+      return list;
+    }
+    
+    public OrderList addOrderedList(){
+      OrderList list = OrderList.ordered();
+      this.addChild(list);
+      return list;
+    }
+    
+    @Override
+    public String text() {
+      return this.text.text();
+    }
+    
+    public ListItem text(String text) {
+      this.text.text(text);
+      return this;
+    }
   }
   
   static enum Type {

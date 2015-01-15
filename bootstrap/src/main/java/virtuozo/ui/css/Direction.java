@@ -13,7 +13,7 @@
  * the License.
  */
 
-package virtuozo.ui;
+package virtuozo.ui.css;
 
 import virtuozo.ui.CssClass;
 import virtuozo.ui.StyleChooser;

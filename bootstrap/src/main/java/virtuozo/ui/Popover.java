@@ -6,14 +6,14 @@ public class Popover extends FloatPanel<Popover> {
 
   private Body body = new Body();
 
+  public static Popover create() {
+    return new Popover();
+  }
+  
   private Popover() {
     this.css("popover").add(Tag.asDiv().css("arrow")).add(this.title).add(this.body);
   }
   
-  public static Popover create() {
-    return new Popover();
-  }
-
   public Body body() {
     return this.body;
   }
@@ -23,7 +23,7 @@ public class Popover extends FloatPanel<Popover> {
   }
   
   public class Body extends Composite<Body> {
-    public Body() {
+    private Body() {
       super(Elements.div());
       this.css("popover-content");
     }

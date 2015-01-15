@@ -15,6 +15,7 @@
 package virtuozo.ui;
 
 import virtuozo.ui.Menu.MenuItem;
+import virtuozo.ui.OrderList.ListItem;
 import virtuozo.ui.css.State;
 import virtuozo.ui.events.ActivationEvent;
 import virtuozo.ui.events.ActivationEvent.ActivationHandler;
@@ -93,7 +94,7 @@ public class TabPanel extends Component<TabPanel> {
   public class TabDroppable extends Component<TabDroppable> implements HasText<TabDroppable> {
     private DropItem item;
 
-    public TabDroppable(ListItem item) {
+    private TabDroppable(ListItem item) {
       this.item = new DropItem(item);
     }
 
@@ -161,7 +162,7 @@ public class TabPanel extends Component<TabPanel> {
 
     private Panel panel = new Panel();
 
-    public Tab(ListItem item) {
+    private Tab(ListItem item) {
       super(item);
       this.addChild(this.anchor);
     }
@@ -265,7 +266,7 @@ public class TabPanel extends Component<TabPanel> {
   }
   
   public class Panel extends Composite<Panel> {
-    public Panel() {
+    private Panel() {
       super(Elements.div());
       this.css("tab-pane", "fade");
     }

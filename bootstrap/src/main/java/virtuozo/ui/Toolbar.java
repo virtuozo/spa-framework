@@ -27,7 +27,7 @@ public final class Toolbar extends Parent<Toolbar, ButtonGroup> {
   }
   
   public ButtonGroup addButtonGroup(){
-    ButtonGroup group = ButtonGroup.create();
+    ButtonGroup group = ButtonGroup.horizontal();
     this.add(group);
     return group;
   }

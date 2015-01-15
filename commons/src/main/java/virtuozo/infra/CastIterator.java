@@ -6,6 +6,14 @@ import java.util.Iterator;
 public class CastIterator<T, F> implements Iterator<T> {
   private Iterator<F> iterator;
 
+  public static <T, F> CastIterator<T, F> of(Iterable<F> iterable){
+    return new CastIterator<T, F>(iterable.iterator());
+  }
+  
+  public static <T, F> CastIterator<T, F> of(Iterator<F> iterable){
+    return new CastIterator<T, F>(iterable);
+  }
+  
   public CastIterator(Iterator<F> iterator) {
     super();
     this.iterator = iterator;

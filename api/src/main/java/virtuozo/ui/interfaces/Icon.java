@@ -4,7 +4,9 @@ package virtuozo.ui.interfaces;
 public interface Icon {
   UIComponent asComponent();
   
-  <C extends UIComponent> void attachTo(C component);
+  void attachTo(UIComponent component);
   
   String name();
+  
+  boolean is(UIComponent component);
 }

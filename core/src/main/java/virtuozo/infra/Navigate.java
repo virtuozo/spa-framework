@@ -7,11 +7,11 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 
 public class Navigate {
+  private Place place;
+
   public static Navigate to(Place place){
     return new Navigate(place);
   }
-  
-  private Place place;
   
   private Navigate(Place place) {
     this.place = place;

@@ -24,11 +24,15 @@ public class Combo extends SingleSelect<Combo, Combo.Item> {
   }
   
   public static class Item extends KeyValue<String, String>{
-    public Item(String value) {
-      this(value, value);
+    public static Item create(String value) {
+      return new Item(value, value);
     }
     
-    public Item(String key, String value) {
+    public static Item create(String key, String value) {
+      return new Item(key, value);
+    }
+    
+    private Item(String key, String value) {
       this.key(key).value(value);
     }
   }

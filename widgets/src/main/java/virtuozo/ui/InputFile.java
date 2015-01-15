@@ -4,6 +4,8 @@ import virtuozo.infra.SimpleValidator;
 import virtuozo.ui.css.ButtonColor;
 import virtuozo.ui.interfaces.Assets;
 import virtuozo.ui.interfaces.Icon;
+import virtuozo.ui.interfaces.UIClass;
+import virtuozo.ui.interfaces.UIClasses;
 import virtuozo.ui.interfaces.UIInput;
 
 import com.google.gwt.core.shared.GWT;
@@ -63,6 +65,23 @@ public final class InputFile extends Component<InputFile> implements UIInput<Inp
       }
     });
   }
+  
+  @Override
+  public UIClasses css() {
+    return this.input.css();
+  }
+  
+  @Override
+  public InputFile css(String... classes) {
+    this.input.css(classes);
+    return this;
+  }
+  
+  @Override
+  public InputFile css(UIClass... classes) {
+    this.input.css(classes);
+    return this;
+  }
 
   public InputFile submitText(String text) {
     this.submit.text(text);
@@ -114,7 +133,7 @@ public final class InputFile extends Component<InputFile> implements UIInput<Inp
 
   class File extends Input<File> {
 
-    public File() {
+    private File() {
       super(Elements.file());
       this.hide();
     }

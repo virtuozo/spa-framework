@@ -14,6 +14,7 @@
  */
 package virtuozo.ui;
 
+import virtuozo.ui.OrderList.ListItem;
 import virtuozo.ui.css.State;
 import virtuozo.ui.events.ActivationEvent;
 import virtuozo.ui.events.ActivationEvent.ActivationHandler;
@@ -100,7 +101,7 @@ public class Navbar extends Component<Navbar> {
   }
   
   public class FormFacet extends Component<FormFacet>{
-    public FormFacet() {
+    private FormFacet() {
       super(Elements.div());
       this.hide().css().set("nav", "navbar-form");
     }
@@ -119,7 +120,7 @@ public class Navbar extends Component<Navbar> {
   }
 
   public class Facet extends Component<Facet> {
-    public Facet() {
+    private Facet() {
       super(Elements.div());
       this.hide().css().set("nav");
     }
@@ -165,7 +166,7 @@ public class Navbar extends Component<Navbar> {
     public class NavItem extends Component<NavItem> implements HasText<NavItem>, HasClickHandlers<NavItem>, HasActivation<NavItem> {
       private Tag<AnchorElement> anchor = Tag.asAnchor();
 
-      NavItem(ListItem item) {
+      private NavItem(ListItem item) {
         super(item);
         this.addChild(this.anchor);
       }
@@ -233,7 +234,7 @@ public class Navbar extends Component<Navbar> {
   }
 
   class Collapse extends Component<Collapse> {
-    public Collapse() {
+    private Collapse() {
       super(Elements.div());
       this.css().set("collapse", "navbar-collapse");
     }
@@ -244,7 +245,7 @@ public class Navbar extends Component<Navbar> {
 
     private Brand brand = new Brand();
 
-    public Header() {
+    private Header() {
       super(Elements.div());
       this.css().set("navbar-header");
       this.addChild(this.toggle).addChild(this.brand);
@@ -259,7 +260,7 @@ public class Navbar extends Component<Navbar> {
     }
 
     class IconBar extends Component<IconBar> {
-      public IconBar() {
+      private IconBar() {
         super(Elements.span());
         this.css().set("icon-bar");
       }
@@ -267,7 +268,7 @@ public class Navbar extends Component<Navbar> {
   }
 
   public class Brand extends Component<Brand> implements HasText<Brand>, HasIcon<Brand>, HasClickHandlers<Brand> {
-    public Brand() {
+    private Brand() {
       super(Elements.a());
       this.element().setHref("javascript:void(0)");
       this.css().set("navbar-brand");

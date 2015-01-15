@@ -1,10 +1,12 @@
 package virtuozo.ui;
 
+import virtuozo.ui.css.Direction;
 import virtuozo.ui.events.HideEvent;
 import virtuozo.ui.events.HideEvent.HideHandler;
 import virtuozo.ui.events.ShowEvent;
 import virtuozo.ui.events.ShowEvent.ShowHandler;
 import virtuozo.ui.events.ToggleEvent.ToggleHandler;
+import virtuozo.ui.interfaces.DetachHandler;
 import virtuozo.ui.interfaces.HasMouseHandlers;
 import virtuozo.ui.interfaces.HasVisibility;
 import virtuozo.ui.interfaces.UIComponent;
@@ -25,6 +27,7 @@ import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.dom.client.MouseWheelHandler;
+import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.user.client.ui.Offset;
 
 @SuppressWarnings("unchecked")
@@ -110,6 +113,13 @@ abstract class FloatPanel<T extends FloatPanel<T>> implements HasMouseHandlers<T
 
   public T trigger(UIComponent holder, Trigger... triggers) {
     this.target = holder;
+    this.target.asComponent().onDetach(new DetachHandler() {
+      
+      @Override
+      protected void onDetach(AttachEvent event) {
+        FloatPanel.this.tip.detach();
+      }
+    });
     
     if(triggers == null){
       Trigger.MANUAL.register(holder, (T) this);

@@ -1,6 +1,5 @@
 package virtuozo.ui;
 
-import virtuozo.ui.Tag;
 import virtuozo.ui.interfaces.Icon;
 import virtuozo.ui.interfaces.UIComponent;
 
@@ -572,9 +571,13 @@ public enum FontAwesome implements Icon {
     return icon;
   }
 
-  public <C extends UIComponent> void attachTo(C component) {
-    UIComponent icon = this.asComponent();
-    component.asComponent().addFirstChild(icon);
+  public void attachTo(UIComponent component) {
+    Icons.attachTo(component, this);
+  }
+  
+  @Override
+  public boolean is(UIComponent component) {
+    return component.asComponent().css().contains("fa");
   }
   
   public static class Styles extends CssClass {

@@ -6,12 +6,12 @@ import virtuozo.infra.Keyboard;
 import virtuozo.infra.api.Converter;
 import virtuozo.ui.Menu.MenuItem;
 import virtuozo.ui.events.MoveDownEvent;
-import virtuozo.ui.events.MoveUpEvent;
-import virtuozo.ui.events.SelectionEvent;
-import virtuozo.ui.events.ShowEvent;
 import virtuozo.ui.events.MoveDownEvent.MoveDownHandler;
+import virtuozo.ui.events.MoveUpEvent;
 import virtuozo.ui.events.MoveUpEvent.MoveUpHandler;
+import virtuozo.ui.events.SelectionEvent;
 import virtuozo.ui.events.SelectionEvent.SelectionHandler;
+import virtuozo.ui.events.ShowEvent;
 import virtuozo.ui.interfaces.UIComponent;
 import virtuozo.ui.interfaces.UIInput;
 import virtuozo.ui.interfaces.UIRenderer;
@@ -59,7 +59,7 @@ public abstract class TypeAhead<T extends TypeAhead<T, V>, V> extends Component<
 
   private SelectionTimer selectionCommand = new SelectionTimer();
 
-  public TypeAhead() {
+  protected TypeAhead() {
     super(Elements.div());
     this.init();
   }

@@ -34,9 +34,9 @@ public final class DropButton extends Component<DropButton> implements HasText<D
   }
   
   private DropButton() {
-    this.incorporate(ButtonGroup.create());
+    this.incorporate(ButtonGroup.horizontal());
     this.addChild(this.dropdown);
-    Caret caret = new Caret();
+    Caret caret = Caret.create();
     this.dropdown.addChild(this.dropButton.addChild(caret)).addChild(this.menu).css().set("dropdown");
 
     this.dropButton.css("dropdown-toggle");

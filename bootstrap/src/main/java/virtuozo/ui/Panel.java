@@ -16,7 +16,9 @@ package virtuozo.ui;
 
 import virtuozo.ui.events.TextChangeEvent;
 import virtuozo.ui.events.TextChangeEvent.TextChangeHandler;
+import virtuozo.ui.interfaces.HasIcon;
 import virtuozo.ui.interfaces.HasText;
+import virtuozo.ui.interfaces.Icon;
 
 public class Panel extends Component<Panel> {
   private Header header = new Header();
@@ -59,10 +61,10 @@ public class Panel extends Component<Panel> {
     return group;
   }
 
-  public class Header extends Composite<Header> implements HasText<Header>{
+  public class Header extends Composite<Header> implements HasText<Header>, HasIcon<Header> {
     private Heading heading = Heading.three().css("panel-title").hide();
     
-    public Header() {
+    private Header() {
       super(Elements.div());
       this.css().set("panel-heading");
       this.add(heading);
@@ -87,17 +89,24 @@ public class Panel extends Component<Panel> {
       this.heading.text(text).show();
       return this.fireEvent(new TextChangeEvent(text));
     }
+    
+    @Override
+    public Header icon(Icon icon) {
+      icon.attachTo(this.heading);
+      this.heading.firstChild().asComponent().css(FontAwesome.Styles.FIXED);
+      return this;
+    }
   }
 
   public class Body extends Composite<Body> {
-    public Body() {
+    private Body() {
       super(Elements.div());
       this.css().set("panel-body");
     }
   }
 
   public class Footer extends Composite<Footer> {
-    public Footer() {
+    private Footer() {
       super(Elements.div());
       this.css().set("panel-footer");
     }

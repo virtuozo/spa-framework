@@ -14,8 +14,12 @@
  */
 package virtuozo.ui;
 
-final class Caret extends Component<Caret> {
-  Caret() {
+public final class Caret extends Component<Caret> {
+  public static Caret create(){
+    return new Caret();
+  }
+  
+  private Caret() {
     super(Elements.span());
     this.css().set("caret");
   }

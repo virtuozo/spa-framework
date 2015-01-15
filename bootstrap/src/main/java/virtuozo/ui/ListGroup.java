@@ -14,6 +14,7 @@
  */
 package virtuozo.ui;
 
+import virtuozo.ui.ListGroup.ListGroupItem;
 import virtuozo.ui.css.State;
 import virtuozo.ui.events.ActivationEvent;
 import virtuozo.ui.events.ActivationEvent.ActivationHandler;
@@ -27,7 +28,7 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DoubleClickHandler;
 
-public class ListGroup extends Component<ListGroup> {
+public class ListGroup extends Parent<ListGroup, ListGroupItem> {
   private ActivationHelper activationHelper = ActivationHelper.create();
 
   public static ListGroup create(){
@@ -54,10 +55,10 @@ public class ListGroup extends Component<ListGroup> {
   public class ListGroupItem extends Composite<ListGroupItem> implements HasClickHandlers<ListGroupItem>, HasActivation<ListGroupItem>, HasEnablement<ListGroupItem> {
     private EnablementHelper<ListGroupItem> helper;
     
-    public ListGroupItem() {
+    private ListGroupItem() {
       super(Tag.asAnchor());
       this.css().set("list-group-item");
-      this.helper = new EnablementHelper<ListGroupItem>(this).intercept(this);
+      this.helper = EnablementHelper.to(this).intercept(this);
     }
 
     public Heading addHeading() {

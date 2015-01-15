@@ -373,7 +373,7 @@ public class Component<C extends Component<C>> implements HasVisibility<C>, UICo
   }
 
   protected <UI extends UIComponent> Iterable<UI> childrenComponents() {
-    return new CastIterable<UI, WidgetHolder>(this.holder.children()).use(new TypeCast<UI, WidgetHolder>() {
+    return CastIterable.<UI, WidgetHolder>of(this.holder.children()).use(new TypeCast<UI, WidgetHolder>() {
       @Override
       public UI castFrom(WidgetHolder instance) {
         return instance.getReference();

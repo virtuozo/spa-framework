@@ -11,12 +11,6 @@ public class LayoutPanel extends Component<LayoutPanel> {
   
   private Table table = Table.create();
   
-  private LayoutPanel(Orientation orientation) {
-    this.orientation = orientation;
-    this.table.css().set("layout-panel");
-    this.incorporate(this.table);
-  }
-  
   public static LayoutPanel horizontal(){
     LayoutPanel panel = new LayoutPanel(Orientation.HORIZONTAL);
     panel.table.body().addRow();
@@ -25,6 +19,12 @@ public class LayoutPanel extends Component<LayoutPanel> {
   
   public static LayoutPanel vertical(){
     return new LayoutPanel(Orientation.VERTICAL);
+  }
+  
+  private LayoutPanel(Orientation orientation) {
+    this.orientation = orientation;
+    this.table.css().set("layout-panel");
+    this.incorporate(this.table);
   }
   
   public LayoutPanel add(UIComponent component){

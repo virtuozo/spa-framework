@@ -235,13 +235,13 @@ public class InputGroup extends Component<InputGroup> implements UIInput<InputGr
   }
   
   class AddOn extends Component<AddOn>{
-    public AddOn() {
+    private AddOn() {
       super(Elements.span());
       this.css("input-group-addon", "input-group-btn");
     }
     
     public AddOn add(UIComponent widget){
-      this.detachChildren().css("input-group-addon");
+      this.css("input-group-addon");
       
       if (widget instanceof Button || widget instanceof DropButton || widget instanceof SplitButton) {
         this.css().remove("input-group-addon");

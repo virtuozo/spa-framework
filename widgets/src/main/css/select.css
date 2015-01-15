@@ -5,6 +5,7 @@
     zoom: 1;
     *display: inline;
     vertical-align: top;
+    width: 100%;
 }
 
 .select-container,

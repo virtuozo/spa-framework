@@ -11,11 +11,19 @@ public class CastIterable<T, F> implements Iterable<T>, Iterator<T> {
   
   private TypeCast<T, F> cast = new DefaultCast();
 
-  public CastIterable(Iterable<F> iterable) {
+  public static <T, F> CastIterable<T, F> of(Iterable<F> iterable){
+    return new CastIterable<T, F>(iterable);
+  }
+  
+  public static <T, F> CastIterable<T, F> of(Iterator<F> iterable){
+    return new CastIterable<T, F>(iterable);
+  }
+  
+  private CastIterable(Iterable<F> iterable) {
     this.iterable = iterable;
   }
   
-  public CastIterable(Iterator<F> iterator) {
+  private CastIterable(Iterator<F> iterator) {
     this.iterable = new ArrayList<F>();
     while(iterator.hasNext()){
       ((ArrayList<F>) this.iterable).add(iterator.next());

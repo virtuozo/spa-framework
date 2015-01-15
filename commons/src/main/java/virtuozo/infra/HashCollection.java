@@ -8,6 +8,14 @@ import java.util.Set;
 public class HashCollection {
   private Set<Hash> values = new HashSet<Hash>();
 
+  public static HashCollection create(){
+    return new HashCollection();
+  }
+  
+  private HashCollection() {
+    super();
+  }
+  
   public HashCollection add(Hash hash) {
     this.values.add(hash);
     return this;

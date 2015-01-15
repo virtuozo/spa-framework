@@ -7,6 +7,14 @@ import java.util.Map;
 public class Hash {
   private Map<Entry, Object> attributes = new HashMap<Entry, Object>();
   
+  public static Hash create(){
+    return new Hash();
+  }
+  
+  private Hash() {
+    super();
+  }
+  
   public Hash set(Entry attribute, Object value){
     this.attributes.put(attribute, value);
     return this;

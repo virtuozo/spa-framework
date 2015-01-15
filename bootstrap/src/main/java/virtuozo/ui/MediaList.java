@@ -14,9 +14,16 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.Media.Floating;
+import virtuozo.ui.MediaList.Media.Floating;
+import virtuozo.ui.OrderList.ListItem;
+import virtuozo.ui.interfaces.HasClickHandlers;
+import virtuozo.ui.interfaces.UIComponent;
 
-public class MediaList extends Parent<MediaList, Media>{
+import com.google.gwt.dom.client.AnchorElement;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.DoubleClickHandler;
+
+public class MediaList extends Component<MediaList>{
   private OrderList list = OrderList.unordered();
   
   public static MediaList create(){
@@ -34,5 +41,147 @@ public class MediaList extends Parent<MediaList, Media>{
   
   public Media addMedia(Floating floating){
     return new Media(this.list.addItem(), floating);
+  }
+  
+  public static class Media extends Component<Media> {
+    private Object object = new Object();
+
+    private Body body = new Body();
+
+    private Media(Floating floating) {
+      super(Elements.div());
+      this.init(floating);
+    }
+
+    private Media(ListItem item, Floating floating) {
+      this.incorporate(item);
+      this.init(floating);
+    }
+
+    private void init(Floating floating) {
+      this.css().set("media");
+      this.addChild(this.object).addChild(this.body);
+
+      if(floating.equals(Floating.RIGHT)){
+        this.addChild(this.object.detach());
+      }
+      this.object.css(floating);
+    }
+    
+    public Media css(Alignment alignment) {
+      this.object.css(alignment);
+      return this;
+    }
+
+    public Object object() {
+      return this.object;
+    }
+
+    public Body body() {
+      return this.body;
+    }
+
+    public class Body extends Composite<Body> {
+      public Body() {
+        super(Elements.div());
+        this.css().set("media-body");
+      }
+
+      public Heading addHeading() {
+        Heading heading = Heading.four();
+        heading.css().set("media-heading");
+        this.addChild(heading);
+        return heading;
+      }
+
+      public Paragraph addText() {
+        Paragraph text = Paragraph.create();
+        this.add(text);
+        return text;
+      }
+      
+      public Media addMedia() {
+        return this.addMedia(Floating.LEFT);
+      }
+
+      public Media addMedia(Floating floating) {
+        Media media = new Media(floating);
+        this.add(media);
+        return media;
+      }
+    }
+
+    public class Object extends Component<Object> implements
+        HasClickHandlers<Object> {
+
+      public Object() {
+        super(Elements.a());
+        this.element().setHref("javascript:void(0)");
+        this.css(Floating.LEFT).css(Alignment.TOP);
+      }
+      
+      public Object add(UIComponent widget) {
+        this.add(widget);
+        widget.asComponent().css("media-object");
+        return this;
+      }
+
+      public Image addImage() {
+        Image image = Image.create();
+        this.addChild(image);
+        image.css().set("media-object");
+        return image;
+      }
+
+      @Override
+      public Object onClick(ClickHandler handler) {
+        return this.on(handler);
+      }
+
+      @Override
+      public Object onDoubleClick(DoubleClickHandler handler) {
+        return this.on(handler);
+      }
+
+      protected AnchorElement element() {
+        return super.element();
+      }
+    }
+    
+    public static class Alignment extends CssClass{
+      private Alignment(String name) {
+        super(name);
+      }
+
+      @Override
+      protected StyleChooser chooser() {
+        return STYLES;
+      }
+
+      public static final Alignment TOP = new Alignment("media-top");
+
+      public static final Alignment MIDDLE = new Alignment("media-middle");
+      
+      public static final Alignment BOTTOM = new Alignment("media-bottom");
+
+      private static final StyleChooser STYLES = new StyleChooser(TOP, MIDDLE, BOTTOM);
+    }
+
+    public static class Floating extends CssClass {
+      private Floating(String name) {
+        super(name);
+      }
+
+      @Override
+      protected StyleChooser chooser() {
+        return STYLES;
+      }
+      
+      public static final Floating LEFT = new Floating("media-left");
+
+      public static final Floating RIGHT = new Floating("media-right");
+
+      private static final StyleChooser STYLES = new StyleChooser(LEFT, RIGHT);
+    }
   }
 }

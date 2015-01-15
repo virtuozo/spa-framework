@@ -1,5 +1,7 @@
 package virtuozo.ui;
 
+import virtuozo.ui.events.HideEvent;
+import virtuozo.ui.events.HideEvent.HideHandler;
 import virtuozo.ui.events.ShowEvent;
 import virtuozo.ui.events.ShowEvent.ShowHandler;
 
@@ -13,14 +15,14 @@ public class Notifier {
   
   private Tag<DivElement> container = Tag.asDiv().css("notifier");
   
-  private Notifier() {
-    HTML.body().add(this.container);
-  }
-
   public static Notifier get() {
     return instance;
   }
   
+  private Notifier() {
+    HTML.body().add(this.container);
+  }
+
   public Notification notify(final int duration){
     final Notification notification = new Notification();
     this.container.add(notification);
@@ -46,5 +48,104 @@ public class Notifier {
         timer.cancel();
       }
     });
+  }
+  
+  public static class Notification extends Component<Notification> {
+    
+    private Tag<DivElement> close = Tag.asDiv().css("notification-close").html("&times;");
+    
+    private Header header = new Header();
+    
+    private Body body = new Body();
+    
+    private Notification() {
+      super(Elements.div());
+      this.css("notification", "alert").css(Color.DEFAULT, Size.NORMAL).hide();
+      this.addChild(this.close).addChild(this.header).addChild(this.body);
+      this.close.onClick(new ClickHandler() {
+        @Override
+        public void onClick(ClickEvent event) {
+          Notification.this.detach();
+        }
+      });
+      this.onHide(new HideHandler() {
+        
+        @Override
+        public void onHide(HideEvent event) {
+          Notification.this.detach();
+        }
+      });
+    }
+    
+    public Notification onClose(ClickHandler handler) {
+      this.close.onClick(handler);
+      return this;
+    }
+    
+    public Header header() {
+      return header;
+    }
+    
+    public Body body() {
+      return body;
+    }
+    
+    public class Header extends Composite<Header>{
+      private Header() {
+        super(Elements.div());
+        this.css("notification-title");
+      }
+      
+      public Text addText(){
+        return Text.create().attachTo(this);
+      }
+    }
+    
+    public class Body extends Composite<Body>{
+      private Body() {
+        super(Elements.div());
+        this.css("notification-message");
+      }
+      
+      public Text addText(){
+        return Text.create().attachTo(this);
+      }
+    }
+    
+    public static final class Color extends CssClass {
+
+      protected Color(String name) {
+        super(name);
+      }
+
+      @Override
+      protected StyleChooser chooser() {
+        return STYLES;
+      }
+
+      public static final Color DEFAULT = new Color("btn-default");
+      public static final Color DANGER = new Color("alert-danger");
+      public static final Color INFO = new Color("alert-info");
+      public static final Color SUCCESS = new Color("alert-success");
+      public static final Color WARNING = new Color("alert-warning");
+      static final StyleChooser STYLES = new StyleChooser(DEFAULT, DANGER, INFO, SUCCESS, WARNING);
+    }
+
+    public static final class Size extends CssClass {
+
+      protected Size(String name) {
+        super(name);
+      }
+
+      @Override
+      protected StyleChooser chooser() {
+        return STYLES;
+      }
+
+      public static final Size SMALL = new Size("notification-small");
+      public static final Size NORMAL = new Size("notification-medium");
+      public static final Size LARGE = new Size("notification-large");
+      static final StyleChooser STYLES = new StyleChooser(SMALL, NORMAL, LARGE);
+    }
   }
 }

@@ -15,38 +15,73 @@
 
 package virtuozo.ui;
 
-import virtuozo.ui.InputGroup.Size;
+import virtuozo.ui.interfaces.Assets;
 import virtuozo.ui.interfaces.HasChangeHandlers;
+import virtuozo.ui.interfaces.UIClass;
+import virtuozo.ui.interfaces.UIClasses;
 import virtuozo.ui.interfaces.UIInput;
 
+import com.google.gwt.core.shared.GWT;
+import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ChangeHandler;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyDownEvent;
+import com.google.gwt.event.dom.client.KeyDownHandler;
 
-@SuppressWarnings("unchecked")
-abstract class Spinner<S extends Spinner<S>> extends Component<S> implements UIInput<S, Integer>, HasChangeHandlers<S> {
+public class Spinner extends Component<Spinner> implements UIInput<Spinner, Integer>, HasChangeHandlers<Spinner> {
 
-  private InputGroup input = InputNumber.create().css(Size.SMALL).css("spinner-input").maxLength(3);
-  
   private int step = 1;
-  
+
   private int defaultValue = 0;
 
   private int minValue = Integer.MIN_VALUE;
 
   private int maxValue = Integer.MAX_VALUE;
+
+  private InputText input = InputText.create().css("input-mini spinner-input");
   
-  protected Spinner() {
-    this.incorporate(this.input);
-    this.init();
+  private ButtonGroup buttons = ButtonGroup.vertical().css("spinner-buttons");
+  
+  private Assets assets = GWT.create(Assets.class);
+  
+  private Tag<DivElement> container = Tag.asDiv().css("spinner");
+  
+  public static Spinner create() {
+    return new Spinner();
   }
   
-  private void init(){
-    this.input().onBlur(new BlurHandler() {
+  private Spinner() {
+    super(Elements.div());
+    this.init();
+  }
+
+  private void init() {
+    super.addChild(this.container);
+    this.container.css("spinner").addChild(this.input).addChild(this.buttons);
+    this.buttons.addButton().css("spinner-up").css(Button.Size.X_SMALL).icon(this.assets.upIcon()).onClick(new ClickHandler() {
+      
+      @Override
+      public void onClick(ClickEvent event) {
+        Spinner.this.increment();
+      }
+    });
+    
+    this.buttons.addButton().css("spinner-down").css(Button.Size.X_SMALL).icon(this.assets.downIcon()).onClick(new ClickHandler() {
+      
+      @Override
+      public void onClick(ClickEvent event) {
+        Spinner.this.decrement();
+      }
+    });
+    this.input.value("0");
+    this.input.onBlur(new BlurHandler() {
 
       @Override
       public void onBlur(BlurEvent event) {
-        if (Spinner.this.input().value().isEmpty()) {
+        if (Spinner.this.input.value().isEmpty()) {
           Spinner.this.value(Spinner.this.defaultValue());
           return;
         }
@@ -54,39 +89,70 @@ abstract class Spinner<S extends Spinner<S>> extends Component<S> implements UII
         Spinner.this.value(Spinner.this.value());
       }
     });
-  }
-
-  protected InputGroup input() {
-    return input;
+    
+    this.input.onKeyDown(new KeyDownHandler() {
+      
+      @Override
+      public void onKeyDown(KeyDownEvent event) {
+        if(event.isUpArrow()){
+          Spinner.this.increment();
+          return;
+        }
+        
+        if(event.isDownArrow()){
+          Spinner.this.decrement();
+          return;
+        }
+      }
+    });
+    
+    NumberInputPrevent.create().attachTo(this.input);
   }
   
+  @Override
+  public UIClasses css() {
+    return this.input.css();
+  }
+  
+  @Override
+  public Spinner css(String... classes) {
+    this.input.css(classes);
+    return this;
+  }
+  
+  @Override
+  public Spinner css(UIClass... classes) {
+    this.input.css(classes);
+    return this;
+  }
+
   public int defaultValue() {
     return defaultValue;
   }
-  
-  public S defaultValue(int value) {
+
+  public Spinner defaultValue(int value) {
     this.defaultValue = value;
     return this.value(value);
   }
-  
-  public S onChange(ChangeHandler handler) {
+
+  public Spinner onChange(ChangeHandler handler) {
     this.input.on(handler);
-    return (S) this;
+    return this;
   }
 
-  public S range(int minValue, int maxValue) {
+  public Spinner range(int minValue, int maxValue) {
     this.minValue = minValue;
     this.maxValue = maxValue;
 
-    return (S) this;
+    return this.value(this.value());
   }
 
-  public S step(int step) {
+  public Spinner step(int step) {
     this.step = step;
-    return (S) this;
+    return this;
   }
 
-  public S increment() {
+  public Spinner increment() {
     int value = this.value() + this.step;
 
     value = Math.min(value, this.maxValue);
@@ -94,7 +160,7 @@ abstract class Spinner<S extends Spinner<S>> extends Component<S> implements UII
     return this.value(value);
   }
 
-  public S decrement() {
+  public Spinner decrement() {
     int value = this.value() - this.step;
 
     value = Math.max(value, this.minValue);
@@ -102,47 +168,52 @@ abstract class Spinner<S extends Spinner<S>> extends Component<S> implements UII
     return this.value(value);
   }
 
-  public S maxLength(int maxLength) {
+  public Spinner maxLength(int maxLength) {
     this.input.maxLength(maxLength);
-    return (S) this;
+    return this;
   }
 
-  public S value(Integer value) {
+  public Spinner value(Integer value) {
     value = Math.max(value, this.minValue);
     value = Math.min(value, this.maxValue);
 
     this.input.value(String.valueOf(value));
-    return (S) this;
+    return this;
   }
 
-  public S clear() {
+  public Spinner clear() {
     this.input.value("");
-    return (S) this;
+    return this;
   }
 
   public Integer value() {
-    return Integer.valueOf(this.input.value());
+    try{
+      return Integer.valueOf(this.input.value());
+    } catch(Exception e){
+      this.value(0);
+      return Integer.valueOf(this.input.value());
+    }
   }
 
-  public S placeholder(String placeholder) {
+  public Spinner placeholder(String placeholder) {
     this.input.placeholder(placeholder);
-    return (S) this;
+    return this;
   }
-  
+
   @Override
-  public S disable() {
+  public Spinner disable() {
     this.input.disable();
-    return (S) this;
+    return this;
   }
-  
+
   @Override
   public boolean disabled() {
     return this.input.disabled();
   }
-  
+
   @Override
-  public S enable() {
+  public Spinner enable() {
     this.input.enable();
-    return (S) this;
+    return this;
   }
 }

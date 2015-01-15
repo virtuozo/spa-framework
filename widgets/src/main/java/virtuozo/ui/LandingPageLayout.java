@@ -78,7 +78,7 @@ public class LandingPageLayout implements Layout {
 
     private Tag<AnchorElement> link = Tag.asAnchor().css("btn btn-circle");
 
-    public Intro() {
+    private Intro() {
       Tag<DivElement> scrollTo = Tag.asDiv().css("page-scroll");
       scrollTo.add(this.link);
       this.css("intro").add(this.slogan).add(scrollTo);
@@ -107,7 +107,7 @@ public class LandingPageLayout implements Layout {
     }
 
     public class Slogan extends Composite<Slogan> {
-      public Slogan() {
+      private Slogan() {
         super(Elements.div());
         this.css("slogan");
       }
@@ -119,7 +119,7 @@ public class LandingPageLayout implements Layout {
 
     private Heading heading = Heading.one();
 
-    public Section() {
+    private Section() {
       super(Elements.create("section"));
       this.init();
     }

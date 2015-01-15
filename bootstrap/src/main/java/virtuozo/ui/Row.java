@@ -20,7 +20,7 @@ public class Row extends Parent<Row, Column> {
   }
   
   public class Column extends Composite<Column> {
-    Column() {
+    private Column() {
       super(Elements.div());
     }
     

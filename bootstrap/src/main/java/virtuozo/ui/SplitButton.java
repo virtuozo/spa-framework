@@ -25,7 +25,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DoubleClickHandler;
 
 public final class SplitButton extends Component<SplitButton> implements HasText<SplitButton>, HasClickHandlers<SplitButton>{
-  private final ButtonGroup group = ButtonGroup.create();
+  private final ButtonGroup group = ButtonGroup.horizontal();
   
   private final Button button = Button.create();
   
@@ -44,9 +44,9 @@ public final class SplitButton extends Component<SplitButton> implements HasText
   private SplitButton() {
     this.incorporate(this.group);
     this.addChild(this.dropdown);
-    this.dropdown.add(ButtonGroup.create().add(this.button).add(this.caret)).add(this.menu).css().set("dropdown");
+    this.dropdown.add(ButtonGroup.horizontal().add(this.button).add(this.caret)).add(this.menu).css().set("dropdown");
     
-    this.caret.addChild(new Caret()).css("dropdown-toggle");
+    this.caret.addChild(Caret.create()).css("dropdown-toggle");
     this.caret.onClick(new ClickHandler() {
       @Override
       public void onClick(ClickEvent event) {

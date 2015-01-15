@@ -48,7 +48,11 @@ public class Wizard extends Component<Wizard> {
 
   private int index;
 
-  public Wizard() {
+  public static Wizard create(){
+    return new Wizard();
+  }
+  
+  private Wizard() {
     super(Elements.div());
     this.css(Color.DEFAULT).css("wizard-container").addChild(this.card);
     this.init();

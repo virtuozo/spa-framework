@@ -45,7 +45,7 @@ public final class DescriptionList extends Component<DescriptionList> {
   
   class Title extends Component<Title> {
 
-    public Title(String text) {
+    private Title(String text) {
       super(Elements.dt());
       this.element().setInnerHTML(text);
     }
@@ -53,7 +53,7 @@ public final class DescriptionList extends Component<DescriptionList> {
 
   class Description extends Component<Description> {
 
-    public Description(String text) {
+    private Description(String text) {
       super(Elements.dd());
       this.element().setInnerHTML(text);
     }

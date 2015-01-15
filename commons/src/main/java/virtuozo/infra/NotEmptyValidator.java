@@ -4,10 +4,14 @@ import virtuozo.infra.api.Validator;
 
 public class NotEmptyValidator<T> extends Validator<NotEmptyValidator<T>, T> {
 
-  public NotEmptyValidator() {
+  public static <T> NotEmptyValidator<T> create(){
+    return new NotEmptyValidator<T>();
+  }
+  
+  private NotEmptyValidator() {
     this.nullable(false);
   }
-
+  
   @Override
   public NotEmptyValidator<T> nullable(boolean nullable) {
     return super.nullable(false);

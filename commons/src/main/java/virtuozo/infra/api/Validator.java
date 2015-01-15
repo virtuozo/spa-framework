@@ -5,17 +5,6 @@ public abstract class Validator<V extends Validator<V, T>, T> {
 
   private boolean nullable = true;
 
-  private String message;
-
-  public V message(String message) {
-    this.message = message;
-    return (V) this;
-  }
-
-  public String message() {
-    return message;
-  }
-
   public V nullable(boolean nullable) {
     this.nullable = nullable;
     return (V) this;

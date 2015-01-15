@@ -33,7 +33,11 @@ public final class MonthPanel extends Component<MonthPanel> {
 
   private boolean selected;
 
-  public MonthPanel() {
+  public static MonthPanel create(){
+    return new MonthPanel();
+  }
+  
+  private MonthPanel() {
     super(Elements.div());
     this.init();
   }
@@ -151,7 +155,7 @@ public final class MonthPanel extends Component<MonthPanel> {
 
     private Range range;
 
-    public Days(Body body) {
+    private Days(Body body) {
       this.init(body);
     }
 
@@ -258,6 +262,10 @@ public final class MonthPanel extends Component<MonthPanel> {
       private Calendar end;
 
       private Month currentMonth;
+      
+      private Range() {
+        super();
+      }
 
       void start(Calendar start) {
         if (start == null) {
@@ -309,7 +317,7 @@ public final class MonthPanel extends Component<MonthPanel> {
     
     private Assets assets = GWT.create(Assets.class);
 
-    public Selector(Header header) {
+    private Selector(Header header) {
       this.init(header);
     }
 

@@ -13,11 +13,6 @@ public class EmailValidator extends RegexValidator {
   }
 
   @Override
-  public EmailValidator message(String message) {
-    return (EmailValidator) super.message(message);
-  }
-
-  @Override
   public EmailValidator nullable(boolean nullable) {
     return (EmailValidator) super.nullable(nullable);
   }

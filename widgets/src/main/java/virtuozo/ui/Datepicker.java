@@ -52,7 +52,7 @@ public final class Datepicker extends Component<Datepicker> implements UIInput<D
     this.format = format;
 
     InputText control = InputText.create();
-    DateMask.create(format).attachTo(control);
+    DateInputPrevent.create().attachTo(control);
     this.input = new InputGroup(control);
     
     this.addChild(this.input);
@@ -86,7 +86,7 @@ public final class Datepicker extends Component<Datepicker> implements UIInput<D
       }
     });
 
-    this.panel = new MonthPanel();
+    this.panel = MonthPanel.create();
     this.panel.onSelection(new SelectionHandler<Date>() {
 
       @Override

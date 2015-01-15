@@ -18,7 +18,9 @@ class EventBus {
   
   private Map<Event, Type<SubscriptionCallback>> types = new HashMap<Event, Type<SubscriptionCallback>>();
   
-  private EventBus() {}
+  private EventBus() {
+    super();
+  }
   
   static EventBus get() {
     return instance;

@@ -14,6 +14,7 @@
  */
 package virtuozo.ui;
 
+import virtuozo.ui.OrderList.ListItem;
 import virtuozo.ui.css.State;
 import virtuozo.ui.events.ActivationEvent;
 import virtuozo.ui.events.ActivationEvent.ActivationHandler;
@@ -130,7 +131,7 @@ public class Menu extends Component<Menu>{
     public MenuItem(ListItem item) {
       super(item);
       this.role("presentation").addChild(this.anchor);
-      this.helper = new EnablementHelper<MenuItem>(this);
+      this.helper = EnablementHelper.to(this);
       this.helper.intercept(this.anchor);
     }
     

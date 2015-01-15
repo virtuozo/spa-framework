@@ -14,12 +14,10 @@ import com.google.gwt.user.client.Window.ScrollEvent;
 import com.google.gwt.user.client.Window.ScrollHandler;
 
 public class ScrollSpy {
-  private static final ScrollSpy instance = new ScrollSpy();
-  
   private List<UIComponent> monitor = new ArrayList<UIComponent>();
   
-  public static ScrollSpy get() {
-    return instance;
+  public static ScrollSpy create() {
+    return new ScrollSpy();
   }
   
   public ScrollSpy dispose(){
@@ -27,7 +25,7 @@ public class ScrollSpy {
     return this;
   }
   
-  public ScrollSpy spy(final UIComponent target, ScrollSpyHandler handler){
+  public ScrollSpy spy(final UIComponent target, ScrollSpyHandler handler) {
     this.monitor.add(target);
     target.asComponent().onDetach(new DetachHandler() {
       

@@ -50,7 +50,7 @@ public class HeroPageLayout implements Layout {
   }
 
   public class Header extends Composite<Header> {
-    public Header() {
+    private Header() {
       super(Elements.div());
       this.css("sb-page-header");
     }

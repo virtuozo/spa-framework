@@ -22,7 +22,7 @@ public final class Container extends Composite<Container> {
   }
   
   public static Container fluid() {
-    return new Container(Type.FIXED);
+    return new Container(Type.FLUID);
   }
   
   private Container(Type type) {

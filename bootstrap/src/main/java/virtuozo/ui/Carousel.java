@@ -1,5 +1,6 @@
 package virtuozo.ui;
 
+import virtuozo.ui.OrderList.ListItem;
 import virtuozo.ui.css.State;
 import virtuozo.ui.interfaces.Assets;
 import virtuozo.ui.interfaces.Icon;
@@ -22,10 +23,16 @@ public class Carousel extends Component<Carousel> {
   private Control left = new Control(ControlType.LEFT);
 
   private Control right = new Control(ControlType.RIGHT);
+  
+  private Player player = new Player();
 
   private int selection;
 
-  public Carousel() {
+  public static Carousel create(){
+    return new Carousel();
+  }
+  
+  private Carousel() {
     super(Elements.div());
     this.css("carousel slide");
     this.addChild(this.indicators).addChild(this.slides).addChild(this.left).addChild(this.right);
@@ -43,17 +50,8 @@ public class Carousel extends Component<Carousel> {
     });
   }
   
-  public Carousel autoPlay(int delay){
-    Timer timer = new Timer() {
-      
-      @Override
-      public void run() {
-        Carousel.this.next();
-      }
-    };
-    
-    timer.scheduleRepeating(delay);
-    return this;
+  public Player autoPlay(){
+    return this.player;
   }
 
   public Slide addSlide() {
@@ -131,7 +129,7 @@ public class Carousel extends Component<Carousel> {
     }
 
     public class Caption extends Composite<Caption> {
-      public Caption() {
+      private Caption() {
         super(Elements.div());
         this.css("carousel-caption");
       }
@@ -148,7 +146,7 @@ public class Carousel extends Component<Carousel> {
 
   class Control extends Component<Control> {
 
-    public Control(ControlType type) {
+    private Control(ControlType type) {
       super(Elements.a());
       this.css(type.css(), "carousel-control");
       type.icon().attachTo(this);
@@ -158,6 +156,31 @@ public class Carousel extends Component<Carousel> {
     @Override
     public AnchorElement element() {
       return super.element();
+    }
+  }
+  
+  public class Player {
+    private Timer timer;
+    
+    public Carousel every(int delay){
+      this.timer = new Timer() {
+        
+        @Override
+        public void run() {
+          Carousel.this.next();
+        }
+      };
+      
+      this.timer.scheduleRepeating(delay);
+      return Carousel.this;
+    }
+    
+    public Carousel stop(){
+      if(this.timer != null){
+        this.timer.cancel();
+      }
+      
+      return Carousel.this;
     }
   }
 

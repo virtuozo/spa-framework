@@ -51,7 +51,7 @@ public class Progress extends Component<Progress> {
     
     private double worked;
     
-    public ProgressBar() {
+    private ProgressBar() {
       super(Elements.div());
       this.addChild(this.message).role("progressbar").css().set("progress-bar");
     }

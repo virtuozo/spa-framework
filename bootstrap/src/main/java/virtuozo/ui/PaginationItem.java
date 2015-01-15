@@ -1,5 +1,6 @@
 package virtuozo.ui;
 
+import virtuozo.ui.OrderList.ListItem;
 import virtuozo.ui.css.State;
 import virtuozo.ui.events.ActivationEvent;
 import virtuozo.ui.events.ActivationEvent.ActivationHandler;
@@ -24,7 +25,7 @@ public class PaginationItem extends Component<PaginationItem> implements HasText
   PaginationItem(ListItem item) {
     super(item);
     this.addChild(this.link);
-    this.helper = new EnablementHelper<PaginationItem>(this).intercept(this.link);
+    this.helper = EnablementHelper.to(this).intercept(this.link);
   }
 
   @Override

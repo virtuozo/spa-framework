@@ -33,6 +33,10 @@ public class Calendar {
   private Calendar(Date date) {
     this.wrapped = date;
   }
+  
+  public static Calendar create(){
+    return new Calendar();
+  }
 
   public static Calendar of(Date date) {
     if (date == null) {

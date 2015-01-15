@@ -14,7 +14,6 @@
  */
 package virtuozo.ui;
 
-import virtuozo.ui.Tag;
 import virtuozo.ui.interfaces.Icon;
 import virtuozo.ui.interfaces.UIComponent;
 
@@ -234,15 +233,13 @@ public enum Glyphicon implements Icon {
     icon.css().set("glyphicon").append(this.name);
     return icon;
   }
+  
+  @Override
+  public boolean is(UIComponent component) {
+    return component.asComponent().css().contains("glyphicon");
+  }
 
-  public <C extends UIComponent> void attachTo(C component) {
-    UIComponent icon = this.asComponent();
-    
-    if(!component.asComponent().hasChildren()){
-      component.asComponent().addChild(icon);
-      return;
-    }
-    
-    component.asComponent().insertChild(icon, component.asComponent().childAt(0));
+  public void attachTo(UIComponent component) {
+    Icons.attachTo(component, this);
   }
 }

@@ -10,10 +10,12 @@ public class AsyncBrowserStorage {
 
   private static final AsyncBrowserStorage instance = new AsyncBrowserStorage();
 
-  private AsyncBrowserStorage() {}
-
   public static AsyncBrowserStorage get() {
     return AsyncBrowserStorage.instance;
+  }
+  
+  private AsyncBrowserStorage() {
+    super();
   }
 
   public <H extends HashObject> HashCallback<H> asyncStore(StoreKey store) {

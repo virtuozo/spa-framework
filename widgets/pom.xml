@@ -62,6 +62,7 @@
               	<include>${project.css}/layoutpanel.css</include>
                 <include>${project.css}/notifier.css</include>
                 <include>${project.css}/select.css</include>
+                <include>${project.css}/spinner.css</include>
                 <include>${project.css}/typeahead.css</include>
                 <include>${project.css}/wizard.css</include>
               </includes>

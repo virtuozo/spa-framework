@@ -29,7 +29,7 @@ public abstract class Property<T, P extends Property<T, P>> {
   public P set(T value) {
     for (Validator<?, T> validator : this.validators) {
       if (!validator.validate(value)) {
-        throw new IllegalArgumentException(validator.message());
+        throw new IllegalArgumentException(value + " is a invalid value to this property.");
       }
     }
 

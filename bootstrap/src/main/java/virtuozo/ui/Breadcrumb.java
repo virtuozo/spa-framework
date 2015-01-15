@@ -14,6 +14,7 @@
  */
 package virtuozo.ui;
 
+import virtuozo.ui.OrderList.ListItem;
 import virtuozo.ui.interfaces.HasClickHandlers;
 import virtuozo.ui.interfaces.HasText;
 
@@ -41,7 +42,7 @@ public class Breadcrumb extends Component<Breadcrumb> {
   }
   
   public class BreadcrumbLink extends Component<BreadcrumbLink> implements HasText<BreadcrumbLink>, HasClickHandlers<BreadcrumbLink>{
-    BreadcrumbLink() {
+    private BreadcrumbLink() {
       super(Tag.asAnchor());
     }
     
@@ -71,7 +72,7 @@ public class Breadcrumb extends Component<Breadcrumb> {
   
   public class BreadcrumbItem extends Component<BreadcrumbItem> implements HasText<BreadcrumbItem> {
 
-    BreadcrumbItem(ListItem item) {
+    private BreadcrumbItem(ListItem item) {
       super(item);
     }
 

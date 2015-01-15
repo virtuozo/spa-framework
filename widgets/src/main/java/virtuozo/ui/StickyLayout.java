@@ -22,7 +22,7 @@ public class StickyLayout implements Layout {
   private Body body = new Body();
   private Footer footer = new Footer();
 
-  public static StickyLayout layout(){
+  public static StickyLayout create(){
     return new StickyLayout();
   }
   

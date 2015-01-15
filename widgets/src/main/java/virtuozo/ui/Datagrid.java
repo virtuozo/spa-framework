@@ -466,7 +466,7 @@ public final class Datagrid<H extends HashObject> extends Component<Datagrid<H>>
 
     private Cell cell;
 
-    private Spinner rowsPerPage;// = new Spinner().range(0, Integer.MAX_VALUE).value(5).step(5);
+    private Spinner rowsPerPage = Spinner.create().range(0, Integer.MAX_VALUE).value(5).step(5);
 
     private Pager pager = Pager.create().css("grid-pager");
 

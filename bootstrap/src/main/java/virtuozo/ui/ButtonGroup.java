@@ -32,8 +32,12 @@ public class ButtonGroup extends Component<ButtonGroup> {
     return new ButtonGroup(Type.BLOCK);
   }
   
-  public static ButtonGroup create(){
+  public static ButtonGroup horizontal(){
     return new ButtonGroup(Type.DEFAULT);
+  }
+  
+  public static ButtonGroup vertical(){
+    return new ButtonGroup(Type.DEFAULT).css("btn-group-vertical");
   }
   
   private ButtonGroup(Type type) {
@@ -69,7 +73,7 @@ public class ButtonGroup extends Component<ButtonGroup> {
   }
   
   public ButtonGroup addButtonGroup(){
-    ButtonGroup group = ButtonGroup.create();
+    ButtonGroup group = ButtonGroup.horizontal();
     this.add(group);
     return group;
   }
@@ -106,7 +110,7 @@ public class ButtonGroup extends Component<ButtonGroup> {
       
       @Override
       ButtonGroup add(ButtonGroup group, UIComponent button) {
-        group.add(ButtonGroup.create().addChild(button));
+        group.add(ButtonGroup.horizontal().addChild(button));
         return group;
       }
     }, DEFAULT{
@@ -124,21 +128,6 @@ public class ButtonGroup extends Component<ButtonGroup> {
     abstract String css();
     
     abstract ButtonGroup add(ButtonGroup group, UIComponent button);
-  }
-  
-  public static class Orientation extends CssClass{
-    private Orientation(String name) {
-      super(name);
-    }
-
-    @Override
-    protected StyleChooser chooser() {
-      return STYLES;
-    }
-    
-    public static final Orientation HORIZONTAL = new Orientation("btn-group");
-    public static final Orientation VERTICAL = new Orientation("btn-group-vertical");
-    private static final StyleChooser STYLES = new StyleChooser(HORIZONTAL, VERTICAL);
   }
   
   public static class Size extends CssClass{

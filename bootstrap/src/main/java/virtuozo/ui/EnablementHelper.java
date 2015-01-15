@@ -33,11 +33,11 @@ public class EnablementHelper<C extends UIComponent> implements HasEnablement<C>
     }
   };
   
-  public static <C extends UIComponent> EnablementHelper<C> create(C target){
+  public static <C extends UIComponent> EnablementHelper<C> to(C target){
     return new EnablementHelper<C>(target);
   }
   
-  public EnablementHelper(C target) {
+  private EnablementHelper(C target) {
     this.target = target;
   }
 

@@ -6,8 +6,8 @@ import java.util.List;
 import virtuozo.infra.Keyboard;
 import virtuozo.infra.api.Converter;
 import virtuozo.ui.events.CssChangeEvent;
-import virtuozo.ui.events.SelectionEvent;
 import virtuozo.ui.events.CssChangeEvent.CssChangeHandler;
+import virtuozo.ui.events.SelectionEvent;
 import virtuozo.ui.events.SelectionEvent.SelectionHandler;
 import virtuozo.ui.interfaces.EventInterceptor;
 import virtuozo.ui.interfaces.HasClickHandlers;
@@ -130,7 +130,12 @@ public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Comp
   }
 
   public S resetable() {
-    this.container.clear.show();
+    this.onSelection(new SelectionHandler<E>() {
+      @Override
+      public void onSelect(SelectionEvent<E> event) {
+        SingleSelect.this.container.clear.show();
+      }
+    });
     return (S) this;
   }
 
@@ -201,7 +206,8 @@ public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Comp
 
   @Override
   public S clear() {
-    SingleSelect.this.select(0);
+    this.select(0);
+    this.container.clear.hide();
     return (S) this;
   }
 
@@ -250,7 +256,7 @@ public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Comp
     }
 
     private void setup() {
-      this.css("select-container").style().width(100, Unit.PCT);
+      this.css("select-container");
 
       this.choice.onEvent(new EventInterceptor() {
         

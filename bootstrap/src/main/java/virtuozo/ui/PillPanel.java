@@ -15,6 +15,7 @@
 package virtuozo.ui;
 
 import virtuozo.ui.Menu.MenuItem;
+import virtuozo.ui.OrderList.ListItem;
 import virtuozo.ui.css.State;
 import virtuozo.ui.events.ActivationEvent;
 import virtuozo.ui.events.ActivationEvent.ActivationHandler;
@@ -67,7 +68,7 @@ public class PillPanel extends Component<PillPanel> {
   public class PillDroppable extends Component<PillDroppable> implements HasText<PillDroppable> {
     private DropItem item;
 
-    public PillDroppable(ListItem item) {
+    private PillDroppable(ListItem item) {
       this.item = new DropItem(item);
     }
 
@@ -89,7 +90,7 @@ public class PillPanel extends Component<PillPanel> {
     }
 
     public class PillDropItem extends NavDropItem<PillDropItem> {
-      PillDropItem(MenuItem item) {
+      private PillDropItem(MenuItem item) {
         super(item);
       }
     }
@@ -115,10 +116,10 @@ public class PillPanel extends Component<PillPanel> {
     
     private EnablementHelper<Pill> helper;
 
-    public Pill(ListItem item) {
+    private Pill(ListItem item) {
       super(item);
       this.addChild(this.anchor);
-      this.helper = new EnablementHelper<Pill>(this).intercept(this.anchor);
+      this.helper = EnablementHelper.to(this).intercept(this.anchor);
     }
 
     public Badge addBadge() {

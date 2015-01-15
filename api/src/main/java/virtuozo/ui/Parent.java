@@ -59,7 +59,7 @@ public class Parent<P extends Parent<P, C>, C extends UIComponent> extends Compo
   }
 
   public Iterable<C> children() {
-    return new CastIterable<C, UIComponent>(super.childrenComponents());
+    return CastIterable.of(super.childrenComponents());
   }
   
   @Override

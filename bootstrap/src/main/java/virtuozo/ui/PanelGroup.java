@@ -51,7 +51,7 @@ public class PanelGroup extends Component<PanelGroup> {
   public class CollapsePanel extends Panel implements HasActivation<CollapsePanel> {
     private Tag<DivElement> collapse = Tag.asDiv().css("panel-collapse", "collapse");
 
-    CollapsePanel() {
+    private CollapsePanel() {
       this.addChild(this.collapse);
       this.collapse.add(this.body().detach().hide()).add(this.footer().detach().hide());
     }
