@@ -1,7 +1,5 @@
 package virtuozo.ui;
 
-import java.util.Date;
-
 import virtuozo.infra.Calendar;
 import virtuozo.infra.DateFormat;
 import virtuozo.ui.events.CssChangeEvent;
@@ -23,8 +21,10 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
+import com.google.gwt.event.dom.client.MouseOutEvent;
+import com.google.gwt.event.dom.client.MouseOutHandler;
 
-public final class Datepicker extends Component<Datepicker> implements UIInput<Datepicker, Date>, HasChangeHandlers<Datepicker>, HasFocusHandlers<Datepicker> {
+public final class Datepicker extends Component<Datepicker> implements UIInput<Datepicker, Calendar>, HasChangeHandlers<Datepicker>, HasFocusHandlers<Datepicker> {
 
   private InputGroup input;
 
@@ -33,6 +33,8 @@ public final class Datepicker extends Component<Datepicker> implements UIInput<D
   private Tag<DivElement> picker = Tag.asDiv().css("datepicker");
 
   private DateFormat format;
+  
+  private Button button = Button.create();
 
   public static Datepicker create(){
     return new Datepicker(DateFormat.DATE_SHORT);
@@ -44,7 +46,7 @@ public final class Datepicker extends Component<Datepicker> implements UIInput<D
   
   private Datepicker(DateFormat format) {
     super(Elements.div());
-    this.init(format);
+    this.css("datepicker-input").init(format);
   }
 
   private void init(DateFormat format) {
@@ -87,21 +89,26 @@ public final class Datepicker extends Component<Datepicker> implements UIInput<D
     });
 
     this.panel = MonthPanel.create();
-    this.panel.onSelection(new SelectionHandler<Date>() {
+    this.panel.onSelection(new SelectionHandler<Calendar>() {
 
       @Override
-      public void onSelect(SelectionEvent<Date> e) {
+      public void onSelect(SelectionEvent<Calendar> e) {
         Datepicker.this.value(e.value());
         Datepicker.this.hide();
       }
-    }).onNext(this.doFocus).onPrevious(this.doFocus);
+    }).on(new MouseOutHandler() {
+      
+      @Override
+      public void onMouseOut(MouseOutEvent event) {
+        Datepicker.this.input.blur();
+      }
+    }) .onNext(this.doFocus).onPrevious(this.doFocus);
 
     this.addChild(this.picker.add(this.panel)).hide();
   }
   
   public Datepicker icon(Icon icon) {
-    Button button = Button.create().icon(icon);
-    button.onClick(new ClickHandler() {
+    this.button.icon(icon).onClick(new ClickHandler() {
 
       @Override
       public void onClick(ClickEvent event) {
@@ -109,7 +116,7 @@ public final class Datepicker extends Component<Datepicker> implements UIInput<D
       }
     });
 
-    this.input.append(button);
+    this.input.append(this.button);
 
     return this;
   }
@@ -146,21 +153,21 @@ public final class Datepicker extends Component<Datepicker> implements UIInput<D
     return this;
   }
 
-  public Datepicker onSelection(SelectionHandler<Date> handler) {
+  public Datepicker onSelection(SelectionHandler<Calendar> handler) {
     this.panel.onSelection(handler);
     return this;
   }
 
-  public Datepicker range(Date start, Date end) {
+  public Datepicker range(Calendar start, Calendar end) {
     this.panel.range(start, end);
 
-    if (Calendar.of(start).after(this.panel.current())) {
-      this.value(new Date(start.getTime()));
+    if (start.after(this.panel.current())) {
+      this.value(start);
     }
 
     return this;
   }
-
+  
   public Datepicker show() {
     if (this.disabled()) {
       return this;
@@ -186,12 +193,14 @@ public final class Datepicker extends Component<Datepicker> implements UIInput<D
   @Override
   public Datepicker enable() {
     this.input.enable();
+    this.button.enable();
     return this;
   }
 
   @Override
   public Datepicker disable() {
     this.input.disable();
+    this.button.disable();
     return this;
   }
 
@@ -201,25 +210,25 @@ public final class Datepicker extends Component<Datepicker> implements UIInput<D
   }
 
   @Override
-  public Datepicker value(Date value) {
+  public Datepicker value(Calendar value) {
     if (value == null) {
       this.input.value(null);
       return this;
     }
 
     this.panel.set(value);
-    this.input.value(this.format.format(value));
+    this.input.value(this.format.format(value.toDate()));
 
     return this;
   }
 
   @Override
-  public Date value() {
+  public Calendar value() {
     if (this.input.value().isEmpty()) {
       return null;
     }
 
-    return this.format.unformat(this.input.value());
+    return Calendar.of(this.format.unformat(this.input.value()));
   }
 
   public Datepicker placeholder(String placeholder) {

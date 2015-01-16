@@ -3,6 +3,7 @@ package virtuozo.ui;
 import java.util.List;
 
 import virtuozo.infra.Keyboard;
+import virtuozo.infra.Logger;
 import virtuozo.infra.api.Converter;
 import virtuozo.ui.Menu.MenuItem;
 import virtuozo.ui.events.MoveDownEvent;
@@ -12,10 +13,13 @@ import virtuozo.ui.events.MoveUpEvent.MoveUpHandler;
 import virtuozo.ui.events.SelectionEvent;
 import virtuozo.ui.events.SelectionEvent.SelectionHandler;
 import virtuozo.ui.events.ShowEvent;
-import virtuozo.ui.interfaces.UIComponent;
+import virtuozo.ui.interfaces.HasActivation;
+import virtuozo.ui.interfaces.UIClass;
+import virtuozo.ui.interfaces.UIClasses;
 import virtuozo.ui.interfaces.UIInput;
 import virtuozo.ui.interfaces.UIRenderer;
 
+import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.dom.client.Style.Position;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
@@ -30,7 +34,7 @@ public abstract class TypeAhead<T extends TypeAhead<T, V>, V> extends Component<
 
   private Menu menu = Menu.create();
 
-  private InputText input = InputText.create();
+  private InputText control = InputText.create().css("form-control");
 
   private List<V> entries;
 
@@ -49,13 +53,7 @@ public abstract class TypeAhead<T extends TypeAhead<T, V>, V> extends Component<
     }
   };
 
-  private UIRenderer<V> renderer = new UIRenderer<V>() {
-    @Override
-    public UIComponent render(V value) {
-      String text = TypeAhead.this.converter.convert(value);
-      return TypeAhead.this.menu.addItem().text(text);
-    }
-  };
+  private UIRenderer<V> renderer;
 
   private SelectionTimer selectionCommand = new SelectionTimer();
 
@@ -66,13 +64,13 @@ public abstract class TypeAhead<T extends TypeAhead<T, V>, V> extends Component<
 
   private void init() {
     this.style().position(Position.RELATIVE);
-    this.addChild(this.input).addChild(this.menu.hide());
+    this.addChild(this.control).addChild(this.menu.hide());
 
-    this.input().onKeyUp(new Handler() {
-
+    this.control().onKeyUp(new Handler() {
+      
       @Override
-      void onKeyUp(int keyCode, char charCode) {
-        String value = TypeAhead.this.input().value();
+      protected void onKeyUp() {
+        String value = TypeAhead.this.control().value();
         if (value.length() >= TypeAhead.this.minLength) {
           TypeAhead.this.load(value);
         }
@@ -84,7 +82,7 @@ public abstract class TypeAhead<T extends TypeAhead<T, V>, V> extends Component<
       }
     });
 
-    this.input().onBlur(new BlurHandler() {
+    this.control().onBlur(new BlurHandler() {
 
       @Override
       public void onBlur(BlurEvent event) {
@@ -93,6 +91,23 @@ public abstract class TypeAhead<T extends TypeAhead<T, V>, V> extends Component<
         }
       }
     });
+  }
+  
+  @Override
+  public UIClasses css() {
+    return this.control.css();
+  }
+  
+  @Override
+  public T css(String... classes) {
+    this.control.css(classes);
+    return (T) this;
+  }
+  
+  @Override
+  public T css(UIClass... classes) {
+    this.control.css(classes);
+    return (T) this;
   }
   
   public T converter(Converter<V, String> converter) {
@@ -122,9 +137,14 @@ public abstract class TypeAhead<T extends TypeAhead<T, V>, V> extends Component<
     this.provider = provider;
     return (T) this;
   }
+  
+  public T placeholder(String placeholder){
+    this.control.placeholder(placeholder);
+    return (T) this;
+  }
 
-  public InputText input() {
-    return this.input;
+  public InputText control() {
+    return this.control;
   }
 
   public T visibleItems(int numberOfItems) {
@@ -142,7 +162,7 @@ public abstract class TypeAhead<T extends TypeAhead<T, V>, V> extends Component<
   }
 
   public T select(int index, boolean fireEvent) {
-    this.input().blur();
+    this.control().blur();
     return this.select(this.entries.get(index), fireEvent);
   }
 
@@ -152,7 +172,7 @@ public abstract class TypeAhead<T extends TypeAhead<T, V>, V> extends Component<
 
   public T select(V entry, boolean fireEvent) {
     this.selection = entry;
-    this.input().value(this.converter.convert(entry));
+    this.control().value(this.converter.convert(entry));
 
     if (fireEvent) {
       this.fireEvent(new SelectionEvent<V>(entry));
@@ -179,6 +199,29 @@ public abstract class TypeAhead<T extends TypeAhead<T, V>, V> extends Component<
     return size;
   }
   
+  @Override
+  public T enable() {
+    this.control.enable();
+    return (T) this;
+  }
+
+  @Override
+  public T disable() {
+    this.control.disable();
+    return (T) this;
+  }
+
+  @Override
+  public boolean disabled() {
+    return this.control.disabled();
+  }
+  
+  @Override
+  public T clear() {
+    this.control.clear();
+    return (T) this;
+  }
+  
   void load(String value) {
     this.entries = this.provider.provideContent(value, this.numberOfItems);
     this.menu.detachChildren();
@@ -199,7 +242,7 @@ public abstract class TypeAhead<T extends TypeAhead<T, V>, V> extends Component<
       item.text(this.converter.convert(entry));
     }
 
-    this.menu.open();
+    this.menu.open().style().display(Display.BLOCK);
     this.selectionCommand.schedule(10);
   }
 
@@ -218,27 +261,34 @@ public abstract class TypeAhead<T extends TypeAhead<T, V>, V> extends Component<
       return;
     }
 
-    int idx = direction > 0 ? 0 : this.menu.childrenCount() - 1;
-    MenuItem target = this.childAt(idx);
+    int index = 0;
+    if(direction < 0 ) { 
+      index = this.menu.childrenCount() - 1;
+    }
+    
+    MenuItem activated = this.menu.find(HasActivation.Clauses.ACTIVE);
+    
+    if(activated != null){
+      index = this.menu.indexOfChild(activated);
+      Logger.get().error("idx" + index);
+    }
+    
     boolean bound = false;
+    MenuItem item = this.menu.childAt(index);
+    index += direction;
+    bound = index >= 0 && index < this.menu.childrenCount();
 
-    do {
-      MenuItem item = this.menu.childAt(idx);
-      idx += direction;
-      bound = idx >= 0 && idx < this.childrenCount();
-
-      if (item.active()) {
-        item.deactivate();
-        if (bound) {
-          MenuItem focus = this.menu.childAt(idx);
-          focus.activate();
-          return;
-        }
-        break;
+    Logger.get().error(item.text());
+    if (item.active()) {
+      item.deactivate();
+      if (bound) {
+        MenuItem focus = this.menu.childAt(index);
+        focus.activate();
+        return;
       }
-    } while (bound);
-
-    target.activate();
+    }
+    
+    item.activate();
   }
 
   public static interface ContentProvider<T> {
@@ -262,6 +312,12 @@ public abstract class TypeAhead<T extends TypeAhead<T, V>, V> extends Component<
         TypeAhead.this.menu.close();
         return;
       }
+      
+      if (Keyboard.get().enter(event)) {
+        MenuItem item = TypeAhead.this.menu.find(HasActivation.Clauses.ACTIVE);
+        TypeAhead.this.select(TypeAhead.this.menu.indexOfChild(item));
+        return;
+      }
 
       if (Keyboard.get().up(event)) {
         TypeAhead.this.up();
@@ -276,11 +332,12 @@ public abstract class TypeAhead<T extends TypeAhead<T, V>, V> extends Component<
       if (Keyboard.get().nonInputKey(event) && Keyboard.get().erase(event)) {
         return;
       }
-
-      this.onKeyUp(event.getNativeKeyCode(), (char) event.getNativeEvent().getCharCode());
+      
+      this.onKeyUp();
     }
-
-    void onKeyUp(int keyCode, char charCode) {
+    
+    protected void onKeyUp(){
+      return;
     }
   }
 }

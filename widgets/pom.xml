@@ -59,7 +59,6 @@
               <output>${project.build.directory}/classes/virtuozo/css/widgets.css</output>
               <includes>
               	<include>${project.css}/datepicker.css</include>
-              	<include>${project.css}/layoutpanel.css</include>
                 <include>${project.css}/notifier.css</include>
                 <include>${project.css}/select.css</include>
                 <include>${project.css}/spinner.css</include>

@@ -115,8 +115,7 @@ public class MediaList extends Component<MediaList>{
         HasClickHandlers<Object> {
 
       public Object() {
-        super(Elements.a());
-        this.element().setHref("javascript:void(0)");
+        super(Elements.div());
         this.css(Floating.LEFT).css(Alignment.TOP);
       }
       

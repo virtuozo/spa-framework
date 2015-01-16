@@ -18,30 +18,34 @@ import virtuozo.ui.interfaces.Layout;
 
 import com.google.gwt.dom.client.StyleInjector;
 
-public class StickyLayout implements Layout {
+public class StickyPageLayout implements Layout<StickyPageLayout> {
   private Body body = new Body();
   private Footer footer = new Footer();
 
-  public static StickyLayout create(){
-    return new StickyLayout();
+  public static StickyPageLayout create(){
+    return new StickyPageLayout();
   }
   
-  private StickyLayout() {
+  private StickyPageLayout() {
     super();
   }
   
-  public void attach() {
+  public StickyPageLayout attach() {
     StyleInjector.inject("html { position: relative; min-height: 100%;}");
     StyleInjector.inject("body { margin-bottom: 60px;}");
     StyleInjector.inject("#page-layout-footer { position: absolute; bottom: 0; width: 100%; height: 10%; background-color: #f5f5f5;}");
     HTML.body().addChild(this.body).addChild(this.footer);
+  
+    return this;
   }
   
   @Override
-  public void detach() {
+  public StickyPageLayout detach() {
     HTML.body().detachChildren();
     this.body.detachChildren();
     this.footer.detachChildren();
+  
+    return this;
   }
 
   public Body body() {

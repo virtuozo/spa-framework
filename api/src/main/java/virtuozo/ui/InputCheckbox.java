@@ -15,9 +15,9 @@
 
 package virtuozo.ui;
 
-import virtuozo.ui.interfaces.UISelection;
+import virtuozo.ui.interfaces.UICheck;
 
-public final class InputCheckbox extends Input<InputCheckbox> implements UISelection<InputCheckbox, String> {
+public final class InputCheckbox extends Input<InputCheckbox> implements UICheck<InputCheckbox, String> {
 
   public static InputCheckbox create(){
     return new InputCheckbox();

@@ -1,6 +1,5 @@
 package virtuozo.ui;
 
-import virtuozo.infra.Logger;
 import virtuozo.ui.events.ShowEvent;
 import virtuozo.ui.events.ShowEvent.ShowHandler;
 import virtuozo.ui.interfaces.AttachHandler;
@@ -13,17 +12,28 @@ import com.google.gwt.user.client.Window.ScrollEvent;
 import com.google.gwt.user.client.Window.ScrollHandler;
 
 public class Affix {
+  private Type type;
+  
   private UIComponent target;
   
   private int top;
   
   private int width;
   
-  public static Affix create(){
-    return new Affix();
+  public static Affix onBottom(){
+    return new Affix(Type.BOTTOM);
   }
   
-  private Affix() {
+  public static Affix onMiddle(){
+    return new Affix(Type.MIDDLE);
+  }
+  
+  public static Affix onTop(){
+    return new Affix(Type.TOP);
+  }
+  
+  private Affix(Type type) {
+    this.type = type;
     this.init();
   }
   
@@ -61,15 +71,20 @@ public class Affix {
   }
   
   private void handle(){
-    Logger.get().error("window top:" + Window.getScrollTop());
-    Logger.get().error("target top:" + this.top);
-    
     if(Window.getScrollTop() > this.top) {
-      this.target.asComponent().css("affix").style().top(10, Unit.PX).width(this.width, Unit.PX);
+      this.target.asComponent().css("affix", this.type.css()).style().width(this.width, Unit.PX);
       return;
     }
     
-    this.target.asComponent().css().remove("affix");
+    this.target.asComponent().css().remove("affix", this.type.css());
     this.target.asComponent().style().clearTop().clearWidth();
+  }
+  
+  static enum Type{
+    TOP, MIDDLE, BOTTOM;
+    
+    String css(){
+      return "affix-on-" + this.name().toLowerCase();
+    }
   }
 }

@@ -1,6 +1,5 @@
 package virtuozo.ui;
 
-import java.util.Date;
 import java.util.List;
 
 import virtuozo.infra.Calendar;
@@ -91,12 +90,8 @@ public final class MonthPanel extends Component<MonthPanel> {
     return this.selected;
   }
 
-  public MonthPanel onSelection(SelectionHandler<Date> handler) {
+  public MonthPanel onSelection(SelectionHandler<Calendar> handler) {
     return this.addHandler(SelectionEvent.TYPE, handler);
-  }
-
-  public MonthPanel range(Date start, Date end) {
-    return this.range(Calendar.of(start), Calendar.of(end));
   }
 
   public MonthPanel range(Calendar start, Calendar end) {
@@ -134,17 +129,13 @@ public final class MonthPanel extends Component<MonthPanel> {
   public MonthPanel set(Calendar calendar) {
     if (this.currentDate != null && !this.currentDate.equals(calendar)) {
       this.currentDate = calendar;
-      this.fireEvent(new SelectionEvent<Date>(calendar.toDate()));
+      this.fireEvent(new SelectionEvent<Calendar>(calendar));
     }
 
     this.selector.set(calendar);
     this.days.set(calendar);
 
     return this;
-  }
-
-  public MonthPanel set(Date date) {
-    return this.set(Calendar.of(date));
   }
 
   class Days {
@@ -173,7 +164,7 @@ public final class MonthPanel extends Component<MonthPanel> {
               Calendar calendar = Days.this.toCalendar(cell);
               if (Days.this.range.eval(calendar) && !cell.css().contains("off")) {
                 Days.this.selectDate(calendar, cell);
-                MonthPanel.this.fireEvent(new SelectionEvent<Date>(calendar.toDate()));
+                MonthPanel.this.fireEvent(new SelectionEvent<Calendar>(calendar));
               }
             }
           }).on(new MouseDownHandler() {
@@ -248,11 +239,11 @@ public final class MonthPanel extends Component<MonthPanel> {
 
     void decorate(Cell cell, Calendar runner) {
       if (!range.eval(runner)) {
-        cell.css("off disabled");
+        cell.css().remove("available", "in-range").append("off", "disabled");
         return;
       }
 
-      cell.css("available in-range");
+      cell.css().append("available", "in-range").remove("off", "disabled");
     }
 
     class Range {

@@ -20,14 +20,14 @@ import com.google.gwt.core.client.JsArrayString;
 
 public class MessageFormat {
 
-  public static <T> String format(final String pattern, final T... args) {
+  public static String format(final String pattern, final Object... args) {
     if (null == args || 0 == args.length) {
       return pattern;
     }
 
     JsArrayString array = JavaScriptObject.createArray().cast();
     for (Object arg : args) {
-      array.push(String.valueOf(arg));
+      array.push(arg.toString());
     }
 
     return nativeFormat(pattern, array);

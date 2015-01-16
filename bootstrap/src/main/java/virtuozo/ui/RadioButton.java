@@ -1,11 +1,11 @@
 package virtuozo.ui;
 
 import virtuozo.ui.interfaces.HasText;
-import virtuozo.ui.interfaces.UISelection;
+import virtuozo.ui.interfaces.UICheck;
 
 import com.google.gwt.event.dom.client.ChangeHandler;
 
-public class RadioButton extends Component<RadioButton> implements UISelection<RadioButton, String>, HasText<RadioButton>{
+public class RadioButton extends Component<RadioButton> implements UICheck<RadioButton, String>, HasText<RadioButton>{
 
   private InputLabel label = InputLabel.create();
   

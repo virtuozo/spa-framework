@@ -1,7 +1,7 @@
 package virtuozo.ui.interfaces;
 
-public interface Layout {
-  void attach();
+public interface Layout<L extends Layout<L>> {
+  L attach();
   
-  void detach();
+  L detach();
 }

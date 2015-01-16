@@ -25,7 +25,7 @@ import com.google.gwt.dom.client.StyleInjector;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 
-public class LandingPageLayout implements Layout {
+public class LandingPageLayout implements Layout<LandingPageLayout> {
   private Navbar bar = Navbar.create();
 
   private Intro intro = new Intro();
@@ -52,7 +52,7 @@ public class LandingPageLayout implements Layout {
     return section;
   }
 
-  public void attach() {
+  public LandingPageLayout attach() {
     HTML.body().addChild(this.bar).addChild(this.intro);
 
     StyleInjector.inject("html { width: 100%; height: 100%; } body { width: 100%; height: 100%; position: relative;}");
@@ -64,13 +64,16 @@ public class LandingPageLayout implements Layout {
     StyleInjector.inject("@media(min-width:767px) { .intro { height: 100%; } .intro-text { font-size: 25px; }}");
     StyleInjector.inject("section { padding-top: 5%; padding-bottom: 5%; display:block; position:relative; z-index:120; }");
     StyleInjector.inject("section::before, section::after { position: absolute; content: ''; pointer-events: none;}");
+    
+    return this;
   }
 
   @Override
-  public void detach() {
+  public LandingPageLayout detach() {
     HTML.body().detachChildren();
     this.bar.detachChildren();
     this.intro.detachChildren();
+    return this;
   }
 
   public class Intro extends Section {

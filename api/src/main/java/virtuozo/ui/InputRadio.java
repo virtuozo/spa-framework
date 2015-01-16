@@ -15,11 +15,11 @@
 
 package virtuozo.ui;
 
-import virtuozo.ui.interfaces.UISelection;
+import virtuozo.ui.interfaces.UICheck;
 
 
 
-public final class InputRadio extends Input<InputRadio> implements UISelection<InputRadio, String> {
+public final class InputRadio extends Input<InputRadio> implements UICheck<InputRadio, String> {
 
   public static InputRadio create(String name){
     return new InputRadio(name);

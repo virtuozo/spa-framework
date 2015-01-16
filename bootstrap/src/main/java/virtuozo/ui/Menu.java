@@ -204,11 +204,10 @@ public class Menu extends Component<Menu>{
     public MenuItem onActivate(ActivationHandler handler) {
       return this.addHandler(ActivationEvent.TYPE, handler);
     }
-    
 
     @Override
     public MenuItem deactivate() {
-      this.css().remove("active");
+      this.css().remove(State.ACTIVE);
       return this;
     }
 
@@ -219,7 +218,7 @@ public class Menu extends Component<Menu>{
 
     @Override
     public boolean active() {
-      return this.css().contains("active");
+      return this.css().contains(State.ACTIVE);
     }
 
     @Override

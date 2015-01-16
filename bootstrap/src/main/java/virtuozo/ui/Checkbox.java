@@ -2,11 +2,11 @@ package virtuozo.ui;
 
 import virtuozo.ui.css.State;
 import virtuozo.ui.interfaces.HasText;
-import virtuozo.ui.interfaces.UISelection;
+import virtuozo.ui.interfaces.UICheck;
 
 import com.google.gwt.event.dom.client.ChangeHandler;
 
-public class Checkbox extends Component<Checkbox> implements UISelection<Checkbox, String>, HasText<Checkbox>{
+public class Checkbox extends Component<Checkbox> implements UICheck<Checkbox, String>, HasText<Checkbox>{
 
   private InputLabel label = InputLabel.create();
   

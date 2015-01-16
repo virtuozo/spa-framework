@@ -33,4 +33,17 @@ public interface HasActivation<C extends UIComponent> extends HasClickHandlers<C
   boolean active();
 
   boolean match(Element element);
+  
+  public static enum Clauses implements Clause{
+    ACTIVE{
+      @Override
+      public boolean matches(UIComponent component) {
+        if(component instanceof HasActivation){
+          HasActivation<?> activation = (HasActivation<?>) component;
+          return activation.active();
+        }
+        return false;
+      }
+    };
+  }
 }

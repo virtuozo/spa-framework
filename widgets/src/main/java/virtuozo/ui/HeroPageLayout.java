@@ -4,10 +4,12 @@ import virtuozo.ui.interfaces.Layout;
 
 import com.google.gwt.dom.client.StyleInjector;
 
-public class HeroPageLayout implements Layout {
+public class HeroPageLayout implements Layout<HeroPageLayout> {
   private Navbar bar = Navbar.create();
   
   private Header header = new Header();
+  
+  private Container body = Container.fluid();
   
   public static HeroPageLayout create(){
     return new HeroPageLayout();
@@ -22,7 +24,7 @@ public class HeroPageLayout implements Layout {
   }
 
   @Override
-  public void attach() {
+  public HeroPageLayout attach() {
     HTML.body().addChild(this.bar).addChild(this.header);
     
     StyleInjector.inject("body {margin-top: 50px;} ");
@@ -32,21 +34,25 @@ public class HeroPageLayout implements Layout {
     StyleInjector.inject(".sb-page-header p { margin-bottom: 0;}");
     StyleInjector.inject(".sb-page-header .container { position: relative}");
     StyleInjector.inject("@media ( min-width :768px) { .sb-page-header {padding-top: 60px; padding-bottom: 60px; text-align: left;}");
+    
+    return this;
   }
 
   @Override
-  public void detach() {
+  public HeroPageLayout detach() {
     HTML.body().detachChildren();
     this.bar.detachChildren();
     this.header.detachChildren();
+    
+    return this;
   }
   
   public Header header(){
     return this.header;
   }
   
-  public Container addContainer(){
-    return Container.fluid().attachTo(HTML.body());
+  public Container body(){
+    return this.body;
   }
 
   public class Header extends Composite<Header> {

@@ -28,5 +28,5 @@ public enum Clauses implements Clause{
     public boolean matches(UIComponent widget) {
       return widget.asComponent().visible();
     }
-  }
+  };
 }

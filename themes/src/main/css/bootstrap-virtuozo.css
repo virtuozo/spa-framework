@@ -44,3 +44,11 @@
 .form-footer > button, .form-footer > .btn {
 	margin-right: 5px;
 }
+
+.affix-on-top {
+	top: 10px;
+}
+
+.affix-on-bottom {
+	bottom: 10px;
+}

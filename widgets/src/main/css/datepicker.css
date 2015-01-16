@@ -172,9 +172,11 @@
 
 .calendar td.off {
   color: #999;
+  cursor: default;
 }
 .calendar td.disabled {
   color: #999;
+  cursor: default;
 }
 
 .calendar td.available:hover, .calendar th.available:hover {

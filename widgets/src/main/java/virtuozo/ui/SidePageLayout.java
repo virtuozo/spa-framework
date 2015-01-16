@@ -19,7 +19,7 @@ import virtuozo.ui.interfaces.Layout;
 
 import com.google.gwt.dom.client.StyleInjector;
 
-public class SidebarLayout implements Layout {
+public class SidePageLayout implements Layout<SidePageLayout> {
   private Container container = Container.fluid();
 
   private Column top;
@@ -28,11 +28,11 @@ public class SidebarLayout implements Layout {
   
   private Column main;
   
-  public static SidebarLayout create(){
-    return new SidebarLayout();
+  public static SidePageLayout create(){
+    return new SidePageLayout();
   }
   
-  private SidebarLayout() {
+  private SidePageLayout() {
     super();
   }
 
@@ -48,7 +48,7 @@ public class SidebarLayout implements Layout {
     return this.main;
   }
 
-  public void attach() {
+  public SidePageLayout attach() {
     HTML.body().addChild(this.container);
     
     this.top = this.container.addRow().addColumn().span(12, ViewPort.LARGE).id("page-layout-top");
@@ -58,11 +58,15 @@ public class SidebarLayout implements Layout {
     this.main = row.addColumn().span(10, ViewPort.SMALL).offset(4, ViewPort.SMALL).id("page-layout-main");
     
     StyleInjector.inject("@media (min-width: 768px) { #page-layout-left { bottom: 0; display: block; left: 0; overflow-x: hidden; overflow-y: auto; padding: 20px; position: fixed; top: 51px;}}");
+  
+    return this;
   }
 
   @Override
-  public void detach() {
+  public SidePageLayout detach() {
     HTML.body().detachChildren();
     this.container.detachChildren();
+    
+    return this;
   }
 }

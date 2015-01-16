@@ -2,5 +2,5 @@ package virtuozo.ui.interfaces;
 
 
 public interface Clause {
-  boolean matches(UIComponent widget);
+  boolean matches(UIComponent component);
 }
