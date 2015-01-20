@@ -14,15 +14,9 @@
  */
 package virtuozo.ui;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import virtuozo.infra.CastIterable;
-import virtuozo.infra.CastIterable.TypeCast;
 import virtuozo.infra.StringProperty;
 import virtuozo.ui.events.CssChangeEvent;
 import virtuozo.ui.events.CssChangeEvent.CssChangeHandler;
-import virtuozo.ui.events.DetachChildrenEvent;
 import virtuozo.ui.events.DetachChildrenEvent.DetachChildrenHandler;
 import virtuozo.ui.events.HideEvent;
 import virtuozo.ui.events.HideEvent.HideHandler;
@@ -91,6 +85,8 @@ import com.google.gwt.user.client.ui.WidgetHolder;
 @SuppressWarnings("unchecked")
 public class Component<C extends Component<C>> implements HasVisibility<C>, UIComponent {
   private WidgetHolder holder;
+  
+  private ChildrenProxy proxy = new ChildrenProxy();
 
   private final Style style = new Style(this);
 
@@ -106,8 +102,9 @@ public class Component<C extends Component<C>> implements HasVisibility<C>, UICo
   
   protected Component(Element element) {
     this.holder = new WidgetHolder(element, this);
+    this.proxy.holder(this.holder);
     this.bus = new EventManager(this.holder.getHandlerManager());
-    this.id.onChange(new virtuozo.infra.api.ChangeHandler<String>() {
+    this.id.onChange(new virtuozo.infra.api.ValueChangeHandler<String>() {
       
       @Override
       public void onChange(String oldValue, String newValue) {
@@ -125,6 +122,7 @@ public class Component<C extends Component<C>> implements HasVisibility<C>, UICo
   protected C incorporate(Component<?> widget){
     this.holder = widget.holder;
     this.holder.reference(this);
+    this.proxy.holder(this.holder);
     this.classes = widget.classes;
     this.bus = widget.bus;
     this.id = widget.id;
@@ -158,7 +156,7 @@ public class Component<C extends Component<C>> implements HasVisibility<C>, UICo
     return this.holder.getElement().cast();
   }
   
-  public C onIdChange(virtuozo.infra.api.ChangeHandler<String> handler){
+  public C onIdChange(virtuozo.infra.api.ValueChangeHandler<String> handler){
     this.id.onChange(handler);
     return (C) this;
   }
@@ -312,11 +310,6 @@ public class Component<C extends Component<C>> implements HasVisibility<C>, UICo
     return (C) this;
   }
   
-  protected C onDetachChildren(DetachChildrenHandler handler){
-    this.holder.addHandler(handler, DetachChildrenEvent.TYPE);
-    return (C) this;
-  }
-  
   public C onEvent(EventInterceptor interceptor){
     this.holder.setInterceptor(interceptor);
     return (C) this;
@@ -326,113 +319,89 @@ public class Component<C extends Component<C>> implements HasVisibility<C>, UICo
     this.addHandler(ScrollSpyEvent.TYPE, handler);
     return (C) this;
   }
+  
+  protected C onDetachChildren(DetachChildrenHandler handler){
+    this.proxy.onDetachChildren(handler);
+    return (C) this;
+  }
 
   protected C detachChildren() {
-    if(this.hasChildren()){
-      this.fireEvent(new DetachChildrenEvent());
-    }
-    this.holder.detachChildren();
-    
+    this.proxy.detachChildren();
     return (C) this;
   }
 
   protected C removeChild(UIComponent child) {
-    this.holder.remove(child.asComponent().holder);
+    this.proxy.removeChild(child);
     return (C) this;
   }
 
   protected C addChild(UIComponent add) {
-    this.holder.add(add.asComponent().holder);
+    this.proxy.addChild(add);
     return (C) this;
   }
   
   protected C addFirstChild(UIComponent add){
-    if(!this.hasChildren()) {
-      this.addChild(add);
-      return (C) this;
-    }
-    
-    return this.insertChild(add, this.childAt(0));
+    this.proxy.addFirstChild(add);
+    return (C) this;
   }
 
   protected C adoptChild(UIComponent child) {
-    this.holder.adoptIt(child.asComponent().holder);
+    this.proxy.adoptChild(child);
+    return (C) this;
+  }
+  
+  protected C fakeParent(UIComponent parent){
+    this.proxy.holder(parent.asComponent().holder());
     return (C) this;
   }
   
   protected C tradeParent(UIComponent parent){
-    UIComponent current = this.parent();
-    parent.asComponent().adoptChild(this);
-    current.asComponent().adoptChild(parent);
+    this.proxy.tradeParent(parent);
+//    UIComponent current = this.parent();
+//    parent.asComponent().adoptChild(this);
+//    current.asComponent().adoptChild(parent);
     return (C) this;
   }
 
   protected C insertChild(UIComponent add, UIComponent before) {
-    this.holder.insert(add.asComponent().holder, before.asComponent().holder);
+    this.proxy.insertChild(add, before);
     return (C) this;
   }
 
   protected <UI extends UIComponent> Iterable<UI> childrenComponents() {
-    return CastIterable.<UI, WidgetHolder>of(this.holder.children()).use(new TypeCast<UI, WidgetHolder>() {
-      @Override
-      public UI castFrom(WidgetHolder instance) {
-        return instance.getReference();
-      }
-    });
+    return this.proxy.childrenComponents();
   }
   
   protected <UI extends UIComponent> UI firstChild(){
-    if(this.hasChildren()){
-      return this.childAt(0);
-    }
-    
-    return null;
+    return this.proxy.firstChild();
   }
   
   protected <UI extends UIComponent> UI lastChild(){
-    if(this.hasChildren()){
-      return this.childAt(this.childrenCount() - 1);
-    }
-    
-    return null;
+    return this.proxy.lastChild();
   }
 
   protected <UI extends UIComponent> UI childAt(int index) {
-    return this.holder.childAt(index).getReference();
+    return this.proxy.childAt(index);
   }
   
   protected <UI extends UIComponent> UI find(Clause clause){
-    for(UIComponent child : this.childrenComponents()){
-      if(clause.matches(child)){
-        return (UI) child;
-      }
-    }
-    
-    return null;
+    return this.proxy.find(clause);
   }
   
   protected <UI extends UIComponent> Iterable<UI> findAll(Clause clause){
-    List<UI> children = new ArrayList<UI>();
-    
-    for(UIComponent child : this.childrenComponents()){
-      if(clause.matches(child)){
-        children.add((UI) child);
-      }
-    }
-    
-    return children;
+    return this.proxy.findAll(clause);
   }
 
   protected int indexOfChild(UIComponent child) {
-    return this.holder.indexOf(child.asComponent().holder);
+    return this.proxy.indexOfChild(child);
   }
 
   protected int childrenCount() {
-    return this.holder.childrenCount();
+    return this.proxy.childrenCount();
   }
 
   protected boolean hasChildren() {
-    return this.holder.hasChildren();
+    return this.proxy.hasChildren();
   }
 
   /** Dimension behaviors **/

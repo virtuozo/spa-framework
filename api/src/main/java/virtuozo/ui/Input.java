@@ -147,4 +147,10 @@ public abstract class Input<I extends Input<I>> extends Component<I> implements 
     this.element.setDisabled(false);
     return (I) this;
   }
+  
+  @Override
+  public I tabIndex(int index) {
+    this.element.setTabIndex(index);
+    return (I) this;
+  }
 }

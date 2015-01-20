@@ -1,7 +1,7 @@
 package virtuozo.ui;
 
 import virtuozo.infra.APITestCase;
-import virtuozo.infra.api.ChangeHandler;
+import virtuozo.infra.api.ValueChangeHandler;
 import virtuozo.ui.events.HideEvent;
 import virtuozo.ui.events.ShowEvent;
 import virtuozo.ui.events.HideEvent.HideHandler;
@@ -48,7 +48,7 @@ public class TagUT extends APITestCase{
     final String idChanged = "changed";
     String id = "virtuozo";
     
-    tag.onIdChange(new ChangeHandler<String>() {
+    tag.onIdChange(new ValueChangeHandler<String>() {
       
       @Override
       public void onChange(String oldValue, String newValue) {

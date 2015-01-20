@@ -2,6 +2,8 @@ package virtuozo.ui;
 
 import virtuozo.ui.interfaces.UIInput;
 
+import com.google.gwt.event.dom.client.ChangeHandler;
+
 public final class InputNumber extends Component<InputNumber> implements UIInput<InputNumber, Integer> {
   private InputText control = InputText.create();
   
@@ -10,8 +12,19 @@ public final class InputNumber extends Component<InputNumber> implements UIInput
   }
   
   private InputNumber() {
-    this.incorporate(this.control);
+    this.incorporate(this.control).css("form-control");
     NumberInputPrevent.create().attachTo(this.control);
+  }
+  
+  @Override
+  public InputNumber onChange(ChangeHandler handler) {
+    this.control.onChange(handler);
+    return this;
+  }
+  
+  public InputNumber placeholder(String placeholder){
+    this.control.placeholder(placeholder);
+    return this;
   }
 
   @Override
@@ -50,6 +63,12 @@ public final class InputNumber extends Component<InputNumber> implements UIInput
   @Override
   public InputNumber clear() {
     this.control.clear();
+    return this;
+  }
+  
+  @Override
+  public InputNumber tabIndex(int index) {
+    this.control.tabIndex(index);
     return this;
   }
 }

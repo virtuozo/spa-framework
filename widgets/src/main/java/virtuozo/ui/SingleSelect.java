@@ -7,8 +7,6 @@ import virtuozo.infra.Keyboard;
 import virtuozo.infra.api.Converter;
 import virtuozo.ui.events.CssChangeEvent;
 import virtuozo.ui.events.CssChangeEvent.CssChangeHandler;
-import virtuozo.ui.events.SelectionEvent;
-import virtuozo.ui.events.SelectionEvent.SelectionHandler;
 import virtuozo.ui.interfaces.EventInterceptor;
 import virtuozo.ui.interfaces.HasClickHandlers;
 import virtuozo.ui.interfaces.HasFocusHandlers;
@@ -21,11 +19,14 @@ import virtuozo.ui.interfaces.UIRenderer;
 
 import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.dom.client.DivElement;
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.SpanElement;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DoubleClickHandler;
@@ -70,7 +71,7 @@ public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Comp
   }
 
   private void init() {
-    this.addChild(this.container).addChild(this.mask).addChild(this.menu);
+    this.css("single-select").addChild(this.container).addChild(this.mask).addChild(this.menu);
     this.onCssChange(new CssChangeHandler() {
       @Override
       public void onChange(CssChangeEvent e) {
@@ -82,12 +83,12 @@ public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Comp
     });
   }
 
-  public S converter(Converter<E, String> converter) {
+  protected S converter(Converter<E, String> converter) {
     this.converter = converter;
     return (S) this;
   }
 
-  public S renderer(UIRenderer<E> renderer) {
+  protected S renderer(UIRenderer<E> renderer) {
     this.renderer = renderer;
     return (S) this;
   }
@@ -114,7 +115,7 @@ public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Comp
     return (S) this;
   }
 
-  public S onSelection(SelectionHandler<E> handler) {
+  public S onChange(ChangeHandler handler) {
     this.menu.onSelection(handler);
     return (S) this;
   }
@@ -130,28 +131,18 @@ public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Comp
   }
 
   public S resetable() {
-    this.onSelection(new SelectionHandler<E>() {
+    this.onChange(new ChangeHandler() {
       @Override
-      public void onSelect(SelectionEvent<E> event) {
+      public void onChange(ChangeEvent event) {
         SingleSelect.this.container.clear.show();
       }
     });
     return (S) this;
   }
 
-  public S minimumInputLength(int length) {
-    // this.options.put("minimumInputLength", length);
-    return (S) this;
-  }
-
-  public S maximumInputLength(int length) {
-    this.menu.search.input.maxLength(length);
-    return (S) this;
-  }
-
-  public S searchable(Matcher<E> matcher) {
+  public Searchable searchable(Matcher<E> matcher) {
     this.menu.search.matcher(matcher).show();
-    return (S) this;
+    return new Searchable();
   }
 
   public E getSelection() {
@@ -168,16 +159,16 @@ public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Comp
     this.select(this.menu.items.child(index).value());
     return (S) this;
   }
-
-  public S item(E entry) {
+  
+  public S add(E entry) {
     this.items.add(entry);
     this.menu.items.item(entry);
     return (S) this;
   }
 
-  public S items(Iterable<E> entries) {
+  public S add(Iterable<E> entries) {
     for (E entry : entries) {
-      this.item(entry);
+      this.add(entry);
     }
 
     this.select(0);
@@ -226,6 +217,12 @@ public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Comp
   @Override
   public boolean disabled() {
     return this.container.disabled();
+  }
+  
+  @Override
+  public S tabIndex(int index) {
+    this.element().setTabIndex(index);
+    return (S) this;
   }
 
   class Container extends Component<Container> implements HasFocusHandlers<Container>, HasText<Container> {
@@ -387,8 +384,8 @@ public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Comp
       this.css("select-drop").addChild(this.search).addChild(this.items).hide();
     }
 
-    public DropDown onSelection(SelectionHandler<E> handler) {
-      return this.addHandler(SelectionEvent.TYPE, handler);
+    public DropDown onSelection(ChangeHandler handler) {
+      return this.addHandler(ChangeEvent.getType(), handler);
     }
 
     public DropDown activate() {
@@ -417,7 +414,7 @@ public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Comp
     }
 
     void select(E value) {
-      this.fireEvent(new SelectionEvent<E>(value));
+      this.fireNativeEvent(Document.get().createChangeEvent());
       this.search.input.clear();
       for (UIComponent child : this.items.childrenComponents()) {
         child.asComponent().show();
@@ -467,25 +464,21 @@ public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Comp
       }
 
       private void handle(KeyUpEvent event) {
-        if (Keyboard.get().nonInputKey(event) || this.matcher == null) {
+        if (this.matcher == null) {
           return;
         }
-
-        Items items = SingleSelect.this.menu.items;
 
         if (Keyboard.get().enter(event) && this.handleSelection()) {
           return;
         }
+        
+        Items items = SingleSelect.this.menu.items;
 
-        for (E entry : SingleSelect.this.items) {
-          boolean match = this.matcher.matches(this.input.value(), entry);
-          Item item = items.find(entry);
-          if (item == null) {
-            continue;
-          }
-          item.show();
-          if (!match) {
-            item.hide();
+        for(Item child : items.<Item>childrenComponents()){
+          boolean match = this.matcher.matches(this.input.value(), child.value());
+          child.show();
+          if(!match){
+            child.hide();
           }
         }
       }
@@ -527,17 +520,6 @@ public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Comp
         }
 
         return this;
-      }
-
-      public Item find(E entry) {
-        for (UIComponent child : this.childrenComponents()) {
-          Item item = (Item) child;
-          if (item.value().equals(entry)) {
-            return item;
-          }
-        }
-
-        return null;
       }
 
       public Item item(E entry) {
@@ -680,6 +662,13 @@ public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Comp
       this.enable = false;
       return this;
     }
+  }
+  
+  public class Searchable {
+    public Searchable maximumInputLength(int length) {
+      SingleSelect.this.menu.search.input.maxLength(length);
+      return this;
+    }   
   }
 
   public static interface Matcher<E> {

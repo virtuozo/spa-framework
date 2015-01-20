@@ -42,7 +42,7 @@ public final class InputFile extends Component<InputFile> implements UIInput<Inp
 
       @Override
       public void onClick(ClickEvent event) {
-        file.open();
+        InputFile.this.file.open();
       }
     });
 
@@ -50,20 +50,37 @@ public final class InputFile extends Component<InputFile> implements UIInput<Inp
 
       @Override
       public void onClick(ClickEvent event) {
-        clear();
+        InputFile.this.reset();
       }
     });
 
-    this.file.onChange(new ChangeHandler() {
+    this.onChange(new ChangeHandler() {
 
       @Override
       public void onChange(ChangeEvent event) {
-        InputFile.this.input.value(InputFile.this.file.value());
-        if (!SimpleValidator.isEmptyOrNull(InputFile.this.file.value())) {
-          InputFile.this.reset.hide();
+        InputFile.this.value(InputFile.this.file.value());
+        toggleButtons();
+        if (SimpleValidator.isEmptyOrNull(InputFile.this.value())) {
+          toggleButtons();
         }
       }
     });
+  }
+  
+  private void reset(){
+    this.clear();
+    this.submit.show();
+  }
+  
+  private void toggleButtons(){
+    InputFile.this.reset.toggleVisibility();
+    InputFile.this.submit.toggleVisibility();
+  }
+  
+  @Override
+  public InputFile onChange(ChangeHandler handler) {
+    this.file.onChange(handler);
+    return this;
   }
   
   @Override
@@ -174,6 +191,12 @@ public final class InputFile extends Component<InputFile> implements UIInput<Inp
   @Override
   public InputFile enable() {
     this.input.enable();
+    return this;
+  }
+  
+  @Override
+  public InputFile tabIndex(int index) {
+    this.input.tabIndex(index);
     return this;
   }
 }

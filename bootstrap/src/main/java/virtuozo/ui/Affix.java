@@ -24,10 +24,6 @@ public class Affix {
     return new Affix(Type.BOTTOM);
   }
   
-  public static Affix onMiddle(){
-    return new Affix(Type.MIDDLE);
-  }
-  
   public static Affix onTop(){
     return new Affix(Type.TOP);
   }

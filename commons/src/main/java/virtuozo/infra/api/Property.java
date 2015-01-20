@@ -9,7 +9,7 @@ public abstract class Property<T, P extends Property<T, P>> {
 
   private T value;
 
-  private final List<ChangeHandler<T>> listeners = new ArrayList<ChangeHandler<T>>();
+  private final List<ValueChangeHandler<T>> listeners = new ArrayList<ValueChangeHandler<T>>();
 
   private final List<Validator<?, T>> validators = new ArrayList<Validator<?, T>>();
 
@@ -33,7 +33,7 @@ public abstract class Property<T, P extends Property<T, P>> {
       }
     }
 
-    for (ChangeHandler<T> listener : this.listeners) {
+    for (ValueChangeHandler<T> listener : this.listeners) {
       listener.onChange(this.value, value);
     }
     this.value = value;
@@ -49,7 +49,7 @@ public abstract class Property<T, P extends Property<T, P>> {
     return (P) this;
   }
 
-  public P onChange(ChangeHandler<T> listener) {
+  public P onChange(ValueChangeHandler<T> listener) {
     this.listeners.add(listener);
     return (P) this;
   }

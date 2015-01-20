@@ -166,8 +166,7 @@ public class RichForm extends Form<RichForm> {
   static class VerticalFormGroup<I extends UIInput<?, V>, V> extends FormGroup<I, V> {
     public VerticalFormGroup(I input) {
       super(input);
-      this.feedback(new Feedback());
-      this.feedback().asComponent().incorporate(this);
+      this.feedback(new Feedback().incorporate(this));
       this.addChild(this.label().css("control-label")).addChild(input).addChild(this.helpBlock());
     }
   }

@@ -152,4 +152,10 @@ public final class TextArea extends Component<TextArea> implements UIInput<TextA
     this.element().setDisabled(false);
     return this;
   }
+  
+   @Override
+  public TextArea tabIndex(int index) {
+    this.element().setTabIndex(index);
+    return this;
+  }
 }

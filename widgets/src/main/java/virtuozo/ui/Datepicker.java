@@ -235,6 +235,12 @@ public final class Datepicker extends Component<Datepicker> implements UIInput<D
     this.input.placeholder(placeholder);
     return this;
   }
+  
+  @Override
+  public Datepicker tabIndex(int index) {
+    this.input.tabIndex(index);
+    return this;
+  }
 
   private ClickHandler doFocus = new ClickHandler() {
 

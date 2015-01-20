@@ -1,5 +1,5 @@
 package virtuozo.infra.api;
 
-public interface ChangeHandler<T> {
+public interface ValueChangeHandler<T> {
   void onChange(T oldValue, T newValue);
 }

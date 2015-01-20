@@ -41,7 +41,7 @@ public class Spinner extends Component<Spinner> implements UIInput<Spinner, Inte
 
   private int maxValue = Integer.MAX_VALUE;
 
-  private InputText input = InputText.create().css("input-mini spinner-input");
+  private InputText input = InputText.create().css("spinner-input", "form-control");
   
   private ButtonGroup buttons = ButtonGroup.vertical().css("spinner-buttons");
   
@@ -214,6 +214,12 @@ public class Spinner extends Component<Spinner> implements UIInput<Spinner, Inte
   @Override
   public Spinner enable() {
     this.input.enable();
+    return this;
+  }
+  
+  @Override
+  public Spinner tabIndex(int index) {
+    this.input.tabIndex(index);
     return this;
   }
 }

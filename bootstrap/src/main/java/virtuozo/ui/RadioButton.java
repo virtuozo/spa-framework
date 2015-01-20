@@ -3,6 +3,7 @@ package virtuozo.ui;
 import virtuozo.ui.interfaces.HasText;
 import virtuozo.ui.interfaces.UICheck;
 
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ChangeHandler;
 
 public class RadioButton extends Component<RadioButton> implements UICheck<RadioButton, String>, HasText<RadioButton>{
@@ -12,15 +13,25 @@ public class RadioButton extends Component<RadioButton> implements UICheck<Radio
   private InputRadio input;
   
   public static RadioButton create(String name){
-    return new RadioButton(name);
+    return new RadioButton(Elements.div(), name);
   }
   
-  private RadioButton(String name) {
-    super(Elements.div());
+  public static RadioButton inline(String name){
+    return new RadioButton(name).css("radio-inline");
+  }
+  
+  private RadioButton(Element element, String name) {
+    super(element);
     this.input = InputRadio.create(name);
     this.css("radio");
     this.label.addFirstChild(this.input);
     this.addChild(this.label);
+  }
+  
+  public RadioButton(String name) {
+    this.incorporate(this.label);
+    this.input = InputRadio.create(name);
+    this.label.addFirstChild(this.input);
   }
   
   @Override
@@ -94,6 +105,12 @@ public class RadioButton extends Component<RadioButton> implements UICheck<Radio
   @Override
   public RadioButton onChange(ChangeHandler handler) {
     this.input.onChange(handler);
+    return this;
+  }
+  
+  @Override
+  public RadioButton tabIndex(int index) {
+    this.input.tabIndex(index);
     return this;
   }
 }

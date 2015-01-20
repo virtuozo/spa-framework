@@ -51,13 +51,13 @@ public class Panel extends Component<Panel> {
 
   public Table addTable() {
     Table table = Table.create();
-    this.addChild(table);
+    this.insertChild(table, this.footer);
     return table;
   }
 
   public ListGroup addListGroup() {
     ListGroup group = ListGroup.create();
-    this.addChild(group);
+    this.insertChild(group, this.footer);
     return group;
   }
 

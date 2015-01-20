@@ -23,6 +23,7 @@ import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.dom.client.Style.Position;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
@@ -63,6 +64,7 @@ public abstract class TypeAhead<T extends TypeAhead<T, V>, V> extends Component<
   }
 
   private void init() {
+    super.css("autocomplete");
     this.style().position(Position.RELATIVE);
     this.addChild(this.control).addChild(this.menu.hide());
 
@@ -115,8 +117,13 @@ public abstract class TypeAhead<T extends TypeAhead<T, V>, V> extends Component<
     return (T) this;
   }
   
-  public T renderer(UIRenderer<V> renderer) {
+  protected T renderer(UIRenderer<V> renderer) {
     this.renderer = renderer;
+    return (T) this;
+  }
+  
+  public T onChange(ChangeHandler handler){
+    this.control.onChange(handler);
     return (T) this;
   }
 
@@ -219,6 +226,12 @@ public abstract class TypeAhead<T extends TypeAhead<T, V>, V> extends Component<
   @Override
   public T clear() {
     this.control.clear();
+    return (T) this;
+  }
+  
+  @Override
+  public T tabIndex(int index) {
+    this.control.tabIndex(index);
     return (T) this;
   }
   

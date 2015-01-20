@@ -17,6 +17,5 @@ package virtuozo.ui.interfaces;
 import com.google.gwt.event.dom.client.ChangeHandler;
 
 public interface HasChangeHandlers<T> {
-
   T onChange(ChangeHandler handler);
 }

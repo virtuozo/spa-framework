@@ -1,12 +1,21 @@
 package virtuozo.ui;
 
-import virtuozo.infra.KeyValue;
+import virtuozo.infra.Item;
 import virtuozo.infra.api.Converter;
+import virtuozo.ui.interfaces.UIRenderer;
 
-public class Combo extends SingleSelect<Combo, Combo.Item> {
+public class Combo extends SingleSelect<Combo, Item> {
 
   public static Combo create(){
     return new Combo();
+  }
+  
+  public static Combo create(UIRenderer<Item> renderer){
+    return new Combo().renderer(renderer);
+  }
+  
+  public static Combo create(Converter<Item, String> converter){
+    return new Combo().converter(converter);
   }
   
   private Combo() {
@@ -21,20 +30,6 @@ public class Combo extends SingleSelect<Combo, Combo.Item> {
         return value.value();
       }
     });
-  }
-  
-  public static class Item extends KeyValue<String, String>{
-    public static Item create(String value) {
-      return new Item(value, value);
-    }
-    
-    public static Item create(String key, String value) {
-      return new Item(key, value);
-    }
-    
-    private Item(String key, String value) {
-      this.key(key).value(value);
-    }
   }
   
   public static enum Matchers implements Matcher<Item> {

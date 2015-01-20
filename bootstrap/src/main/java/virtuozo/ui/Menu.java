@@ -133,6 +133,7 @@ public class Menu extends Component<Menu>{
       this.role("presentation").addChild(this.anchor);
       this.helper = EnablementHelper.to(this);
       this.helper.intercept(this.anchor);
+      this.fakeParent(this.anchor);
     }
     
     @Override

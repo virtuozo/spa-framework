@@ -5,12 +5,13 @@ import virtuozo.infra.ValidationProcess.ValidationConstraint;
 import virtuozo.infra.api.Validator;
 import virtuozo.ui.interfaces.HasFeedback;
 import virtuozo.ui.interfaces.HasFocusHandlers;
+import virtuozo.ui.interfaces.HasValue;
 import virtuozo.ui.interfaces.UIInput;
 
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
 
-public abstract class FormGroup<I extends UIInput<?, V>, V> extends Component<FormGroup<I, V>> implements UIInput<FormGroup<I, V>, V>{
+public abstract class FormGroup<I extends UIInput<?, V>, V> extends Component<FormGroup<I, V>> implements HasValue<FormGroup<I, V>, V>{
   private I control;
 
   private final ValidationConstraint<V> constraint;
@@ -115,29 +116,6 @@ public abstract class FormGroup<I extends UIInput<?, V>, V> extends Component<Fo
   @Override
   public V value() {
     return this.control.value();
-  }
-
-  @Override
-  public FormGroup<I, V> clear() {
-    this.control.clear();
-    return this;
-  }
-
-  @Override
-  public FormGroup<I, V> disable() {
-    this.control.disable();
-    return this;
-  }
-
-  @Override
-  public FormGroup<I, V> enable() {
-    this.control.enable();
-    return this;
-  }
-
-  @Override
-  public boolean disabled() {
-    return this.control.disabled();
   }
   
   public I control(){

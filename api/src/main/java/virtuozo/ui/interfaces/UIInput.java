@@ -15,8 +15,8 @@
 
 package virtuozo.ui.interfaces;
 
-
-
-public interface UIInput<C extends UIComponent, V> extends HasValue<C, V>, HasVisibility<C>, HasEnablement<C>, UIComponent {
+public interface UIInput<C extends UIComponent, V> extends HasValue<C, V>, HasChangeHandlers<C>, HasVisibility<C>, HasEnablement<C>, UIComponent {
   C clear();
+  
+  C tabIndex(int index);
 }

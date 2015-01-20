@@ -4,6 +4,7 @@ import virtuozo.ui.css.State;
 import virtuozo.ui.interfaces.HasText;
 import virtuozo.ui.interfaces.UICheck;
 
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ChangeHandler;
 
 public class Checkbox extends Component<Checkbox> implements UICheck<Checkbox, String>, HasText<Checkbox>{
@@ -13,16 +14,25 @@ public class Checkbox extends Component<Checkbox> implements UICheck<Checkbox, S
   private InputCheckbox input = InputCheckbox.create();
   
   public static Checkbox create(){
+    return new Checkbox(Elements.div());
+  }
+  
+  static Checkbox inline(){
     return new Checkbox();
   }
   
   private Checkbox() {
-    super(Elements.div());
+    this.incorporate(this.label);
+    this.label.css("checkbox-inline").addFirstChild(input);
+  }
+
+  private Checkbox(Element element) {
+    super(element);
     this.css("checkbox");
     this.label.addFirstChild(this.input);
     this.addChild(this.label);
   }
-  
+
   @Override
   public Checkbox check() {
     this.input.check();
@@ -94,6 +104,12 @@ public class Checkbox extends Component<Checkbox> implements UICheck<Checkbox, S
   @Override
   public Checkbox onChange(ChangeHandler handler) {
     this.input.onChange(handler);
+    return this;
+  }
+  
+  @Override
+  public Checkbox tabIndex(int index) {
+    this.input.tabIndex(index);
     return this;
   }
 }

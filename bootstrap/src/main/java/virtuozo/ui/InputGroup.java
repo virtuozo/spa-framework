@@ -30,22 +30,22 @@ public class InputGroup extends Component<InputGroup> implements UIInput<InputGr
 
   private AddOn left = new AddOn().hide();
 
-  private UIInput<?, String> control;
+  private Input<?> control;
 
   private AddOn right = new AddOn().hide();
 
-  public static InputGroup create(UIInput<?, String> control){
+  public static InputGroup create(Input<?> control){
     return new InputGroup(control);
   }
   
-  protected InputGroup(UIInput<?, String> control) {
+  protected InputGroup(Input<?> control) {
     super(Elements.div());
     this.control= control;
     this.control.asComponent().css("form-control");
     super.css("input-group").addChild(this.left).addChild(this.control).addChild(this.right);
   }
   
-  public UIInput<?, String> control() {
+  public Input<?> control() {
     return control;
   }
   
@@ -234,17 +234,23 @@ public class InputGroup extends Component<InputGroup> implements UIInput<InputGr
     return this;
   }
   
+  @Override
+  public InputGroup tabIndex(int index) {
+    this.control.tabIndex(index);
+    return this;
+  }
+  
   class AddOn extends Component<AddOn>{
     private AddOn() {
       super(Elements.span());
-      this.css("input-group-addon", "input-group-btn");
+      this.css("input-group-addon");
     }
     
     public AddOn add(UIComponent widget){
       this.css("input-group-addon");
       
       if (widget instanceof Button || widget instanceof DropButton || widget instanceof SplitButton) {
-        this.css().remove("input-group-addon");
+        this.css().remove("input-group-addon").append("input-group-btn");
       }
       
       return this.addChild(widget);
