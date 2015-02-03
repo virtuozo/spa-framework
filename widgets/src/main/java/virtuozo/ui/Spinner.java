@@ -136,7 +136,7 @@ public class Spinner extends Component<Spinner> implements UIInput<Spinner, Inte
   }
 
   public Spinner onChange(ChangeHandler handler) {
-    this.input.on(handler);
+    this.input.onChange(handler);
     return this;
   }
 
@@ -153,19 +153,11 @@ public class Spinner extends Component<Spinner> implements UIInput<Spinner, Inte
   }
 
   public Spinner increment() {
-    int value = this.value() + this.step;
-
-    value = Math.min(value, this.maxValue);
-
-    return this.value(value);
+    return this.value(this.value() + this.step);
   }
 
   public Spinner decrement() {
-    int value = this.value() - this.step;
-
-    value = Math.max(value, this.minValue);
-
-    return this.value(value);
+    return this.value(this.value() - this.step);
   }
 
   public Spinner maxLength(int maxLength) {

@@ -1,0 +1,4 @@
+<module>
+  <inherits name="virtuozo.API"/>
+  <source path="suite" />
+</module>

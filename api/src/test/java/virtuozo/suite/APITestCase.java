@@ -1,4 +1,4 @@
-package virtuozo.infra;
+package virtuozo.suite;
 
 import com.google.gwt.junit.client.GWTTestCase;
 
@@ -6,7 +6,7 @@ public abstract class APITestCase extends GWTTestCase{
 
   @Override
   public String getModuleName() {
-    return "virtuozo.API";
+    return "virtuozo.APISuite";
   }
 
 }

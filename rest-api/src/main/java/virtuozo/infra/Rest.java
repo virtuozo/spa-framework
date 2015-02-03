@@ -23,7 +23,11 @@ public class Rest {
 
   private PathBuilder path;
   
-  public Rest(PathBuilder path) {
+  public static Rest create(PathBuilder path){
+    return new Rest(path);
+  }
+  
+  private Rest(PathBuilder path) {
     this.path = path;
   }
 

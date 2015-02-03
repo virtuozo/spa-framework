@@ -12,13 +12,12 @@ import virtuozo.ui.interfaces.HasState;
 import virtuozo.ui.interfaces.HasText;
 import virtuozo.ui.interfaces.Icon;
 
-import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DoubleClickHandler;
 
 public class PaginationItem extends Component<PaginationItem> implements HasText<PaginationItem>, HasIcon<PaginationItem>, HasState<PaginationItem>, HasClickHandlers<PaginationItem> {
-  private Tag<AnchorElement> link = Tag.asAnchor();
+  private Anchor link = Anchor.create();
 
   private EnablementHelper<PaginationItem> helper;
   

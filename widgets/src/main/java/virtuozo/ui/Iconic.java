@@ -4,7 +4,6 @@ import virtuozo.ui.interfaces.HasClickHandlers;
 import virtuozo.ui.interfaces.HasMouseHandlers;
 import virtuozo.ui.interfaces.Icon;
 
-import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DoubleClickHandler;
 import com.google.gwt.event.dom.client.MouseDownHandler;
@@ -16,7 +15,7 @@ import com.google.gwt.event.dom.client.MouseWheelHandler;
 
 public class Iconic extends Component<Iconic> implements HasClickHandlers<Iconic>, HasMouseHandlers<Iconic> {
 
-  private Tag<AnchorElement> anchor = Tag.asAnchor();
+  private Anchor anchor = Anchor.create();
 
   public static Iconic create(){
     return new Iconic();

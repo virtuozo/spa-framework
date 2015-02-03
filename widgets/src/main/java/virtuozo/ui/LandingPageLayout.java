@@ -19,7 +19,6 @@ import virtuozo.ui.events.DetachChildrenEvent;
 import virtuozo.ui.interfaces.Icon;
 import virtuozo.ui.interfaces.Layout;
 
-import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.StyleInjector;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -79,7 +78,7 @@ public class LandingPageLayout implements Layout<LandingPageLayout> {
   public class Intro extends Section {
     private Slogan slogan = new Slogan();
 
-    private Tag<AnchorElement> link = Tag.asAnchor().css("btn btn-circle");
+    private Anchor link = Anchor.create().css("btn btn-circle");
 
     private Intro() {
       Tag<DivElement> scrollTo = Tag.asDiv().css("page-scroll");

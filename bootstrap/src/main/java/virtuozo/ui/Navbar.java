@@ -164,7 +164,7 @@ public class Navbar extends Component<Navbar> {
     }
     
     public class NavItem extends Component<NavItem> implements HasText<NavItem>, HasClickHandlers<NavItem>, HasActivation<NavItem> {
-      private Tag<AnchorElement> anchor = Tag.asAnchor();
+      private Anchor anchor = Anchor.create();
 
       private NavItem(ListItem item) {
         super(item);

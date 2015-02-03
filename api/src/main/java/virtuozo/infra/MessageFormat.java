@@ -20,7 +20,7 @@ import com.google.gwt.core.client.JsArrayString;
 
 public class MessageFormat {
 
-  public static String format(final String pattern, final Object... args) {
+  public static String format(String pattern, Object... args) {
     if (null == args || 0 == args.length) {
       return pattern;
     }

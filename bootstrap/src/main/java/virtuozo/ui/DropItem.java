@@ -3,12 +3,11 @@ package virtuozo.ui;
 import virtuozo.ui.OrderList.ListItem;
 import virtuozo.ui.interfaces.HasText;
 
-import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 
 public class DropItem extends Component<DropItem> implements HasText<DropItem> {
-  private final Tag<AnchorElement> anchor = Tag.asAnchor();
+  private final Anchor anchor = Anchor.create();
 
   private final Text text = Text.create();
 

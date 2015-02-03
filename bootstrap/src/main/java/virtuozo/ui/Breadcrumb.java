@@ -43,7 +43,7 @@ public class Breadcrumb extends Component<Breadcrumb> {
   
   public class BreadcrumbLink extends Component<BreadcrumbLink> implements HasText<BreadcrumbLink>, HasClickHandlers<BreadcrumbLink>{
     private BreadcrumbLink() {
-      super(Tag.asAnchor());
+      super(Anchor.create());
     }
     
     @Override

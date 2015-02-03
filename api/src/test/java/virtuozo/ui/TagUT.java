@@ -1,7 +1,7 @@
 package virtuozo.ui;
 
-import virtuozo.infra.APITestCase;
 import virtuozo.infra.api.ValueChangeHandler;
+import virtuozo.suite.APITestCase;
 import virtuozo.ui.events.HideEvent;
 import virtuozo.ui.events.ShowEvent;
 import virtuozo.ui.events.HideEvent.HideHandler;

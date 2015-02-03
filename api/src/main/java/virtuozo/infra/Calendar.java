@@ -24,7 +24,25 @@ public class Calendar {
 
   private Date wrapped;
 
-  private DateFormat format;
+  public static Calendar create(){
+    return new Calendar();
+  }
+  
+  public static Calendar today() {
+    return new Calendar().clearTime();
+  }
+
+  public static Calendar of(Date date) {
+    if (date == null) {
+      return null;
+    }
+
+    return new Calendar().time(date.getTime());
+  }
+
+  public static Calendar of(long time) {
+    return new Calendar().time(time);
+  }
 
   private Calendar() {
     this.wrapped = new java.util.Date();
@@ -34,38 +52,6 @@ public class Calendar {
     this.wrapped = date;
   }
   
-  public static Calendar create(){
-    return new Calendar();
-  }
-
-  public static Calendar of(Date date) {
-    if (date == null) {
-      return null;
-    }
-
-    return new Calendar().setTime(date.getTime());
-  }
-
-  public static Calendar of(long time) {
-    return new Calendar().setTime(time);
-  }
-
-  public static Calendar clone(Calendar clone) {
-    if (clone == null) {
-      return null;
-    }
-
-    return new Calendar().setTime(clone.getTime());
-  }
-
-  public static Calendar now() {
-    return new Calendar();
-  }
-
-  public static Calendar today() {
-    return new Calendar().clearTime();
-  }
-
   public boolean after(Calendar calendar) {
     return this.wrapped.after(calendar.wrapped);
   }
@@ -108,7 +94,7 @@ public class Calendar {
 
     this.wrapped.setDate(1);
     this.wrapped.setMonth(this.wrapped.getMonth() + months);
-    this.wrapped.setDate(Math.min(date, getDaysInMonth(this.wrapped.getYear(), this.getMonth())));
+    this.wrapped.setDate(Math.min(date, daysInMonth(this.wrapped.getYear(), this.month())));
 
     return this;
   }
@@ -133,7 +119,7 @@ public class Calendar {
     return this;
   }
 
-  public Calendar day(int day) {
+  public Calendar date(int day) {
     this.wrapped.setDate(day);
     return this;
   }
@@ -157,77 +143,58 @@ public class Calendar {
     return this;
   }
 
-  public Calendar format(DateFormat format) {
-    this.format = format;
-    return this;
-  }
-
-  public Calendar moveToDayOfWeek(int dayOfWeek, int pastOrFuture) {
-    int diff = (dayOfWeek - this.wrapped.getDay() + 7 * pastOrFuture) % 7;
-    return this.addDays((diff == 0) ? diff += 7 * pastOrFuture : diff);
-  }
-
   public Calendar moveToFirstDayOfMonth() {
     this.wrapped.setDate(1);
     return this;
   }
 
   public Calendar moveToLastDayOfMonth() {
-    this.wrapped.setDate(Calendar.getDaysInMonth(this.wrapped.getYear(), this.getMonth()));
+    this.wrapped.setDate(Calendar.daysInMonth(this.wrapped.getYear(), this.month()));
     return this;
   }
 
-  public Calendar moveToMonth(int month, int pastOrFuture) {
-    int diff = (month - this.wrapped.getMonth() + 12 * pastOrFuture) % 12;
-    return this.addMonths((diff == 0) ? diff += 12 * pastOrFuture : diff);
-  }
-
-  public Calendar setTime(long time) {
+  public Calendar time(long time) {
     this.wrapped.setTime(time);
     return this;
   }
 
-  public boolean isLeapYear() {
-    return Calendar.isLeapYear(this.wrapped.getYear());
+  public boolean leapYear() {
+    return Calendar.leapYear(this.wrapped.getYear());
   }
 
-  public DateFormat getFormat() {
-    return this.format;
-  }
-
-  public int getDate() {
+  public int date() {
     return this.wrapped.getDate();
   }
 
-  public WeekDay getDay() {
+  public WeekDay day() {
     return WeekDay.values()[this.wrapped.getDay()];
   }
 
-  public int getHours() {
+  public int hours() {
     return this.wrapped.getHours();
   }
 
-  public int getMinutes() {
+  public int minutes() {
     return this.wrapped.getMinutes();
   }
 
-  public Month getMonth() {
+  public Month month() {
     return Month.values()[this.wrapped.getMonth()];
   }
 
-  public int getSeconds() {
+  public int seconds() {
     return this.wrapped.getSeconds();
   }
 
-  public long getTime() {
+  public long time() {
     return this.wrapped.getTime();
   }
 
-  public int getYear() {
+  public int year() {
     return this.wrapped.getYear();
   }
 
-  public java.util.Date toDate() {
+  public Date toDate() {
     return this.wrapped;
   }
 
@@ -235,12 +202,8 @@ public class Calendar {
     return format.format(this.wrapped);
   }
 
-  public boolean equalsIgnoreTime(Date date) {
-    return this.getDate() == date.getDate() && this.getMonth().equals(date.getMonth()) && this.getYear() == date.getYear();
-  }
-
   public boolean equalsIgnoreTime(Calendar calendar) {
-    return this.getDate() == calendar.getDate() && this.getMonth().equals(calendar.getMonth()) && this.getYear() == calendar.getYear();
+    return this.date() == calendar.date() && this.month().equals(calendar.month()) && this.year() == calendar.year();
   }
 
   @Override
@@ -256,35 +219,35 @@ public class Calendar {
 
   @Override
   public String toString() {
-    if (this.format != null) {
-      return this.toString(this.format);
-    }
-
     return this.wrapped.toString();
   }
+  
+  public Calendar cloneOf() {
+    return new Calendar().time(this.time());
+  }
 
-  public static int getDaysInMonth(int year, Month month) {
-    if (month.equals(Month.FEBRUARY) && Calendar.isLeapYear(year)) {
+  public static int daysInMonth(int year, Month month) {
+    if (month.equals(Month.FEBRUARY) && Calendar.leapYear(year)) {
       return 29;
     }
 
     return month.numberOfDays;
   }
 
-  public static boolean isLeapYear(int year) {
+  public static boolean leapYear(int year) {
     return ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0);
   }
 
-  public static List<String> getMonthDayNames(WeekDay startWith) {
-    return getMonthDayNames(new Calendar(), startWith);
+  public static List<String> monthDayNames(WeekDay startWith) {
+    return monthDayNames(new Calendar(), startWith);
   }
 
-  public static List<String> getMonthDayNames(Calendar date, WeekDay startWith) {
-    DateFormat daysOfWeekFormat = DateFormat.DAY_OF_WEEK;
+  public static List<String> monthDayNames(Calendar date, WeekDay startWith) {
+    DateFormat daysOfWeekFormat = DateFormat.ABBR_DAY_OF_WEEK;
     List<String> daysOfWeek = new ArrayList<String>();
-    Calendar runner = Calendar.clone(date);
+    Calendar runner = date.cloneOf();
 
-    while (!runner.getDay().equals(startWith)) {
+    while (!runner.day().equals(startWith)) {
       runner.addDays(1);
     }
 
@@ -295,6 +258,16 @@ public class Calendar {
 
     return daysOfWeek;
   }
+  
+  public static final long MILLIS_PER_SECOND = 1000;
+  
+  public static final long MILLIS_PER_MINUTE = 60 * MILLIS_PER_SECOND;
+  
+  public static final long MILLIS_PER_HOUR = 60 * MILLIS_PER_MINUTE;
+  
+  public static final long MILLIS_PER_DAY = 24 * MILLIS_PER_HOUR;
+  
+  public static final long MILLIS_PER_WEEK = 7 * MILLIS_PER_DAY;
 
   public enum WeekDay {
     SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY;

@@ -4,8 +4,6 @@ import virtuozo.infra.Calendar;
 import virtuozo.infra.DateFormat;
 import virtuozo.ui.events.CssChangeEvent;
 import virtuozo.ui.events.CssChangeEvent.CssChangeHandler;
-import virtuozo.ui.events.SelectionEvent;
-import virtuozo.ui.events.SelectionEvent.SelectionHandler;
 import virtuozo.ui.interfaces.HasChangeHandlers;
 import virtuozo.ui.interfaces.HasFocusHandlers;
 import virtuozo.ui.interfaces.Icon;
@@ -16,6 +14,7 @@ import com.google.gwt.dom.client.Style.Position;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
+import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -80,7 +79,7 @@ public final class Datepicker extends Component<Datepicker> implements UIInput<D
 
       @Override
       public void onBlur(BlurEvent event) {
-        if (Datepicker.this.panel.isSelected()) {
+        if (Datepicker.this.panel.selected()) {
           return;
         }
 
@@ -89,11 +88,11 @@ public final class Datepicker extends Component<Datepicker> implements UIInput<D
     });
 
     this.panel = MonthPanel.create();
-    this.panel.onSelection(new SelectionHandler<Calendar>() {
+    this.panel.onChange(new ChangeHandler() {
 
       @Override
-      public void onSelect(SelectionEvent<Calendar> e) {
-        Datepicker.this.value(e.value());
+      public void onChange(ChangeEvent e) {
+        Datepicker.this.value(panel.current());
         Datepicker.this.hide();
       }
     }).on(new MouseOutHandler() {
@@ -102,7 +101,7 @@ public final class Datepicker extends Component<Datepicker> implements UIInput<D
       public void onMouseOut(MouseOutEvent event) {
         Datepicker.this.input.blur();
       }
-    }) .onNext(this.doFocus).onPrevious(this.doFocus);
+    }).onNext(this.doFocus).onPrevious(this.doFocus);
 
     this.addChild(this.picker.add(this.panel)).hide();
   }
@@ -137,7 +136,7 @@ public final class Datepicker extends Component<Datepicker> implements UIInput<D
 
   @Override
   public Datepicker onChange(ChangeHandler handler) {
-    this.input.onChange(handler);
+    this.panel.onChange(handler);
     return this;
   }
 
@@ -150,11 +149,6 @@ public final class Datepicker extends Component<Datepicker> implements UIInput<D
   @Override
   public Datepicker onBlur(BlurHandler handler) {
     this.input.onBlur(handler);
-    return this;
-  }
-
-  public Datepicker onSelection(SelectionHandler<Calendar> handler) {
-    this.panel.onSelection(handler);
     return this;
   }
 

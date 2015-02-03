@@ -17,7 +17,6 @@ import virtuozo.ui.interfaces.UIComponent;
 import virtuozo.ui.interfaces.UIInput;
 import virtuozo.ui.interfaces.UIRenderer;
 
-import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
@@ -227,7 +226,7 @@ public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Comp
 
   class Container extends Component<Container> implements HasFocusHandlers<Container>, HasText<Container> {
 
-    private Tag<AnchorElement> choice = Tag.asAnchor("javascript:void(0)").css("select-choice");
+    private Anchor choice = Anchor.create().css("select-choice");
 
     private Tag<SpanElement> selectionHolder = Tag.asSpan().css("select-chosen");
 

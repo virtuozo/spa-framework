@@ -23,7 +23,6 @@ import virtuozo.ui.interfaces.HasMouseHandlers;
 import virtuozo.ui.interfaces.HasText;
 import virtuozo.ui.interfaces.HasTouchHandlers;
 
-import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.FieldSetElement;
@@ -168,17 +167,6 @@ public final class Tag<E extends Element> extends Composite<Tag<E>> implements H
 
   public static <E extends Element> Tag<E> as(E element) {
     return new Tag<E>(element);
-  }
-
-  public static Tag<AnchorElement> asAnchor() {
-    return Tag.asAnchor("javascript:void(0)");
-  }
-
-  public static Tag<AnchorElement> asAnchor(String href) {
-    Tag<AnchorElement> link = Tag.as(Elements.a());
-    link.element().setHref(href);
-
-    return link;
   }
 
   @Override

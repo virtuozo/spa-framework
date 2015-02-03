@@ -2,13 +2,12 @@ package virtuozo.ui;
 
 import virtuozo.suite.APITestCase;
 
-public class TextAreaUT extends APITestCase{
+public class InputCheckboxUT extends APITestCase{
   
   public void test() {
     String value = "Value test";
     
-    TextArea input = TextArea.create().value(value);
-    assertNotNull(input);
+    InputCheckbox input = InputCheckbox.create().value(value);
     assertEquals(value, input.value());
     
     input.clear();

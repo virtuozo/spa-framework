@@ -17,13 +17,13 @@ package virtuozo.infra;
 
 import java.util.Date;
 
-import virtuozo.infra.SimpleValidator;
 import virtuozo.infra.api.Format;
 
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
 
 public enum DateFormat implements Format<Date> {
+  ABBR_DAY_OF_WEEK(DateTimeFormat.getFormat("ccccc")),
   DATE_FULL(DateTimeFormat.getFormat(PredefinedFormat.DATE_FULL)), 
   DATE_LONG(DateTimeFormat.getFormat(PredefinedFormat.DATE_LONG)), 
   DATE_MEDIUM(DateTimeFormat.getFormat(PredefinedFormat.DATE_MEDIUM)), 
@@ -33,7 +33,6 @@ public enum DateFormat implements Format<Date> {
   DATE_TIME_MEDIUM(DateTimeFormat.getFormat(PredefinedFormat.DATE_TIME_MEDIUM)), 
   DATE_TIME_SHORT(DateTimeFormat.getFormat(PredefinedFormat.DATE_TIME_SHORT)),
   DAY(DateTimeFormat.getFormat(PredefinedFormat.DAY)), 
-  DAY_OF_WEEK(DateTimeFormat.getFormat("ccccc")),
   HOUR24_MINUTE(DateTimeFormat.getFormat(PredefinedFormat.HOUR24_MINUTE)), 
   HOUR24_MINUTE_SECOND(DateTimeFormat.getFormat(PredefinedFormat.HOUR24_MINUTE_SECOND)),
   MINUTE_SECOND(DateTimeFormat.getFormat(PredefinedFormat.MINUTE_SECOND)),

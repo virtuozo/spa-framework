@@ -26,7 +26,6 @@ import virtuozo.ui.interfaces.HasMouseHandlers;
 import virtuozo.ui.interfaces.HasState;
 import virtuozo.ui.interfaces.HasText;
 
-import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DoubleClickHandler;
@@ -112,7 +111,7 @@ public class PillPanel extends Component<PillPanel> {
   }
 
   public class Pill extends Component<Pill> implements HasText<Pill>, HasClickHandlers<Pill>, HasMouseHandlers<Pill>, HasState<Pill> {
-    private Tag<AnchorElement> anchor = Tag.asAnchor();
+    private Anchor anchor = Anchor.create();
     
     private EnablementHelper<Pill> helper;
 

@@ -25,7 +25,6 @@ import virtuozo.ui.interfaces.HasMouseHandlers;
 import virtuozo.ui.interfaces.HasState;
 import virtuozo.ui.interfaces.HasText;
 
-import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -124,7 +123,7 @@ public class Menu extends Component<Menu>{
   }
 
   public class MenuItem extends Component<MenuItem> implements HasText<MenuItem>, HasClickHandlers<MenuItem>, HasMouseHandlers<MenuItem>, HasState<MenuItem> {
-    private Tag<AnchorElement> anchor = Tag.asAnchor().role("menuitem");
+    private Anchor anchor = Anchor.create().role("menuitem");
     
     private EnablementHelper<MenuItem> helper;
 

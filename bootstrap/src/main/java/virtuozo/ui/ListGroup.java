@@ -56,7 +56,7 @@ public class ListGroup extends Parent<ListGroup, ListGroupItem> {
     private EnablementHelper<ListGroupItem> helper;
     
     private ListGroupItem() {
-      super(Tag.asAnchor());
+      super(Anchor.create());
       this.css().set("list-group-item");
       this.helper = EnablementHelper.to(this).intercept(this);
     }

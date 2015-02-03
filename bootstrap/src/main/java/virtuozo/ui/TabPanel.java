@@ -28,7 +28,6 @@ import virtuozo.ui.interfaces.HasText;
 import virtuozo.ui.interfaces.UIClass;
 import virtuozo.ui.interfaces.UIClasses;
 
-import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -158,7 +157,7 @@ public class TabPanel extends Component<TabPanel> {
   }
 
   public class Tab extends Component<Tab> implements HasText<Tab>, HasClickHandlers<Tab>, HasMouseHandlers<Tab>, HasActivation<Tab> {
-    private Tag<AnchorElement> anchor = Tag.asAnchor();
+    private Anchor anchor = Anchor.create();
 
     private Panel panel = new Panel();
 

@@ -1,6 +1,6 @@
 package virtuozo.ui;
 
-import java.util.List;
+ import java.util.List;
 
 import virtuozo.infra.Calendar;
 import virtuozo.infra.Calendar.Month;
@@ -10,11 +10,11 @@ import virtuozo.ui.Table.Body;
 import virtuozo.ui.Table.Cell;
 import virtuozo.ui.Table.Header;
 import virtuozo.ui.Table.Row;
-import virtuozo.ui.events.SelectionEvent;
-import virtuozo.ui.events.SelectionEvent.SelectionHandler;
 import virtuozo.ui.interfaces.Assets;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.MouseDownEvent;
@@ -28,7 +28,7 @@ public final class MonthPanel extends Component<MonthPanel> {
 
   private Days days;
 
-  private Calendar currentDate = Calendar.now();
+  private Calendar currentDate = Calendar.create();
 
   private boolean selected;
 
@@ -49,6 +49,10 @@ public final class MonthPanel extends Component<MonthPanel> {
   MonthPanel onNext(ClickHandler handler) {
     this.selector.onNext(handler);
     return this;
+  }
+  
+  MonthPanel onChange(ChangeHandler handler){
+    return this.on(handler);
   }
 
   Calendar current() {
@@ -86,12 +90,8 @@ public final class MonthPanel extends Component<MonthPanel> {
     return this;
   }
 
-  public boolean isSelected() {
+  public boolean selected() {
     return this.selected;
-  }
-
-  public MonthPanel onSelection(SelectionHandler<Calendar> handler) {
-    return this.addHandler(SelectionEvent.TYPE, handler);
   }
 
   public MonthPanel range(Calendar start, Calendar end) {
@@ -99,7 +99,7 @@ public final class MonthPanel extends Component<MonthPanel> {
     this.days.range.end(end);
 
     if (start.after(this.currentDate)) {
-      this.currentDate = Calendar.clone(start);
+      this.currentDate = start.cloneOf();
     }
 
     this.days.renderMonth(this.currentDate);
@@ -121,7 +121,7 @@ public final class MonthPanel extends Component<MonthPanel> {
 
     this.selector.set(this.currentDate);
     this.days.renderMonth(this.currentDate);
-    this.days.range.currentMonth = this.currentDate.getMonth();
+    this.days.range.currentMonth = this.currentDate.month();
 
     return this;
   }
@@ -129,13 +129,17 @@ public final class MonthPanel extends Component<MonthPanel> {
   public MonthPanel set(Calendar calendar) {
     if (this.currentDate != null && !this.currentDate.equals(calendar)) {
       this.currentDate = calendar;
-      this.fireEvent(new SelectionEvent<Calendar>(calendar));
+      this.changed();
     }
 
     this.selector.set(calendar);
     this.days.set(calendar);
 
     return this;
+  }
+  
+  private void changed(){
+    this.fireNativeEvent(Document.get().createChangeEvent());
   }
 
   class Days {
@@ -164,7 +168,7 @@ public final class MonthPanel extends Component<MonthPanel> {
               Calendar calendar = Days.this.toCalendar(cell);
               if (Days.this.range.eval(calendar) && !cell.css().contains("off")) {
                 Days.this.selectDate(calendar, cell);
-                MonthPanel.this.fireEvent(new SelectionEvent<Calendar>(calendar));
+                MonthPanel.this.changed();
               }
             }
           }).on(new MouseDownHandler() {
@@ -185,14 +189,14 @@ public final class MonthPanel extends Component<MonthPanel> {
     }
 
     public Days set(Calendar calendar) {
-      if (!this.range.currentMonth.equals(calendar.getMonth())) {
+      if (!this.range.currentMonth.equals(calendar.month())) {
         this.renderMonth(calendar);
         return this;
       }
 
       // find cell to select
       for (Row row : this.body.children()) {
-        Cell cell = row.childAt(calendar.getDay().ordinal());
+        Cell cell = row.childAt(calendar.day().ordinal());
         Calendar cellCalendar = this.toCalendar(cell);
 
         if (cellCalendar.equalsIgnoreTime(calendar)) {
@@ -213,22 +217,23 @@ public final class MonthPanel extends Component<MonthPanel> {
 
       cell.css("active");
       this.currentDay = cell;
+      MonthPanel.this.currentDate = calendar;
     }
 
     void renderMonth(Calendar base) {
-      Calendar runner = Calendar.clone(base).moveToFirstDayOfMonth();
+      Calendar runner = base.cloneOf().moveToFirstDayOfMonth();
 
-      this.range.currentMonth = runner.getMonth();
+      this.range.currentMonth = runner.month();
 
       // Adjust calendar to the first day of week (Sunday)
-      while (!runner.getDay().equals(WeekDay.SUNDAY)) {
+      while (!runner.day().equals(WeekDay.SUNDAY)) {
         runner.addDays(-1);
       }
 
       for (int week = 0; week < 6; week++) {
         Row row = this.body.childAt(week);
         for (int weekday = 0; weekday < 7; weekday++) {
-          Cell cell = row.childAt(weekday).text(String.valueOf(runner.getDate())).attribute("date-time", String.valueOf(runner.getTime()));
+          Cell cell = row.childAt(weekday).text(String.valueOf(runner.date())).attribute("date-time", String.valueOf(runner.time()));
 
           this.decorate(cell, runner);
 
@@ -275,7 +280,7 @@ public final class MonthPanel extends Component<MonthPanel> {
       public boolean eval(Calendar calendar) {
         boolean eval = true;
 
-        if (!calendar.getMonth().equals(this.currentMonth)) {
+        if (!calendar.month().equals(this.currentMonth)) {
           return false;
         }
 
@@ -321,7 +326,7 @@ public final class MonthPanel extends Component<MonthPanel> {
     }
 
     private void init(Header header) {
-      Calendar now = Calendar.now();
+      Calendar now = Calendar.create();
       Row controls = header.addRow();
 
       this.previous = controls.addCell().onMouseDown(this.selection);
@@ -335,7 +340,7 @@ public final class MonthPanel extends Component<MonthPanel> {
 
       Row monthDays = header.addRow();
 
-      List<String> monthDayNames = Calendar.getMonthDayNames(now, WeekDay.SUNDAY);
+      List<String> monthDayNames = Calendar.monthDayNames(now, WeekDay.SUNDAY);
       for (int i = 0; i < monthDayNames.size(); i++) {
         monthDays.addCell().text(monthDayNames.get(i));
       }

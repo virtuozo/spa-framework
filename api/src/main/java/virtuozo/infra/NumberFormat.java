@@ -15,7 +15,6 @@
 
 package virtuozo.infra;
 
-import virtuozo.infra.SimpleValidator;
 import virtuozo.infra.api.Format;
 
 import com.google.gwt.i18n.client.CurrencyList;
@@ -26,7 +25,7 @@ public enum NumberFormat implements Format<Number> {
   DECIMAL(com.google.gwt.i18n.client.NumberFormat.getDecimalFormat()), 
   GLOBAL_CURRENCY(com.google.gwt.i18n.client.NumberFormat.getGlobalCurrencyFormat()), 
   PERCENT(com.google.gwt.i18n.client.NumberFormat.getPercentFormat()), 
-  SIMPLE_PERCENT(new PercentFormat()), 
+  REAL_PERCENT(new PercentFormat()), 
   SCIENTIFIC(com.google.gwt.i18n.client.NumberFormat.getScientificFormat()), 
   SIMPLE_CURRENCY(com.google.gwt.i18n.client.NumberFormat.getSimpleCurrencyFormat());
 
@@ -114,7 +113,7 @@ public enum NumberFormat implements Format<Number> {
 
     @Override
     public String format(Number number) {
-      return this.format(number.doubleValue() / 100d);
+      return this.format(number.doubleValue());
     }
 
     @Override

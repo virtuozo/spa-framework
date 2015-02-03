@@ -47,6 +47,6 @@ public abstract class Consumer<H extends HashObject> {
   }
   
   protected Rest caller(PathBuilder builder){
-    return new Rest(builder);
+    return Rest.create(builder);
   }
 }
