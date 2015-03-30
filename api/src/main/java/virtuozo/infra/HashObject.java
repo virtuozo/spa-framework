@@ -19,201 +19,106 @@ import java.util.Date;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
-import com.google.gwt.core.client.JsArrayString;
 import com.google.gwt.json.client.JSONObject;
 
 /**
  * To understand what is happening here, please visit the following address:
- * http://www.gwtproject.org/doc/latest/DevGuideCodingBasicsJSNI.html. Please note that
- * primitive type long is disallowed.
+ * http://www.gwtproject.org/doc/latest/DevGuideCodingBasicsJSNI.html. Please note that primitive
+ * type long is disallowed.
  */
-public abstract class HashObject extends JavaScriptObject {
+public class HashObject extends JavaScriptObject {
 
   protected HashObject() {
     super();
   }
-  
-  public static <H extends HashObject> H create() {
+
+  public static interface Property {
+    String name();
+  }
+
+  public static HashObject create() {
     return JavaScriptObject.createObject().cast();
   }
 
   public final JSONObject json() {
     return new JSONObject(this);
   }
+  
+  public final boolean hasProperty(Property property){
+    return this.hasProperty(property.name());
+  }
 
-  protected final native boolean hasKey(String key) /*-{
+  private final native boolean hasProperty(String key) /*-{
 		return this[key] != undefined;
   }-*/;
 
-  protected final native JsArrayString keys() /*-{
-		var a = new Array();
-		for ( var e in this) {
-			a.push(e);
-		}
-		return a;
-  }-*/;
-
-  public final native String get(String property) /*-{
+  private final native String stringOf(String property) /*-{
 		return this[property];
   }-*/;
 
-  public final native int getInt(String property) /*-{
+  private final native int integerOf(String property) /*-{
 		return this[property];
   }-*/;
 
-  public final native float getFloat(String property) /*-{
+  private final native float floatOf(String property) /*-{
 		return this[property];
   }-*/;
 
-  public final native double getDouble(String property) /*-{
+  private final native double doubleOf(String property) /*-{
 		return this[property];
   }-*/;
 
-  public final native boolean getBoolean(String property) /*-{
+  private final native boolean booleanOf(String property) /*-{
 		return this[property];
   }-*/;
 
-  protected final native <T extends JavaScriptObject> JsArray<T> getArray(String property) /*-{
+  private final native Date dateOf(String property) /*-{
+    var value = this[property];
+    
+    if(value instanceof Date){
+      return this[property];
+    }
+    
+    return new Date(value);
+  }-*/;
+  
+  private final native <H extends HashObject> JsArray<H> arrayOf(String property) /*-{
+    return this[property];
+  }-*/;
+  
+  private final native <H extends HashObject> H hashOf(String property) /*-{
 		return this[property];
   }-*/;
 
-  public final Date getDate(String property) {
-    return this.get(property, new Date(), DateFormat.ISO_8601);
-  }
-
-  protected final String get(String property, String defaultValue) {
-    if (!this.hasKey(property)) {
-      return defaultValue;
-    }
-
-    return this.get(property);
-  };
-
-  protected final Integer get(String property, Integer defaultValue) {
-    if (!this.hasKey(property)) {
-      return defaultValue;
-    }
-
-    return this.getInt(property);
-  }
-
-  protected final int get(String property, int defaultValue) {
-    if (!this.hasKey(property)) {
-      return defaultValue;
-    }
-
-    return this.getInt(property);
-  };
-
-  protected final Float get(String property, Float defaultValue) {
-    if (!this.hasKey(property)) {
-      return defaultValue;
-    }
-
-    return this.getFloat(property);
-  }
-
-  protected final float get(String property, float defaultValue) {
-    if (!this.hasKey(property)) {
-      return defaultValue;
-    }
-
-    return this.getFloat(property);
-  };
-
-  protected final Double get(String property, Double defaultValue) {
-    if (!this.hasKey(property)) {
-      return defaultValue;
-    }
-
-    return this.getDouble(property);
-  }
-
-  protected final double get(String property, double defaultValue) {
-    if (!this.hasKey(property)) {
-      return defaultValue;
-    }
-
-    return this.getDouble(property);
-  };
-
-  protected final Boolean get(String property, Boolean defaultValue) {
-    if (!this.hasKey(property)) {
-      return defaultValue;
-    }
-
-    return this.getBoolean(property);
-  }
-
-  protected final boolean get(String property, boolean defaultValue) {
-    if (!this.hasKey(property)) {
-      return defaultValue;
-    }
-
-    return this.getBoolean(property);
-  };
-
-  protected final <T extends JavaScriptObject> JsArray<T> get(String property, JsArray<T> defaultValue) {
-    if (!this.hasKey(property)) {
-      return defaultValue;
-    }
-
-    return this.getArray(property);
-  };
-
-  protected final <T extends JavaScriptObject> T get(String property, T defaultValue) {
-    if (!this.hasKey(property)) {
-      return defaultValue;
-    }
-
-    return this.getJavaScriptObject(property);
-  }
-
-  protected final native <T extends JavaScriptObject> T getJavaScriptObject(String property) /*-{
-		return this[property];
-  }-*/;
-
-  protected final Date get(String property, Date defaultValue) {
-    return this.get(property, defaultValue, DateFormat.ISO_8601);
-  }
-
-  protected final Date get(String property, Date defaultValue, DateFormat format) {
-    return format.unformat(this.get(property, format.format(defaultValue)));
-  }
-
-  protected final native void set(String property, String value) /*-{
+  private final native void set(String property, String value) /*-{
 		this[property] = value;
   }-*/;
 
-  protected final native void set(String property, int value) /*-{
+  private final native void set(String property, int value) /*-{
 		this[property] = value;
   }-*/;
 
-  protected final native void set(String property, float value) /*-{
+  private final native void set(String property, float value) /*-{
 		this[property] = value;
   }-*/;
 
-  protected final native void set(String property, double value) /*-{
+  private final native void set(String property, double value) /*-{
 		this[property] = value;
   }-*/;
 
-  protected final native void set(String property, boolean value) /*-{
+  private final native void set(String property, boolean value) /*-{
 		this[property] = value;
   }-*/;
 
-  protected final native <T extends JavaScriptObject> void set(String property, JsArray<T> value) /*-{
-		this[property] = value;
+  private final native void set(String property, Date value) /*-{
+    this[property] = value;
   }-*/;
 
-  protected final native <T extends JavaScriptObject> void set(String property, T value) /*-{
+  private final native <H extends HashObject> void set(String property, JsArray<H> value) /*-{
 		this[property] = value;
   }-*/;
-
-  protected final void set(String property, Date value) {
-    this.set(property, value, DateFormat.ISO_8601);
-  }
-
-  protected final void set(String property, Date defaultValue, DateFormat format) {
-    this.set(property, format.format(defaultValue));
-  }
+  
+  private final native <H extends HashObject> void set(String property, H value) /*-{
+		this[property] = value;
+  }-*/;
 }

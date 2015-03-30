@@ -30,6 +30,10 @@ public class Rest {
   private Rest(PathBuilder path) {
     this.path = path;
   }
+  
+  public JsonPMethod jsonp() {
+    return new JsonPMethod(this.path);
+  }
 
   public RestMethod delete() {
     return new RestMethod(HttpMethod.DELETE, this.path);

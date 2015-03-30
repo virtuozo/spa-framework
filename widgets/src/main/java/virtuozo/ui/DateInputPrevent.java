@@ -20,6 +20,9 @@ public class DateInputPrevent {
 
       @Override
       public void onKeyPress(KeyPressEvent event) {
+        if (Keyboard.get().erase(event)) {
+          return;
+        }
         if (Keyboard.get().number(event)) {
           return;
         }

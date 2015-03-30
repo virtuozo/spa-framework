@@ -49,7 +49,7 @@ public final class Datagrid<H extends HashObject> extends Component<Datagrid<H>>
 
   private GridCaption caption;
 
-  private Row headerColumns;
+  private Row header;
 
   private DataGridOptions options;
 
@@ -64,7 +64,7 @@ public final class Datagrid<H extends HashObject> extends Component<Datagrid<H>>
     this.css("datagrid");
     
     this.caption = new GridCaption(this.table.header().addRow());
-    this.headerColumns = this.table.header().addRow();
+    this.header = this.table.header().addRow();
     this.footer = new GridFooter(this.table.footer().addRow());
   }
 
@@ -77,7 +77,7 @@ public final class Datagrid<H extends HashObject> extends Component<Datagrid<H>>
   }
 
   public Datagrid<H> add(final GridColumn<?, H> column) {
-    column.headerCell(this.headerColumns.addCell());
+    column.headerCell(this.header.addCell());
     column.onClick(new ClickHandler() {
 
       @Override
@@ -131,7 +131,6 @@ public final class Datagrid<H extends HashObject> extends Component<Datagrid<H>>
     
     for (int i = 0; i < this.rows.length(); i++) {
       H row = this.rows.get(i);
-      //row.set(DataGrid.SKIP, false);
       apply = true;
 
       for (GridFilter<H> filter : this.filters) {
@@ -141,7 +140,6 @@ public final class Datagrid<H extends HashObject> extends Component<Datagrid<H>>
 
         inactive = false;
         apply = filter.filter(row) && apply;
-        //row.set(DataGrid.SKIP, !apply);
         if (!apply) {
           this.filteredRows.add(i);
           break;
