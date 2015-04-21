@@ -3,7 +3,6 @@ package virtuozo.suite;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import virtuozo.infra.CalendarUT;
-import virtuozo.infra.EntryUT;
 import virtuozo.infra.ItemUT;
 import virtuozo.infra.MessageFormatUT;
 import virtuozo.infra.ValidationProcessUT;
@@ -18,7 +17,6 @@ public class GwtUTSuite extends TestCase {
     GWTTestSuite suite = new GWTTestSuite( "Virtuozo Tests Suite - API" );
     //infra tests
     suite.addTestSuite(CalendarUT.class);
-    suite.addTestSuite(EntryUT.class);
     suite.addTestSuite(ItemUT.class);
     suite.addTestSuite(MessageFormatUT.class);
     suite.addTestSuite(ValidationProcessUT.class);

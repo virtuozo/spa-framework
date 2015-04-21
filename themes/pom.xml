@@ -8,14 +8,14 @@
     <artifactId>parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
   </parent>
-  
+
   <artifactId>themes</artifactId>
   <name>Virtuozo Themes</name>
 
   <properties>
     <css.target.directory>${project.build.directory}/classes/virtuozo/themes</css.target.directory>
   </properties>
-  
+
   <dependencies>
     <dependency>
       <groupId>com.google.gwt</groupId>
@@ -32,6 +32,44 @@
   <build>
     <plugins>
       <plugin>
+        <groupId>org.lesscss</groupId>
+        <artifactId>lesscss-maven-plugin</artifactId>
+        <version>1.7.0.1.1</version>
+        <configuration>
+          <sourceDirectory>${project.basedir}/src/main/less</sourceDirectory>
+          <outputDirectory>${css.target.directory}</outputDirectory>
+          <compress>true</compress>
+          <force>true</force>
+          <includes>
+            <include>bootstrap/bootstrap.less</include>
+            <include>cerulean/bootstrap.less</include>
+            <include>cosmo/bootstrap.less</include>
+            <include>cyborg/bootstrap.less</include>
+            <include>darkly/bootstrap.less</include>
+            <include>flatly/bootstrap.less</include>
+            <include>journal/bootstrap.less</include>
+            <include>lumen/bootstrap.less</include>
+            <include>paper/bootstrap.less</include>
+            <include>readable/bootstrap.less</include>
+            <include>sandstone/bootstrap.less</include>
+            <include>simplex/bootstrap.less</include>
+            <include>slate/bootstrap.less</include>
+            <include>spacelab/bootstrap.less</include>
+            <include>superhero/bootstrap.less</include>
+            <include>united/bootstrap.less</include>
+            <include>yeti/bootstrap.less</include>
+          </includes>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
         <groupId>net.alchim31.maven</groupId>
         <artifactId>yuicompressor-maven-plugin</artifactId>
         <executions>
@@ -47,161 +85,20 @@
           <linebreakpos>-1</linebreakpos>
           <aggregations>
             <aggregation>
-              <output>${css.target.directory}/bootstrap/bootstrap.css</output>
-              <includes>
-                <include>${project.css}/bootstrap.css</include>
-                <include>${project.css}/bootstrap-virtuozo.css</include>
-                <include>${project.css}/bootstrap-theme.css</include>
-              </includes>
-            </aggregation>
-            
-            <aggregation>
-              <output>${css.target.directory}/cerulean/bootstrap.css</output>
-              <includes>
-                <include>${project.css}/cerulean.css</include>
-                <include>${project.css}/bootstrap-virtuozo.css</include>
-              </includes>
-            </aggregation>
-            
-            <aggregation>
-              <output>${css.target.directory}/cosmo/bootstrap.css</output>
-              <includes>
-                <include>${project.css}/cosmo.css</include>
-                <include>${project.css}/bootstrap-virtuozo.css</include>
-              </includes>
-            </aggregation>
-            
-            <aggregation>
-              <output>${css.target.directory}/cyborg/bootstrap.css</output>
-              <includes>
-                <include>${project.css}/cyborg.css</include>
-                <include>${project.css}/bootstrap-virtuozo.css</include>
-              </includes>
-            </aggregation>
-            
-            <aggregation>
-              <output>${css.target.directory}/darkly/bootstrap.css</output>
-              <includes>
-                <include>${project.css}/darkly.css</include>
-                <include>${project.css}/bootstrap-virtuozo.css</include>
-              </includes>
-            </aggregation>
-            
-            <aggregation>
-              <output>${css.target.directory}/flatly/bootstrap.css</output>
-              <includes>
-                <include>${project.css}/flatly.css</include>
-                <include>${project.css}/bootstrap-virtuozo.css</include>
-              </includes>
-            </aggregation>
-            
-            <aggregation>
-              <output>${css.target.directory}/journal/bootstrap.css</output>
-              <includes>
-                <include>${project.css}/journal.css</include>
-                <include>${project.css}/bootstrap-virtuozo.css</include>
-              </includes>
-            </aggregation>
-            
-            <aggregation>
-              <output>${css.target.directory}/lumen/bootstrap.css</output>
-              <includes>
-                <include>${project.css}/lumen.css</include>
-                <include>${project.css}/bootstrap-virtuozo.css</include>
-              </includes>
-            </aggregation>
-            
-            <aggregation>
-              <output>${css.target.directory}/paper/bootstrap.css</output>
-              <includes>
-                <include>${project.css}/paper.css</include>
-                <include>${project.css}/bootstrap-virtuozo.css</include>
-              </includes>
-            </aggregation>
-            
-            <aggregation>
-              <output>${css.target.directory}/readable/bootstrap.css</output>
-              <includes>
-                <include>${project.css}/readable.css</include>
-                <include>${project.css}/bootstrap-virtuozo.css</include>
-              </includes>
-            </aggregation>
-            
-            <aggregation>
-              <output>${css.target.directory}/sandstone/bootstrap.css</output>
-              <includes>
-                <include>${project.css}/sandstone.css</include>
-                <include>${project.css}/bootstrap-virtuozo.css</include>
-              </includes>
-            </aggregation>
-            
-            <aggregation>
-              <output>${css.target.directory}/simplex/bootstrap.css</output>
-              <includes>
-                <include>${project.css}/simplex.css</include>
-                <include>${project.css}/bootstrap-virtuozo.css</include>
-              </includes>
-            </aggregation>
-            
-            <aggregation>
-              <output>${css.target.directory}/slate/bootstrap.css</output>
-              <includes>
-                <include>${project.css}/slate.css</include>
-                <include>${project.css}/bootstrap-virtuozo.css</include>
-              </includes>
-            </aggregation>
-            
-            <aggregation>
-              <output>${css.target.directory}/spacelab/bootstrap.css</output>
-              <includes>
-                <include>${project.css}/spacelab.css</include>
-                <include>${project.css}/bootstrap-virtuozo.css</include>
-              </includes>
-            </aggregation>
-            
-            <aggregation>
-              <output>${css.target.directory}/superhero/bootstrap.css</output>
-              <includes>
-                <include>${project.css}/superhero.css</include>
-                <include>${project.css}/bootstrap-virtuozo.css</include>
-              </includes>
-            </aggregation>
-            
-            <aggregation>
-              <output>${css.target.directory}/united/bootstrap.css</output>
-              <includes>
-                <include>${project.css}/united.css</include>
-                <include>${project.css}/bootstrap-virtuozo.css</include>
-              </includes>
-            </aggregation>
-            
-            <aggregation>
-              <output>${css.target.directory}/yeti/bootstrap.css</output>
-              <includes>
-                <include>${project.css}/yeti.css</include>
-                <include>${project.css}/bootstrap-virtuozo.css</include>
-              </includes>
-            </aggregation>
-            
-            <!-- Icons -->
-            <aggregation>
               <output>${css.target.directory}/glyphicons/glyphicons.css</output>
               <includes>
                 <include>${project.css}/glyphicons.css</include>
               </includes>
             </aggregation>
-            
             <aggregation>
               <output>${css.target.directory}/font-awesome/font-awesome.css</output>
               <includes>
                 <include>${project.css}/font-awesome.css</include>
               </includes>
-            </aggregation>            
-            
+            </aggregation>
           </aggregations>
         </configuration>
       </plugin>
     </plugins>
   </build>
-
 </project>
