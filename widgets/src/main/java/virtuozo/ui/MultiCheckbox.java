@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import virtuozo.infra.Item;
+import virtuozo.ui.events.CssChangeEvent;
+import virtuozo.ui.events.CssChangeEvent.CssChangeHandler;
 import virtuozo.ui.interfaces.UIInput;
 
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -24,6 +26,15 @@ public class MultiCheckbox extends Component<MultiCheckbox> implements UIInput<M
   private MultiCheckbox(Type type) {
     super(Elements.div());
     this.type = type;
+    this.onCssChange(new CssChangeHandler() {
+      @Override
+      public void onChange(CssChangeEvent e) {
+        String name = "form-control";
+        if (MultiCheckbox.this.css().contains(name)) {
+          MultiCheckbox.this.css().remove(name);
+        }
+      }
+    });
   }
   
   public MultiCheckbox addAll(Iterable<Item> items){

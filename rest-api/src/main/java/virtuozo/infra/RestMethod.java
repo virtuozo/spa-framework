@@ -122,7 +122,7 @@ public class RestMethod {
     return this;
   }
 
-  public RestMethod json(HashObject object) {
+  public RestMethod json(JSObject object) {
     return this.json(object.json());
   }
 
@@ -173,7 +173,7 @@ public class RestMethod {
     });
   }
 
-  public <H extends HashObject> void send(HashCallback<H> callback) {
+  public <H extends JSObject> void send(HashCallback<H> callback) {
     this.defaultAcceptType(MediaType.JSON);
     this.send(new CallbackProxy<H>(this, callback) {
       @SuppressWarnings("unchecked")

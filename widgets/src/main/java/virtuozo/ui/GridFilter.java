@@ -15,9 +15,9 @@
 
 package virtuozo.ui;
 
-import virtuozo.infra.HashObject;
+import virtuozo.infra.JSObject;
 
-public abstract class GridFilter<H extends HashObject> {
+public abstract class GridFilter<H extends JSObject> {
 
   private boolean active;
 

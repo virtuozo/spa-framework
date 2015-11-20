@@ -14,12 +14,12 @@
  */
 package virtuozo.infra;
 
-import virtuozo.infra.HashObject;
+import virtuozo.infra.JSObject;
 import virtuozo.infra.Rest.PathBuilder;
 import virtuozo.infra.RestMethod.MediaType;
 import virtuozo.infra.api.HashCallback;
 
-public abstract class Consumer<H extends HashObject> {
+public abstract class Consumer<H extends JSObject> {
   private MediaType contentType;
   
   public Consumer(MediaType contentType) {

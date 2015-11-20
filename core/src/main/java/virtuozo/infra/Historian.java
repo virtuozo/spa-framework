@@ -3,8 +3,8 @@ package virtuozo.infra;
 import java.util.HashMap;
 import java.util.Map;
 
-import virtuozo.infra.interfaces.Place;
-import virtuozo.infra.interfaces.SubscriptionCallback;
+import virtuozo.interfaces.Place;
+import virtuozo.interfaces.SubscriptionCallback;
 import virtuozo.ui.interfaces.HasComponents;
 
 import com.google.gwt.event.logical.shared.ValueChangeEvent;

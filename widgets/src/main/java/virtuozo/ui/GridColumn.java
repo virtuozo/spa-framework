@@ -15,7 +15,7 @@
 
 package virtuozo.ui;
 
-import virtuozo.infra.HashObject;
+import virtuozo.infra.JSObject;
 import virtuozo.ui.Tag;
 import virtuozo.ui.Table.Cell;
 import virtuozo.ui.interfaces.Icon;
@@ -26,7 +26,7 @@ import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickHandler;
 
 @SuppressWarnings("unchecked")
-public abstract class GridColumn<G extends GridColumn<G, H>, H extends HashObject> {
+public abstract class GridColumn<G extends GridColumn<G, H>, H extends JSObject> {
 
   private Cell headerCell;
 

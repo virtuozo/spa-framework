@@ -15,8 +15,8 @@
 
 package virtuozo.infra.api;
 
-import virtuozo.infra.HashObject;
+import virtuozo.infra.JSObject;
 
-public interface HashCallback<H extends HashObject> extends RestCallback<H> {
+public interface HashCallback<H extends JSObject> extends RestCallback<H> {
 
 }

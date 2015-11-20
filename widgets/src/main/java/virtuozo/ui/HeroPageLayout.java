@@ -25,7 +25,7 @@ public class HeroPageLayout implements Layout<HeroPageLayout> {
 
   @Override
   public HeroPageLayout attach() {
-    HTML.body().addChild(this.bar).addChild(this.header);
+    HTML.body().addChild(this.bar).addChild(this.header).addChild(this.body);
     
     StyleInjector.inject("body {margin-top: 50px;} ");
     StyleInjector.inject(".sb-page-header { position: relative; padding: 30px 15px; text-align: center; margin-bottom: 40px; border-width: 0px;}");

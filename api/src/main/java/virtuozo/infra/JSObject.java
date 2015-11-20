@@ -26,17 +26,13 @@ import com.google.gwt.json.client.JSONObject;
  * http://www.gwtproject.org/doc/latest/DevGuideCodingBasicsJSNI.html. Please note that primitive
  * type long is disallowed.
  */
-public class HashObject extends JavaScriptObject {
+public class JSObject extends JavaScriptObject {
 
-  protected HashObject() {
+  protected JSObject() {
     super();
   }
 
-  public static interface Property {
-    String name();
-  }
-
-  public static HashObject create() {
+  public static JSObject create() {
     return JavaScriptObject.createObject().cast();
   }
 
@@ -44,49 +40,45 @@ public class HashObject extends JavaScriptObject {
     return new JSONObject(this);
   }
   
-  public final boolean hasProperty(Property property){
-    return this.hasProperty(property.name());
-  }
-
-  private final native boolean hasProperty(String key) /*-{
+  private final native boolean has(String key) /*-{
 		return this[key] != undefined;
   }-*/;
 
-  private final native String stringOf(String property) /*-{
+  private final native String getString(String property) /*-{
 		return this[property];
   }-*/;
 
-  private final native int integerOf(String property) /*-{
+  private final native int getInteger(String property) /*-{
 		return this[property];
   }-*/;
 
-  private final native float floatOf(String property) /*-{
+  private final native float getFloat(String property) /*-{
 		return this[property];
   }-*/;
 
-  private final native double doubleOf(String property) /*-{
+  private final native double getDouble(String property) /*-{
 		return this[property];
   }-*/;
 
-  private final native boolean booleanOf(String property) /*-{
+  private final native boolean getBoolean(String property) /*-{
 		return this[property];
   }-*/;
 
-  private final native Date dateOf(String property) /*-{
+  private final native Date getDate(String property) /*-{
     var value = this[property];
     
     if(value instanceof Date){
-      return this[property];
+      return value;
     }
     
     return new Date(value);
   }-*/;
   
-  private final native <H extends HashObject> JsArray<H> arrayOf(String property) /*-{
+  private final native <H extends JSObject> JsArray<H> getArray(String property) /*-{
     return this[property];
   }-*/;
   
-  private final native <H extends HashObject> H hashOf(String property) /*-{
+  private final native <H extends JSObject> H getJsObject(String property) /*-{
 		return this[property];
   }-*/;
 
@@ -114,11 +106,11 @@ public class HashObject extends JavaScriptObject {
     this[property] = value;
   }-*/;
 
-  private final native <H extends HashObject> void set(String property, JsArray<H> value) /*-{
+  private final native <H extends JSObject> void set(String property, JsArray<H> value) /*-{
 		this[property] = value;
   }-*/;
   
-  private final native <H extends HashObject> void set(String property, H value) /*-{
+  private final native <H extends JSObject> void set(String property, H value) /*-{
 		this[property] = value;
   }-*/;
 }

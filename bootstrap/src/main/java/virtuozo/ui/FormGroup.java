@@ -26,7 +26,7 @@ public abstract class FormGroup<I extends UIInput<?, V>, V> extends Component<Fo
       this.css("sr-only");
       return this;
     };
-  }.hide();
+  };
   
   private final HelpBlock help = new HelpBlock(){
     public HelpBlock show() {

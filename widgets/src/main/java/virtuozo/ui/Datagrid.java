@@ -18,7 +18,7 @@ package virtuozo.ui;
 import java.util.ArrayList;
 import java.util.List;
 
-import virtuozo.infra.HashObject;
+import virtuozo.infra.JSObject;
 import virtuozo.infra.JSArrays;
 import virtuozo.ui.Table.Cell;
 import virtuozo.ui.Table.Row;
@@ -37,7 +37,7 @@ import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 
-public final class Datagrid<H extends HashObject> extends Component<Datagrid<H>> {
+public final class Datagrid<H extends JSObject> extends Component<Datagrid<H>> {
 
   private java.util.List<GridFilter<H>> filters = new ArrayList<GridFilter<H>>();
 

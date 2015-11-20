@@ -18,13 +18,13 @@ import java.util.Iterator;
 
 import com.google.gwt.core.client.JsArray;
 
-public class HashCollection<H extends HashObject> implements Iterable<H>, Iterator<H> {
+public class HashCollection<H extends JSObject> implements Iterable<H>, Iterator<H> {
 
   private JsArray<H> array;
 
   int index;
   
-  public static <H extends HashObject> HashCollection<H> of(JsArray<H> array){
+  public static <H extends JSObject> HashCollection<H> of(JsArray<H> array){
     return new HashCollection<H>(array);
   }
 

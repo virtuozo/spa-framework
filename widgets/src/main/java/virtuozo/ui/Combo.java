@@ -19,17 +19,7 @@ public class Combo extends SingleSelect<Combo, Item> {
   }
   
   private Combo() {
-    this.converter(new Converter<Item, String>() {
-      
-      @Override
-      public String convert(Item value) {
-        if(value == null){
-          return Combo.this.placeholder();
-        }
-        
-        return value.value();
-      }
-    });
+    this.converter(new SimpleItemConverter(this));
   }
   
   public static enum Matchers implements Matcher<Item> {

@@ -1,6 +1,6 @@
 package virtuozo.infra;
 
-import virtuozo.infra.interfaces.Place;
+import virtuozo.interfaces.Place;
 
 class PlaceChangeEvent extends Event<Place> {
   public static final PlaceChangeEvent instance = new PlaceChangeEvent();

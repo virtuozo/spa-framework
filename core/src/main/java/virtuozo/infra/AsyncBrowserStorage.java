@@ -1,6 +1,6 @@
 package virtuozo.infra;
 
-import virtuozo.infra.HashObject;
+import virtuozo.infra.JSObject;
 import virtuozo.infra.api.HashCallback;
 import virtuozo.infra.api.RestException;
 import virtuozo.ui.BrowserStorage;
@@ -18,11 +18,11 @@ public class AsyncBrowserStorage {
     super();
   }
 
-  public <H extends HashObject> HashCallback<H> asyncStore(StoreKey store) {
+  public <H extends JSObject> HashCallback<H> asyncStore(StoreKey store) {
     return new AsyncStore<H>(store);
   }
 
-  class AsyncStore<H extends HashObject> implements HashCallback<H> {
+  class AsyncStore<H extends JSObject> implements HashCallback<H> {
 
     private StoreKey store;
 

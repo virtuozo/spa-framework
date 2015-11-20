@@ -26,7 +26,6 @@
     <module>core</module>
     <module>commons</module>
     <module>themes</module>
-    <module>forge</module>
   </modules>
 
   <dependencyManagement>

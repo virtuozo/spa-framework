@@ -1,4 +1,4 @@
-package virtuozo.infra.interfaces;
+package virtuozo.interfaces;
 
 import com.google.gwt.event.shared.EventHandler;
 

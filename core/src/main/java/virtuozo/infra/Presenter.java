@@ -1,6 +1,6 @@
 package virtuozo.infra;
 
-import virtuozo.infra.interfaces.View;
+import virtuozo.interfaces.View;
 import virtuozo.ui.interfaces.HasComponents;
 
 public abstract class Presenter<V extends View> {

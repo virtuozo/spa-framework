@@ -1,4 +1,4 @@
-package virtuozo.infra.interfaces;
+package virtuozo.interfaces;
 
 import virtuozo.ui.interfaces.HasComponents;
 
