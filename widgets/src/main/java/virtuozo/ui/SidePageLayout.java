@@ -55,7 +55,7 @@ public class SidePageLayout implements Layout<SidePageLayout> {
     
     Row row = this.container.addRow();
     this.left = row.addColumn().span(2, ViewPort.SMALL).id("page-layout-left");
-    this.main = row.addColumn().span(10, ViewPort.SMALL).offset(4, ViewPort.SMALL).id("page-layout-main");
+    this.main = row.addColumn().span(10, ViewPort.SMALL).offset(2, ViewPort.SMALL).id("page-layout-main");
     
     StyleInjector.inject("@media (min-width: 768px) { #page-layout-left { bottom: 0; display: block; left: 0; overflow-x: hidden; overflow-y: auto; padding: 20px; position: fixed; top: 51px;}}");
   
