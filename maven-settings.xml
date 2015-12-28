@@ -7,10 +7,10 @@
       <activation><activeByDefault>true</activeByDefault></activation>
       <properties>
         <!-- Maven central - https://oss.sonatype.org/content/repositories/snapshots-->
-        <ossrh.snapshot.url>http://169.54.129.209:32788/content/repositories/snapshots</ossrh.snapshot.url>
-
+        <ossrh.snapshot.url>http://169.54.129.209:8081/content/repositories/snapshots</ossrh.snapshot.url>
+        
         <!-- Maven central - https://oss.sonatype.org/service/local/staging/deploy/maven2 -->
-        <ossrh.releases.url>http://169.54.129.209:32788/content/repositories/releases</ossrh.releases.url>
+        <ossrh.releases.url>http://169.54.129.209:8081/content/repositories/releases</ossrh.releases.url>
       </properties>
     </profile>
   </profiles>
