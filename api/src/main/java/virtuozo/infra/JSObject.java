@@ -74,11 +74,11 @@ public class JSObject extends JavaScriptObject {
     return new Date(value);
   }-*/;
   
-  private final native <H extends JSObject> JsArray<H> getArray(String property) /*-{
+  private final native <J extends JSObject> JsArray<J> getArray(String property) /*-{
     return this[property];
   }-*/;
   
-  private final native <H extends JSObject> H getJsObject(String property) /*-{
+  private final native <J extends JSObject> J getJsObject(String property) /*-{
 		return this[property];
   }-*/;
 
@@ -106,11 +106,11 @@ public class JSObject extends JavaScriptObject {
     this[property] = value;
   }-*/;
 
-  private final native <H extends JSObject> void set(String property, JsArray<H> value) /*-{
+  private final native <J extends JSObject> void set(String property, JsArray<J> value) /*-{
 		this[property] = value;
   }-*/;
   
-  private final native <H extends JSObject> void set(String property, H value) /*-{
+  private final native <J extends JSObject> void set(String property, J value) /*-{
 		this[property] = value;
   }-*/;
 }

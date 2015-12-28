@@ -15,38 +15,38 @@
 package virtuozo.infra;
 
 import virtuozo.infra.JSObject;
-import virtuozo.infra.Rest.PathBuilder;
-import virtuozo.infra.RestMethod.MediaType;
-import virtuozo.infra.api.HashCallback;
+import virtuozo.infra.HttpClient.PathBuilder;
+import virtuozo.infra.HttpMethod.MediaType;
+import virtuozo.infra.api.JSOCallback;
 
-public abstract class Consumer<H extends JSObject> {
+public abstract class Consumer<J extends JSObject> {
   private MediaType contentType;
   
   public Consumer(MediaType contentType) {
     this.contentType = contentType;
   }
   
-  protected Consumer<H> get(PathBuilder builder, HashCallback<H> callback){
+  protected Consumer<J> get(PathBuilder builder, JSOCallback<J> callback){
     this.caller(builder).get().accept(this.contentType).send(callback);
     return this;
   }
   
-  protected Consumer<H> put(PathBuilder builder, HashCallback<H> callback){
+  protected Consumer<J> put(PathBuilder builder, JSOCallback<J> callback){
     this.caller(builder).put().accept(this.contentType).send(callback);
     return this;
   }
   
-  protected Consumer<H> post(PathBuilder builder, HashCallback<H> callback){
+  protected Consumer<J> post(PathBuilder builder, JSOCallback<J> callback){
     this.caller(builder).post().accept(this.contentType).send(callback);
     return this;
   }
   
-  protected Consumer<H> delete(PathBuilder builder, HashCallback<H> callback){
+  protected Consumer<J> delete(PathBuilder builder, JSOCallback<J> callback){
     this.caller(builder).delete().accept(this.contentType).send(callback);
     return this;
   }
   
-  protected Rest caller(PathBuilder builder){
-    return Rest.create(builder);
+  protected HttpClient caller(PathBuilder builder){
+    return HttpClient.create(builder);
   }
 }

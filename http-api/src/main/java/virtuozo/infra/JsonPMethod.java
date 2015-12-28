@@ -1,8 +1,8 @@
 package virtuozo.infra;
 
-import virtuozo.infra.Rest.PathBuilder;
+import virtuozo.infra.HttpClient.PathBuilder;
 import virtuozo.infra.api.JsonCallback;
-import virtuozo.infra.api.RestException;
+import virtuozo.infra.api.AsyncException;
 import virtuozo.infra.api.TextCallback;
 
 import com.google.gwt.core.client.JavaScriptObject;
@@ -44,7 +44,7 @@ public class JsonPMethod {
 
       @Override
       public void onFailure(Throwable caught) {
-        callback.onFailure(new RestException(caught));
+        callback.onFailure(new AsyncException(caught));
       }
     });
     return this;
@@ -59,7 +59,7 @@ public class JsonPMethod {
 
       @Override
       public void onFailure(Throwable caught) {
-        callback.onFailure(new RestException(caught));
+        callback.onFailure(new AsyncException(caught));
       }
     });
     return this;

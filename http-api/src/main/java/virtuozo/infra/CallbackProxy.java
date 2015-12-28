@@ -2,8 +2,8 @@ package virtuozo.infra;
 
 import virtuozo.infra.HttpStatusCode;
 import virtuozo.infra.Logger;
-import virtuozo.infra.api.RestCallback;
-import virtuozo.infra.api.RestException;
+import virtuozo.infra.api.AsyncCallback;
+import virtuozo.infra.api.AsyncException;
 
 import com.google.gwt.http.client.Request;
 import com.google.gwt.http.client.RequestCallback;
@@ -11,11 +11,11 @@ import com.google.gwt.http.client.Response;
 
 abstract class CallbackProxy<T> implements RequestCallback {
 
-  private RestCallback<T> callback;
+  private AsyncCallback<T> callback;
 
-  private RestMethod method;
+  private HttpMethod method;
 
-  CallbackProxy(RestMethod method, RestCallback<T> callback) {
+  CallbackProxy(HttpMethod method, AsyncCallback<T> callback) {
     super();
     this.method = method;
     this.callback = callback;
@@ -24,12 +24,12 @@ abstract class CallbackProxy<T> implements RequestCallback {
   @Override
   public void onResponseReceived(Request request, Response response) {
     if (response == null) {
-      this.callback.onFailure(new RestException(HttpStatusCode.TIMEOUT));
+      this.callback.onFailure(new AsyncException(HttpStatusCode.TIMEOUT));
       return;
     }
     if (isFailedStatus(response)) {
       Logger.get().debug("Service returned a failure status code: " + response.getStatusCode());
-      callback.onFailure(new RestException(response.getStatusText(), HttpStatusCode.valueOf(response.getStatusCode())));
+      callback.onFailure(new AsyncException(response.getStatusText(), HttpStatusCode.valueOf(response.getStatusCode())));
       return;
     }
 
@@ -42,13 +42,13 @@ abstract class CallbackProxy<T> implements RequestCallback {
       callback.onSuccess(value);
     } catch (Throwable e) {
       Logger.get().error("Could not parse response", e);
-      callback.onFailure(new RestException(e));
+      callback.onFailure(new AsyncException(e));
     }
   }
 
   @Override
   public void onError(Request request, Throwable exception) {
-    this.callback.onFailure(new RestException(exception));
+    this.callback.onFailure(new AsyncException(exception));
   }
 
   private boolean isFailedStatus(Response response) {

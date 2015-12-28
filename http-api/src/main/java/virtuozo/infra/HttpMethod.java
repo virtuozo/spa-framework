@@ -18,10 +18,10 @@ package virtuozo.infra;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import virtuozo.infra.Rest.PathBuilder;
-import virtuozo.infra.api.HashCallback;
+import virtuozo.infra.HttpClient.PathBuilder;
+import virtuozo.infra.api.JSOCallback;
 import virtuozo.infra.api.JsonCallback;
-import virtuozo.infra.api.RestException;
+import virtuozo.infra.api.AsyncException;
 import virtuozo.infra.api.TextCallback;
 import virtuozo.infra.api.XmlCallback;
 
@@ -35,13 +35,13 @@ import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.xml.client.Document;
 import com.google.gwt.xml.client.XMLParser;
 
-public class RestMethod {
+public class HttpMethod {
 
   private RequestBuilder builder;
 
   private StatusCodeHandler statusCodeHandler = new StatusCodeHandler();
 
-  public static enum HttpMethod {
+  public static enum HttpMethodName {
     HEAD, GET, PUT, POST, DELETE, OPTIONS;
   }
 
@@ -80,28 +80,28 @@ public class RestMethod {
     }
   }
 
-  public RestMethod(HttpMethod method, PathBuilder path) {
+  public HttpMethod(HttpMethodName method, PathBuilder path) {
     StringBuilder baseUri = new StringBuilder(GWT.getHostPageBaseURL());
     this.builder = new MethodRequestBuilder(method.name(), baseUri.append(path).toString());
     this.defaultAcceptType(MediaType.JSON);
   }
 
-  public RestMethod user(String user) {
+  public HttpMethod user(String user) {
     this.builder.setUser(user);
     return this;
   }
 
-  public RestMethod password(String password) {
+  public HttpMethod password(String password) {
     this.builder.setPassword(password);
     return this;
   }
 
-  public RestMethod header(String header, String value) {
+  public HttpMethod header(String header, String value) {
     this.builder.setHeader(header, value);
     return this;
   }
 
-  public RestMethod headers(Map<String, String> headers) {
+  public HttpMethod headers(Map<String, String> headers) {
     if (headers != null) {
       for (Entry<String, String> entry : headers.entrySet()) {
         builder.setHeader(entry.getKey(), entry.getValue());
@@ -110,34 +110,34 @@ public class RestMethod {
     return this;
   }
 
-  public RestMethod text(String data) {
+  public HttpMethod text(String data) {
     defaultContentType(MediaType.TEXT);
     this.builder.setRequestData(data);
     return this;
   }
 
-  public RestMethod json(JSONValue data) {
+  public HttpMethod json(JSONValue data) {
     defaultContentType(MediaType.JSON);
     this.builder.setRequestData(data.toString());
     return this;
   }
 
-  public RestMethod json(JSObject object) {
+  public HttpMethod json(JSObject object) {
     return this.json(object.json());
   }
 
-  public RestMethod xml(Document data) {
+  public HttpMethod xml(Document data) {
     defaultContentType(MediaType.XML);
     builder.setRequestData(data.toString());
     return this;
   }
 
-  public RestMethod timeout(int timeout) {
+  public HttpMethod timeout(int timeout) {
     this.builder.setTimeoutMillis(timeout);
     return this;
   }
 
-  public RestMethod expect(int... statuses) {
+  public HttpMethod expect(int... statuses) {
     this.statusCodeHandler.expect(statuses);
     return this;
   }
@@ -173,22 +173,22 @@ public class RestMethod {
     });
   }
 
-  public <H extends JSObject> void send(HashCallback<H> callback) {
+  public <J extends JSObject> void send(JSOCallback<J> callback) {
     this.defaultAcceptType(MediaType.JSON);
-    this.send(new CallbackProxy<H>(this, callback) {
+    this.send(new CallbackProxy<J>(this, callback) {
       @SuppressWarnings("unchecked")
-      protected H parse(String content) {
+      protected J parse(String content) {
         try {
           JSONValue val = JSONParser.parseStrict(content);
           if (val.isObject() != null) {
-            return (H) val.isObject().getJavaScriptObject();
+            return (J) val.isObject().getJavaScriptObject();
           } 
           if (val.isArray() != null) {
-            return (H) val.isArray().getJavaScriptObject();
+            return (J) val.isArray().getJavaScriptObject();
           }
-          throw new RestException("Response was not a JSON object");
+          throw new AsyncException("Response was not a JSON object");
         } catch (Exception e) {
-          throw new RestException("Response was not a valid JSON document", e);
+          throw new AsyncException("Response was not a valid JSON document", e);
         }
       }
     });
@@ -211,17 +211,17 @@ public class RestMethod {
     }
   }
 
-  protected RestMethod defaultContentType(MediaType type) {
+  protected HttpMethod defaultContentType(MediaType type) {
     this.header(Headers.CONTENT_TYPE.key(), type.type());
     return this;
   }
 
-  protected RestMethod defaultAcceptType(MediaType type) {
+  protected HttpMethod defaultAcceptType(MediaType type) {
     this.header(Headers.ACCEPT.key(), type.type());
     return this;
   }
 
-  public RestMethod accept(MediaType type) {
+  public HttpMethod accept(MediaType type) {
     this.defaultAcceptType(type);
     return this;
   }

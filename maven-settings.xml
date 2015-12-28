@@ -1,0 +1,25 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                          http://maven.apache.org/xsd/settings-1.0.0.xsd">
+  <profiles>
+    <profile>
+      <activation><activeByDefault>true</activeByDefault></activation>
+      <properties>
+        <!-- Maven central - https://oss.sonatype.org/content/repositories/snapshots-->
+        <ossrh.snapshot.url>http://169.54.129.209:32788/content/repositories/snapshots</ossrh.snapshot.url>
+
+        <!-- Maven central - https://oss.sonatype.org/service/local/staging/deploy/maven2 -->
+        <ossrh.releases.url>http://169.54.129.209:32788/content/repositories/releases</ossrh.releases.url>
+      </properties>
+    </profile>
+  </profiles>
+  
+  <servers>
+    <server>
+      <id>ossrh</id>
+      <username>deployment</username>
+      <password>d3pl0y</password>
+    </server>
+  </servers>
+</settings>

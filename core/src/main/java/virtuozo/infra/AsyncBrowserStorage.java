@@ -1,8 +1,8 @@
 package virtuozo.infra;
 
 import virtuozo.infra.JSObject;
-import virtuozo.infra.api.HashCallback;
-import virtuozo.infra.api.RestException;
+import virtuozo.infra.api.JSOCallback;
+import virtuozo.infra.api.AsyncException;
 import virtuozo.ui.BrowserStorage;
 import virtuozo.ui.BrowserStorage.StoreKey;
 
@@ -18,11 +18,11 @@ public class AsyncBrowserStorage {
     super();
   }
 
-  public <H extends JSObject> HashCallback<H> asyncStore(StoreKey store) {
-    return new AsyncStore<H>(store);
+  public <J extends JSObject> JSOCallback<J> asyncStore(StoreKey store) {
+    return new AsyncStore<J>(store);
   }
 
-  class AsyncStore<H extends JSObject> implements HashCallback<H> {
+  class AsyncStore<J extends JSObject> implements JSOCallback<J> {
 
     private StoreKey store;
 
@@ -31,12 +31,12 @@ public class AsyncBrowserStorage {
       this.store = store;
     }
 
-    public void onSuccess(H response) {
+    public void onSuccess(J response) {
       BrowserStorage.get().store(this.store, response);
     }
     
     @Override
-    public void onFailure(RestException exception) {
+    public void onFailure(AsyncException exception) {
       
     }
   }

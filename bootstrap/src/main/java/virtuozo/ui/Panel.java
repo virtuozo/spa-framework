@@ -96,6 +96,18 @@ public class Panel extends Component<Panel> {
       this.heading.firstChild().asComponent().css(FontAwesome.Styles.FIXED);
       return this;
     }
+    
+    @Override
+    public Header show() {
+      this.heading.show();
+      return super.show();
+    }
+    
+    @Override
+    public Header hide() {
+      this.heading.hide();
+      return super.hide();
+    }
   }
 
   public class Body extends Composite<Body> {

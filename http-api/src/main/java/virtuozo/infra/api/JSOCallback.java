@@ -17,6 +17,6 @@ package virtuozo.infra.api;
 
 import virtuozo.infra.JSObject;
 
-public interface HashCallback<H extends JSObject> extends RestCallback<H> {
+public interface JSOCallback<J extends JSObject> extends AsyncCallback<J> {
 
 }

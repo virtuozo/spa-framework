@@ -15,19 +15,19 @@
 
 package virtuozo.infra;
 
-import virtuozo.infra.RestMethod.HttpMethod;
+import virtuozo.infra.HttpMethod.HttpMethodName;
 
 import com.google.gwt.http.client.URL;
 
-public class Rest {
+public class HttpClient {
 
   private PathBuilder path;
   
-  public static Rest create(PathBuilder path){
-    return new Rest(path);
+  public static HttpClient create(PathBuilder path){
+    return new HttpClient(path);
   }
   
-  private Rest(PathBuilder path) {
+  private HttpClient(PathBuilder path) {
     this.path = path;
   }
   
@@ -35,28 +35,28 @@ public class Rest {
     return new JsonPMethod(this.path);
   }
 
-  public RestMethod delete() {
-    return new RestMethod(HttpMethod.DELETE, this.path);
+  public HttpMethod delete() {
+    return new HttpMethod(HttpMethodName.DELETE, this.path);
   }
 
-  public RestMethod get() {
-    return new RestMethod(HttpMethod.GET, this.path);
+  public HttpMethod get() {
+    return new HttpMethod(HttpMethodName.GET, this.path);
   }
 
-  public RestMethod head() {
-    return new RestMethod(HttpMethod.HEAD, this.path);
+  public HttpMethod head() {
+    return new HttpMethod(HttpMethodName.HEAD, this.path);
   }
 
-  public RestMethod options() {
-    return new RestMethod(HttpMethod.OPTIONS, this.path);
+  public HttpMethod options() {
+    return new HttpMethod(HttpMethodName.OPTIONS, this.path);
   }
 
-  public RestMethod post() {
-    return new RestMethod(HttpMethod.POST, this.path);
+  public HttpMethod post() {
+    return new HttpMethod(HttpMethodName.POST, this.path);
   }
 
-  public RestMethod put() {
-    return new RestMethod(HttpMethod.PUT, this.path);
+  public HttpMethod put() {
+    return new HttpMethod(HttpMethodName.PUT, this.path);
   }
 
   public static class PathBuilder {

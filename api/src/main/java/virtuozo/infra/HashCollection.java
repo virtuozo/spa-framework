@@ -18,22 +18,22 @@ import java.util.Iterator;
 
 import com.google.gwt.core.client.JsArray;
 
-public class HashCollection<H extends JSObject> implements Iterable<H>, Iterator<H> {
+public class HashCollection<J extends JSObject> implements Iterable<J>, Iterator<J> {
 
-  private JsArray<H> array;
+  private JsArray<J> array;
 
   int index;
   
-  public static <H extends JSObject> HashCollection<H> of(JsArray<H> array){
-    return new HashCollection<H>(array);
+  public static <J extends JSObject> HashCollection<J> of(JsArray<J> array){
+    return new HashCollection<J>(array);
   }
 
-  private HashCollection(JsArray<H> array) {
+  private HashCollection(JsArray<J> array) {
     this.array = array;
   }
 
   @Override
-  public Iterator<H> iterator() {
+  public Iterator<J> iterator() {
     this.index = 0;
     return this;
   }
@@ -49,7 +49,7 @@ public class HashCollection<H extends JSObject> implements Iterable<H>, Iterator
   }
 
   @Override
-  public H next() {
+  public J next() {
     return this.array.get(this.index++);
   }
 
@@ -58,7 +58,7 @@ public class HashCollection<H extends JSObject> implements Iterable<H>, Iterator
     this.array.set(this.index, null);
   }
 
-  public JsArray<H> array() {
+  public JsArray<J> array() {
     return this.array;
   }
 }

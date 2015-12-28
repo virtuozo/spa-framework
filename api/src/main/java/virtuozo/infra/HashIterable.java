@@ -24,8 +24,8 @@ import com.google.gwt.core.client.JsArrayString;
 
 public class HashIterable {
 
-  public static <H extends JSObject> Iterable<H> of(JsArray<H> values) {
-    return new JSObjectIterable<H>(values);
+  public static <J extends JSObject> Iterable<J> of(JsArray<J> values) {
+    return new JSObjectIterable<J>(values);
   }
 
   public static Iterable<Boolean> of(JsArrayBoolean values) {
@@ -104,17 +104,17 @@ public class HashIterable {
     }
   }
 
-  static class JSObjectIterable<H extends JSObject> extends AbstractIterable<H> {
+  static class JSObjectIterable<J extends JSObject> extends AbstractIterable<J> {
 
-    private JsArray<H> values;
+    private JsArray<J> values;
 
-    JSObjectIterable(JsArray<H> values) {
+    JSObjectIterable(JsArray<J> values) {
       super(values.length());
       this.values = values;
     }
 
     @Override
-    public H next() {
+    public J next() {
       return this.values.get(this.doNext());
     }
   }

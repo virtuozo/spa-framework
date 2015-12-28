@@ -33,7 +33,7 @@
     </dependency>
     <dependency>
       <groupId>com.github.virtuozo</groupId>
-      <artifactId>rest-api</artifactId>
+      <artifactId>http-api</artifactId>
       <scope>provided</scope>
     </dependency>
     <dependency>

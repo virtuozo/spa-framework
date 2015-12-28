@@ -2,41 +2,41 @@ package virtuozo.infra.api;
 
 import virtuozo.infra.HttpStatusCode;
 
-public class RestException extends RuntimeException {
+public class AsyncException extends RuntimeException {
 
   private static final long serialVersionUID = 1L;
 
   private HttpStatusCode statusCode = HttpStatusCode.NOT_MAPPED;
 
-  public RestException(String message, HttpStatusCode statusCode, Throwable cause) {
+  public AsyncException(String message, HttpStatusCode statusCode, Throwable cause) {
     super(message, cause);
     this.statusCode = statusCode;
   }
   
-  public RestException(String message, HttpStatusCode statusCode) {
+  public AsyncException(String message, HttpStatusCode statusCode) {
     super(message);
     this.statusCode = statusCode;
   }
   
-  public RestException(String message, Throwable cause) {
+  public AsyncException(String message, Throwable cause) {
     super(message, cause);
   }
   
-  public RestException(HttpStatusCode statusCode, Throwable cause) {
+  public AsyncException(HttpStatusCode statusCode, Throwable cause) {
     super(cause);
     this.statusCode = statusCode;
   }
   
-  public RestException(HttpStatusCode statusCode) {
+  public AsyncException(HttpStatusCode statusCode) {
     super();
     this.statusCode = statusCode;
   }
   
-  public RestException(Throwable cause) {
+  public AsyncException(Throwable cause) {
     super(cause);
   }
 
-  public RestException(String message) {
+  public AsyncException(String message) {
     super(message);
   }
 
