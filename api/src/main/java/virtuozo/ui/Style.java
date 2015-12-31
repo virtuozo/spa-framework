@@ -41,6 +41,8 @@ import com.google.gwt.dom.client.Style.WhiteSpace;
 public final class Style {
 
   private Component<?> widget;
+  
+  private Computer computer;
 
   Style(Component<?> widget) {
     this.widget = widget;
@@ -800,40 +802,146 @@ public final class Style {
     this.style().setZIndex(value);
     return this;
   }
-
-  public int computePropertyInt(String name) {
-    String value = this.computeProperty(this.widget.element(), name);
-
-    if (value == null || value.trim().isEmpty() || value.contains("auto")) {
-      return 0;
+  
+  public Computer computer(){
+    if(computer == null){
+      this.computer = new Computer();
     }
-
-    for (Unit unit : Unit.values()) {
-      value = value.replace(unit.getType(), "");
-    }
-
-    if (value.contains(" ")) {
-      value = value.split(" ")[0];
-    }
-
-    return Integer.valueOf(value);
+    return this.computer;
   }
+  
+  public class Computer {
+    
+    public double borderLeft(){
+      return this.computePropertyNumber("borderLeft");
+    }
+    
+    public double borderRight(){
+      return this.computePropertyNumber("borderRight");
+    }
+    
+    public double borderWidth(){
+      return this.borderLeft() + this.borderRight();
+    }
+    
+    public double borderBottom(){
+      return this.computePropertyNumber("borderBottom");
+    }
+    
+    public double borderTop(){
+      return this.computePropertyNumber("borderTop");
+    }
+    
+    public double borderHeight(){
+      return this.borderBottom() + this.borderTop();
+    }
+    
+    public double marginLeft(){
+      return this.computePropertyNumber("marginLeft");
+    }
+    
+    public double marginRight(){
+      return this.computePropertyNumber("marginRight");
+    }
+    
+    public double marginWidth(){
+      return this.marginLeft() + this.marginRight();
+    }
+    
+    public double marginBottom(){
+      return this.computePropertyNumber("marginBottom");
+    }
+    
+    public double marginTop(){
+      return this.computePropertyNumber("marginTop");
+    }
+    
+    public double marginHeight(){
+      return this.marginBottom() + this.marginTop();
+    }
+    
+    public double paddingLeft(){
+      return this.computePropertyNumber("paddingLeft");
+    }
+    
+    public double paddingRight(){
+      return this.computePropertyNumber("paddingRight");
+    }
+    
+    public double paddingWidth(){
+      return this.paddingLeft() + this.paddingRight();
+    }
+    
+    public double paddingBottom(){
+      return this.computePropertyNumber("paddingBottom");
+    }
+    
+    public double paddingTop(){
+      return this.computePropertyNumber("paddingTop");
+    }
+    
+    public double paddingHeight(){
+      return this.paddingBottom() + this.paddingTop();
+    }
+    
+    public double left(){
+      return this.computePropertyNumber("left");
+    }
+    
+    public double right(){
+      return this.computePropertyNumber("right");
+    }
+    
+    public double bottom(){
+      return this.computePropertyNumber("bottom");
+    }
+    
+    public double top(){
+      return this.computePropertyNumber("top");
+    }
+    
+    public double width(){
+      return this.computePropertyNumber("width");
+    }
+    
+    public double height(){
+      return this.computePropertyNumber("height");
+    }
+    
+    public double computePropertyNumber(String name) {
+      String value = this.computeProperty(Style.this.widget.element(), name);
 
-  public String computeProperty(String name) {
-    return this.computeProperty(this.widget.element(), name);
+      if (value == null || value.trim().isEmpty() || value.contains("auto")) {
+        return 0;
+      }
+
+      for (Unit unit : Unit.values()) {
+        value = value.replace(unit.getType(), "");
+      }
+
+      if (value.contains(" ")) {
+        value = value.split(" ")[0];
+      }
+
+      return Double.valueOf(value);
+    }
+
+    public String computeProperty(String name) {
+      return this.computeProperty(Style.this.widget.element(), name);
+    }
+
+    private native String computeProperty(Element element, String name)/*-{
+      if (element.currentStyle){
+        return element.currentStyle[name]
+      }
+      if (document.defaultView && document.defaultView.getComputedStyle){
+        return document.defaultView.getComputedStyle(element, "")[name]
+      }
+      
+      return element.style[name]
+    }-*/;
   }
-
-  native String computeProperty(Element element, String name)/*-{
-		if (element.currentStyle){
-			return element.currentStyle[name]
-		}
-		if (document.defaultView && document.defaultView.getComputedStyle){
-			return document.defaultView.getComputedStyle(element, "")[name]
-		}
-		
-		return element.style[name]
-  }-*/;
-
+  
   private com.google.gwt.dom.client.Style style() {
     return this.widget.element().getStyle();
   }

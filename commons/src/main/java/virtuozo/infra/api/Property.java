@@ -18,7 +18,6 @@ public abstract class Property<T, P extends Property<T, P>> {
   }
 
   public Property(T value) {
-    super();
     this.value = value;
   }
 
@@ -27,6 +26,7 @@ public abstract class Property<T, P extends Property<T, P>> {
   }
 
   public P set(T value) {
+    this.value = value;
     for (Validator<?, T> validator : this.validators) {
       if (!validator.validate(value)) {
         throw new IllegalArgumentException(value + " is a invalid value to this property.");
@@ -36,7 +36,6 @@ public abstract class Property<T, P extends Property<T, P>> {
     for (ValueChangeHandler<T> listener : this.listeners) {
       listener.onChange(this.value, value);
     }
-    this.value = value;
     return (P) this;
   }
 

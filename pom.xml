@@ -13,7 +13,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <java.compiler.version>1.7</java.compiler.version>
+    <java.compiler.version>1.6</java.compiler.version>
     <gwt.version>2.7.0</gwt.version>
     <project.css>${project.basedir}/src/main/css</project.css>
   </properties>
@@ -26,6 +26,7 @@
     <module>core</module>
     <module>commons</module>
     <module>themes</module>
+    <module>dataset</module>
   </modules>
 
   <dependencyManagement>
@@ -52,66 +53,69 @@
         <version>${gwt.version}</version>
         <scope>provided</scope>
       </dependency>
-      
+
       <!-- Superdev Mode -->
       <dependency>
         <groupId>org.ow2.asm</groupId>
         <artifactId>asm</artifactId>
         <version>5.0.3</version>
-        <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>org.ow2.asm</groupId>
         <artifactId>asm-util</artifactId>
         <version>5.0.3</version>
-        <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>org.ow2.asm</groupId>
         <artifactId>asm-commons</artifactId>
         <version>5.0.3</version>
-        <scope>provided</scope>
       </dependency>
 
       <!-- virtuozo modules -->
       <dependency>
-        <groupId>com.github.virtuozo</groupId>
+        <groupId>${project.groupId}</groupId>
         <artifactId>api</artifactId>
         <version>${project.version}</version>
         <optional>true</optional>
       </dependency>
       <dependency>
-        <groupId>com.github.virtuozo</groupId>
+        <groupId>${project.groupId}</groupId>
         <artifactId>bootstrap</artifactId>
         <version>${project.version}</version>
         <optional>true</optional>
       </dependency>
       <dependency>
-        <groupId>com.github.virtuozo</groupId>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>dataset</artifactId>
+        <version>${project.version}</version>
+        <optional>true</optional>
+      </dependency>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
         <artifactId>http-api</artifactId>
         <version>${project.version}</version>
         <optional>true</optional>
       </dependency>
       <dependency>
-        <groupId>com.github.virtuozo</groupId>
+        <groupId>${project.groupId}</groupId>
         <artifactId>widgets</artifactId>
         <version>${project.version}</version>
         <optional>true</optional>
       </dependency>
       <dependency>
-        <groupId>com.github.virtuozo</groupId>
+        <groupId>${project.groupId}</groupId>
         <artifactId>core</artifactId>
         <version>${project.version}</version>
         <optional>true</optional>
       </dependency>
       <dependency>
-        <groupId>com.github.virtuozo</groupId>
+        <groupId>${project.groupId}</groupId>
         <artifactId>themes</artifactId>
         <version>${project.version}</version>
         <optional>true</optional>
       </dependency>
       <dependency>
-        <groupId>com.github.virtuozo</groupId>
+        <groupId>${project.groupId}</groupId>
         <artifactId>commons</artifactId>
         <version>${project.version}</version>
         <optional>true</optional>

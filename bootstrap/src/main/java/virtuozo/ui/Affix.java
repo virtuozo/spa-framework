@@ -16,9 +16,9 @@ public class Affix {
   
   private UIComponent target;
   
-  private int top;
+  private double top;
   
-  private int width;
+  private double width;
   
   public static Affix onBottom(){
     return new Affix(Type.BOTTOM);
@@ -63,7 +63,7 @@ public class Affix {
   
   private void offset(){
     this.top = this.target.asComponent().offset().top();
-    this.width = this.target.asComponent().outerWidth();
+    this.width = this.target.asComponent().measurement().outerWidth();
   }
   
   private void handle(){

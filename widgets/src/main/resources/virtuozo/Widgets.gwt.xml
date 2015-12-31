@@ -1,6 +1,5 @@
 <module>
   <inherits name="virtuozo.Bootstrap" />
-  <inherits name='virtuozo.Rest' />
   
   <public path="css"/>
   

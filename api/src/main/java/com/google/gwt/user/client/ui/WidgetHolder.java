@@ -153,23 +153,6 @@ public final class WidgetHolder extends ComplexPanel {
   }
 
   public final class DimensionHolder {
-
-    public int innerHeight() {
-      return this.element().getClientHeight();
-    }
-
-    public int innerWidth() {
-      return this.element().getClientWidth();
-    }
-
-    public int left() {
-      return this.left(this.element());
-    }
-
-    native int left(Element element)/*-{
-			return element.getBoundingClientRect().left;
-    }-*/;
-
     public Offset offset() {
       return offset(this.element());
     }
@@ -181,14 +164,17 @@ public final class WidgetHolder extends ComplexPanel {
     private Offset offset(Element element) {
       return new Offset(element.getAbsoluteLeft(), element.getAbsoluteTop());
     }
-
-    public int outerHeight() {
-      return this.element().getOffsetHeight();
+    
+    public TextRectangle rectangle(){
+      return this.rectangle(this.element());
     }
-
-    public int outerWidth() {
-      return this.element().getOffsetWidth();
-    }
+    
+    private native TextRectangle rectangle(Element element)/*-{
+      if(element.getBoundingClientRect){
+        return element.getBoundingClientRect();
+      }
+      return null;
+    }-*/;
     
     public int scrollHeight() {
       return this.element().getScrollHeight();
@@ -219,17 +205,9 @@ public final class WidgetHolder extends ComplexPanel {
       return this.element().getScrollWidth();
     }
 
-    public int top() {
-      return this.top(this.element());
-    }
-
-    native int top(Element element)/*-{
-			return element.getBoundingClientRect().top;
-    }-*/;
-
     public void screenCenter() {
-      int width = this.outerWidth();
-      int height = this.outerHeight();
+      int width = (int) this.rectangle().width();
+      int height = (int) this.rectangle().height();
 
       int left = (Window.getClientWidth() - width) >> 1;
       int top = (Window.getClientHeight() - height) >> 1;

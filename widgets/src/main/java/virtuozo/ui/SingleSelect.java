@@ -399,7 +399,7 @@ public abstract class SingleSelect<S extends SingleSelect<S, E>, E> extends Comp
     public DropDown show() {
       super.show();
 
-      this.style().width(SingleSelect.this.container.outerWidth(), Unit.PX);
+      this.style().width(SingleSelect.this.container.measurement().outerWidth(), Unit.PX);
 
       SingleSelect.this.container.css("select-dropdown-open").deactivate();
       this.search.input.focus();

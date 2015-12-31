@@ -557,6 +557,8 @@ public enum FontAwesome implements Icon {
   
   private String key;
   
+  private static final String prefix = "fa";
+  
   private FontAwesome(String key) {
     this.key = key;
   }
@@ -567,7 +569,7 @@ public enum FontAwesome implements Icon {
   
   public UIComponent asComponent(){
     Tag<SpanElement> icon = Tag.asSpan();
-    icon.css().set("fa").append(this.key).append(Styles.LARGE);
+    this.update(icon);
     return icon;
   }
 
@@ -576,8 +578,13 @@ public enum FontAwesome implements Icon {
   }
   
   @Override
+  public void update(UIComponent component) {
+    component.asComponent().css().set(prefix).append(this.key).append(Styles.LARGE);
+  }
+  
+  @Override
   public boolean is(UIComponent component) {
-    return component.asComponent().css().contains("fa");
+    return component.asComponent().css().contains(prefix);
   }
   
   public static class Styles extends CssClass {

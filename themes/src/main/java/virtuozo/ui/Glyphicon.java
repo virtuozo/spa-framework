@@ -224,22 +224,29 @@ public enum Glyphicon implements Icon {
 
   private String name;
   
+  private static final String prefix = "glyphicon";
+  
   private Glyphicon(String name) {
     this.name = name;
   }
   
   public UIComponent asComponent(){
     Tag<SpanElement> icon = Tag.asSpan();
-    icon.css().set("glyphicon").append(this.name);
+    this.update(icon);
     return icon;
   }
   
   @Override
   public boolean is(UIComponent component) {
-    return component.asComponent().css().contains("glyphicon");
+    return component.asComponent().css().contains(prefix);
   }
 
   public void attachTo(UIComponent component) {
     Icons.attachTo(component, this);
+  }
+  
+  @Override
+  public void update(UIComponent component) {
+    component.asComponent().css().set(prefix).append(this.name);
   }
 }

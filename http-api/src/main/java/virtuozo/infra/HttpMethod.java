@@ -19,13 +19,14 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import virtuozo.infra.HttpClient.PathBuilder;
+import virtuozo.infra.api.AsyncException;
 import virtuozo.infra.api.JSOCallback;
 import virtuozo.infra.api.JsonCallback;
-import virtuozo.infra.api.AsyncException;
 import virtuozo.infra.api.TextCallback;
 import virtuozo.infra.api.XmlCallback;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.http.client.Request;
 import com.google.gwt.http.client.RequestBuilder;
 import com.google.gwt.http.client.RequestCallback;
@@ -173,7 +174,7 @@ public class HttpMethod {
     });
   }
 
-  public <J extends JSObject> void send(JSOCallback<J> callback) {
+  public <J extends JavaScriptObject> void send(JSOCallback<J> callback) {
     this.defaultAcceptType(MediaType.JSON);
     this.send(new CallbackProxy<J>(this, callback) {
       @SuppressWarnings("unchecked")

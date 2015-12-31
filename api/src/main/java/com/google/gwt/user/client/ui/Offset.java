@@ -1,20 +1,20 @@
 package com.google.gwt.user.client.ui;
 
 public class Offset {
-  private int left;
-  private int top;
+  private double left;
+  private double top;
 
-  public Offset(int left, int top) {
+  public Offset(double left, double top) {
     super();
     this.left = left;
     this.top = top;
   }
 
-  public int left() {
+  public double left() {
     return this.left;
   }
 
-  public int top() {
+  public double top() {
     return this.top;
   }
 }

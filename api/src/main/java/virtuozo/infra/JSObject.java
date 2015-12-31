@@ -17,6 +17,8 @@ package virtuozo.infra;
 
 import java.util.Date;
 
+import virtuozo.infra.DataBinding.Attribute;
+
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.json.client.JSONObject;
@@ -40,31 +42,59 @@ public class JSObject extends JavaScriptObject {
     return new JSONObject(this);
   }
   
-  private final native boolean has(String key) /*-{
+  public final DataBinding<Boolean> bindAsBoolean(Attribute attribute){
+    return new BooleanData(attribute, this);
+  }
+  
+  public final DataBinding<Date> bindAsDate(Attribute attribute){
+    return new DateData(attribute, this);
+  }
+  
+  public final DataBinding<Double> bindAsDouble(Attribute attribute){
+    return new DoubleData(attribute, this);
+  }
+  
+  public final DataBinding<Float> bindAsFloat(Attribute attribute){
+    return new FloatData(attribute, this);
+  }
+  
+  public final DataBinding<Integer> bindAsInteger(Attribute attribute){
+    return new IntegerData(attribute, this);
+  }
+  
+  public final <J extends JSObject> DataBinding<J> bindAsObject(Attribute attribute){
+    return new ObjectData<J>(attribute, this);
+  }
+  
+  public final DataBinding<String> bindAsString(Attribute attribute){
+    return new StringData(attribute, this);
+  }
+  
+  final native boolean has(String key) /*-{
 		return this[key] != undefined;
   }-*/;
 
-  private final native String getString(String property) /*-{
+  final native String getString(String property) /*-{
 		return this[property];
   }-*/;
 
-  private final native int getInteger(String property) /*-{
+  final native int getInteger(String property) /*-{
 		return this[property];
   }-*/;
 
-  private final native float getFloat(String property) /*-{
+  final native float getFloat(String property) /*-{
 		return this[property];
   }-*/;
 
-  private final native double getDouble(String property) /*-{
+  final native double getDouble(String property) /*-{
 		return this[property];
   }-*/;
 
-  private final native boolean getBoolean(String property) /*-{
+  final native boolean getBoolean(String property) /*-{
 		return this[property];
   }-*/;
 
-  private final native Date getDate(String property) /*-{
+  final native Date getDate(String property) /*-{
     var value = this[property];
     
     if(value instanceof Date){
@@ -74,43 +104,43 @@ public class JSObject extends JavaScriptObject {
     return new Date(value);
   }-*/;
   
-  private final native <J extends JSObject> JsArray<J> getArray(String property) /*-{
+  final native <J extends JSObject> JsArray<J> getArray(String property) /*-{
     return this[property];
   }-*/;
   
-  private final native <J extends JSObject> J getJsObject(String property) /*-{
+  final native <J extends JSObject> J getJsObject(String property) /*-{
 		return this[property];
   }-*/;
 
-  private final native void set(String property, String value) /*-{
+  final native void set(String property, String value) /*-{
 		this[property] = value;
   }-*/;
 
-  private final native void set(String property, int value) /*-{
+  final native void set(String property, int value) /*-{
 		this[property] = value;
   }-*/;
 
-  private final native void set(String property, float value) /*-{
+  final native void set(String property, float value) /*-{
 		this[property] = value;
   }-*/;
 
-  private final native void set(String property, double value) /*-{
+  final native void set(String property, double value) /*-{
 		this[property] = value;
   }-*/;
 
-  private final native void set(String property, boolean value) /*-{
+  final native void set(String property, boolean value) /*-{
 		this[property] = value;
   }-*/;
 
-  private final native void set(String property, Date value) /*-{
+  final native void set(String property, Date value) /*-{
     this[property] = value;
   }-*/;
 
-  private final native <J extends JSObject> void set(String property, JsArray<J> value) /*-{
+  final native <J extends JSObject> void set(String property, JsArray<J> value) /*-{
 		this[property] = value;
   }-*/;
   
-  private final native <J extends JSObject> void set(String property, J value) /*-{
+  final native <J extends JSObject> void set(String property, J value) /*-{
 		this[property] = value;
   }-*/;
 }

@@ -54,9 +54,9 @@ public class ScrollSpy {
   
   private void handle(){
     for(UIComponent target : this.monitor){
-      int top = Window.getScrollTop() + target.asComponent().top();
+      double top = Window.getScrollTop() + target.asComponent().top();
       
-      int height = top + target.asComponent().innerHeight();
+      double height = top + target.asComponent().measurement().innerHeight();
       boolean inRange = Window.getScrollTop() >= top && Window.getScrollTop() < height;
       target.asComponent().fireEvent(new ScrollSpyEvent(inRange));
     }

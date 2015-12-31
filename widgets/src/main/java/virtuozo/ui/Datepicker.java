@@ -245,7 +245,7 @@ public final class Datepicker extends Component<Datepicker> implements UIInput<D
   };
 
   Datepicker positioning() {
-    this.picker.style().zIndex(10000).position(Position.ABSOLUTE).top(this.input.offsetHeight(), Unit.PX).left(0, Unit.PX);
+    this.picker.style().zIndex(10000).position(Position.ABSOLUTE).top(this.input.measurement().outerHeight(), Unit.PX).left(0, Unit.PX);
     return this;
   }
 }

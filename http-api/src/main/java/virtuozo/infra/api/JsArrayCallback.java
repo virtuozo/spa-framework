@@ -16,7 +16,8 @@
 package virtuozo.infra.api;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.JsArray;
 
-public interface JSOCallback<J extends JavaScriptObject> extends AsyncCallback<J> {
+public interface JsArrayCallback<J extends JavaScriptObject> extends JSOCallback<JsArray<J>> {
 
 }

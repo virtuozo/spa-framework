@@ -1210,7 +1210,7 @@ public class JSArrays {
 			a.push(b[i]);
   }-*/;
 
-  public static final native <J extends JSObject> void sort(JsArray<J> rows, String name, int direction)/*-{
+  public static final native <J extends JavaScriptObject> void sort(JsArray<J> rows, String name, int direction)/*-{
 		rows.sort(function(a, b) {
 			if (direction > 0) {
 				if (a[name] < b[name]) {
@@ -1234,7 +1234,7 @@ public class JSArrays {
 		});
   }-*/;
 
-  public static final native <J extends JSObject> void sortNumber(JsArray<J> rows, String name, int direction)/*-{
+  public static final native <J extends JavaScriptObject> void sortNumber(JsArray<J> rows, String name, int direction)/*-{
 		rows.sort(function(a, b) {
 			if (direction > 0) {
 				return a[name] - b[name];
@@ -1244,7 +1244,7 @@ public class JSArrays {
 		});
   }-*/;
 
-  public static final native <J extends JSObject> void sortBoolean(JsArray<J> rows, String name, int direction)/*-{
+  public static final native <J extends JavaScriptObject> void sortBoolean(JsArray<J> rows, String name, int direction)/*-{
 		rows.sort(function(a, b) {
 			if (a[name] && b[name] || !a[name] && !b[name]) {
 				return 0;

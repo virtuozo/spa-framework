@@ -14,12 +14,13 @@
  */
 package virtuozo.infra;
 
-import virtuozo.infra.JSObject;
 import virtuozo.infra.HttpClient.PathBuilder;
 import virtuozo.infra.HttpMethod.MediaType;
 import virtuozo.infra.api.JSOCallback;
 
-public abstract class Consumer<J extends JSObject> {
+import com.google.gwt.core.client.JavaScriptObject;
+
+public abstract class Consumer<J extends JavaScriptObject> {
   private MediaType contentType;
   
   public Consumer(MediaType contentType) {

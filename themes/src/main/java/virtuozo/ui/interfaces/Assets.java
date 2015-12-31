@@ -1,6 +1,5 @@
 package virtuozo.ui.interfaces;
 
-
 public interface Assets {
   Icon previousIcon();
   

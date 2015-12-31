@@ -15,6 +15,7 @@
 package virtuozo.ui;
 
 import virtuozo.infra.StringProperty;
+import virtuozo.ui.Style.Computer;
 import virtuozo.ui.events.CssChangeEvent;
 import virtuozo.ui.events.CssChangeEvent.CssChangeHandler;
 import virtuozo.ui.events.DetachChildrenEvent.DetachChildrenHandler;
@@ -80,6 +81,7 @@ import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Offset;
+import com.google.gwt.user.client.ui.TextRectangle;
 import com.google.gwt.user.client.ui.WidgetHolder;
 
 @SuppressWarnings("unchecked")
@@ -95,6 +97,8 @@ public class Component<C extends Component<C>> implements HasVisibility<C>, UICo
   private StringProperty id = new StringProperty();
   
   private EventManager bus;
+  
+  private Measurement measurement = new Measurement();
   
   protected Component() {
     super();
@@ -320,6 +324,65 @@ public class Component<C extends Component<C>> implements HasVisibility<C>, UICo
     return (C) this;
   }
   
+  public Measurement measurement() {
+    return measurement;
+  }
+  
+  public double left() {
+    return this.measurement.rectangle().left();
+  }
+  
+  public double top() {
+    return this.measurement.rectangle().top();
+  }
+
+  public Offset offset() {
+    return Component.this.holder.dimensions().offset();
+  }
+
+  public Offset offsetParent() {
+    return Component.this.holder.dimensions().offsetParent();
+  }
+  
+  public int scrollHeight(){
+    return this.holder.dimensions().scrollHeight();
+  }
+
+  public int scrollLeft() {
+    return this.holder.dimensions().scrollLeft();
+  }
+
+  public C scrollLeft(int left) {
+    this.holder.dimensions().scrollLeft(left);
+    return (C) this;
+  }
+
+  public C scrollTo() {
+    double left = Window.getScrollLeft() + this.left();
+    double top = Window.getScrollTop() + this.top();
+    
+    Window.scrollTo((int) left, (int) top);
+    return (C) this;
+  }
+
+  public int scrollTop() {
+    return this.holder.dimensions().scrollTop();
+  }
+
+  public C scrollTop(int top) {
+    this.holder.dimensions().scrollTop(top);
+    return (C) this;
+  }
+  
+  public int scrollWidth(){
+    return this.holder.dimensions().scrollWidth();
+  }
+  
+  public C screenCenter() {
+    Component.this.holder.dimensions().screenCenter();
+    return (C) this;
+  }
+  
   protected C onDetachChildren(DetachChildrenHandler handler){
     this.proxy.onDetachChildren(handler);
     return (C) this;
@@ -357,9 +420,6 @@ public class Component<C extends Component<C>> implements HasVisibility<C>, UICo
   
   protected C tradeParent(UIComponent parent){
     this.proxy.tradeParent(parent);
-//    UIComponent current = this.parent();
-//    parent.asComponent().adoptChild(this);
-//    current.asComponent().adoptChild(parent);
     return (C) this;
   }
 
@@ -402,84 +462,7 @@ public class Component<C extends Component<C>> implements HasVisibility<C>, UICo
 
   protected boolean hasChildren() {
     return this.proxy.hasChildren();
-  }
-
-  /** Dimension behaviors **/
-  public int innerHeight() {
-    return this.holder.dimensions().innerHeight();
-  }
-
-  public int innerWidth() {
-    return this.holder.dimensions().innerWidth();
-  }
-
-  public int left() {
-    return this.holder.dimensions().left();
-  }
-
-  public Offset offset() {
-    return this.holder.dimensions().offset();
-  }
-
-  public int offsetHeight() {
-    return this.holder.getOffsetHeight();
-  }
-
-  public int offsetWidth() {
-    return this.holder.getOffsetWidth();
-  }
-
-  public Offset offsetParent() {
-    return this.holder.dimensions().offsetParent();
-  }
-
-  public int outerHeight() {
-    return this.holder.dimensions().outerHeight();
-  }
-
-  public int outerWidth() {
-    return this.holder.dimensions().outerWidth();
-  }
-  
-  public int scrollHeight(){
-    return this.holder.dimensions().scrollHeight();
-  }
-
-  public int scrollLeft() {
-    return this.holder.dimensions().scrollLeft();
-  }
-
-  public C scrollLeft(int left) {
-    this.holder.dimensions().scrollLeft(left);
-    return (C) this;
-  }
-
-  public C scrollTo() {
-    Window.scrollTo(Window.getScrollLeft() + this.left(), Window.getScrollTop() + this.top());
-    return (C) this;
-  }
-
-  public int scrollTop() {
-    return this.holder.dimensions().scrollTop();
-  }
-
-  public C scrollTop(int top) {
-    this.holder.dimensions().scrollTop(top);
-    return (C) this;
-  }
-  
-  public int scrollWidth(){
-    return this.holder.dimensions().scrollWidth();
-  }
-  
-  public int top() {
-    return this.holder.dimensions().top();
-  }
-
-  public C screenCenter() {
-    this.holder.dimensions().screenCenter();
-    return (C) this;
-  }
+  } 
 
   /** Event Behaviors **/
   protected C on(BlurHandler handler) {
@@ -594,5 +577,41 @@ public class Component<C extends Component<C>> implements HasVisibility<C>, UICo
   @Override
   public String toString() {
     return this.holder.toString();
+  }
+  
+  class Measurement {
+    public double innerHeight() {
+      double height = this.rectangle().height();
+      Computer computer = Component.this.style().computer();
+      
+      height = height - computer.borderHeight();
+      height = height - computer.marginHeight();
+      height = height - computer.paddingHeight();
+      
+      return height;
+    }
+
+    public double innerWidth() {
+      double width = this.rectangle().width();
+      Computer computer = Component.this.style().computer();
+      
+      width = width - computer.borderWidth();
+      width = width - computer.marginWidth();
+      width = width - computer.paddingWidth();
+      
+      return width;
+    }
+
+    public double outerHeight() {
+      return Component.this.holder.getOffsetHeight();
+    }
+
+    public double outerWidth() {
+      return Component.this.holder.getOffsetWidth();
+    }
+    
+    public TextRectangle rectangle() {
+      return Component.this.holder.dimensions().rectangle();
+    }
   }
 }

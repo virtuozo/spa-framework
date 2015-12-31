@@ -20,6 +20,8 @@ import virtuozo.ui.interfaces.HasIcon;
 import virtuozo.ui.interfaces.HasText;
 import virtuozo.ui.interfaces.Icon;
 
+import com.google.gwt.dom.client.SpanElement;
+
 public class Panel extends Component<Panel> {
   private Header header = new Header();
 
@@ -64,9 +66,12 @@ public class Panel extends Component<Panel> {
   public class Header extends Composite<Header> implements HasText<Header>, HasIcon<Header> {
     private Heading heading = Heading.three().css("panel-title").hide();
     
+    private Tag<SpanElement> icon = Tag.asSpan();
+    
     private Header() {
       super(Elements.div());
       this.css().set("panel-heading");
+      this.heading.addFirstChild(this.icon);
       this.add(heading);
     }
     
@@ -92,8 +97,8 @@ public class Panel extends Component<Panel> {
     
     @Override
     public Header icon(Icon icon) {
-      icon.attachTo(this.heading);
-      this.heading.firstChild().asComponent().css(FontAwesome.Styles.FIXED);
+      icon.update(this.icon);
+      this.icon.css(FontAwesome.Styles.FIXED);
       return this;
     }
     

@@ -180,15 +180,15 @@ abstract class FloatPanel<T extends FloatPanel<T>> implements HasMouseHandlers<T
   }
 
   private Offset offset() {
-    int top = 0;
-    int left = 0;
+    double top = 0;
+    double left = 0;
 
-    int actualWidth = this.tip.outerWidth();
-    int actualHeight = this.tip.outerHeight();
+    double actualWidth = this.tip.measurement().outerWidth();
+    double actualHeight = this.tip.measurement().outerHeight();
 
     Offset pos = this.target.asComponent().offset();
-    int height = this.target.asComponent().offsetHeight();
-    int width = this.target.asComponent().offsetWidth();
+    double height = this.target.asComponent().measurement().outerHeight();
+    double width = this.target.asComponent().measurement().outerWidth();
 
     if (Direction.BOTTOM.equals(this.direction)) {
       top = pos.top() + height;

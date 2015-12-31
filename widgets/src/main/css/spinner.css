@@ -38,9 +38,14 @@
   padding: 0 0 14px 1px;
   top: 2px;
 }
-.spinner .spinner-up .glyphicon-chevron-up {
+.spinner .spinner-up .glyphicon {
   position: relative;
   top: 0px;
+}
+.spinner .spinner-up .fa {
+  position: relative;
+  left: -0.5px;
+  top: -3px;
 }
 .spinner .btn-group > .btn.spinner-up {
   border-top-right-radius: 4px;
@@ -51,9 +56,13 @@
   height: 15px;
   border-bottom-left-radius: 4px;
 }
-.spinner .spinner-down .glyphicon-chevron-down {
+.spinner .spinner-down .glyphicon {
   position: relative;
-  left: -1px;
+  top: -3px;
+}
+.spinner .spinner-down .fa {
+  position: relative;
+  left: -0.5px;
   top: 0px;
 }
 .spinner input::-ms-clear {

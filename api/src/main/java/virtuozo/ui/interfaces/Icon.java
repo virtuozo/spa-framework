@@ -6,6 +6,8 @@ public interface Icon {
   
   void attachTo(UIComponent component);
   
+  void update(UIComponent component);
+  
   String name();
   
   boolean is(UIComponent component);

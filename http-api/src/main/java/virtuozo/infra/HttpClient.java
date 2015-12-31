@@ -17,6 +17,7 @@ package virtuozo.infra;
 
 import virtuozo.infra.HttpMethod.HttpMethodName;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.http.client.URL;
 
 public class HttpClient {

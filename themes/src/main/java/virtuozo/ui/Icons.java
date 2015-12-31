@@ -1,22 +1,31 @@
 package virtuozo.ui;
 
+import virtuozo.ui.interfaces.Clause;
 import virtuozo.ui.interfaces.Icon;
 import virtuozo.ui.interfaces.UIComponent;
 
 class Icons {
-  static <C extends UIComponent> void attachTo(C component, Icon icon) {
-    UIComponent uiIcon = icon.asComponent();
+  static <C extends UIComponent> void attachTo(C component, final Icon icon) {
+    Component<?> parent = component.asComponent();
     
-    if(!component.asComponent().hasChildren()){
-      component.asComponent().addChild(uiIcon);
+    if(!parent.hasChildren()){
+      Component<?> uiIcon = icon.asComponent().asComponent();
+      parent.addChild(uiIcon);
       return;
     }
     
-    if(icon.is(component.asComponent().firstChild())){
-      component.asComponent().firstChild().asComponent().detach();
+    Component<?> uiIcon = parent.find(new Clause() {
+      @Override
+      public boolean matches(UIComponent component) {
+        return icon.is(component);
+      }
+    });
+    
+    if(uiIcon == null){
+      uiIcon = icon.asComponent().asComponent();
+      parent.addChild(uiIcon);
     }
     
-    component.asComponent().insertChild(uiIcon, component.asComponent().childAt(0));
-    
+    icon.update(uiIcon);
   }
 }

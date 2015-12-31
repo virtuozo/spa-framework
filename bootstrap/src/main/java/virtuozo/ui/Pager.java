@@ -77,6 +77,9 @@ public class Pager extends Component<Pager> {
 
   public Pager pages(int pages) {
     this.pages = pages;
+    if(pages <= 1){
+      this.next.disable();
+    }
     return this.count();
   }
 

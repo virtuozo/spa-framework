@@ -59,7 +59,7 @@ public class Spinner extends Component<Spinner> implements UIInput<Spinner, Inte
   }
 
   private void init() {
-    super.addChild(this.container);
+    super.css("number-spinner").addChild(this.container);
     this.container.css("spinner").addChild(this.input).addChild(this.buttons);
     this.buttons.addButton().css("spinner-up").css(Button.Size.X_SMALL).icon(this.assets.upIcon()).onClick(new ClickHandler() {
       
@@ -141,9 +141,19 @@ public class Spinner extends Component<Spinner> implements UIInput<Spinner, Inte
   }
 
   public Spinner range(int minValue, int maxValue) {
-    this.minValue = minValue;
-    this.maxValue = maxValue;
+    this.minValue(minValue);
+    this.maxValue(maxValue);
 
+    return this.value(this.value());
+  }
+  
+  public Spinner minValue(int minValue){
+    this.minValue = minValue;
+    return this.value(this.value());
+  }
+  
+  public Spinner maxValue(int maxValue){
+    this.maxValue = maxValue;
     return this.value(this.value());
   }
 
