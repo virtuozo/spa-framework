@@ -77,15 +77,33 @@ public class HttpMethod {
   class MethodRequestBuilder extends RequestBuilder {
     public MethodRequestBuilder(String method, String url) {
       super(method, url);
+      //this.setIncludeCredentials(true);
       this.setHeader("X-HTTP-Method-Override", method);
     }
   }
 
   public HttpMethod(HttpMethodName method, PathBuilder path) {
-    StringBuilder baseUri = new StringBuilder(GWT.getHostPageBaseURL());
-    this.builder = new MethodRequestBuilder(method.name(), baseUri.append(path).toString());
+    this.builder = new MethodRequestBuilder(method.name(), this.url(path));
     this.defaultAcceptType(MediaType.JSON);
   }
+  
+  private String url(PathBuilder path){
+    String endpoint = this.endpoint();
+    if(endpoint == null){
+      endpoint = GWT.getHostPageBaseURL();
+    }
+    
+    StringBuilder url = new StringBuilder(endpoint);
+    if(!endpoint.endsWith("/")){
+      url.append("/");
+    }
+    
+    return url.append(path.toString()).toString();
+  }
+  
+  private final native String endpoint()/*-{
+    return $wnd.endpoint;
+  }-*/;
 
   public HttpMethod user(String user) {
     this.builder.setUser(user);

@@ -17,7 +17,6 @@ package virtuozo.infra;
 
 import virtuozo.infra.HttpMethod.HttpMethodName;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.http.client.URL;
 
 public class HttpClient {
@@ -67,10 +66,14 @@ public class HttpClient {
     private StringBuffer query = new StringBuffer();
 
     private PathBuilder(String uri) {
+      init(uri);
+    }
+
+    private void init(String uri) {
       this.target = new StringBuffer(this.parse(uri));
     }
 
-    public static PathBuilder get(String uri) {
+    public static PathBuilder create(String uri) {
       return new PathBuilder(uri);
     }
 

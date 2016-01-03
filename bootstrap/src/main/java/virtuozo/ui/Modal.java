@@ -26,11 +26,10 @@ public class Modal implements HasVisibility<Modal> {
   private EventManager eventBus = EventManager.create();
   
   private Modal() {
+    this.dialog.setGlassStyleName("modal-glass");
     this.dialog.setGlassEnabled(true);
-    this.dialog.setModal(true);
     this.dialog.setAutoHideOnHistoryEventsEnabled(true);
     this.dialog.setWidget(this.innerModal.holder());
-    this.dialog.setGlassStyleName("modal-glass");
     this.dialog.setStyleName("modal-window");
   }
   

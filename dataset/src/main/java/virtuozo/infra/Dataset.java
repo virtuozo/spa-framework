@@ -29,7 +29,7 @@ public class Dataset<J extends JavaScriptObject> {
     return new Dataset<J>();
   }
 
-  public Dataset<J> withField(DataField field) {
+  public Dataset<J> add(DataField field) {
     this.fields.add(field);
     return this;
   }

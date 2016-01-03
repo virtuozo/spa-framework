@@ -1,5 +1,4 @@
 <module>
-  <inherits name='virtuozo.themes.Bootstrap' />
   <inherits name='virtuozo.Widgets' />
   <inherits name='virtuozo.Http' />
   

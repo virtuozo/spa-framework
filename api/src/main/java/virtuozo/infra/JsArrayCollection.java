@@ -16,19 +16,20 @@ package virtuozo.infra;
 
 import java.util.Iterator;
 
+import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 
-public class HashCollection<J extends JSObject> implements Iterable<J>, Iterator<J> {
+public class JsArrayCollection<J extends JavaScriptObject> implements Iterable<J>, Iterator<J> {
 
   private JsArray<J> array;
 
   int index;
   
-  public static <J extends JSObject> HashCollection<J> of(JsArray<J> array){
-    return new HashCollection<J>(array);
+  public static <J extends JavaScriptObject> JsArrayCollection<J> of(JsArray<J> array){
+    return new JsArrayCollection<J>(array);
   }
 
-  private HashCollection(JsArray<J> array) {
+  private JsArrayCollection(JsArray<J> array) {
     this.array = array;
   }
 

@@ -60,7 +60,7 @@ public class DataGrid<J extends JavaScriptObject> extends Component<DataGrid<J>>
     this.init();
   }
 
-  public static <J extends JSObject> DataGrid<J> create(Dataset<J> dataset) {
+  public static <J extends JavaScriptObject> DataGrid<J> create(Dataset<J> dataset) {
     return new DataGrid<J>(dataset);
   }
 
@@ -192,7 +192,7 @@ public class DataGrid<J extends JavaScriptObject> extends Component<DataGrid<J>>
   }
 
   public class Header extends Section<Header> implements HasText<Header> {
-    private Tag<SpanElement> title = Tag.asSpan();
+    private Heading title = Heading.three();
 
     Header() {
       this.init();
