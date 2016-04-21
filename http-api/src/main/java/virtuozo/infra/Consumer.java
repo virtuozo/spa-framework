@@ -16,8 +16,7 @@ package virtuozo.infra;
 
 import virtuozo.infra.HttpClient.PathBuilder;
 import virtuozo.infra.HttpMethod.MediaType;
-import virtuozo.infra.api.JSOCallback;
-import virtuozo.infra.api.JsArrayCallback;
+import virtuozo.infra.data.JSObject;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
@@ -36,23 +35,23 @@ public class Consumer<J extends JavaScriptObject> {
     return this;
   }
   
-  public Consumer<J> get(JSOCallback<J> callback){
+  protected Consumer<J> get(JSOCallback<J> callback){
     this.client().get().accept(this.contentType).send(callback);
     return this;
   }
   
-  public Consumer<J> put(JSOCallback<J> callback){
-    this.client().put().accept(this.contentType).send(callback);
+  protected Consumer<J> put(JSObject object, JSOCallback<J> callback){
+    this.client().put().accept(this.contentType).json(object).send(callback);
     return this;
   }
   
-  public Consumer<J> post(JSOCallback<J> callback){
-    this.client().post().accept(this.contentType).send(callback);
+  protected Consumer<J> post(JSObject object, JSOCallback<J> callback){
+    this.client().post().accept(this.contentType).json(object).send(callback);
     return this;
   }
   
-  public Consumer<J> delete(JSOCallback<J> callback){
-    this.client().delete().accept(this.contentType).send(callback);
+  protected Consumer<J> delete(JSObject object, JSOCallback<J> callback){
+    this.client().delete().accept(this.contentType).json(object).send(callback);
     return this;
   }
   

@@ -1,18 +1,17 @@
 package virtuozo.infra;
 
 public abstract class Event<S> {
-  protected abstract String name();
   
   protected Event() {
     super();
   }
   
   public Publisher<S> publish(){
-    return EventBus.get().publish(this);
+    return EventBus.create().publish(this);
   }
   
   public Subscriber<S> subscribe(){
-    return EventBus.get().subscribe(this);
+    return EventBus.create().subscribe(this);
   }
   
   @Override
@@ -27,5 +26,9 @@ public abstract class Event<S> {
     }
     Event<?> event = (Event<?>) obj;
     return super.equals(obj) || event.hashCode() == this.hashCode();
+  }
+  
+  protected String name(){
+    return this.getClass().getName();
   }
 }

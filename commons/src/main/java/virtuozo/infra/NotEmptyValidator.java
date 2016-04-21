@@ -1,6 +1,5 @@
 package virtuozo.infra;
 
-import virtuozo.infra.api.Validator;
 
 public class NotEmptyValidator<T> extends Validator<NotEmptyValidator<T>, T> {
 

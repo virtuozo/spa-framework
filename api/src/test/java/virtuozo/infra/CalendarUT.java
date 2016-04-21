@@ -1,6 +1,7 @@
 package virtuozo.infra;
 
-import virtuozo.infra.Calendar.Month;
+import virtuozo.infra.data.Calendar;
+import virtuozo.infra.data.Calendar.Month;
 import virtuozo.suite.APITestCase;
 
 

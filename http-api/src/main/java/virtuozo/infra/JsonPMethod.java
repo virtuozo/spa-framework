@@ -1,9 +1,6 @@
 package virtuozo.infra;
 
 import virtuozo.infra.HttpClient.PathBuilder;
-import virtuozo.infra.api.JsonCallback;
-import virtuozo.infra.api.AsyncException;
-import virtuozo.infra.api.TextCallback;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.json.client.JSONObject;

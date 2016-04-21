@@ -18,8 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import virtuozo.infra.ValidationProcess.ValidationResult.FieldState;
-import virtuozo.infra.api.Validator;
-import virtuozo.ui.interfaces.UIInput;
+import virtuozo.interfaces.UIInput;
 
 import com.google.gwt.core.shared.GWT;
 
@@ -136,7 +135,9 @@ public class ValidationProcess {
           }
         }
 
-        this.action.whenValid();
+        if(this.action != null){
+          this.action.whenValid();
+        }
 
         return true;
       } catch (RuntimeException e) {

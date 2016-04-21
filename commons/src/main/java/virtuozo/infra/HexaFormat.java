@@ -2,8 +2,6 @@ package virtuozo.infra;
 
 import java.math.BigInteger;
 
-import virtuozo.infra.api.Format;
-
 public class HexaFormat implements Format<byte[]> {
 
   private static final HexaFormat instance = new HexaFormat();

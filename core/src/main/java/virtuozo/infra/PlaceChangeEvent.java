@@ -1,9 +1,8 @@
 package virtuozo.infra;
 
-import virtuozo.interfaces.Place;
 
 class PlaceChangeEvent extends Event<Place> {
-  public static final PlaceChangeEvent instance = new PlaceChangeEvent();
+  private static final PlaceChangeEvent instance = new PlaceChangeEvent();
   
   public static PlaceChangeEvent get() {
     return instance;
@@ -11,10 +10,5 @@ class PlaceChangeEvent extends Event<Place> {
   
   private PlaceChangeEvent() {
     super();
-  }
-  
-  @Override
-  protected String name() {
-    return this.getClass().getName();
   }
 }

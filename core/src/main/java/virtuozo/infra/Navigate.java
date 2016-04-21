@@ -1,7 +1,6 @@
 package virtuozo.infra;
 
-import virtuozo.interfaces.Place;
-import virtuozo.ui.interfaces.HasClickHandlers;
+import virtuozo.infra.handlers.HasClickHandlers;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -22,8 +21,12 @@ public class Navigate {
       
       @Override
       public void onClick(ClickEvent event) {
-        Historian.get().forwardTo(Navigate.this.place);
+        go();
       }
     });
+  }
+  
+  public void go(){
+    Historian.get().forwardTo(this.place);
   }
 }

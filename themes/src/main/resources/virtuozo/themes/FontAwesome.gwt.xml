@@ -5,7 +5,7 @@
   
   <stylesheet src="font-awesome.css"/>
   
-  <replace-with class="virtuozo.ui.FontAwesomeAssets">
-    <when-type-is class="virtuozo.ui.interfaces.Assets" />
+  <replace-with class="virtuozo.interfaces.FontAwesomeAssets">
+    <when-type-is class="virtuozo.interfaces.Assets" />
   </replace-with>
 </module>

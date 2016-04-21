@@ -1,7 +1,5 @@
 package virtuozo.infra;
 
-import virtuozo.interfaces.SubscriptionCallback;
-
 import com.google.gwt.event.shared.GwtEvent.Type;
 
 public class Subscriber<S> {
@@ -13,6 +11,6 @@ public class Subscriber<S> {
   }
 
   public void to(SubscriptionCallback<S> callback) {
-    EventBus.get().add(this.type, callback);
+    EventBus.create().add(this.type, callback);
   }
 }

@@ -595,6 +595,12 @@ disabled look for disabled choices in the results dropdown
     left: -10000px;
 }
 
+.has-error .select-container .select-choice .select-drop {
+	border-color: #a94442;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+}
+
 /* Retina-ize icons */
 
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi)  {

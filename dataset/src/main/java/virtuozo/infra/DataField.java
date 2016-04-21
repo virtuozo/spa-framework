@@ -1,6 +1,7 @@
 package virtuozo.infra;
 
-import virtuozo.infra.DataBinding.Attribute;
+import virtuozo.infra.data.JSArrays;
+import virtuozo.infra.data.DataBinding.Attribute;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;

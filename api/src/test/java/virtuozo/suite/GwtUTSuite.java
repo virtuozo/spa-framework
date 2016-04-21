@@ -6,8 +6,8 @@ import virtuozo.infra.CalendarUT;
 import virtuozo.infra.ItemUT;
 import virtuozo.infra.MessageFormatUT;
 import virtuozo.infra.ValidationProcessUT;
-import virtuozo.ui.TagUT;
-import virtuozo.ui.TextAreaUT;
+import virtuozo.interfaces.TagUT;
+import virtuozo.interfaces.TextAreaUT;
 
 import com.google.gwt.junit.tools.GWTTestSuite;
 

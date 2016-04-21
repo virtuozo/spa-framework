@@ -20,6 +20,7 @@
 
   <modules>
     <module>api</module>
+    <module>animate</module>
     <module>bootstrap</module>
     <module>http-api</module>
     <module>widgets</module>
@@ -75,6 +76,12 @@
       <dependency>
         <groupId>${project.groupId}</groupId>
         <artifactId>api</artifactId>
+        <version>${project.version}</version>
+        <optional>true</optional>
+      </dependency>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>animate</artifactId>
         <version>${project.version}</version>
         <optional>true</optional>
       </dependency>

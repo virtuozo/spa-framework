@@ -2,8 +2,6 @@ package virtuozo.infra;
 
 import virtuozo.infra.HttpStatusCode;
 import virtuozo.infra.Logger;
-import virtuozo.infra.api.AsyncCallback;
-import virtuozo.infra.api.AsyncException;
 
 import com.google.gwt.http.client.Request;
 import com.google.gwt.http.client.RequestCallback;

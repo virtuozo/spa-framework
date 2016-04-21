@@ -1,7 +1,6 @@
 package virtuozo.infra;
 
-import virtuozo.interfaces.View;
-import virtuozo.ui.interfaces.HasComponents;
+import virtuozo.interfaces.HasComponents;
 
 public abstract class Presenter<V extends View> {
 
@@ -9,6 +8,12 @@ public abstract class Presenter<V extends View> {
   
   protected Presenter(V view) {
     this.view = view;
+    view.bind();
+    this.setup();
+  }
+  
+  protected void setup(){
+    return;
   }
 
   public V view(){
@@ -20,8 +25,8 @@ public abstract class Presenter<V extends View> {
     this.view.render(container.detachChildren());
   }
   
-  final void detach(){
-    this.view.detach();
+  public final void detach(){
+    this.view.unbind();
     this.unbind();
   } 
   

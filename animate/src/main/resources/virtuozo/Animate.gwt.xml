@@ -1,0 +1,33 @@
+<module>
+  <inherits name='virtuozo.Widgets' />
+  <inherits name='virtuozo.Http' />
+
+  <public path="css" />
+  <stylesheet src="animate.css" />
+
+  <source path="infra" />
+  <source path="interfaces" />
+
+  <replace-with class="virtuozo.infra.W3cAnimationRegistry">
+    <when-type-is class="virtuozo.infra.AnimationRegistry" />
+  </replace-with>
+  
+  <!-- Webkit - Safari & Chrome -->
+  <replace-with class="virtuozo.infra.WebkitAnimationRegistry">
+    <when-type-is class="virtuozo.infra.AnimationRegistry" />
+    <any>
+      <when-property-is name="user.agent" value="safari" />
+    </any>
+  </replace-with>
+  
+  <!-- IE 8:9:10, Edge -->
+  <replace-with class="virtuozo.infra.EdgeAnimationRegistry">
+    <when-type-is class="virtuozo.infra.AnimationRegistry" />
+    <any>
+      <when-property-is name="user.agent" value="ie8" />
+      <when-property-is name="user.agent" value="ie9" />
+      <when-property-is name="user.agent" value="ie10" />
+    </any>
+  </replace-with>
+  
+</module>

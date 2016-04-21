@@ -1,3 +1,6 @@
 <module>
   <inherits name="virtuozo.API" />
+
+  <source path="infra" />
+  <source path="interfaces" />
 </module>

@@ -1,7 +1,5 @@
 package virtuozo.infra;
 
-import virtuozo.infra.api.Format;
-import virtuozo.infra.api.Validator;
 
 public class FormatValidator<V> extends Validator<FormatValidator<V>, String> {
 

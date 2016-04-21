@@ -18,9 +18,9 @@ package com.google.gwt.user.client.ui;
 import java.util.Iterator;
 
 import virtuozo.infra.CastIterator;
-import virtuozo.ui.events.CssChangeEvent;
-import virtuozo.ui.interfaces.EventInterceptor;
-import virtuozo.ui.interfaces.UIComponent;
+import virtuozo.infra.EventInterceptor;
+import virtuozo.infra.events.CssChangeEvent;
+import virtuozo.interfaces.UIComponent;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;

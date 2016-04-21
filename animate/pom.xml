@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<project
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+  xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>animate</artifactId>
+  <name>Virtuozo Animate API</name>
+
+  <parent>
+    <groupId>com.github.virtuozo</groupId>
+    <artifactId>spa-framework</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+  </parent>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-user</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.github.virtuozo</groupId>
+      <artifactId>api</artifactId>
+    </dependency>
+  </dependencies>
+  
+    <build>
+    <plugins>
+      <!-- CSS Compression -->
+      <plugin>
+        <groupId>net.alchim31.maven</groupId>
+        <artifactId>yuicompressor-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compress</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <nosuffix>true</nosuffix>
+          <force>true</force>
+          <linebreakpos>-1</linebreakpos>
+          
+          <aggregations>
+            <aggregation>
+              <insertNewLine>true</insertNewLine>
+              <removeIncluded>false</removeIncluded>
+              <output>${project.build.directory}/classes/virtuozo/css/animate.css</output>
+              <includes>
+                <include>${project.css}/animate.css</include>
+              </includes>
+            </aggregation>
+          </aggregations>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

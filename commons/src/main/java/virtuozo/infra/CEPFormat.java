@@ -1,6 +1,5 @@
 package virtuozo.infra;
 
-import virtuozo.infra.api.Format;
 
 public class CEPFormat implements Format<String> {
 

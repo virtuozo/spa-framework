@@ -6,9 +6,9 @@
   <inherits name="com.google.gwt.logging.Logging"/>
 
   <source path="infra" />
-  <source path="ui" />
+  <source path="interfaces" />
   
-  <replace-with class="virtuozo.ui.PlaceholderHTML5">
-    <when-type-is class="virtuozo.ui.interfaces.Placeholder" />
+  <replace-with class="virtuozo.interfaces.PlaceholderHTML5">
+    <when-type-is class="virtuozo.interfaces.Placeholder" />
   </replace-with>
 </module>

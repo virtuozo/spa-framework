@@ -15,8 +15,6 @@
 
 package virtuozo.infra;
 
-import virtuozo.infra.api.Format;
-
 import com.google.gwt.i18n.client.CurrencyList;
 
 public enum NumberFormat implements Format<Number> {

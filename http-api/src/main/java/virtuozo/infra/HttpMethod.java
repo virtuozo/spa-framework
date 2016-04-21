@@ -19,11 +19,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import virtuozo.infra.HttpClient.PathBuilder;
-import virtuozo.infra.api.AsyncException;
-import virtuozo.infra.api.JSOCallback;
-import virtuozo.infra.api.JsonCallback;
-import virtuozo.infra.api.TextCallback;
-import virtuozo.infra.api.XmlCallback;
+import virtuozo.infra.data.JSObject;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptObject;

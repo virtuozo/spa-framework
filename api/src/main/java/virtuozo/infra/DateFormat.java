@@ -17,8 +17,6 @@ package virtuozo.infra;
 
 import java.util.Date;
 
-import virtuozo.infra.api.Format;
-
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.DateTimeFormat.PredefinedFormat;
 

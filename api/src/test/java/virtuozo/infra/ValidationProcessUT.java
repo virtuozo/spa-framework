@@ -2,8 +2,8 @@ package virtuozo.infra;
 
 import virtuozo.infra.ValidationProcess.ValidationAction;
 import virtuozo.infra.ValidationProcess.ValidationConstraint;
+import virtuozo.interfaces.InputText;
 import virtuozo.suite.APITestCase;
-import virtuozo.ui.InputText;
 
 public class ValidationProcessUT extends APITestCase {
 

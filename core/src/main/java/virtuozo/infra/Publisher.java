@@ -1,7 +1,6 @@
 package virtuozo.infra;
 
 import virtuozo.infra.EventBus.PublishEvent;
-import virtuozo.interfaces.SubscriptionCallback;
 
 import com.google.gwt.event.shared.GwtEvent.Type;
 
@@ -20,6 +19,6 @@ public class Publisher<S> {
   }
 
   public void fire() {
-    EventBus.get().fire(new PublishEvent<S>(this.subject, this.type));
+    EventBus.create().fire(new PublishEvent<S>(this.subject, this.type));
   }
 }

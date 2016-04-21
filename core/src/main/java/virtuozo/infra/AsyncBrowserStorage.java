@@ -1,10 +1,7 @@
 package virtuozo.infra;
 
-import virtuozo.infra.JSObject;
-import virtuozo.infra.api.JSOCallback;
-import virtuozo.infra.api.AsyncException;
-import virtuozo.ui.BrowserStorage;
-import virtuozo.ui.BrowserStorage.StoreKey;
+import virtuozo.infra.BrowserStorage.StoreKey;
+import virtuozo.infra.data.JSObject;
 
 public class AsyncBrowserStorage {
 

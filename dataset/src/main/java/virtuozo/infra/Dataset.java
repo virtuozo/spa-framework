@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import virtuozo.infra.Dataset.DataEvent.DataHandler;
-import virtuozo.infra.api.ValueChangeHandler;
-import virtuozo.ui.EventManager;
-import virtuozo.ui.events.ValueEvent;
+import virtuozo.infra.data.ValueBinding;
+import virtuozo.infra.events.ValueEvent;
+import virtuozo.infra.handlers.ValueChangeHandler;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
@@ -65,9 +65,9 @@ public class Dataset<J extends JavaScriptObject> {
   }
   
   public class Pagination {
-    private IntegerProperty rowsPerPage = new IntegerProperty(5);
+    private ValueBinding<Integer> rowsPerPage = new ValueBinding<Integer>(5);
 
-    private IntegerProperty numberOfPages = new IntegerProperty(0);
+    private ValueBinding<Integer> numberOfPages = new ValueBinding<Integer>(0);
     
     private IterableCallback<J> callback;
     
@@ -80,11 +80,11 @@ public class Dataset<J extends JavaScriptObject> {
       });
     }
     
-    public IntegerProperty rowsPerPage() {
+    public ValueBinding<Integer> rowsPerPage() {
       return this.rowsPerPage;
     }
     
-    public IntegerProperty numberOfPages() {
+    public ValueBinding<Integer> numberOfPages() {
       return numberOfPages;
     }
     

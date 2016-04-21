@@ -4,4 +4,7 @@
   <public path="css"/>
   
   <stylesheet src="widgets.css"/>
+
+  <source path="infra" />
+  <source path="interfaces" />
 </module>
