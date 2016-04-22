@@ -47,6 +47,7 @@
             <include>cyborg/bootstrap.less</include>
             <include>darkly/bootstrap.less</include>
             <include>flatly/bootstrap.less</include>
+            <include>golden/bootstrap.less</include>
             <include>journal/bootstrap.less</include>
             <include>lumen/bootstrap.less</include>
             <include>paper/bootstrap.less</include>

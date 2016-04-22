@@ -50,6 +50,7 @@
               <output>${project.build.directory}/classes/virtuozo/css/animate.css</output>
               <includes>
                 <include>${project.css}/animate.css</include>
+                <include>${project.css}/mouse.css</include>
               </includes>
             </aggregation>
           </aggregations>

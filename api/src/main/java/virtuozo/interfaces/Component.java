@@ -559,7 +559,7 @@ public class Component<C extends Component<C>> implements HasVisibility<C>, UICo
     return this.holder.toString();
   }
   
-  class Measurement {
+  public class Measurement {
     public double innerHeight() {
       double height = this.rectangle().height();
       Computer computer = Component.this.style().computer();

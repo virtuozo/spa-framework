@@ -1,0 +1,5 @@
+<module>
+  <public path="golden"/>
+  
+  <stylesheet src="bootstrap.css"/>
+</module>

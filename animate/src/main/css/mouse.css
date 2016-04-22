@@ -1,0 +1,22 @@
+ .mouse {
+    position: relative;
+    display: inline-block;
+    width: 24px;
+    height: 32px;
+    margin: 0 auto 5px;
+    border: 2px solid #fff;
+    border-radius: 24px;
+    opacity: .6;
+}
+
+.mouse-scroller {
+    position: absolute;
+    display: block;
+    top: 10px;
+    left: 50%;
+    width: 4px;
+    height: 6px;
+    margin: -5px 0 0 -2px;
+    background: #fff;
+    border-radius: 20px;
+}

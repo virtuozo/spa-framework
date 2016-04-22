@@ -1,4 +1,4 @@
-package virtuozo.interfaces;
+package virtuozo.infra;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,7 @@ import java.util.List;
 import virtuozo.infra.events.ScrollSpyEvent;
 import virtuozo.infra.events.ScrollSpyEvent.ScrollSpyHandler;
 import virtuozo.infra.handlers.DetachHandler;
+import virtuozo.interfaces.UIComponent;
 
 import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.user.client.Window;
@@ -37,6 +38,18 @@ public class ScrollSpy {
     return this;
   }
   
+  public ScrollSpy unspy(UIComponent target){
+    this.monitor.remove(target);
+    return this;
+  }
+  
+  public boolean isInRange(UIComponent target){
+    double top = Window.getScrollTop() + target.asComponent().top();
+    
+    double height = top + target.asComponent().measurement().innerHeight();
+    return Window.getScrollTop() >= top && Window.getScrollTop() < height;
+  }
+  
   private ScrollSpy() {
     this.init();
   }
@@ -53,10 +66,7 @@ public class ScrollSpy {
   
   private void handle(){
     for(UIComponent target : this.monitor){
-      double top = Window.getScrollTop() + target.asComponent().top();
-      
-      double height = top + target.asComponent().measurement().innerHeight();
-      boolean inRange = Window.getScrollTop() >= top && Window.getScrollTop() < height;
+      boolean inRange = this.isInRange(target);
       target.asComponent().fireEvent(new ScrollSpyEvent(inRange));
     }
   }
