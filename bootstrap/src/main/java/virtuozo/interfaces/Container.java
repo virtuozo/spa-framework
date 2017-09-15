@@ -16,11 +16,9 @@ package virtuozo.interfaces;
 
 import virtuozo.infra.Elements;
 import virtuozo.infra.StyleChooser;
-import virtuozo.interfaces.Composite;
-import virtuozo.interfaces.CssClass;
 
 
-public final class Container extends Composite<Container> {
+public final class Container extends Parent<Container, Row> {
 
   public static Container fixed() {
     return new Container(Type.FIXED);

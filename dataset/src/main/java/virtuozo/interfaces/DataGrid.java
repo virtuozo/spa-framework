@@ -22,7 +22,7 @@ import virtuozo.infra.Sort;
 import virtuozo.interfaces.Component;
 import virtuozo.interfaces.HasIcon;
 import virtuozo.interfaces.HasText;
-import virtuozo.interfaces.Heading;
+import virtuozo.interfaces.RichHeading;
 import virtuozo.interfaces.Icon;
 import virtuozo.interfaces.Pager;
 import virtuozo.interfaces.Spinner;
@@ -200,7 +200,7 @@ public class DataGrid<J extends JavaScriptObject> extends Component<DataGrid<J>>
   }
 
   public class Header extends Section<Header> implements HasText<Header> {
-    private Heading title = Heading.four();
+    private RichHeading title = RichHeading.four();
 
     Header() {
       this.init();

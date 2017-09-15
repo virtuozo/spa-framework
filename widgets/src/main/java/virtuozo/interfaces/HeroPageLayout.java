@@ -4,7 +4,7 @@ import virtuozo.infra.Elements;
 import virtuozo.interfaces.Composite;
 import virtuozo.interfaces.Container;
 import virtuozo.interfaces.HTML;
-import virtuozo.interfaces.Heading;
+import virtuozo.interfaces.RichHeading;
 import virtuozo.interfaces.Layout;
 import virtuozo.interfaces.Navbar;
 import virtuozo.interfaces.Paragraph;
@@ -68,8 +68,8 @@ public class HeroPageLayout implements Layout<HeroPageLayout> {
       this.css("sb-page-header");
     }
 
-    public Heading addHeading() {
-      Heading heading = Heading.one();
+    public RichHeading addHeading() {
+      RichHeading heading = RichHeading.one();
       this.add(heading);
       return heading;
     }

@@ -45,6 +45,7 @@ public class Row extends Parent<Row, Column> {
           break;
         case MEDIUM:
           prefix = "col-md-";
+          break;
         case LARGE:
           prefix = "col-lg-";
           break;
@@ -65,6 +66,7 @@ public class Row extends Parent<Row, Column> {
           break;
         case MEDIUM:
           prefix = "col-md-offset-";
+          break;
         case LARGE:
           prefix = "col-lg-offset-";
           break;

@@ -1,0 +1,10 @@
+<module>
+  <inherits name='virtuozo.Widgets' />
+  <inherits name='virtuozo.Http' />
+  
+  <public path="css"/>
+  <stylesheet src="datagrid.css"/>
+
+  <source path="infra" />
+  <source path="interfaces" />
+</module>

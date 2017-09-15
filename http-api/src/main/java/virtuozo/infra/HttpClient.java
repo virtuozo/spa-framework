@@ -17,20 +17,21 @@ package virtuozo.infra;
 
 import virtuozo.infra.HttpMethod.HttpMethodName;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.http.client.URL;
 
 public class HttpClient {
 
-  private PathBuilder path;
-  
-  public static HttpClient create(PathBuilder path){
+  private Endpoint path;
+
+  public static HttpClient create(Endpoint path) {
     return new HttpClient(path);
   }
-  
-  private HttpClient(PathBuilder path) {
+
+  private HttpClient(Endpoint path) {
     this.path = path;
   }
-  
+
   public JsonPMethod jsonp() {
     return new JsonPMethod(this.path);
   }
@@ -59,42 +60,63 @@ public class HttpClient {
     return new HttpMethod(HttpMethodName.PUT, this.path);
   }
 
-  public static class PathBuilder {
+  public static class Endpoint {
+
+    private String baseEndpoint;
 
     private StringBuffer target;
 
     private StringBuffer query = new StringBuffer();
 
-    private PathBuilder(String uri) {
-      init(uri);
+    private Endpoint(String baseEndpoint, String uri) {
+      init(baseEndpoint, uri);
     }
 
-    private void init(String uri) {
+    private void init(String baseEndpoint, String uri) {
       this.target = new StringBuffer(this.parse(uri));
+      this.baseEndpoint = baseEndpoint;
+      
+      if(this.baseEndpoint == null){
+        this.baseEndpoint = this.baseEndpointFromHostPage();
+      }
+      
+      if(this.baseEndpoint == null){
+        this.baseEndpoint = GWT.getHostPageBaseURL();
+      }
+      
+      this.baseEndpoint = this.parse(this.baseEndpoint);
     }
 
-    public static PathBuilder create(String uri) {
-      return new PathBuilder(uri);
+    public static Endpoint create(String baseEndpoint, String uri) {
+      return new Endpoint(baseEndpoint, uri);
+    }
+    
+    public String baseEndpoint() {
+      return baseEndpoint;
     }
 
-    public PathBuilder append(Boolean value) {
+    public static Endpoint create(String uri) {
+      return new Endpoint(null, uri);
+    }
+
+    public Endpoint append(Boolean value) {
       return this.add(value);
     }
 
-    public PathBuilder append(Number value) {
+    public Endpoint append(Number value) {
       return this.add(value);
     }
 
-    public PathBuilder append(String value) {
+    public Endpoint append(String value) {
       return this.add(value);
     }
 
-    public PathBuilder append(Object value) {
+    public Endpoint append(Object value) {
       return this.add(value);
     }
 
-    public PathBuilder addQueryParam(String key, String value) {
-      String control ="&";
+    public Endpoint addQueryParam(String key, String value) {
+      String control = "&";
       if (this.query.length() == 0) {
         control = "?";
       }
@@ -108,7 +130,7 @@ public class HttpClient {
       return this;
     }
 
-    PathBuilder add(Object value) {
+    Endpoint add(Object value) {
       this.target.append("/").append(value);
       return this;
     }
@@ -116,13 +138,18 @@ public class HttpClient {
     @Override
     public String toString() {
       return this.target.append(this.query).toString();
+      //return this.target.append("/").append(this.query).toString();
     }
 
     String parse(String uri) {
-      if(uri.startsWith("/")){
+      if (uri.startsWith("/")) {
         uri = uri.substring(1);
       }
       return uri.endsWith("/") ? uri.substring(0, uri.length() - 1) : uri;
     }
+    
+    private final native String baseEndpointFromHostPage()/*-{
+      return $wnd.baseEndpoint;
+    }-*/;
   }
 }

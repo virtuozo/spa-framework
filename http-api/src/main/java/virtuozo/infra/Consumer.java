@@ -14,7 +14,7 @@
  */
 package virtuozo.infra;
 
-import virtuozo.infra.HttpClient.PathBuilder;
+import virtuozo.infra.HttpClient.Endpoint;
 import virtuozo.infra.HttpMethod.MediaType;
 import virtuozo.infra.data.JSObject;
 
@@ -23,9 +23,9 @@ import com.google.gwt.core.client.JavaScriptObject;
 public class Consumer<J extends JavaScriptObject> {
   private MediaType contentType;
   
-  private PathBuilder path;
+  private Endpoint path;
   
-  protected Consumer(PathBuilder path, MediaType contentType) {
+  protected Consumer(Endpoint path, MediaType contentType) {
     this.path = path;
     this.contentType = contentType;
   }

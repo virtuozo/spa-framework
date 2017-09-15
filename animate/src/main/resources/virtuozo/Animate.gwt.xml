@@ -1,6 +1,5 @@
 <module>
-  <inherits name='virtuozo.Widgets' />
-  <inherits name='virtuozo.Http' />
+  <inherits name='virtuozo.API' />
 
   <public path="css" />
   <stylesheet src="animate.css" />

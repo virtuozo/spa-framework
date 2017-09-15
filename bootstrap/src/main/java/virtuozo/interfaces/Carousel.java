@@ -106,7 +106,7 @@ public class Carousel extends Component<Carousel> {
   }
 
   public class Slide extends Component<Slide> {
-    private Image image = Image.create();
+    private RichImage image = RichImage.create();
 
     private Caption caption = new Caption();
 
@@ -116,12 +116,12 @@ public class Carousel extends Component<Carousel> {
     }
 
     public Slide image(ImageResource image) {
-      this.image.src(image);
+      this.image.source(image);
       return this;
     }
 
     public Slide image(String url) {
-      this.image.src(url);
+      this.image.source(url);
       return this;
     }
 
@@ -135,8 +135,8 @@ public class Carousel extends Component<Carousel> {
         this.css("carousel-caption");
       }
 
-      public Heading addHeading() {
-        return Heading.three().attachTo(this);
+      public RichHeading addHeading() {
+        return RichHeading.three().attachTo(this);
       }
 
       public Paragraph addText() {

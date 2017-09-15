@@ -18,7 +18,7 @@ package virtuozo.infra;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import virtuozo.infra.HttpClient.PathBuilder;
+import virtuozo.infra.HttpClient.Endpoint;
 import virtuozo.infra.data.JSObject;
 
 import com.google.gwt.core.client.GWT;
@@ -74,32 +74,26 @@ public class HttpMethod {
     public MethodRequestBuilder(String method, String url) {
       super(method, url);
       //this.setIncludeCredentials(true);
-      this.setHeader("X-HTTP-Method-Override", method);
+      //this.setHeader("X-HTTP-Method-Override", method);
     }
   }
 
-  public HttpMethod(HttpMethodName method, PathBuilder path) {
-    this.builder = new MethodRequestBuilder(method.name(), this.url(path));
+  public HttpMethod(HttpMethodName method, Endpoint path) {
+    this.builder = new MethodRequestBuilder(method.name(), url(path));
     this.defaultAcceptType(MediaType.JSON);
   }
   
-  private String url(PathBuilder path){
-    String endpoint = this.endpoint();
-    if(endpoint == null){
-      endpoint = GWT.getHostPageBaseURL();
-    }
+  static String url(Endpoint path){
+    String baseEndpoint = path.baseEndpoint();
     
-    StringBuilder url = new StringBuilder(endpoint);
-    if(!endpoint.endsWith("/")){
+    StringBuilder url = new StringBuilder(baseEndpoint);
+    if(!baseEndpoint.endsWith("/")){
       url.append("/");
     }
     
     return url.append(path.toString()).toString();
   }
   
-  private final native String endpoint()/*-{
-    return $wnd.endpoint;
-  }-*/;
 
   public HttpMethod user(String user) {
     this.builder.setUser(user);

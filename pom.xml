@@ -21,13 +21,15 @@
   <modules>
     <module>api</module>
     <module>animate</module>
-    <module>bootstrap</module>
     <module>http-api</module>
-    <module>widgets</module>
     <module>core</module>
     <module>commons</module>
-    <module>themes</module>
+    <module>bootstrap</module>
+    <module>widgets</module>
     <module>dataset</module>
+    <module>themes</module>
+    <module>templates</module>
+	<module>social</module>
   </modules>
 
   <dependencyManagement>
@@ -87,12 +89,6 @@
       </dependency>
       <dependency>
         <groupId>${project.groupId}</groupId>
-        <artifactId>bootstrap</artifactId>
-        <version>${project.version}</version>
-        <optional>true</optional>
-      </dependency>
-      <dependency>
-        <groupId>${project.groupId}</groupId>
         <artifactId>dataset</artifactId>
         <version>${project.version}</version>
         <optional>true</optional>
@@ -103,15 +99,28 @@
         <version>${project.version}</version>
         <optional>true</optional>
       </dependency>
+      
       <dependency>
         <groupId>${project.groupId}</groupId>
-        <artifactId>widgets</artifactId>
+        <artifactId>core</artifactId>
         <version>${project.version}</version>
         <optional>true</optional>
       </dependency>
       <dependency>
         <groupId>${project.groupId}</groupId>
-        <artifactId>core</artifactId>
+        <artifactId>social</artifactId>
+        <version>${project.version}</version>
+        <optional>true</optional>
+      </dependency>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>bootstrap</artifactId>
+        <version>${project.version}</version>
+        <optional>true</optional>
+      </dependency>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>widgets</artifactId>
         <version>${project.version}</version>
         <optional>true</optional>
       </dependency>
@@ -127,7 +136,25 @@
         <version>${project.version}</version>
         <optional>true</optional>
       </dependency>
-
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>templates</artifactId>
+        <version>${project.version}</version>
+        <optional>true</optional>
+      </dependency>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>social-api</artifactId>
+        <version>${project.version}</version>
+        <optional>true</optional>
+      </dependency>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>ghost-api</artifactId>
+        <version>${project.version}</version>
+        <optional>true</optional>
+      </dependency>
+      
       <!-- Testing -->
       <dependency>
         <groupId>junit</groupId>

@@ -22,7 +22,7 @@ import virtuozo.interfaces.Composite;
 public final class Thumbnail extends Component<Thumbnail> {
   private Caption caption = new Caption().hide();
 
-  private Image image = Image.create();
+  private RichImage image = RichImage.create();
 
   public static Thumbnail create(){
     return new Thumbnail();
@@ -33,7 +33,7 @@ public final class Thumbnail extends Component<Thumbnail> {
     this.addChild(this.image).addChild(this.caption).css().set("thumbnail");
   }
 
-  public Image image() {
+  public RichImage image() {
     return this.image;
   }
 

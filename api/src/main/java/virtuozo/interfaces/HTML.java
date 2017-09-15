@@ -52,6 +52,7 @@ public class HTML {
     private Node(Element element) {
       super(element);
       this.attach();
+      this.id(element.getId());
     }
   }
 }

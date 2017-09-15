@@ -1,9 +1,8 @@
 package virtuozo.infra.data;
 
-import virtuozo.infra.data.DataBinding.Attribute;
 
 class DoubleData extends Data<Double> {
-  DoubleData(virtuozo.infra.data.DataBinding.Attribute attribute, JSObject data) {
+  DoubleData(Attribute attribute, JSObject data) {
     super(attribute, data);
   }
 

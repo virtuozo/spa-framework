@@ -1,10 +1,6 @@
 package virtuozo.interfaces;
 
 import virtuozo.infra.StyleChooser;
-import virtuozo.interfaces.CssClass;
-import virtuozo.interfaces.Icon;
-import virtuozo.interfaces.Tag;
-import virtuozo.interfaces.UIComponent;
 
 import com.google.gwt.dom.client.SpanElement;
 
@@ -588,6 +584,11 @@ public enum FontAwesome implements Icon {
   @Override
   public boolean is(UIComponent component) {
     return component.asComponent().css().contains(prefix);
+  }
+  
+  @Override
+  public String toString() {
+    return prefix + " " + this.key;
   }
   
   public static class Styles extends CssClass {

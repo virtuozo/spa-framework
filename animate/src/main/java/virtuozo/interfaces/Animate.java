@@ -6,10 +6,10 @@ import virtuozo.infra.Async;
 import virtuozo.infra.ScrollSpy;
 import virtuozo.infra.events.ScrollSpyEvent;
 import virtuozo.infra.events.ScrollSpyEvent.ScrollSpyHandler;
-import virtuozo.infra.handlers.AttachHandler;
 
 import com.google.gwt.core.shared.GWT;
-import com.google.gwt.event.logical.shared.AttachEvent;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.Style.Visibility;
 
 public enum Animate {
   bounce,
@@ -102,59 +102,88 @@ public enum Animate {
   zoomOutRight,
   zoomOutUp;
   
-  private AnimationRegistry registry = GWT.create(AnimationRegistry.class);
   
   private static final String ANIMATED_CLASS = "animated";
   
   private static final String INFINITE_CLASS = "infinite";
   
-  public void execute(final Component<?> component){
-    registry.onEnd(component.element(), new AnimationHandler(){
+  public AnimationTrigger execute(final Component<?> component){
+    this.show(component);
+    AnimationTrigger trigger = new AnimationTrigger(component.element()).onEnd(new AnimationHandler(){
       @Override
       public void onAnimate() {
         clear(component);
       }
     });
-    
     component.css().append(ANIMATED_CLASS).append(this.name());
+    
+    return trigger;
   }
   
   public void loop(Component<?> component){
     component.css().append(ANIMATED_CLASS).append(INFINITE_CLASS).append(this.name());
   }
   
+  public void reveal(final Component<?> component, int delayMs){
+    this.hide(component);
+    Async.get().execute(new Runnable() {
+      @Override
+      public void run() {
+        execute(component.show());
+      }
+    }, delayMs);
+  }
+  
   public void reveal(final Component<?> component){
-    final ScrollSpy spy = ScrollSpy.create();
+    final ScrollSpy spy = ScrollSpy.get();
     
+    this.hide(component);
     spy.spy(component, new ScrollSpyHandler() {
       @Override
       public void onScroll(ScrollSpyEvent event) {
-        if(event.isInRange()){
-          revealNow(component, spy);
+        if(event.visible()){
+          execute(component);
+          spy.unspy(event.index());
         }
       }
     });
-
-    component.onAttach(new AttachHandler() {
-      @Override
-      protected void onAttach(AttachEvent event) {
-        Async.get().execute(new Runnable(){
-          @Override
-          public void run() {
-            revealNow(component, spy);
-          }
-        });
-      }
-    });
-  }
-  
-  private void revealNow(final Component<?> component, final ScrollSpy spy) {
-    execute(component);
-    spy.unspy(component);
   }
   
   private void clear(Component<?> component){
     component.css().remove(ANIMATED_CLASS);
     component.css().remove(this.name());
+  }
+  
+  private void show(Component<?> component){
+    component.style().visibility(Visibility.VISIBLE);
+  }
+  
+  private void hide(Component<?> component){
+    component.style().visibility(Visibility.HIDDEN);
+  }
+  
+  public class AnimationTrigger {
+    private Element element;
+    
+    private AnimationRegistry registry = GWT.create(AnimationRegistry.class);
+    
+    public AnimationTrigger(Element element) {
+      this.element = element;
+    }
+
+    public AnimationTrigger onStart(AnimationHandler handler){
+      this.registry.onStart(this.element, handler);
+      return this;
+    }
+    
+    public AnimationTrigger onIterate(AnimationHandler handler){
+      this.registry.onIterate(this.element, handler);
+      return this;
+    }
+    
+    public AnimationTrigger onEnd(AnimationHandler handler){
+      this.registry.onEnd(this.element, handler);
+      return this;
+    }
   }
 }

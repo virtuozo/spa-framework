@@ -19,7 +19,7 @@ import virtuozo.interfaces.Component;
 
 
 public class PageHeader extends Component<PageHeader> implements HasText<PageHeader> {
-  private Heading heading = Heading.one();
+  private RichHeading heading = RichHeading.one();
   
   public static PageHeader create(){
     return new PageHeader();

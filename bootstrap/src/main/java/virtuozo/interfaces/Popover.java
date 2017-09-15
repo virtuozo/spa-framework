@@ -7,7 +7,7 @@ import virtuozo.interfaces.Text;
 
 public class Popover extends FloatPanel<Popover> {
 
-  private Heading title = Heading.three().css("popover-title");
+  private RichHeading title = RichHeading.three().css("popover-title");
 
   private Body body = new Body();
 
@@ -23,7 +23,7 @@ public class Popover extends FloatPanel<Popover> {
     return this.body;
   }
 
-  public Heading heading() {
+  public RichHeading heading() {
     return this.title;
   }
   

@@ -26,6 +26,7 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.FieldSetElement;
 import com.google.gwt.dom.client.FormElement;
 import com.google.gwt.dom.client.HeadingElement;
+import com.google.gwt.dom.client.IFrameElement;
 import com.google.gwt.dom.client.ImageElement;
 import com.google.gwt.dom.client.InputElement;
 import com.google.gwt.dom.client.LIElement;
@@ -41,6 +42,7 @@ import com.google.gwt.dom.client.QuoteElement;
 import com.google.gwt.dom.client.ScriptElement;
 import com.google.gwt.dom.client.SelectElement;
 import com.google.gwt.dom.client.SpanElement;
+import com.google.gwt.dom.client.StyleElement;
 import com.google.gwt.dom.client.TableCaptionElement;
 import com.google.gwt.dom.client.TableCellElement;
 import com.google.gwt.dom.client.TableElement;
@@ -80,6 +82,10 @@ public class Elements {
 
   public static Element create(String tagName) {
     return document().createElement(tagName);
+  }
+  
+  public static Element article(){
+    return create("article");
   }
 
   public static AnchorElement a() {
@@ -154,12 +160,24 @@ public class Elements {
     return document().createFormElement();
   }
   
+  public static Element footer(){
+    return create("footer");
+  }
+  
+  public static Element header(){
+    return create("header");
+  }
+  
   public static HeadingElement heading(int level) {
     return document().createHElement(level);
   }
 
   public static InputElement hidden() {
     return document().createHiddenInputElement();
+  }
+  
+  public static IFrameElement iframe(){
+    return document().createIFrameElement();
   }
 
   public static ImageElement img() {
@@ -176,6 +194,10 @@ public class Elements {
 
   public static LIElement li() {
     return document().createLIElement();
+  }
+  
+  public static Element nav(){
+    return document().createElement("nav");
   }
 
   public static OListElement ol() {
@@ -209,9 +231,15 @@ public class Elements {
   public static ScriptElement script() {
     return document().createScriptElement();
   }
+  
+  public static Element section(){
+    return create("section");
+  }
 
   public static SelectElement select(boolean multiple) {
-    return document().createSelectElement(multiple);
+    SelectElement selectElement = document().createSelectElement();
+    selectElement.setMultiple(multiple);
+    return selectElement;
   }
 
   public static Element small() {
@@ -224,6 +252,10 @@ public class Elements {
 
   public static Element strong() {
     return create("strong");
+  }
+  
+  public static StyleElement style(){
+    return document().createStyleElement();
   }
 
   public static ButtonElement submit() {

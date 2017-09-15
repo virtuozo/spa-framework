@@ -14,9 +14,6 @@
  */
 package virtuozo.interfaces;
 
-
-
-
 public interface UIComponent {
   Component<?> asComponent();
   

@@ -66,8 +66,8 @@ public class ListGroup extends Parent<ListGroup, ListGroupItem> {
       this.helper = EnablementHelper.to(this).intercept(this);
     }
 
-    public Heading addHeading() {
-      Heading heading = Heading.four();
+    public RichHeading addHeading() {
+      RichHeading heading = RichHeading.four();
       heading.css().set("list-group-item-heading");
       this.add(heading);
       return heading;

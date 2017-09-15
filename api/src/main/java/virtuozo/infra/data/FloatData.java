@@ -1,9 +1,7 @@
 package virtuozo.infra.data;
 
-import virtuozo.infra.data.DataBinding.Attribute;
-
 class FloatData extends Data<Float> {
-  FloatData(virtuozo.infra.data.DataBinding.Attribute attribute, JSObject data) {
+  FloatData(Attribute attribute, JSObject data) {
     super(attribute, data);
   }
 

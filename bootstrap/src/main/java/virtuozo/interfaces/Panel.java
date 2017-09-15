@@ -68,7 +68,7 @@ public class Panel extends Component<Panel> {
   }
 
   public class Header extends Composite<Header> implements HasText<Header>, HasIcon<Header> {
-    private Heading heading = Heading.three().css("panel-title").hide();
+    private RichHeading heading = RichHeading.three().css("panel-title").hide();
     
     private Tag<SpanElement> icon = Tag.asSpan();
     
@@ -79,7 +79,7 @@ public class Panel extends Component<Panel> {
       this.add(heading);
     }
     
-    Heading heading(){
+    RichHeading heading(){
       return this.heading;
     }
     

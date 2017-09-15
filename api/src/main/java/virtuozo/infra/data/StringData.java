@@ -1,9 +1,7 @@
 package virtuozo.infra.data;
 
-import virtuozo.infra.data.DataBinding.Attribute;
-
 class StringData extends Data<String> {
-  StringData(virtuozo.infra.data.DataBinding.Attribute attribute, JSObject data) {
+  StringData(Attribute attribute, JSObject data) {
     super(attribute, data);
   }
 

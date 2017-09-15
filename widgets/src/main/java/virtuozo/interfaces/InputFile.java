@@ -26,9 +26,9 @@ public final class InputFile extends Component<InputFile> implements UIInput<Inp
 
   private InputGroup input = InputGroup.create(InputText.create());
 
-  private Button submit = Button.create();
+  private RichButton submit = RichButton.create();
 
-  private Button reset = Button.create().css(ButtonColor.DANGER).hide();
+  private RichButton reset = RichButton.create().css(ButtonColor.DANGER).hide();
 
   public static InputFile create(){
     return new InputFile();

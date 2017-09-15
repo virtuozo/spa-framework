@@ -1,7 +1,5 @@
 package virtuozo.infra.data;
 
-import virtuozo.infra.data.DataBinding.Attribute;
-
 class CalendarData extends Data<Calendar> {
   CalendarData(Attribute attribute, JSObject data) {
     super(attribute, data);

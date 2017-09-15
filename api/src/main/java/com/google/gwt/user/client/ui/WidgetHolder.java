@@ -22,12 +22,11 @@ import virtuozo.infra.EventInterceptor;
 import virtuozo.infra.events.CssChangeEvent;
 import virtuozo.interfaces.UIComponent;
 
-import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.Position;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.Window;
 
 public final class WidgetHolder extends ComplexPanel {
   private final ElementHolder element = new ElementHolder();
@@ -206,19 +205,16 @@ public final class WidgetHolder extends ComplexPanel {
     }
 
     public void screenCenter() {
-      int width = (int) this.rectangle().width();
-      int height = (int) this.rectangle().height();
-
-      int left = (Window.getClientWidth() - width) >> 1;
-      int top = (Window.getClientHeight() - height) >> 1;
-
-      int computedLeft = Math.max(Window.getScrollLeft() + left, 0) - Document.get().getBodyOffsetLeft();
-      int computedTop = Math.max(Window.getScrollTop() + top, 0) - Document.get().getBodyOffsetTop();
-
+      double height = this.rectangle().height();
+      
       Element element = WidgetHolder.this.getElement();
-      element.getStyle().setPropertyPx("left", computedLeft);
-      element.getStyle().setPropertyPx("top", computedTop);
+      element.getStyle().setProperty("margin", "auto");
       element.getStyle().setPosition(Position.ABSOLUTE);
+      element.getStyle().setPropertyPx("top", 0);
+      element.getStyle().setPropertyPx("left", 0);
+      element.getStyle().setPropertyPx("right", 0);
+      element.getStyle().setPropertyPx("bottom", 0);
+      element.getStyle().setHeight(height, Unit.PX);
     }
 
     private Element element() {

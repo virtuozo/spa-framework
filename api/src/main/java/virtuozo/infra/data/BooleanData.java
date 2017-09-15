@@ -1,9 +1,7 @@
 package virtuozo.infra.data;
 
-import virtuozo.infra.data.DataBinding.Attribute;
-
 class BooleanData extends Data<Boolean> {
-  BooleanData(virtuozo.infra.data.DataBinding.Attribute attribute, JSObject data) {
+  BooleanData(Attribute attribute, JSObject data) {
     super(attribute, data);
   }
 

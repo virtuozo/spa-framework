@@ -155,7 +155,7 @@ public class Modal implements HasVisibility<Modal> {
   public class Header extends Component<Header>{
     private Button close = Button.create();
     
-    private Heading heading = Heading.four();
+    private RichHeading heading = RichHeading.four();
     
     private Header() {
       super(Elements.div());

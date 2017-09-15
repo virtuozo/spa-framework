@@ -91,8 +91,8 @@ public class MediaList extends Component<MediaList>{
         this.css().set("media-body");
       }
 
-      public Heading addHeading() {
-        Heading heading = Heading.four();
+      public RichHeading addHeading() {
+        RichHeading heading = RichHeading.four();
         heading.css().set("media-heading");
         this.addChild(heading);
         return heading;
@@ -124,13 +124,13 @@ public class MediaList extends Component<MediaList>{
       }
       
       public Object add(UIComponent widget) {
-        this.add(widget);
+        this.addChild(widget);
         widget.asComponent().css("media-object");
         return this;
       }
 
-      public Image addImage() {
-        Image image = Image.create();
+      public RichImage addImage() {
+        RichImage image = RichImage.create();
         this.addChild(image);
         image.css().set("media-object");
         return image;

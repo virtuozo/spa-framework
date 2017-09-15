@@ -7,9 +7,6 @@ import virtuozo.infra.handlers.HasClickHandlers;
 import virtuozo.infra.handlers.HasFocusHandlers;
 import virtuozo.infra.handlers.HasKeyHandlers;
 import virtuozo.infra.handlers.HasMouseHandlers;
-import virtuozo.interfaces.Component;
-import virtuozo.interfaces.CssClass;
-import virtuozo.interfaces.Input;
 
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -48,6 +45,11 @@ public class InputGroup extends Component<InputGroup> implements UIInput<InputGr
   
   public Input<?> control() {
     return control;
+  }
+  
+  public InputGroup size(Size size){
+    super.css(size);
+    return this;
   }
   
   @Override

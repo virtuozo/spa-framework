@@ -15,9 +15,6 @@
 package virtuozo.interfaces;
 
 import virtuozo.infra.handlers.HasClickHandlers;
-import virtuozo.interfaces.Component;
-import virtuozo.interfaces.CompositeClasses;
-import virtuozo.interfaces.Tag;
 
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -27,9 +24,9 @@ import com.google.gwt.event.dom.client.DoubleClickHandler;
 public final class SplitButton extends Component<SplitButton> implements HasText<SplitButton>, HasClickHandlers<SplitButton>{
   private final ButtonGroup group = ButtonGroup.horizontal();
   
-  private final Button button = Button.create();
+  private final RichButton button = RichButton.create();
   
-  private final Button caret = Button.create();
+  private final RichButton caret = RichButton.create();
   
   private Tag<DivElement> dropdown = Tag.asDiv();
   

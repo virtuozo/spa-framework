@@ -2,24 +2,14 @@ package virtuozo.interfaces;
 
 import virtuozo.infra.Elements;
 import virtuozo.infra.event.ActivationEvent;
-import virtuozo.infra.event.DeactivationEvent;
-import virtuozo.infra.event.PageChangeEvent;
 import virtuozo.infra.event.ActivationEvent.ActivationHandler;
+import virtuozo.infra.event.DeactivationEvent;
 import virtuozo.infra.event.DeactivationEvent.DeactivationHandler;
+import virtuozo.infra.event.PageChangeEvent;
 import virtuozo.infra.event.PageChangeEvent.PageChangeHandler;
 import virtuozo.infra.events.FinishEvent;
-import virtuozo.infra.events.SimpleEventInterceptor;
 import virtuozo.infra.events.FinishEvent.FinishHandler;
-import virtuozo.interfaces.Button;
-import virtuozo.interfaces.Component;
-import virtuozo.interfaces.Composite;
-import virtuozo.interfaces.HasText;
-import virtuozo.interfaces.Heading;
-import virtuozo.interfaces.PillPanel;
-import virtuozo.interfaces.Tag;
-import virtuozo.interfaces.UIClass;
-import virtuozo.interfaces.UIClasses;
-import virtuozo.interfaces.UIComponent;
+import virtuozo.infra.events.SimpleEventInterceptor;
 import virtuozo.interfaces.PillPanel.Pill;
 import virtuozo.interfaces.css.ButtonColor;
 import virtuozo.interfaces.css.Floating;
@@ -34,7 +24,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 public class Wizard extends Component<Wizard> {
   private Tag<DivElement> card = Tag.asDiv().css("card wizard-card");
 
-  private Heading heading = Heading.three();
+  private RichHeading heading = RichHeading.three();
 
   private PillPanel navigation = PillPanel.create();
 
@@ -42,11 +32,11 @@ public class Wizard extends Component<Wizard> {
 
   private Tag<DivElement> footer = Tag.asDiv().css("wizard-footer");
 
-  private Button next = Button.create().css(Button.Size.SMALL).hide();
+  private RichButton next = RichButton.create().css(RichButton.Size.SMALL).hide();
 
-  private Button previous = Button.create().css(Button.Size.SMALL).hide();
+  private RichButton previous = RichButton.create().css(RichButton.Size.SMALL).hide();
 
-  private Button finish = Button.create().css(Button.Size.SMALL).hide();
+  private RichButton finish = RichButton.create().css(RichButton.Size.SMALL).hide();
 
   private SimpleEventInterceptor interceptor = SimpleEventInterceptor.create().off();
 
@@ -135,7 +125,7 @@ public class Wizard extends Component<Wizard> {
     return this;
   }
 
-  public Heading heading() {
+  public RichHeading heading() {
     return this.heading;
   }
 
@@ -288,7 +278,7 @@ public class Wizard extends Component<Wizard> {
       }
     };
 
-    Color visit(Button button) {
+    Color visit(RichButton button) {
       button.css(this.translate());
       return this;
     }

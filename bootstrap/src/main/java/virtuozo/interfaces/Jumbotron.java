@@ -15,8 +15,6 @@
 package virtuozo.interfaces;
 
 import virtuozo.infra.Elements;
-import virtuozo.interfaces.Composite;
-import virtuozo.interfaces.Tag;
 
 import com.google.gwt.dom.client.DivElement;
 
@@ -34,15 +32,15 @@ public class Jumbotron extends Composite<Jumbotron> {
     this.container.css().set(Container.Type.FIXED);
   }
 
-  public Heading addHeading() {
-    return Heading.one().attachTo(this.container);
+  public RichHeading addHeading() {
+    return RichHeading.one().attachTo(this.container);
   }
 
   public Paragraph addText(){
     return Paragraph.create().attachTo(this.container);
   }
   
-  public Button addButton(){
-    return Button.create().css(Button.Size.LARGE).attachTo(this.container);
+  public RichButton addButton(){
+    return RichButton.create().css(RichButton.Size.LARGE).attachTo(this.container);
   }
 }

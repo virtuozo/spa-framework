@@ -17,11 +17,14 @@ package virtuozo.interfaces;
 import virtuozo.infra.Clause;
 import virtuozo.infra.EventInterceptor;
 import virtuozo.infra.EventManager;
+import virtuozo.infra.Strings;
 import virtuozo.infra.events.CssChangeEvent;
 import virtuozo.infra.events.CssChangeEvent.CssChangeHandler;
 import virtuozo.infra.events.DetachChildrenEvent.DetachChildrenHandler;
 import virtuozo.infra.events.HideEvent;
 import virtuozo.infra.events.HideEvent.HideHandler;
+import virtuozo.infra.events.MouseLeaveEvent;
+import virtuozo.infra.events.MouseLeaveEvent.MouseLeaveHandler;
 import virtuozo.infra.events.ScrollSpyEvent;
 import virtuozo.infra.events.ScrollSpyEvent.ScrollSpyHandler;
 import virtuozo.infra.events.ShowEvent;
@@ -101,8 +104,16 @@ public class Component<C extends Component<C>> implements HasVisibility<C>, UICo
     this.holder = new WidgetHolder(element, this);
     this.proxy.holder(this.holder);
     this.bus = EventManager.create(this.holder.getHandlerManager());
-    this.id(DOM.createUniqueId());
+    this.id(createId(element));
     this.classes = new Classes(this.holder);
+  }
+
+  private String createId(Element element) {
+    if(Strings.isEmptyOrNull(element.getId())){
+      return DOM.createUniqueId();
+    }
+    
+    return element.getId();
   }
   
   protected Component(Component<?> widget){
@@ -492,6 +503,11 @@ public class Component<C extends Component<C>> implements HasVisibility<C>, UICo
 
   protected C on(MouseMoveHandler handler) {
     this.holder.addDomHandler(handler, MouseMoveEvent.getType());
+    return (C) this;
+  }
+  
+  protected C on(MouseLeaveHandler handler) {
+    this.holder.addDomHandler(handler, MouseLeaveEvent.getType());
     return (C) this;
   }
 

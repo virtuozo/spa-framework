@@ -2,6 +2,7 @@ package virtuozo.infra;
 
 import virtuozo.infra.BrowserStorage.StoreKey;
 import virtuozo.infra.data.JSObject;
+import virtuozo.infra.events.FailureEvent;
 
 public class AsyncBrowserStorage {
 
@@ -34,7 +35,7 @@ public class AsyncBrowserStorage {
     
     @Override
     public void onFailure(AsyncException exception) {
-      
+      FailureEvent.get().publish().with(exception).fire();
     }
   }
 }

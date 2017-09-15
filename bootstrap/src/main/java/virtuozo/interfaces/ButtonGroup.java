@@ -17,12 +17,10 @@ package virtuozo.interfaces;
 import java.util.List;
 
 import virtuozo.infra.ActivationHelper;
-import virtuozo.infra.Elements;
-import virtuozo.infra.StyleChooser;
 import virtuozo.infra.ActivationHelper.Behavior;
 import virtuozo.infra.ActivationHelper.ToggleBehavior;
-import virtuozo.interfaces.Component;
-import virtuozo.interfaces.CssClass;
+import virtuozo.infra.Elements;
+import virtuozo.infra.StyleChooser;
 
 import com.google.gwt.dom.client.Element;
 
@@ -64,13 +62,13 @@ public class ButtonGroup extends Component<ButtonGroup> {
     return this;
   }
   
-  public Button addButton(){
-    Button button = Button.create();
+  public RichButton addButton(){
+    RichButton button = RichButton.create();
     this.add(button);
     return button;
   }
   
-  public ButtonGroup add(Button add) {
+  public ButtonGroup add(RichButton add) {
     this.activationHelper.add(add);
     return this.type.add(this, add);
   }

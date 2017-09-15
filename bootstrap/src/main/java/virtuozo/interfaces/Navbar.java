@@ -18,17 +18,12 @@ import virtuozo.infra.ActivationHelper;
 import virtuozo.infra.Elements;
 import virtuozo.infra.StyleChooser;
 import virtuozo.infra.event.ActivationEvent;
-import virtuozo.infra.event.DeactivationEvent;
 import virtuozo.infra.event.ActivationEvent.ActivationHandler;
+import virtuozo.infra.event.DeactivationEvent;
 import virtuozo.infra.event.DeactivationEvent.DeactivationHandler;
 import virtuozo.infra.events.DetachChildrenEvent;
 import virtuozo.infra.handlers.HasClickHandlers;
 import virtuozo.infra.handlers.HasMouseHandlers;
-import virtuozo.interfaces.Anchor;
-import virtuozo.interfaces.Component;
-import virtuozo.interfaces.CssClass;
-import virtuozo.interfaces.Navbar.Facet.NavItem;
-import virtuozo.interfaces.Tag;
 import virtuozo.interfaces.OrderList.ListItem;
 import virtuozo.interfaces.css.State;
 
@@ -335,7 +330,7 @@ public class Navbar extends Component<Navbar> {
       return this.on(handler);
     }
 
-    public Brand image(Image image) {
+    public Brand image(RichImage image) {
       return this.addChild(image);
     }
 

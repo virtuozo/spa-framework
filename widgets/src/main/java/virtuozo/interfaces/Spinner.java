@@ -66,7 +66,7 @@ public class Spinner extends Component<Spinner> implements UIInput<Spinner, Inte
   private void init() {
     super.css("number-spinner").addChild(this.container);
     this.container.css("spinner").addChild(this.input).addChild(this.buttons);
-    this.buttons.addButton().css("spinner-up").css(Button.Size.X_SMALL).icon(this.assets.upIcon()).onClick(new ClickHandler() {
+    this.buttons.addButton().css("spinner-up").css(RichButton.Size.X_SMALL).icon(this.assets.upIcon()).onClick(new ClickHandler() {
       
       @Override
       public void onClick(ClickEvent event) {
@@ -74,7 +74,7 @@ public class Spinner extends Component<Spinner> implements UIInput<Spinner, Inte
       }
     });
     
-    this.buttons.addButton().css("spinner-down").css(Button.Size.X_SMALL).icon(this.assets.downIcon()).onClick(new ClickHandler() {
+    this.buttons.addButton().css("spinner-down").css(RichButton.Size.X_SMALL).icon(this.assets.downIcon()).onClick(new ClickHandler() {
       
       @Override
       public void onClick(ClickEvent event) {

@@ -39,7 +39,7 @@ public final class Datepicker extends Component<Datepicker> implements UIInput<D
 
   private DateFormat format;
   
-  private Button button = Button.create();
+  private RichButton button = RichButton.create();
 
   public static Datepicker create(){
     return new Datepicker(DateFormat.DATE_SHORT);

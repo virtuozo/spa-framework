@@ -54,8 +54,9 @@ public enum DateFormat implements Format<Date> {
   YEAR_MONTH_WEEKDAY_DAY(DateTimeFormat.getFormat(PredefinedFormat.YEAR_MONTH_WEEKDAY_DAY)), 
   YEAR_QUARTER(DateTimeFormat.getFormat(PredefinedFormat.YEAR_QUARTER)), 
   YEAR_QUARTER_ABBR(DateTimeFormat.getFormat(PredefinedFormat.YEAR_QUARTER_ABBR)),
-  ISO_8601(DateTimeFormat.getFormat(PredefinedFormat.ISO_8601));
-
+  ISO_8601(DateTimeFormat.getFormat(PredefinedFormat.ISO_8601)),
+  ISO_8601_NO_TIMEZONE(DateTimeFormat.getFormat("yyyy-MM-dd'T'HH:mm:ss"));
+  
   private final DateTimeFormat wrapped;
 
   private DateFormat(DateTimeFormat wrapped) {

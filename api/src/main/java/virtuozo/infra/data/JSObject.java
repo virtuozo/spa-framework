@@ -17,6 +17,7 @@ package virtuozo.infra.data;
 
 import java.util.Date;
 
+import virtuozo.infra.DateFormat;
 import virtuozo.infra.data.DataBinding.Attribute;
 
 import com.google.gwt.core.client.JavaScriptObject;
@@ -46,7 +47,7 @@ public class JSObject extends JavaScriptObject {
     return new BooleanData(attribute, this);
   }
   
-  public final DataBinding<Date> bindAsDate(Attribute attribute){
+  public final DateDataBinding bindAsDate(Attribute attribute){
     return new DateData(attribute, this);
   }
   
@@ -64,6 +65,10 @@ public class JSObject extends JavaScriptObject {
   
   public final <J extends JSObject> DataBinding<J> bindAsObject(Attribute attribute){
     return new ObjectData<J>(attribute, this);
+  }
+  
+  public final <J extends JSObject> DataBinding<JsArray<J>> bindAsArray(Attribute attribute){
+    return new ArrayData<J>(attribute, this);
   }
   
   public final DataBinding<String> bindAsString(Attribute attribute){
@@ -93,17 +98,15 @@ public class JSObject extends JavaScriptObject {
   final native boolean getBoolean(String property) /*-{
 		return this[property];
   }-*/;
-
-  final native Date getDate(String property) /*-{
-    var value = this[property];
-    
-    if(value instanceof Date){
-      return value;
-    }
-    
-    return new Date(value);
-  }-*/;
   
+  public final Date getDate(String property) {
+    return this.getDate(property, DateFormat.ISO_8601);
+  }
+
+  public final Date getDate(String property, DateFormat format) {
+    return format.unformat(this.getString(property));
+  }
+
   final native <J extends JSObject> JsArray<J> getArray(String property) /*-{
     return this[property];
   }-*/;
